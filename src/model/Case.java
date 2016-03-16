@@ -52,48 +52,23 @@ public class Case {
 	 * Appelle les fonctions qui vont bien à chaque fois.
 	 */
 	public void lookCase(){
-		// par exemple : si askColor true && askchain false => this.demanderCouleur
-		//				 si askColor true && askchain true  => this.demanderCouleur fusion
-				
-		boolean simpleCase = this.surroundedByNothing();
-		boolean askColor = this.surroundedByHotels();
-		boolean askChain = this.surroundedByChains();
+		// doit d'abord regarder l'etat des 4 cases adjascentes
+		int northState = this.north.getEtat();
+		int southState = this.south.getEtat();
+		int eastState = this.east.getEtat();
+		int westState = this.west.getEtat();
+		/*
+		 * cas rien autour
+		 * cas 1 hotel
+		 * cas 2 hotels
+		 * cas 3 hotels
+		 * cas 4 hotels
+		 * 1 hotel 1 chaine
+		 * 1 h 2 c
+		 * 1 h 3 c
+		 */
 		
-		if(simpleCase)
-			this.setEtat(1);;
-		
 		
 	}
-	/**
-	 * Permet de savoir si les cases autour de la notre sont vides
-	 * @return
-	 */
-	public boolean surroundedByNothing(){
-		if((this.getNorth().getEtat()==0) && (this.getEast().getEtat()==0) && (this.getSouth().getEtat()==0) && (this.getWest().getEtat()==0))
-			return true;
-		else
-			return false;
-	}
-	/**
-	 * Retourne true si on à au moins un hotel autour
-	 * @return
-	 */
-	public boolean surroundedByHotels(){
-		if((this.getNorth().getEtat()==1) || (this.getEast().getEtat()==1) || (this.getSouth().getEtat()==1) || (this.getWest().getEtat()==1))
-			return true;
-		else
-			return false;
-	}
-	/**
-	 * Retourne true si on à au moins une une chaine autour
-	 * @return
-	 */
-	public boolean surroundedByChains(){
-		if((this.getNorth().getEtat()>=2) || (this.getEast().getEtat()>=2) || (this.getSouth().getEtat()>=2) || (this.getWest().getEtat()>=2))
-			return true;
-		else
-			return false;
-	}
-	
 	
 }

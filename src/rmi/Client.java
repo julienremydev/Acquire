@@ -1,34 +1,32 @@
 package rmi;
 
 import java.io.IOException;
-import java.net.MalformedURLException;
-import java.rmi.NotBoundException;
+import java.rmi.Naming;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import application.Main;
-import javafx.fxml.FXMLLoader;
+import control.GameController;
+import control.PlateauController;
 import javafx.scene.Parent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
+import view.ClientView;
+import view.JfxUtils;
 
 public class Client extends UnicastRemoteObject implements ClientInterface {
-	private ServeurInterface serveur;
-	private Pane view;
-	ControllerGAME controller;
 
-	public Client(ServeurInterface serveur) throws IOException {
+	private ServeurInterface serveur;
+
+	private GameController controller;
+
+	public Client(ServeurInterface serveur) throws Exception {
 		setServeur(serveur);
 		Logger.getLogger("Client").log(Level.INFO, "Nouveau client");
-		showView();
+		controller = new GameController();
 	}
 
-	public Parent getView() {
-		return view;
-	}
-	
 	/*
 	 * La méthode receive est appelée par le serveur. Mise à jour du plateau de
 	 * jeu du client avec le game passé en paramètre.
@@ -37,27 +35,13 @@ public class Client extends UnicastRemoteObject implements ClientInterface {
 		// TODO Auto-generated method stub
 
 	}
-
-	
-	public void showView() throws IOException {
-
-		FXMLLoader loader = new FXMLLoader();
-		loader.setLocation(Client.class.getResource("game.fxml"));
-		BorderPane root = (BorderPane) loader.load();
-		view = root;
-
-		// Association du contrôleur à l'application.
-		controller = loader.getController();
-		controller.setClient(this);
-	}
 	//
-	public static void main(String[] args) throws RemoteException, MalformedURLException, NotBoundException {
+	public static void main(String[] args) throws Exception {
 		System.setProperty("java.security.policy","file:./security.policy");
 		System.setSecurityManager(new SecurityManager());
 		System.setProperty("java.rmi.server.hostname", "127.0.0.1");
 		System.setProperty("java.rmi.server.codebase","file:./bin/");
-		Main main = new Main();
-		main.lancer();
+		new ClientView().lancer();
 	}
 
 	public ServeurInterface getServeur() {

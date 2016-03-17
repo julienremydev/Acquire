@@ -4,6 +4,7 @@ import java.rmi.RemoteException;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import rmi.Client;
 
@@ -14,14 +15,8 @@ public class GameController {
 	 */
 	@FXML private TextField tf;
 	
-	
-	//Contrôleur associé à un client
-	private Client client;
-    
-
-    
-
-	public void setClient(Client client) {
-		this.client = client;
+	public void setDisable(ActionEvent e) {
+		Button b = (Button) e.getSource();
+		b.setDisable(true);
 	}
 }

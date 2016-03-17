@@ -7,12 +7,15 @@ import java.rmi.registry.LocateRegistry;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class Serveur extends UnicastRemoteObject implements ServeurInterface{
 
 	private ArrayList<ClientInterface> liste_clients ;
 	
 	protected Serveur() throws RemoteException {
+		Logger.getLogger("Serveur").log(Level.INFO, "Serveur lancé");
 		 setListe_clients(new ArrayList<ClientInterface>());
 	}
 

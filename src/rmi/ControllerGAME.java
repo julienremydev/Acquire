@@ -16,6 +16,9 @@ public class ControllerGAME {
 	
 	//Contrôleur associé à un client
 	private Client client;
+	
+	//game
+	
     
 
     

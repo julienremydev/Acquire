@@ -11,7 +11,7 @@ import java.util.logging.Logger;
 import application.Main;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
-import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 
 public class Client extends UnicastRemoteObject implements ClientInterface {
@@ -43,14 +43,14 @@ public class Client extends UnicastRemoteObject implements ClientInterface {
 
 		FXMLLoader loader = new FXMLLoader();
 		loader.setLocation(Client.class.getResource("game.fxml"));
-		AnchorPane root = (AnchorPane) loader.load();
+		BorderPane root = (BorderPane) loader.load();
 		view = root;
 
 		// Association du contrôleur à l'application.
 		controller = loader.getController();
 		controller.setClient(this);
 	}
-
+	//
 	public static void main(String[] args) throws RemoteException, MalformedURLException, NotBoundException {
 		System.setProperty("java.security.policy","file:./security.policy");
 		System.setSecurityManager(new SecurityManager());

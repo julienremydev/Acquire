@@ -1,17 +1,16 @@
 package application;
 	
 import java.io.IOException;
-import java.net.MalformedURLException;
 import java.rmi.Naming;
 import java.rmi.NotBoundException;
-import java.rmi.RemoteException;
 
 import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
+import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import rmi.Client;
 import rmi.ServeurInterface;
-import javafx.scene.Scene;
-import javafx.scene.layout.BorderPane;
 
 
 public class Main extends Application {
@@ -30,8 +29,7 @@ public class Main extends Application {
 		primaryStage.setScene(scene);
 		primaryStage.show();
         
-	}
-	
+	}	
 
 	public void lancer() {
 		launch();

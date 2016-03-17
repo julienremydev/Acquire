@@ -16,15 +16,13 @@ import view.ClientView;
 import view.JfxUtils;
 
 public class Client extends UnicastRemoteObject implements ClientInterface {
-
-	private ServeurInterface serveur;
-
-	private GameController controller;
-
+	
 	public Client(ServeurInterface serveur) throws Exception {
-		setServeur(serveur);
 		Logger.getLogger("Client").log(Level.INFO, "Nouveau client");
-		controller = new GameController();
+	}
+	
+	public Client () throws Exception{
+		
 	}
 
 	/*
@@ -41,15 +39,12 @@ public class Client extends UnicastRemoteObject implements ClientInterface {
 		System.setSecurityManager(new SecurityManager());
 		System.setProperty("java.rmi.server.hostname", "127.0.0.1");
 		System.setProperty("java.rmi.server.codebase","file:./bin/");
-		new ClientView().lancer();
+		Client client = new Client();
+		ClientView view = new ClientView();
+		view.lancer();
 	}
-
-	public ServeurInterface getServeur() {
-		return serveur;
-	}
-
-	public void setServeur(ServeurInterface serveur) {
-		this.serveur = serveur;
+	
+	public void sendServeurAction() {
 	}
 
 

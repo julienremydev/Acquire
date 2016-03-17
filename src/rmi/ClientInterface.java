@@ -1,8 +1,9 @@
 package rmi;
 
+import java.rmi.Remote;
 import java.rmi.RemoteException;
 
-public interface ClientInterface {
+public interface ClientInterface extends Remote{
 
 	void receive(Game g) throws RemoteException;
 }

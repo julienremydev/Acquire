@@ -7,6 +7,9 @@ import model.Plateau;
 import model.TableauDeBord;
 
 public class Game extends UnicastRemoteObject{
+
+	private String nomPartie;
+	
 	
 	private Plateau plateau;
 	
@@ -14,6 +17,7 @@ public class Game extends UnicastRemoteObject{
 
 	protected Game() throws RemoteException {
 		super();
+		nomPartie="bim";
 	}
 
 }

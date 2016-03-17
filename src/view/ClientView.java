@@ -19,11 +19,7 @@ public class ClientView extends Application {
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
-		
-		ServeurInterface serveur= (ServeurInterface) Naming.lookup("rmi://127.0.0.1:42000/ABC");
-		Client client = new Client(serveur);
-		
-		
+				
 		//Recupere les dimensions de l'écran
 		Dimension dimension = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
 		int height = (int)dimension.getHeight();
@@ -43,11 +39,9 @@ public class ClientView extends Application {
 		primaryStage.setScene(scene);
 		primaryStage.sizeToScene();
 		primaryStage.show();
-		
 	}
 	
 	public void lancer() {
 		launch();
 	}
-
 }

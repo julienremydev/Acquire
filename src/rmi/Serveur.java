@@ -6,7 +6,6 @@ import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -14,9 +13,11 @@ public class Serveur extends UnicastRemoteObject implements ServeurInterface{
 
 	private ArrayList<ClientInterface> liste_clients ;
 	
+	private Game game;
+
 	protected Serveur() throws RemoteException {
 		Logger.getLogger("Serveur").log(Level.INFO, "Serveur lancé");
-		 setListe_clients(new ArrayList<ClientInterface>());
+		setListe_clients(new ArrayList<ClientInterface>());
 	}
 
 
@@ -26,7 +27,7 @@ public class Serveur extends UnicastRemoteObject implements ServeurInterface{
 	 */
 	public void register(ClientInterface c) throws RemoteException {
 		getListe_clients().add(c);
-		
+
 	}
 
 	/*
@@ -34,7 +35,7 @@ public class Serveur extends UnicastRemoteObject implements ServeurInterface{
 	 */
 	public void distribution(Game g) throws RemoteException {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	public static void main (String args[]) throws RemoteException, MalformedURLException{
@@ -46,15 +47,27 @@ public class Serveur extends UnicastRemoteObject implements ServeurInterface{
 		Serveur serveur = new Serveur();
 		Naming.rebind("rmi://127.0.0.1:42000/ABC", serveur);
 	}
-	
-	
+
+
 	public ArrayList<ClientInterface> getListe_clients() {
 		return liste_clients;
 	}
 
 
 	public void setListe_clients(ArrayList<ClientInterface> liste_clients) {
-		this.liste_clients = liste_clients;
+
+	}
+
+
+	@Override
+	public void getCasePlayed(String text) throws RemoteException {
+		Logger.getLogger("Serveur").log(Level.INFO, text);
+	}
+
+
+	@Override
+	public Game getCurrentGame() throws RemoteException {
+		return game;
 	}
 
 }

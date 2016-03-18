@@ -34,11 +34,15 @@ public class Chaine {
 	 * @return nombre effectivement acheter
 	 */
 	public int achatActionJoueur(int nb){
+		if(nb < 0){
+			nb = 0;
+		}
+
 		int res = nb;
 		
 		if(this.getNbActionRestante()-nb < 0){ // on ne peut pas avoir un nombre daction restante negatif
-			this.setNbActionRestante(0);
 			res = this.getNbActionRestante();
+			this.setNbActionRestante(0);
 		} else {
 			this.setNbActionRestante(this.getNbActionRestante()-nb);
 		}

@@ -5,8 +5,6 @@ import java.util.Collections;
 import java.util.Comparator;
 
 public class Case {
-	private String nom;
-	
 	private Case north;
 	private Case south;
 	private Case east;
@@ -16,10 +14,6 @@ public class Case {
 	
 	public Case() {
 		this.etat = 0;
-	}
-	public Case(String nom){
-		this.etat = 0;
-		this.nom = nom;
 	}
 	
 	public Case getNorth() {

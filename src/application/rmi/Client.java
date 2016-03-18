@@ -17,6 +17,8 @@ import javafx.scene.layout.Pane;
 
 public class Client extends UnicastRemoteObject implements ClientInterface {
 	
+	PlateauController plateauController;
+	
 	public Client(ServeurInterface serveur) throws Exception {
 		Logger.getLogger("Client").log(Level.INFO, "Nouveau client");
 	}

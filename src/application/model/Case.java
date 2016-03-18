@@ -11,9 +11,11 @@ public class Case {
 	private Case west;
 	// -1 injouable ; 0 vide ; 1 hotel ; 2-8 chaine
 	private static int etat;
+	private String nom;
 	
-	public Case() {
+	public Case(String n) {
 		this.etat = 0;
+		this.nom=n;
 	}
 	
 	public Case getNorth() {

@@ -1,5 +1,7 @@
 package application.model;
 
+import java.util.ArrayList;
+
 public class Plateau {
 
 	private Case[][] plateau;
@@ -27,7 +29,7 @@ public class Plateau {
 	 * 
 	 * @param nbJoueur
 	 */
-	public void initCaseNoir(int nbJoueur) {
+	public void generateCaseNoir(int nbJoueur) {
 
 		int nbNoir = 0;
 		int random1;
@@ -42,4 +44,17 @@ public class Plateau {
 			}
 		}
 	}
+	
+	public ArrayList<Case> getCaseNoir(){
+		ArrayList<Case> casesNoir=new ArrayList<Case>();
+		for (int i = 0; i < plateau.length; i++) {
+			for (int j = 0; j < plateau[0].length; j++) {
+				if(plateau[i][j].getEtat()==-1){
+					casesNoir.add(plateau[i][j]);	
+				}
+			}
+		}
+		return casesNoir;
+	}
+	
 }

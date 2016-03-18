@@ -45,6 +45,10 @@ public class Plateau {
 		}
 	}
 	
+	/**
+	 * La methode retourne les cases noir
+	 * @return
+	 */
 	public ArrayList<Case> getCaseNoir(){
 		ArrayList<Case> casesNoir=new ArrayList<Case>();
 		for (int i = 0; i < plateau.length; i++) {

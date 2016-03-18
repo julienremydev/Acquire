@@ -14,6 +14,7 @@ public abstract class GameController {
 	public void setDisable(ActionEvent e) {
 		Button b = (Button) e.getSource();
 		b.setDisable(true);
+		
 	}
 	
 	

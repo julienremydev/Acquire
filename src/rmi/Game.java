@@ -10,7 +10,6 @@ public class Game extends UnicastRemoteObject{
 
 	private String nomPartie;
 	
-	
 	private Plateau plateau;
 	
 	private TableauDeBord tableauDeBord;
@@ -18,6 +17,10 @@ public class Game extends UnicastRemoteObject{
 	protected Game() throws RemoteException {
 		super();
 		nomPartie="bim";
+	}
+	
+	public Plateau getPlateau() {
+		return this.plateau;
 	}
 
 }

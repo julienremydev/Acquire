@@ -29,7 +29,6 @@ public class ClientView extends Application {
 		Group root = new Group();
 		//configurer add position
 		root.getChildren().add(JfxUtils.loadFxml("game.fxml"));
-		Logger.getLogger("Serveur").log(Level.INFO, "Serveur lancé");
 		Scene scene = new Scene(root,width-100,height-100);
 		
 		//Application du code CSS

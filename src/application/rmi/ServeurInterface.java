@@ -1,9 +1,9 @@
-package rmi;
+package application.rmi;
 
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 
-import model.Plateau;
+import application.model.Plateau;
 
 public interface ServeurInterface extends Remote{
 

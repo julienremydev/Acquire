@@ -1,12 +1,12 @@
-package view;
+package application.view;
 
 import java.io.IOException;
 import java.rmi.Naming;
 
-import control.PlateauController;
+import application.control.PlateauController;
+import application.rmi.ServeurInterface;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
-import rmi.ServeurInterface;
 
 public class JfxUtils {
  

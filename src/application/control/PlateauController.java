@@ -1,5 +1,7 @@
-package control;
+package application.control;
 
+import application.rmi.Game;
+import application.rmi.ServeurInterface;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -7,8 +9,6 @@ import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
-import rmi.Game;
-import rmi.ServeurInterface;
 
 public class PlateauController {
 	

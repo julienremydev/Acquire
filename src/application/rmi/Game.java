@@ -1,10 +1,10 @@
-package rmi;
+package application.rmi;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 
-import model.Plateau;
-import model.TableauDeBord;
+import application.model.Plateau;
+import application.model.TableauDeBord;
 
 public class Game extends UnicastRemoteObject{
 

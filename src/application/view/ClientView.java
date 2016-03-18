@@ -1,16 +1,16 @@
-package view;
+package application.view;
 
 import java.awt.Dimension;
 import java.rmi.Naming;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import application.rmi.Client;
+import application.rmi.ServeurInterface;
 import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import rmi.Client;
-import rmi.ServeurInterface;
 
 public class ClientView extends Application {
 	

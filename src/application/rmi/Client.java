@@ -1,4 +1,4 @@
-package rmi;
+package application.rmi;
 
 import java.io.IOException;
 import java.rmi.Naming;
@@ -7,13 +7,13 @@ import java.rmi.server.UnicastRemoteObject;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import control.GameController;
-import control.PlateauController;
+import application.control.GameController;
+import application.control.PlateauController;
+import application.view.ClientView;
+import application.view.JfxUtils;
 import javafx.scene.Parent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
-import view.ClientView;
-import view.JfxUtils;
 
 public class Client extends UnicastRemoteObject implements ClientInterface {
 	

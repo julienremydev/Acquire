@@ -2,7 +2,8 @@ package test.model;
 import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
-import model.Case;
+
+import application.model.Case;
 
 public class TestCase {
 	Case caseTest;

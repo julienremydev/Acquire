@@ -25,17 +25,16 @@ public class Plateau {
 	}
 
 	/**
-	 * ajoute nb de joueur fois des cases noir aléatoirement dans des cases ou il n y a rien
+	 * ajoute nbcase fois des cases noir aléatoirement dans des cases ou il n y a rien
 	 * 
 	 * @param nbJoueur
 	 */
-	public void generateCaseNoir(int nbJoueur) {
-
+	public void generateCaseNoir(int nbCase) {
 		int nbNoir = 0;
 		int random1;
 		int random2;
 
-		while (nbNoir != nbJoueur) {
+		while (nbNoir != nbCase) {
 			random1 = (int) (Math.random() * (10 - 0)) + 0;
 			random2 = (int) (Math.random() * (13 - 0)) + 0;
 			if (this.plateau[random1][random2].getEtat() == 0) {
@@ -44,6 +43,27 @@ public class Plateau {
 			}
 		}
 	}
+	
+	/**
+	 * ajoute 1 case noir aléatoirement sur le plateau
+	 * 
+	 * @param nbJoueur
+	 */
+	public void generate1CaseNoir() {
+		int nbNoir = 0;
+		int random1;
+		int random2;
+
+		while (nbNoir < 1) {
+			random1 = (int) (Math.random() * (10 - 0)) + 0;
+			random2 = (int) (Math.random() * (13 - 0)) + 0;
+			if (this.plateau[random1][random2].getEtat() == 0) {
+				this.plateau[random1][random2].setEtat(-1);
+				nbNoir++;
+			}
+		}
+	}
+	
 	
 	/**
 	 * La methode retourne les cases noir
@@ -59,6 +79,14 @@ public class Plateau {
 			}
 		}
 		return casesNoir;
+	}
+
+	public Case[][] getPlateau() {
+		return plateau;
+	}
+
+	public void setPlateau(Case[][] plateau) {
+		this.plateau = plateau;
 	}
 	
 }

@@ -12,14 +12,14 @@ import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-public class ClientView extends Application {
+public class ClientView  {
 	
-	public ClientView() throws Exception{	
-	}
-
-	@Override
-	public void start(Stage primaryStage) throws Exception {
-				
+	private ServeurInterface serveur;
+	private Stage stage;
+	
+	public ClientView(ServeurInterface serveur) throws Exception{
+		this.serveur=serveur;
+		this.stage = new Stage();
 		//Recupere les dimensions de l'écran
 		Dimension dimension = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
 		int height = (int)dimension.getHeight();
@@ -28,19 +28,20 @@ public class ClientView extends Application {
 		//Récupération de l'ig
 		Group root = new Group();
 		//configurer add position
-		root.getChildren().add(JfxUtils.loadFxml("game.fxml"));
+		root.getChildren().add(JfxUtils.loadFxml("game.fxml", serveur));
 		Scene scene = new Scene(root,width-100,height-100);
 		
 		//Application du code CSS
 		//scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 		
 		//Mise en place de la Scene et Lancement
-		primaryStage.setScene(scene);
-		primaryStage.sizeToScene();
-		primaryStage.show();
+		stage.setScene(scene);
+		stage.sizeToScene();
+	}
+
+
+	public Stage getStage(){
+		return stage;
 	}
 	
-	public void lancer() {
-		launch();
-	}
 }

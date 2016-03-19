@@ -10,9 +10,9 @@ import javafx.scene.Node;
 
 public class JfxUtils {
  
-    public static Node loadFxml(String fxml) throws Exception{
+    public static Node loadFxml(String fxml, ServeurInterface serveur) throws Exception{
         FXMLLoader loader = new FXMLLoader();
-        ServeurInterface serveur = (ServeurInterface) Naming.lookup("rmi://127.0.0.1:42000/ABC");
+
         try {
             loader.setLocation(JfxUtils.class.getResource(fxml));
             Node root = (Node) loader.load(JfxUtils.class.getResource(fxml).openStream());

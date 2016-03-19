@@ -27,7 +27,6 @@ public class Serveur extends UnicastRemoteObject implements ServeurInterface{
 	 */
 	public void register(ClientInterface c) throws RemoteException {
 		getListe_clients().add(c);
-
 	}
 
 	/*
@@ -45,7 +44,7 @@ public class Serveur extends UnicastRemoteObject implements ServeurInterface{
 		System.setProperty("java.rmi.server.codebase","file:./bin/");
 		LocateRegistry.createRegistry(42000);
 		Serveur serveur = new Serveur();
-		Naming.rebind("rmi://127.0.0.1:42000/ABC", serveur);
+		Naming.rebind("rmi://127.0.0.1:42000/ACQUIRE", serveur);
 	}
 
 
@@ -53,9 +52,15 @@ public class Serveur extends UnicastRemoteObject implements ServeurInterface{
 		return liste_clients;
 	}
 
-
+	public synchronized boolean pseudoDisponible ( String p ) throws RemoteException{
+		for (ClientInterface c : liste_clients){
+			if (c.getPseudo().equals(p))
+				return false;
+		}
+		return true;
+	}
 	public void setListe_clients(ArrayList<ClientInterface> liste_clients) {
-
+		this.liste_clients = liste_clients;
 	}
 
 

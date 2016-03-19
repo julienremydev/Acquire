@@ -57,8 +57,8 @@ public class ConnexionController {
 
 		if (pseudo.getText().trim().length() < 3) {
 			erreur.setText("Le pseudo doit contenir au moins 3 caractères.");
-		} else if (!ipCorrect(ip1.getText()) && !ipCorrect(ip2.getText()) && !ipCorrect(ip3.getText())
-				&& !ipCorrect(ip4.getText())) {
+		} else if (!ipCorrect(ip1.getText()) || !ipCorrect(ip2.getText()) || !ipCorrect(ip3.getText())
+				||  !ipCorrect(ip4.getText())) {
 			erreur.setText("L'adresse IP n'est pas bonne.");
 		} else {
 			try {

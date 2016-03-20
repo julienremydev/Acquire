@@ -61,54 +61,95 @@ public class Case {
 	 * Appelle les fonctions qui vont bien à chaque fois.
 	 */
 	public void lookCase(){
-		// par exemple : si askColor true && askchain false => this.demanderCouleur
-		//				 si askColor true && askchain true  => this.demanderCouleur fusion
+	
 				
 		boolean simpleCase = this.surroundedByNothing();
 		boolean askColor = this.surroundedByHotels();
 		boolean askChain = this.surroundedByChains();
-
-		if(simpleCase)		// rien autour
+		
+		/**
+		 * Cas simple, aucune case initialisée autour, la case deviens donc un hotel
+		 * modification de l'etat de cette case
+		 */
+		if(simpleCase)		
 			this.setEtat(1);
-		if(askColor && !askChain)	// juste un ou des hotels
+		
+		/**
+		 * Présence d'un ou plusieurs hotêls autour de la case
+		 * Pas de chaînes dans ce cas
+		 * Appel de la fonction de choix de couleur de chaine coté utilisateur
+		 */
+		if(askColor && !askChain)
 			// En vrai ici il faudra faire l'appel de la fonction qui va demander à l'utilisateur la couleur qu'il veut choisir pour sa nouvelle chaine
 			// user.askColorForNewChain();
 			this.setEtat(0);
+		
+		/**
+		 * Présence d'une ou plusieures chaînes autour de la case
+		 * Pas d'hôtels dans ce cas
+		 */
 		if(askChain && !askColor) // juste une ou plusieurs chaines, pas d'hotel
 		{
 			//tableau des cases non null donc dans ce cas des cases avec chaines.
 			ArrayList<Case> tab = tabAdjascent(this.getNorth(),this.getSouth(),this.getEast(),this.getWest());
-			// tableau taille 1 = une seule chaine
+			/**
+			 * Le tableau n'a qu'une taille de 1, donc simple changement de la couleur de la case
+			 */
 			if(tab.size() == 1)
-				this.setEtat(tab.get(0).getEtat());// pas oublier de faire aussi changement de la petite chaine
-			// tableau taille 2 = 2 chaines
+				this.setEtat(tab.get(0).getEtat());
+			/**
+			 * Tableau taille de 2, donc deux cases avec une chaine
+			 */
 			if(tab.size()==2)
 			{
-				int taillePremiereChaine = tab.get(0).getEtat();
-				int tailleDeuxiemeChaine = tab.get(1).getEtat();
-				if(tailleDeuxiemeChaine == taillePremiereChaine)
-					//askColorUser
-					this.setEtat(0); // sert a rien , ici il faut faire un askColorUser
+				
+				int chainePremiereCase = tab.get(0).getEtat();
+				int chaineDeuxiemeCase = tab.get(1).getEtat();
+				/**
+				 * Si ce sont les mêmes chaînes, simple modification de l'etat de la case
+				 */
+				if(chainePremiereCase == chaineDeuxiemeCase)
+					this.setEtat(tab.get(0).getEtat()); 
+				/**
+				 * Si ce ne sont pas les mêmes chaines on vérifie la taille de chacunes
+				 */
 				else
-					if(tailleDeuxiemeChaine>taillePremiereChaine)
-						this.setEtat(tab.get(1).getEtat());
-						// pas oublier de faire aussi changement de la petite chaine
+				{
+					/**
+					 * Si leurs taille sont égales, on demande la couleur à l'utilisateur
+					 */
+					if(chainePremiereCase==chaineDeuxiemeCase) // avec les fonctions que yoh va faire
+						this.setEtat(tab.get(0).getEtat()); // client.askColorChaineVoulue() && chaine.SetChaine(int nouvelleChaine) 
+					
 					else
-						this.setEtat(tab.get(0).getEtat());
-						// pas oublier de faire aussi changement de la petite chaine
+					{
+						if(chainePremiereCase>chaineDeuxiemeCase)
+							// La premiere chaine est plus grande donc changement etat case + tab.get(1).SetChaine(tab.get(0))
+							this.setEtat(tab.get(0).getEtat());
+						else
+							// pareil mais inversement avec les cases du tableau
+							this.setEtat(tab.get(1).getEtat());
+					}
+				}
+					
 			}
+			
+			
 			if(tab.size()>=2)// regrouper le cas ou on a 2, 3 ou 4 cases autour avec une chaine
 			{
 				Collections.sort(tab, new Comparator<Case>() {
-				    @Override
-				    public int compare(Case tc1, Case tc2) {
-				        return tc1.getEtat().compareTo(tc2.getEtat());
-				    }
+					@Override
+					public int compare(Case tc1, Case tc2) {
+						return tc1.getEtat().compareTo(tc2.getEtat());
+					}
 				});
 			}
 		}
 		
-		
+		/**
+		 * Présense d'un ou plusieurs hotêls avec une ou plusieures chaînes
+		 */
+	
 		if(askChain && askColor){
 			// Ici on a au mooins une chain et au moins 1 hotel
 			// chercher ou on a la chaine et récupérer son etat pour avoir la couleur
@@ -161,7 +202,6 @@ public class Case {
 	 */
 	public ArrayList<Case> tabAdjascent(Case cN,Case cS,Case cE, Case cW){
 		ArrayList<Case> tab = new ArrayList();
-		Case c6 = null;
 		if(cN != null)
 			tab.add(cN);
 		if(cS != null)

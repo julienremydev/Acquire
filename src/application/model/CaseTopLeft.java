@@ -1,15 +1,8 @@
 package application.model;
 
-public class CaseTopLeft implements CaseInterface {
+public class CaseTopLeft extends Case {
 
-	private Case east;
-	private Case south;
-	// -1 injouable ; 0 vide ; 1 hotel ; 2-8 chaine
-	private static int etat;
-	public CaseTopLeft() {
-		this.etat=0;
-	}
-
+	
 	@Override
 	public boolean surroundedByNothing() {
 		// TODO Auto-generated method stub

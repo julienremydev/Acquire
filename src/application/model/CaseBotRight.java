@@ -1,14 +1,9 @@
 package application.model;
 
-public class CaseBotRight implements CaseInterface {
+public class CaseBotRight extends Case {
 
-	private Case north;
-	private Case west;
-	// -1 injouable ; 0 vide ; 1 hotel ; 2-8 chaine
-	private static int etat;
-	public CaseBotRight() {
-		this.etat=0;
-	}
+	
+	
 
 	@Override
 	public boolean surroundedByNothing() {

@@ -1,14 +1,7 @@
 package application.model;
 
-public class CaseBotLeft implements CaseInterface {
-	private Case north;
-	private Case east;
+public class CaseBotLeft extends Case {
 	
-	private static int etat;
-	
-	public CaseBotLeft() {
-		this.etat=0;
-	}
 
 	@Override
 	public boolean surroundedByNothing() {

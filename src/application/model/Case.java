@@ -13,6 +13,10 @@ public class Case {
 	private static int etat;
 	private String nom;
 	
+	public Case(){
+		this.etat=0;
+	}
+	
 	public Case(String n) {
 		this.etat = 0;
 		this.nom=n;

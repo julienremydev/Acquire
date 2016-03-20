@@ -1,5 +1,6 @@
 package application.control;
 
+import application.rmi.ClientInterface;
 import application.rmi.Game;
 import application.rmi.ServeurInterface;
 import javafx.collections.ObservableList;
@@ -13,6 +14,7 @@ import javafx.scene.paint.Color;
 public class PlateauController {
 	
 	private ServeurInterface serveur;
+	private ClientInterface client;
 	
 	private Game game;
 	
@@ -33,6 +35,9 @@ public class PlateauController {
 	public void setServeur (ServeurInterface serveur) throws Exception{
 		this.serveur=serveur;
 		setGame();
+	}
+	public void setClient(ClientInterface client) {
+		this.client=client;
 	}
 	
 	public void setGame() throws Exception{
@@ -58,5 +63,6 @@ public class PlateauController {
         	}
         }
 	}
+
 	
 }

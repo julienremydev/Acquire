@@ -7,13 +7,11 @@ import application.model.Plateau;
 
 public interface ServeurInterface extends Remote{
 
-	void register(ClientInterface c) throws RemoteException;
+	ClientInterface register(String p) throws Exception;
 
 	void distribution(Game g) throws RemoteException;
 
 	void getCasePlayed(String text) throws RemoteException;
 
 	Game getCurrentGame() throws RemoteException;
-	
-	boolean pseudoDisponible ( String p ) throws RemoteException;
 }

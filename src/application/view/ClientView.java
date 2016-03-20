@@ -1,47 +1,74 @@
 package application.view;
 
 import java.awt.Dimension;
-import java.rmi.Naming;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.net.InetAddress;
 
-import application.rmi.Client;
-import application.rmi.ServeurInterface;
+import application.control.ConnexionController;
 import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
-public class ClientView  {
+public class ClientView extends Application{
+
 	
-	private ServeurInterface serveur;
-	private Stage stage;
-	
-	public ClientView(ServeurInterface serveur) throws Exception{
-		this.serveur=serveur;
-		this.stage = new Stage();
+	@Override
+	public void start(Stage primaryStage) throws Exception {
+				
+		primaryStage.setTitle("Connexion au serveur");
+		
 		//Recupere les dimensions de l'écran
 		Dimension dimension = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
 		int height = (int)dimension.getHeight();
 		int width  = (int)dimension.getWidth();
 		
+		
 		//Récupération de l'ig
-		Group root = new Group();
+		BorderPane root = new BorderPane();
 		//configurer add position
-		root.getChildren().add(JfxUtils.loadFxml("game.fxml", serveur));
+		root.getChildren().add(JfxUtils.loadFxmlConnexion("connexion.fxml"));
 		Scene scene = new Scene(root,width-100,height-100);
 		
 		//Application du code CSS
 		//scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 		
 		//Mise en place de la Scene et Lancement
-		stage.setScene(scene);
-		stage.sizeToScene();
-	}
-
-
-	public Stage getStage(){
-		return stage;
+		primaryStage.setScene(scene);
+		primaryStage.sizeToScene();
+		primaryStage.show();
+				
+				
+				
+				
+				
+				
+				
+				
+		//FXMLLoader loader = new FXMLLoader();
+	//	loader.setLocation(ClientViewConnexion.class.getResource("connexion.fxml"));
+	//	BorderPane root = (BorderPane) loader.load();
+		// BorderPane page = (BorderPane)loader.load(ClientViewConnexion.class.getResource("connexion.fxml"));
+		 
+       
+     // Give the controller access to the main app.
+      //  controller = loader.getController();
+       // controller.setView(this);
+		//Scene scene = new Scene(root,700,height-100);
+		
+		//Application du code CSS
+		//scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
+		
+		//Mise en place de la Scene et Lancement
+		//primaryStage.setScene(scene);
+		//primaryStage.sizeToScene();
+		//primaryStage.show();
 	}
 	
+	public void lancer() {
+		launch();
+	}
 }

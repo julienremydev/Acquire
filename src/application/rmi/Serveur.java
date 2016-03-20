@@ -24,9 +24,16 @@ public class Serveur extends UnicastRemoteObject implements ServeurInterface{
 	/*
 	 * Cette méthode est appelée lors de la connexion d'un client.
 	 * Le client est ajouté à la liste des clients du serveur.
+	 * Le client n'est pas ajouté si il a le même pseudo qu'un autre joueur.
 	 */
-	public void register(ClientInterface c) throws RemoteException {
+	public synchronized ClientInterface register(String p) throws Exception {
+		for (ClientInterface c : liste_clients){
+			if (c.getPseudo().equals(p))
+				return null;
+		}
+		ClientInterface c = new Client (p);
 		getListe_clients().add(c);
+		return c;
 	}
 
 	/*
@@ -52,13 +59,6 @@ public class Serveur extends UnicastRemoteObject implements ServeurInterface{
 		return liste_clients;
 	}
 
-	public synchronized boolean pseudoDisponible ( String p ) throws RemoteException{
-		for (ClientInterface c : liste_clients){
-			if (c.getPseudo().equals(p))
-				return false;
-		}
-		return true;
-	}
 	public void setListe_clients(ArrayList<ClientInterface> liste_clients) {
 		this.liste_clients = liste_clients;
 	}

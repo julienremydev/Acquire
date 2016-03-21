@@ -33,6 +33,7 @@ public class Serveur extends UnicastRemoteObject implements ServeurInterface{
 		}
 		ClientInterface c = new Client (p);
 		getListe_clients().add(c);
+		c.receive(game);
 		return c;
 	}
 
@@ -67,12 +68,7 @@ public class Serveur extends UnicastRemoteObject implements ServeurInterface{
 	@Override
 	public void getCasePlayed(String text) throws RemoteException {
 		Logger.getLogger("Serveur").log(Level.INFO, text);
+		game.getPlateau().updateCase(text);
+		
 	}
-
-
-	@Override
-	public Game getCurrentGame() throws RemoteException {
-		return game;
-	}
-
 }

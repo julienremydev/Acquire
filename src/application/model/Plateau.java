@@ -88,5 +88,11 @@ public class Plateau {
 	public void setPlateau(Case[][] plateau) {
 		this.plateau = plateau;
 	}
+
+	public void updateCase(String text) {
+		//retrouver la case depuis le text au formal "A2" ou "G11"
+		//test v
+		plateau[2][2].setEtat(5);
+	}
 	
 }

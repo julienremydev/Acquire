@@ -34,14 +34,15 @@ public class PlateauController {
 	
 	public void setServeur (ServeurInterface serveur) throws Exception{
 		this.serveur=serveur;
-		setGame();
+		//setGame(g);
 	}
 	public void setClient(ClientInterface client) {
 		this.client=client;
 	}
 	
-	public void setGame() throws Exception{
-		game = serveur.getCurrentGame();
+	public void setGame(Game g) {
+		//faire les modifications graphiques necessaires
+		game = g;
 	}
 	
 	public void setDisable2(ActionEvent e) {

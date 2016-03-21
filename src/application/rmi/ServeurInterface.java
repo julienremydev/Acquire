@@ -13,5 +13,4 @@ public interface ServeurInterface extends Remote{
 
 	void getCasePlayed(String text) throws RemoteException;
 
-	Game getCurrentGame() throws RemoteException;
 }

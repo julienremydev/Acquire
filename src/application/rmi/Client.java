@@ -25,8 +25,7 @@ public class Client extends UnicastRemoteObject implements ClientInterface {
 	 * jeu du client avec le game passé en paramètre.
 	 */
 	public void receive(Game g) throws RemoteException {
-		// TODO Auto-generated method stub
-
+		plateauController.setGame(g);
 	}
 	public static void main(String[] args) throws Exception {
 		System.setProperty("java.security.policy","file:./security.policy");

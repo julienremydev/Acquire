@@ -49,6 +49,10 @@ public enum TypeChaine {
 		return prixAction(tc, nb)*5;
 	}
 	
+	public int getNumero(){
+		return this.numero;
+	}
+	
 	public static void main (String[]Args){
 		System.out.println(TypeChaine.getTypeChaine(4));
 	}

@@ -11,13 +11,13 @@ import application.view.ClientView;
 
 public class Client extends UnicastRemoteObject implements ClientInterface {
 	
-	PlateauController plateauController;
+	private PlateauController plateauController;
+	private ServeurInterface serveur;
 	private String pseudo;
 	
 	
-	public Client (String pseudo) throws Exception{
+	public Client () throws Exception{
 		Logger.getLogger("Client").log(Level.INFO, "Nouveau client enregistré dans le serveur.");
-		this.pseudo=pseudo;
 	}
 
 	/*
@@ -27,6 +27,7 @@ public class Client extends UnicastRemoteObject implements ClientInterface {
 	public void receive(Game g) throws RemoteException {
 		plateauController.setGame(g);
 	}
+	
 	public static void main(String[] args) throws Exception {
 		System.setProperty("java.security.policy","file:./security.policy");
 		System.setSecurityManager(new SecurityManager());
@@ -42,10 +43,21 @@ public class Client extends UnicastRemoteObject implements ClientInterface {
 	public String getPseudo() {
 		return pseudo;
 	}
-
+	
 	public void setPseudo(String pseudo) {
-		this.pseudo = pseudo;
+		this.pseudo=pseudo;
 	}
 
+	public ServeurInterface getServeur() {
+		return serveur;
+	}
+
+	public void setServeur(ServeurInterface serveur) {
+		this.serveur = serveur;
+	}
+	
+	public void setController(PlateauController plateauController) {
+		this.plateauController=plateauController;
+	}
 
 }

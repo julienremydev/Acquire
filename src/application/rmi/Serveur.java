@@ -18,6 +18,8 @@ public class Serveur extends UnicastRemoteObject implements ServeurInterface{
 	protected Serveur() throws RemoteException {
 		Logger.getLogger("Serveur").log(Level.INFO, "Serveur lancé");
 		setListe_clients(new ArrayList<ClientInterface>());
+		
+		game = new Game();
 	}
 
 
@@ -26,23 +28,29 @@ public class Serveur extends UnicastRemoteObject implements ServeurInterface{
 	 * Le client est ajouté à la liste des clients du serveur.
 	 * Le client n'est pas ajouté si il a le même pseudo qu'un autre joueur.
 	 */
-	public synchronized ClientInterface register(String p) throws Exception {
+	public synchronized boolean register(ClientInterface client, String p) throws Exception {
 		for (ClientInterface c : liste_clients){
 			if (c.getPseudo().equals(p))
-				return null;
+				return false;
 		}
-		ClientInterface c = new Client (p);
-		getListe_clients().add(c);
-		c.receive(game);
-		return c;
+		getListe_clients().add(client);
+		return true;
 	}
 
 	/*
 	 * Distribution à chaque client du game , à chaque modification du plateau et des variables du jeu.
 	 */
-	public void distribution(Game g) throws RemoteException {
-		// TODO Auto-generated method stub
-
+	public void distribution() throws RemoteException {
+		
+		//MODIFICATION DU GAME ICI
+		//APPEL DE LA FONCTION
+		
+		
+		
+		//On envoie le game actualisé à chaque client.
+		for (ClientInterface c : liste_clients){
+				c.receive(game);
+		}
 	}
 
 	public static void main (String args[]) throws RemoteException, MalformedURLException{
@@ -68,7 +76,7 @@ public class Serveur extends UnicastRemoteObject implements ServeurInterface{
 	@Override
 	public void getCasePlayed(String text) throws RemoteException {
 		Logger.getLogger("Serveur").log(Level.INFO, text);
-		game.getPlateau().updateCase(text);
+		//game.getPlateau().updateCase(text);
 		
 	}
 }

@@ -23,6 +23,8 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 public class ConnexionController implements Initializable {
+	
+	private Client client;
 
 	@FXML
 	private TextField ip1;
@@ -55,7 +57,7 @@ public class ConnexionController implements Initializable {
 	 *  On met à jour la scène de l'IG.
 	 * 
 	 */
-	private void setNewIG(ActionEvent e, ServeurInterface serveur, ClientInterface client) throws RemoteException, Exception {
+	private void setNewIG(ActionEvent e, ServeurInterface serveur) throws RemoteException, Exception {
 		Node source = (Node) e.getSource();
 		Stage stage = (Stage) source.getScene().getWindow();
 
@@ -85,10 +87,12 @@ public class ConnexionController implements Initializable {
 						+ ip2.getText() + "." + ip3.getText() + "." + ip4.getText() + ":42000/ACQUIRE");
 
 
+				
 				//Inscription du client sur le serveur
-				ClientInterface client = serveur.register(pseudo.getText());
-				if (client != null) {
-					setNewIG(e, serveur, client);
+				boolean pseudoDispo = serveur.register(client, pseudo.getText());
+				if (pseudoDispo) {
+					client.setPseudo(pseudo.getText());
+					setNewIG(e, serveur);
 
 				} else {
 					erreur.setText("Le pseudo est utilisé par un autre joueur.");
@@ -106,6 +110,12 @@ public class ConnexionController implements Initializable {
 	 */
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+		try {
+			client = new Client();
+		} catch (Exception e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		String ipc;
 		try {
 			ipc = InetAddress.getLocalHost().toString().split("/")[1];

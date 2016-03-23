@@ -1,9 +1,11 @@
 package application.control;
 
 import java.net.InetAddress;
+import java.net.SocketException;
 import java.net.URL;
 import java.net.UnknownHostException;
 import java.rmi.ConnectException;
+import java.rmi.ConnectIOException;
 import java.rmi.Naming;
 import java.rmi.RemoteException;
 import java.util.ResourceBundle;
@@ -12,7 +14,9 @@ import application.rmi.Client;
 import application.rmi.ClientInterface;
 import application.rmi.ServeurInterface;
 import application.view.JfxUtils;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Group;
@@ -21,6 +25,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 
 public class ConnexionController implements Initializable {
 	
@@ -45,8 +50,8 @@ public class ConnexionController implements Initializable {
 	 * Vérification syntaxique de l'adresse IP. Return true si la syntaxe est
 	 * correcte, false sinon.
 	 */
-	public boolean ipCorrect(String s) {
-		if (s.matches("\\d+") && Integer.parseInt(s) >= 0 && Integer.parseInt(s) <= 255)
+	public boolean ipCorrecte(String s) {
+		if (s.trim().matches("\\d+") && s.trim().length() < 4 && Integer.parseInt(s.trim()) >= 0 && Integer.parseInt(s.trim()) <= 255)
 			return true;
 		else
 			return false;
@@ -67,6 +72,25 @@ public class ConnexionController implements Initializable {
 		stage.setTitle("Acquire");
 		stage.setScene(scene);
 
+		/*
+		 * Fermeture de l'application quand un client quitte la fenêtre.
+		 * On informe le serveur qu'un client a quitté l'application.
+		 */
+		stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+            @Override
+            public void handle(WindowEvent t) {
+					try {
+						serveur.logout(client.getPseudo());
+					} catch (RemoteException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+
+                Platform.exit();
+                System.exit(0);
+            }
+		});
+		
 	}
 
 	/*
@@ -76,15 +100,15 @@ public class ConnexionController implements Initializable {
 	 */
 	public void seConnecter(ActionEvent e) throws Exception {
 
-		if (pseudo.getText().trim().length() < 3) {
-			erreur.setText("Le pseudo doit contenir au moins 3 caractères.");
-		} else if (!ipCorrect(ip1.getText()) || !ipCorrect(ip2.getText()) || !ipCorrect(ip3.getText())
-				|| !ipCorrect(ip4.getText())) {
+		if (pseudo.getText().trim().length() < 3 || pseudo.getText().trim().length() > 12) {
+			erreur.setText("Le pseudo doit contenir entre 3 et 12 caractères.");
+		} else if (!ipCorrecte(ip1.getText()) || !ipCorrecte(ip2.getText()) || !ipCorrecte(ip3.getText())
+				|| !ipCorrecte(ip4.getText())) {
 			erreur.setText("L'adresse IP n'est pas bonne.");
 		} else {
 			try {
-				ServeurInterface serveur = (ServeurInterface) Naming.lookup("rmi://" + ip1.getText() + "."
-						+ ip2.getText() + "." + ip3.getText() + "." + ip4.getText() + ":42000/ACQUIRE");
+				ServeurInterface serveur = (ServeurInterface) Naming.lookup("rmi://" + ip1.getText().trim() + "."
+						+ ip2.getText().trim() + "." + ip3.getText().trim() + "." + ip4.getText().trim() + ":42000/ACQUIRE");
 
 
 				
@@ -97,8 +121,10 @@ public class ConnexionController implements Initializable {
 				} else {
 					erreur.setText("Le pseudo est utilisé par un autre joueur.");
 				}
-			} catch (ConnectException exc) {
+			} catch (ConnectException exc1) {
 				erreur.setText("L'adresse du serveur n'est pas bonne ou le serveur n'a pas été lancé.");
+			} catch (ConnectIOException exc2) {
+				erreur.setText("L'adresse du serveur n'est pas bonne.");
 			}
 		}
 

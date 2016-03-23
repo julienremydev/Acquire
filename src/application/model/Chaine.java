@@ -1,6 +1,8 @@
 package application.model;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+
 import javafx.scene.paint.Color;
 
 public class Chaine {
@@ -8,6 +10,7 @@ public class Chaine {
 	private ArrayList<Case> listeCase;
 	private static final int nbActionTotal = 25;
 	private int nbActionRestante;
+	private HashMap<String, Integer> actionParClient;
 	
 	/**
 	 * Constructeur permettant de definir le type des chaines d hotels
@@ -18,6 +21,7 @@ public class Chaine {
 		this.typeChaine = tc;
 		this.nbActionRestante = 25;
 		this.listeCase = new ArrayList<Case>();
+		this.actionParClient = new HashMap<String, Integer>();
 	}
 	
 	/**
@@ -31,9 +35,10 @@ public class Chaine {
 	/**
 	 * fonction permettant au joueur d acheter des actions et met a jour le nombre d action restante
 	 * @param nb : nombre d action voulant etre acheter par le joueur
+	 * @param nomJoueur : nom du joueur qui achete
 	 * @return nombre effectivement acheter
 	 */
-	public int achatActionJoueur(int nb){
+	public int achatActionJoueur(int nb, String nomJoueur){
 		if(nb < 0){
 			nb = 0;
 		}
@@ -47,15 +52,21 @@ public class Chaine {
 			this.setNbActionRestante(this.getNbActionRestante()-nb);
 		}
 		
+		if(this.actionParClient.containsKey(nomJoueur)){
+			this.actionParClient.put(nomJoueur, res + this.actionParClient.get(nomJoueur));
+		}else{
+			this.actionParClient.put(nomJoueur, res);			
+		}
+		
 		return res;
 	}
 	
 	/**
 	 * fonction permettant au joueur de vendre des actions et met a jour le nombre d action restante
-	 * @param nb : nomnre d action voulant etre vendue par le joueur
+	 * @param nb : nombre d action voulant etre vendue par le joueur
 	 * @return nombre effectivement vendue
 	 */
-	public int vendActionJoueur(int nb){
+	public int vendActionJoueur(int nb, String nomJoueur){
 		if (nb < 0){
 			nb = 0;
 		}
@@ -67,6 +78,14 @@ public class Chaine {
 			this.setNbActionRestante(nbActionTotal);
 		} else {
 			this.setNbActionRestante(this.getNbActionRestante()+nb);
+		}
+		
+		if(this.actionParClient.containsKey(nomJoueur)){
+			if (this.actionParClient.get(nomJoueur) >= res){
+				this.actionParClient.put(nomJoueur, this.actionParClient.get(nomJoueur) - res);				
+			}else{
+				res = 0;
+			}
 		}
 		
 		return res;

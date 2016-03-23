@@ -6,18 +6,20 @@ import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
+import java.util.Enumeration;
+import java.util.Hashtable;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class Serveur extends UnicastRemoteObject implements ServeurInterface{
 
-	private ArrayList<ClientInterface> liste_clients ;
+	private Hashtable<String, ClientInterface> liste_clients ;
 	
 	private Game game;
 
 	protected Serveur() throws RemoteException {
 		Logger.getLogger("Serveur").log(Level.INFO, "Serveur lancé");
-		setListe_clients(new ArrayList<ClientInterface>());
+		setListe_clients(new Hashtable<String, ClientInterface>());
 		
 		game = new Game();
 	}
@@ -29,12 +31,22 @@ public class Serveur extends UnicastRemoteObject implements ServeurInterface{
 	 * Le client n'est pas ajouté si il a le même pseudo qu'un autre joueur.
 	 */
 	public synchronized boolean register(ClientInterface client, String p) throws Exception {
-		for (ClientInterface c : liste_clients){
-			if (c.getPseudo().equals(p))
-				return false;
-		}
-		getListe_clients().add(client);
+		if (liste_clients.containsKey(p))
+			return false;
+		
+		getListe_clients().put(p,client);
+		Logger.getLogger("Client").log(Level.INFO, "Nouveau client enregistré dans le serveur.");
 		return true;
+	}
+	
+	/*
+	 * Suppression du client de l'ArrayList quand un client ferme son application.
+	 */
+	public synchronized void logout (String p) throws RemoteException{
+		if ( liste_clients.containsKey(p)){
+			liste_clients.remove(p);
+			Logger.getLogger("Client").log(Level.INFO, "Le joueur "+p+" s'est déconnecté du serveur.");
+		}
 	}
 
 	/*
@@ -48,9 +60,10 @@ public class Serveur extends UnicastRemoteObject implements ServeurInterface{
 		
 		
 		//On envoie le game actualisé à chaque client.
-		for (ClientInterface c : liste_clients){
-				c.receive(game);
-		}
+		Enumeration<ClientInterface> e = liste_clients.elements();
+	    while(e.hasMoreElements())
+	    	 e.nextElement().receive(game);
+	  
 	}
 
 	public static void main (String args[]) throws RemoteException, MalformedURLException{
@@ -64,12 +77,12 @@ public class Serveur extends UnicastRemoteObject implements ServeurInterface{
 	}
 
 
-	public ArrayList<ClientInterface> getListe_clients() {
+	public Hashtable<String, ClientInterface> getListe_clients() {
 		return liste_clients;
 	}
 
-	public void setListe_clients(ArrayList<ClientInterface> liste_clients) {
-		this.liste_clients = liste_clients;
+	public void setListe_clients(Hashtable<String, ClientInterface> hashtable) {
+		this.liste_clients = hashtable;
 	}
 
 

@@ -17,7 +17,6 @@ public class Client extends UnicastRemoteObject implements ClientInterface {
 	
 	
 	public Client () throws Exception{
-		Logger.getLogger("Client").log(Level.INFO, "Nouveau client enregistré dans le serveur.");
 	}
 
 	/*

@@ -12,5 +12,7 @@ public interface ServeurInterface extends Remote{
 	void distribution() throws RemoteException;
 
 	void getCasePlayed(String text) throws RemoteException;
+	
+	void logout (String p) throws RemoteException;
 
 }

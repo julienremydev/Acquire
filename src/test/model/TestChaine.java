@@ -6,13 +6,14 @@ import org.junit.Before;
 import org.junit.Test;
 
 import application.model.Chaine;
+import application.model.TypeChaine;
 
 public class TestChaine {
 	Chaine chaine;
 	
 	@Before
 	public void initChaine(){
-		chaine = new Chaine("SACKSON");
+		chaine = new Chaine(TypeChaine.SACKSON);
 	}
 	
 	@Test

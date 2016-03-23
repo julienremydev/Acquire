@@ -1,5 +1,8 @@
 package test.model;
 import static org.junit.Assert.*;
+
+import java.util.ArrayList;
+
 import org.junit.Before;
 import org.junit.Test;
 
@@ -101,5 +104,34 @@ public class TestCase {
 		east.setEtat(7);
 		west.setEtat(6);
 		assertTrue(caseTest.surroundedByChains());
+	}
+	
+	@Test
+	public void testLookCase(){
+		caseTest.lookCase();
+		assertEquals(1, (int)caseTest.getEtat());
+		north.setEtat(1);
+		caseTest.lookCase();
+		assertNotEquals(1, (int)caseTest.getEtat());
+	}
+	
+	@Test
+	public void testTabAdjacent(){
+		ArrayList<Case> test = new ArrayList<Case>();
+		assertEquals(test, caseTest.tabAdjascent(null, null, null, null));
+		
+		test.add(north);
+		test.add(south);
+		
+		assertEquals(test, caseTest.tabAdjascent(north, south, null, null));
+		assertNotEquals(test, caseTest.tabAdjascent(null, null, null, null));
+		assertNotEquals(test, caseTest.tabAdjascent(north, null, null, null));
+		assertNotEquals(test, caseTest.tabAdjascent(north, south, east, null));
+		assertNotEquals(test, caseTest.tabAdjascent(north, south, east, west));
+		
+		test.add(east);
+		test.add(west);
+		
+		assertEquals(test, caseTest.tabAdjascent(north, south, east, west));
 	}
 }

@@ -35,7 +35,7 @@ public enum TypeChaine {
 	 * @param nb
 	 * @return
 	 */
-	private static int prixAction(TypeChaine tc, int nb){
+	public static int prixAction(TypeChaine tc, int nb){
 		int res = 200 + (tc.catChaine - 1) * 100; // prix de base de la chaine d hotel
 		for(int i : nbHotel){
 			if(nb > i){

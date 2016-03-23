@@ -12,7 +12,9 @@ import application.view.ClientView;
 public class Client extends UnicastRemoteObject implements ClientInterface {
 	
 	private PlateauController plateauController;
+	
 	private ServeurInterface serveur;
+	
 	private String pseudo;
 	
 	
@@ -57,6 +59,11 @@ public class Client extends UnicastRemoteObject implements ClientInterface {
 	
 	public void setController(PlateauController plateauController) {
 		this.plateauController=plateauController;
+	}
+
+	public void sendCase(String text) throws RemoteException {
+		this.serveur.getCasePlayed(text);
+		
 	}
 
 }

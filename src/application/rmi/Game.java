@@ -18,6 +18,8 @@ public class Game implements Serializable{
 	protected Game(){
 		super();
 		nomPartie="bim";
+		this.plateau=new Plateau();
+		this.plateau.init();
 	}
 	
 	public Plateau getPlateau() {

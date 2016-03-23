@@ -1,10 +1,11 @@
 package application.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 
-public class Case {
+public class Case implements Serializable {
 	private Case north;
 	private Case south;
 	private Case east;
@@ -251,6 +252,15 @@ public class Case {
 				return false;
 		default :
 			return true;
+		}
+	}
+	
+	public boolean equals(Case c) {
+		if (this.getNom().compareTo(c.getNom())==0) {
+			return true;
+		}
+		else {
+			return false;
 		}
 	}
 	

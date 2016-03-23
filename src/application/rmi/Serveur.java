@@ -89,7 +89,7 @@ public class Serveur extends UnicastRemoteObject implements ServeurInterface{
 	@Override
 	public void getCasePlayed(String text) throws RemoteException {
 		Logger.getLogger("Serveur").log(Level.INFO, text);
-		//game.getPlateau().updateCase(text);
-		
+		game.getPlateau().updateCase(text);
+		distribution();
 	}
 }

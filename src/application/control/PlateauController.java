@@ -1,17 +1,15 @@
 package application.control;
 
-import java.net.URL;
 import java.rmi.RemoteException;
-import java.util.ResourceBundle;
+import java.util.ArrayList;
 
+import application.model.Case;
 import application.rmi.Client;
-import application.rmi.ClientInterface;
 import application.rmi.Game;
 import application.rmi.ServeurInterface;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.layout.GridPane;
@@ -28,10 +26,12 @@ public class PlateauController{
 	
 	public void setDisable(ActionEvent e) throws Exception{
 		Button b = (Button) e.getSource();
-		b.setTextFill(Color.ALICEBLUE);
 		b.setDisable(true);
 		String text = b.getText();
-		client.getServeur().getCasePlayed(text);
+		ArrayList<Case> l = new ArrayList<Case>();
+		l.add(new Case(b.getText()));
+		setCases(l);
+		//client.sendCase(text);
 	}
 	
 
@@ -39,35 +39,42 @@ public class PlateauController{
 		client=c;
 		client.setServeur(serveur);
 		client.setController(this);
-		client.getServeur().distribution();
+		//Plutot attendre le lancement du jeu non ?
+		//client.getServeur().distribution();
+		
+	}
+	public void setCases(ArrayList<Case> listCase) {
+		ObservableList<Node> childrens = grid.getChildren();
+		int i =0;
+        for(Node node : childrens) {
+        	if (node instanceof Button) {
+        		//System.out.println(((Button) node).getText());
+        		Case c = new Case(((Button) node).getText());
+        		if (listCase.contains(c)) {
+        			((Button) node).setText("played");
+        		}
+        	}
+        	i++;
+        	if (i==108) {
+        		break;
+        	}
+        }
 	}
 	
 	public void setGame(Game g) {
-		//faire les modifications graphiques necessaires
-		//game = g;
-	}
-	
-	public void setDisable2(ActionEvent e) {
 		ObservableList<Node> childrens = grid.getChildren();
-		System.out.println(childrens.size());
 		int i =0;
         for(Node node : childrens) {
-
-        	System.out.println(i);
-        	System.out.println("Row : "+grid.getRowIndex(node));
-        	System.out.println("Col : "+grid.getColumnIndex(node));
-        	System.out.println("");
-            if(grid.getRowIndex(node) == 0 && grid.getColumnIndex(node) == 0) {
-            	//game.getP
-            }
+        	if (node instanceof Button) {
+        		
+        	}
+        	Button b = (Button) node;
+        	b.setText("played");
+        	b.setTextFill(Color.RED);
             i++;
         	if (i==108) {
         		break;
         	}
         }
 	}
-
-
-
-	
 }

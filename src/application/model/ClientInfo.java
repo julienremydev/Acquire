@@ -19,7 +19,48 @@ public class ClientInfo {
 		this.main = new ArrayList<Case>();
 	}
 
+	/**
+	 * methode metant a jour le cash du joueur en fonction d un montant passe en parametre
+	 * le montant peut etre positif (gain du joueur)
+	 * le montant peut etre negatif (achat du joueur)
+	 * @param montant
+	 * @return montant effectivement appliquee au cash
+	 */
+	public int updateCash(int montant){
+		int res = montant;
+		
+		if(this.cash + montant < 0){
+			res = 0;
+		}else{
+			this.cash = this.cash + montant;			
+		}
+		
+		return res;
+	}
 	
+	/**
+	 * methode permettant de calculer le montant net du joueur
+	 */
+	public void updateNet(){
+		
+	}
+	
+	/**
+	 * ajoute une case dans la main du joueur
+	 * @param c
+	 */
+	public void addCaseToMain(Case c){
+		this.getMain().add(c);
+	}
+	
+	/**
+	 * supprime une case de la main du joueur
+	 * @param c
+	 */
+	public void rmCaseToMain(Case c){
+		this.getMain().remove(c);
+	}
+
 	/*
 	 * Getter & Setter
 	 */

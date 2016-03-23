@@ -44,10 +44,14 @@ public class Plateau {
 			plateau[x][0]=CaseLeft(tab[x] + tab2[0]]);
 			plateau[11][x]=CaseRight(tab[11] + tab2[x]]);
 		}
+		for(int x=0;x<3;x++){
+		this.generate1CaseNoir();
+		}
 	}
 
 	/**
-	 * ajoute nbcase fois des cases noir aléatoirement dans des cases ou il n y a rien
+	 * ajoute nbcase fois des cases noir aléatoirement dans des cases ou il n y
+	 * a rien
 	 * 
 	 * @param nbJoueur
 	 */
@@ -60,12 +64,12 @@ public class Plateau {
 			random1 = (int) (Math.random() * (10 - 0)) + 0;
 			random2 = (int) (Math.random() * (13 - 0)) + 0;
 			if (this.plateau[random1][random2].getEtat() == 0) {
-				this.plateau[random1][random2].setEtat(-1);
+				this.plateau[random1][random2].setEtat(1);
 				nbNoir++;
 			}
 		}
 	}
-	
+
 	/**
 	 * ajoute 1 case noir aléatoirement sur le plateau
 	 * 
@@ -80,27 +84,10 @@ public class Plateau {
 			random1 = (int) (Math.random() * (10 - 0)) + 0;
 			random2 = (int) (Math.random() * (13 - 0)) + 0;
 			if (this.plateau[random1][random2].getEtat() == 0) {
-				this.plateau[random1][random2].setEtat(-1);
+				this.plateau[random1][random2].setEtat(1);
 				nbNoir++;
 			}
 		}
-	}
-	
-	
-	/**
-	 * La methode retourne les cases noir
-	 * @return
-	 */
-	public ArrayList<Case> getCaseNoir(){
-		ArrayList<Case> casesNoir=new ArrayList<Case>();
-		for (int i = 0; i < plateau.length; i++) {
-			for (int j = 0; j < plateau[0].length; j++) {
-				if(plateau[i][j].getEtat()==-1){
-					casesNoir.add(plateau[i][j]);	
-				}
-			}
-		}
-		return casesNoir;
 	}
 
 	public Case[][] getPlateau() {
@@ -112,9 +99,9 @@ public class Plateau {
 	}
 
 	public void updateCase(String text) {
-		//retrouver la case depuis le text au formal "A2" ou "G11"
-		//test v
+		// retrouver la case depuis le text au formal "A2" ou "G11"
+		// test v
 		plateau[2][2].setEtat(5);
 	}
-	
+
 }

@@ -22,6 +22,7 @@ public class Plateau {
 		for (int i = 0; i < plateau.length; i++) {
 			for (int j = 0; j < plateau[0].length; j++) {
 				plateau[i][j] = new Case(tab[j] + tab2[i]);
+						
 			}
 		}
 		

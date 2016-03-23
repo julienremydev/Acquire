@@ -17,10 +17,32 @@ public class Plateau {
 	public void init() {
 		String[] tab = { "A", "B", "C", "D", "E", "F", "G", "H", "I" };
 		String[] tab2 = { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12" };
+		
+		//initialisation tout les cases
 		for (int i = 0; i < plateau.length; i++) {
 			for (int j = 0; j < plateau[0].length; j++) {
 				plateau[i][j] = new Case(tab[j] + tab2[i]);
 			}
+		}
+		
+		//creation bot right et left,top right et left
+		for(int x=0;x<12;x++){
+			if(x==0){
+				plateau[0][x]=CaseTopLeft(tab[0] + tab2[x]);
+				plateau[8][x]=CaseBotLeft(tab[8] + tab2[x]);
+			}
+			if(x==11){
+				plateau[0][x]=CaseTopRight(tab[0] + tab2[x]);
+				plateau[8][x]=CaseBotRight(tab[8] + tab2[x]);
+			}
+			plateau[0][x]=CaseTop(tab[0] + tab2[x]);
+			plateau[8][x]=CaseBot(tab[8] + tab2[x]);
+		}
+		
+		//creation case left et case right
+		for(int x=1;x<11;x++){
+			plateau[x][0]=CaseLeft(tab[x] + tab2[0]]);
+			plateau[11][x]=CaseRight(tab[11] + tab2[x]]);
 		}
 	}
 

@@ -254,7 +254,11 @@ public class Case implements Serializable {
 			return true;
 		}
 	}
-	
+	/**
+	 * Comparaison de cases en fonction de leur noms
+	 * @param c
+	 * @return
+	 */
 	public boolean equals(Case c) {
 		if (this.getNom().compareTo(c.getNom())==0) {
 			return true;
@@ -263,6 +267,8 @@ public class Case implements Serializable {
 			return false;
 		}
 	}
-	
+	public String toString(){
+		return this.getNom();
+	}
 	
 }

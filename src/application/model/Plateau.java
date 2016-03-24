@@ -8,45 +8,62 @@ public class Plateau implements Serializable {
 	private Case[][] plateau;
 
 	public Plateau() {
-		plateau = new Case[12][9];
-
-	}
-
-	/**
-	 * Initialize le plateau
-	 */
-	public void init() {
-		String[] tab = { "A", "B", "C", "D", "E", "F", "G", "H", "I" };
-		String[] tab2 = { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12" };
+		plateau = new Case[9][12];
+		String[] ligne = { "A", "B", "C", "D", "E", "F", "G", "H", "I" };
+		String[] colonne = { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12" };
 		
 		//initialisation tout les cases
-		for (int i = 0; i < plateau.length; i++) {
-			for (int j = 0; j < plateau[0].length; j++) {
-				plateau[i][j] = new Case(tab[j] + tab2[i]);
+		for (int i = 1; i < plateau.length-1; i++) {
+			for (int j = 1; j < plateau[0].length-1; j++) {
+				plateau[i][j] = new Case(ligne[i] + colonne[j]);
 			}
 		}
-	}/*
-		//creation bot right et left,top right et left
-		for(int x=0;x<12;x++){
-			if(x==0){
-				plateau[0][x]=CaseTopLeft(tab[0] + tab2[x]);
-				plateau[8][x]=CaseBotLeft(tab[8] + tab2[x]);
+			
+		for(int y=0;y<12;y++){
+			switch (y){
+			case 0:
+				plateau[0][y]=new CaseTopLeft(ligne[0] + colonne[y]);
+				for (int ligneTab = 1 ; ligneTab < 8 ; ligneTab++)
+				{
+					plateau[ligneTab][y]=new CaseLeft(ligne[ligneTab] + colonne[y]);
+				}
+				plateau[8][y]=new CaseBotLeft(ligne[8] + colonne[y]);
+				break;
+			case 11 :
+				plateau[0][y]= new CaseTopRight(ligne[0] + colonne[y]);
+				for (int ligneTab = 1 ; ligneTab < 8 ; ligneTab++)
+				{
+					plateau[ligneTab][y]=new CaseRight(ligne[ligneTab] + colonne[y]);
+				}
+				plateau[8][y]=new CaseBotRight(ligne[8] + colonne[y]);
+				break;
+			default : 
+				plateau[0][y]=new CaseTop(ligne[0] + colonne[y]);
+				plateau[8][y]=new CaseBot(ligne[8] + colonne[y]);
+				break;
 			}
-			if(x==11){
-				plateau[0][x]=CaseTopRight(tab[0] + tab2[x]);
-				plateau[8][x]=CaseBotRight(tab[8] + tab2[x]);
-			}
-			plateau[0][x]=CaseTop(tab[0] + tab2[x]);
-			plateau[8][x]=CaseBot(tab[8] + tab2[x]);
-		}
-		
-		//creation case left et case right
-		for(int x=1;x<11;x++){
-			plateau[x][0]=CaseLeft(tab[x] + tab2[0]]);
-			plateau[11][x]=CaseRight(tab[11] + tab2[x]]);
+			
 		}
 	}
 
+	
+	public void afiche(){
+		for (int i=0;i<9;i++)
+		{
+			
+			for(int j = 0;j<12;j++)
+			{
+				System.out.print(plateau[i][j]+"\t");
+			}
+			System.out.println("");
+		}
+	}
+	public static void main(String [] args){
+		Plateau p = new Plateau();
+		
+		p.afiche();
+	}
+	
 	/**
 	 * ajoute nbcase fois des cases noir aléatoirement dans des cases ou il n y a rien
 	 * 

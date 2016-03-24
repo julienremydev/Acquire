@@ -80,8 +80,11 @@ public class Case implements Serializable {
 		 * Cas simple, aucune case initialisée autour, la case deviens donc un hotel
 		 * modification de l'etat de cette case
 		 */
-		if(simpleCase)		
+		if(simpleCase){
+			System.out.println("changement en hotel");
 			this.setEtat(1);
+		}
+			
 		
 		/**
 		 * Présence d'un ou plusieurs hotêls autour de la case

@@ -30,8 +30,8 @@ public class PlateauController{
 		String text = b.getText();
 		ArrayList<Case> l = new ArrayList<Case>();
 		l.add(new Case(b.getText()));
-		setCases(l);
-		//client.sendCase(text);
+		//setCases(l);
+		client.sendCase(text);
 	}
 	
 

@@ -75,7 +75,7 @@ public class Serveur extends UnicastRemoteObject implements ServeurInterface{
 		System.setProperty("java.rmi.server.codebase","file:./bin/");
 		LocateRegistry.createRegistry(42000);
 		Serveur serveur = new Serveur();
-		Naming.rebind("rmi://"+InetAddress.getLocalHost().toString().split("/")[1]+"/ACQUIRE", serveur);
+		Naming.rebind("rmi://"+InetAddress.getLocalHost().toString().split("/")[1]+":42000/ACQUIRE", serveur);
 	}
 
 

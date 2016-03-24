@@ -1,6 +1,8 @@
 package application.rmi;
 
+import java.net.InetAddress;
 import java.net.MalformedURLException;
+import java.net.UnknownHostException;
 import java.rmi.Naming;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
@@ -66,14 +68,14 @@ public class Serveur extends UnicastRemoteObject implements ServeurInterface{
 	  
 	}
 
-	public static void main (String args[]) throws RemoteException, MalformedURLException{
+	public static void main (String args[]) throws RemoteException, MalformedURLException, UnknownHostException{
 		System.setProperty("java.security.policy","file:./security.policy");
 		System.setSecurityManager(new SecurityManager());
-		System.setProperty("java.rmi.server.hostname", "127.0.0.1");
+		System.setProperty("java.rmi.server.hostname", InetAddress.getLocalHost().toString().split("/")[1]);
 		System.setProperty("java.rmi.server.codebase","file:./bin/");
 		LocateRegistry.createRegistry(42000);
 		Serveur serveur = new Serveur();
-		Naming.rebind("rmi://127.0.0.1:42000/ACQUIRE", serveur);
+		Naming.rebind("rmi://"+InetAddress.getLocalHost().toString().split("/")[1]+"/ACQUIRE", serveur);
 	}
 
 

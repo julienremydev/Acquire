@@ -4,8 +4,11 @@ import java.util.ArrayList;
 
 public class ClientInfo {
 	private String pseudo;
+	
 	private ArrayList<Case> main;
+	
 	private int net;
+	
 	private int cash;
 	
 	/**

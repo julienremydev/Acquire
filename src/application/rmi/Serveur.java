@@ -65,7 +65,6 @@ public class Serveur extends UnicastRemoteObject implements ServeurInterface{
 		Enumeration<ClientInterface> e = liste_clients.elements();
 	    while(e.hasMoreElements())
 	    	 e.nextElement().receive(game);
-	  
 	}
 
 	public static void main (String args[]) throws RemoteException, MalformedURLException, UnknownHostException{

@@ -39,6 +39,7 @@ public class PlateauController{
 		client=c;
 		client.setServeur(serveur);
 		client.setController(this);
+		
 		//Plutot attendre le lancement du jeu non ?
 		//client.getServeur().distribution();
 		
@@ -48,7 +49,6 @@ public class PlateauController{
 		int i =0;
         for(Node node : childrens) {
         	if (node instanceof Button) {
-        		//System.out.println(((Button) node).getText());
         		Case c = new Case(((Button) node).getText());
         		if (listCase.contains(c)) {
         			((Button) node).setText("played");
@@ -66,12 +66,7 @@ public class PlateauController{
 		int i =0;
         for(Node node : childrens) {
         	if (node instanceof Button) {
-        		
         	}
-        	Button b = (Button) node;
-        	b.setText("played");
-        	b.setTextFill(Color.RED);
-            i++;
         	if (i==108) {
         		break;
         	}

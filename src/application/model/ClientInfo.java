@@ -55,7 +55,9 @@ public class ClientInfo {
 	 * @param c
 	 */
 	public void addCaseToMain(Case c){
-		this.getMain().put(c.getNom(),c);
+		if(c != null){
+			this.getMain().put(c.getNom(),c);			
+		}
 	}
 	
 	/**
@@ -63,7 +65,9 @@ public class ClientInfo {
 	 * @param c
 	 */
 	public void rmCaseToMain(Case c){
-		this.getMain().remove(c.getNom());
+		if(c != null && this.getMain().containsKey(c.getNom())){
+			this.getMain().remove(c.getNom());			
+		}
 	}
 
 	/*

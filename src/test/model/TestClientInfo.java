@@ -3,6 +3,7 @@ package test.model;
 import static org.junit.Assert.*;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -57,14 +58,14 @@ public class TestClientInfo {
 		// cas normal ajout d une case dans main vide
 		// ajout d une case dans la main
 		clientTest.addCaseToMain(c);
-		ArrayList<Case> test = new ArrayList<Case>();
-		test.add(c);
+		HashMap<String, Case> test = new HashMap<String, Case>();
+		test.put(c.getNom(), c);
 		assertEquals(test, clientTest.getMain());
 		
 		// cas normal ajout d une case dans main avec deja case
 		// main contient 2 cases
 		clientTest.addCaseToMain(c2);
-		test.add(c2);
+		test.put(c2.getNom(), c2);
 		assertEquals(test, clientTest.getMain());
 	}
 	
@@ -77,13 +78,21 @@ public class TestClientInfo {
 		
 		// cas ou il reste des case dans la main
 		clientTest.rmCaseToMain(c2);
-		ArrayList<Case> test = new ArrayList<Case>();
-		test.add(c);
+		HashMap<String, Case> test = new HashMap<String, Case>();
+		test.put(c.getNom(), c);
 		assertEquals(test, clientTest.getMain());
 		
 		// cas ou la main et vide
 		clientTest.rmCaseToMain(c);
-		test.remove(c);
+		test.remove(c.getNom());
 		assertEquals(test, clientTest.getMain());	
+		
+		// cas case pas dans main
+		clientTest.rmCaseToMain(new Case("test3"));
+		assertEquals(test, clientTest.getMain());
+		
+		// cas case null
+		clientTest.rmCaseToMain(null);
+		assertEquals(test, clientTest.getMain());
 	}
 }

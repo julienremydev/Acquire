@@ -31,6 +31,12 @@ public class Client extends UnicastRemoteObject implements ClientInterface {
 		plateauController.setGame(g);
 	}
 	
+	public void receiveTchat(String s) {
+		plateauController.setChat(s);
+	}
+	public void setBEnable(boolean b) throws RemoteException{
+		plateauController.setBEnable(b);
+	}
 	public static void main(String[] args) throws Exception {
 		System.setProperty("java.security.policy","file:./security.policy");
 		System.setSecurityManager(new SecurityManager());

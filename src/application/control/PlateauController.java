@@ -1,7 +1,9 @@
 package application.control;
 
+import java.net.URL;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
+import java.util.ResourceBundle;
 
 import application.model.Case;
 import application.rmi.Client;
@@ -11,17 +13,26 @@ import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 
-public class PlateauController{
+public class PlateauController implements Initializable{
 	
 	private Client client;
 	
 	@FXML
 	private GridPane grid;
+	@FXML
+	private TextArea tchat;
+	@FXML
+	private TextField input;
+	@FXML
+	private Button letsplay;
 	
 	public void setDisable(ActionEvent e) throws Exception{
 		Button b = (Button) e.getSource();
@@ -80,5 +91,29 @@ public class PlateauController{
 	}
 	
 	public void getMain() {
+	}
+
+
+	public void envoyerTchat() throws RemoteException{
+		if (input.getText().trim().length() > 0)
+			client.getServeur().distributionTchat(client.getPseudo(), input.getText());
+	}
+	public void setChat(String s) {
+		Platform.runLater(() -> tchat.setText(s));
+		Platform.runLater(() -> tchat.setScrollTop(tchat.getHeight()));
+	}
+
+	@Override
+	public void initialize(URL location, ResourceBundle resources) {
+		tchat.setEditable(false);
+		letsplay.setDisable(true);
+	}
+
+
+	public void setBEnable(boolean b) {
+		letsplay.setDisable(!b);
+	}
+	public void lancement() throws RemoteException{
+		client.getServeur().setLancement();
 	}
 }

@@ -23,5 +23,9 @@ public class Game implements Serializable{
 	public Plateau getPlateau() {
 		return this.plateau;
 	}
+	
+	public TableauDeBord getTableau() {
+		return this.tableauDeBord;
+	}
 
 }

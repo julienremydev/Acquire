@@ -32,10 +32,11 @@ public class ClientInfo {
 	public int updateCash(int montant){
 		int res = montant;
 		
-		if(this.cash + montant < 0){
-			res = 0;
+		if(this.getCash() + montant < 0){
+			res = - this.getCash();
+			this.setCash(0);
 		}else{
-			this.cash = this.cash + montant;			
+			this.setCash(this.getCash() + montant);			
 		}
 		
 		return res;
@@ -53,7 +54,9 @@ public class ClientInfo {
 	 * @param c
 	 */
 	public void addCaseToMain(Case c){
-		this.getMain().add(c);
+		if (c != null){
+			this.getMain().add(c);			
+		}
 	}
 	
 	/**

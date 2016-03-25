@@ -105,7 +105,7 @@ public class TestCase {
 		west.setEtat(6);
 		assertTrue(caseTest.surroundedByChains());
 	}
-	
+
 	@Test
 	public void testLookCase(){
 		caseTest.lookCase();
@@ -114,24 +114,103 @@ public class TestCase {
 		caseTest.lookCase();
 		assertNotEquals(1, (int)caseTest.getEtat());
 	}
-	
+
 	@Test
 	public void testTabAdjacent(){
 		ArrayList<Case> test = new ArrayList<Case>();
 		assertEquals(test, caseTest.tabAdjascent(null, null, null, null));
-		
+
 		test.add(north);
 		test.add(south);
-		
+
 		assertEquals(test, caseTest.tabAdjascent(north, south, null, null));
 		assertNotEquals(test, caseTest.tabAdjascent(null, null, null, null));
 		assertNotEquals(test, caseTest.tabAdjascent(north, null, null, null));
 		assertNotEquals(test, caseTest.tabAdjascent(north, south, east, null));
 		assertNotEquals(test, caseTest.tabAdjascent(north, south, east, west));
-		
+
 		test.add(east);
 		test.add(west);
-		
+
 		assertEquals(test, caseTest.tabAdjascent(north, south, east, west));
+	}
+
+	@Test
+	public void testSameColorsArround(){
+		ArrayList<Case> test = new ArrayList<Case>();
+
+		/*
+		 *  TAILLE LIST = 2
+		 */
+		test.add(north);
+		test.add(west);
+
+		// cas etats autour non compris dans l interval 2 8 --> False
+		assertFalse(caseTest.sameColorsArround(test, test.size()));
+
+		// cas 1 seul avec un etat entre 2 et 8 --> False
+		north.setEtat(5);
+		assertFalse(caseTest.sameColorsArround(test, test.size()));
+
+		// cas les 2 etats dans l interval 2 8 --> True
+		west.setEtat(5);
+		assertTrue(caseTest.sameColorsArround(test, test.size()));
+
+		/*
+		 *  TAILLE LIST = 3
+		 */
+		test.add(south);
+		north.setEtat(0);
+		west.setEtat(0);
+
+		// cas etats autour non compris dans l interval 2 8 --> False
+		assertFalse(caseTest.sameColorsArround(test, test.size()));
+
+		// cas 1 seul avec un etat entre 2 et 8 --> False
+		north.setEtat(5);
+		assertFalse(caseTest.sameColorsArround(test, test.size()));
+
+		// cas 2 etats dans l interval 2 8 --> False
+		west.setEtat(5);
+		assertFalse(caseTest.sameColorsArround(test, test.size()));
+
+		// cas les 3 etats dans l interval 2 8 --> True
+		south.setEtat(5);
+		assertTrue(caseTest.sameColorsArround(test, test.size()));
+
+		/*
+		 *  TAILLE LIST = 4
+		 */
+		test.add(east);
+		north.setEtat(0);
+		west.setEtat(0);
+		south.setEtat(0);
+
+		// cas etats autour non compris dans l interval 2 8 --> False
+		assertFalse(caseTest.sameColorsArround(test, test.size()));
+
+		// cas 1 seul avec un etat entre 2 et 8 --> False
+		north.setEtat(5);
+		assertFalse(caseTest.sameColorsArround(test, test.size()));
+
+		// cas 2 etats dans l interval 2 8 --> False
+		west.setEtat(5);
+		assertFalse(caseTest.sameColorsArround(test, test.size()));
+
+		// cas les 3 etats dans l interval 2 8 --> False
+		south.setEtat(5);
+		assertFalse(caseTest.sameColorsArround(test, test.size()));
+
+		// cas les 3 etats dans l interval 2 8 --> True
+		east.setEtat(5);
+		assertTrue(caseTest.sameColorsArround(test, test.size()));
+	}
+
+	@Test
+	public void testEquals(){
+		caseTest.setNom("test");
+
+		assertTrue(caseTest.equals(new Case("test")));
+		assertFalse(caseTest.equals(new Case("False")));
 	}
 }

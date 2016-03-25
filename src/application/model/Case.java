@@ -81,7 +81,6 @@ public class Case implements Serializable {
 		 * modification de l'etat de cette case
 		 */
 		if(simpleCase){
-			System.out.println("changement en hotel");
 			this.setEtat(1);
 		}
 			

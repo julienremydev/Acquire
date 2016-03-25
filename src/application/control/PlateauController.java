@@ -7,6 +7,7 @@ import application.model.Case;
 import application.rmi.Client;
 import application.rmi.Game;
 import application.rmi.ServeurInterface;
+import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -17,10 +18,8 @@ import javafx.scene.paint.Color;
 
 public class PlateauController{
 	
-	
 	private Client client;
 	
-
 	@FXML
 	private GridPane grid;
 	
@@ -28,9 +27,6 @@ public class PlateauController{
 		Button b = (Button) e.getSource();
 		b.setDisable(true);
 		String text = b.getText();
-		ArrayList<Case> l = new ArrayList<Case>();
-		l.add(new Case(b.getText()));
-		//setCases(l);
 		client.sendCase(text);
 	}
 	
@@ -62,14 +58,27 @@ public class PlateauController{
 	}
 	
 	public void setGame(Game g) {
+		//recuperer la main du joueur
 		ObservableList<Node> childrens = grid.getChildren();
-		int i =0;
+		int i=0;
         for(Node node : childrens) {
         	if (node instanceof Button) {
+        		Button b = (Button) node;
+        		Case c = g.getPlateau().getCase(b.getText());
+        		if (c.getEtat()==1) {
+        			Platform.runLater(new Runnable() {
+        				public void run() {
+        					b.setTextFill(Color.RED);
+        				}
+        			});
+        		}
         	}
         	if (i==108) {
         		break;
         	}
         }
+	}
+	
+	public void getMain() {
 	}
 }

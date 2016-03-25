@@ -1,11 +1,12 @@
 package application.model;
 
-import java.util.ArrayList;
+import java.util.HashMap;
 
 public class ClientInfo {
+	
 	private String pseudo;
 	
-	private ArrayList<Case> main;
+	private HashMap<String,Case> main;
 	
 	private int net;
 	
@@ -19,7 +20,7 @@ public class ClientInfo {
 		this.pseudo = n;
 		this.net = 6000;
 		this.cash = 6000;
-		this.main = new ArrayList<Case>();
+		this.main = new HashMap<String,Case>();
 	}
 
 	/**
@@ -53,7 +54,7 @@ public class ClientInfo {
 	 * @param c
 	 */
 	public void addCaseToMain(Case c){
-		this.getMain().add(c);
+		this.getMain().put(c.getNom(),c);
 	}
 	
 	/**
@@ -61,7 +62,7 @@ public class ClientInfo {
 	 * @param c
 	 */
 	public void rmCaseToMain(Case c){
-		this.getMain().remove(c);
+		this.getMain().remove(c.getNom());
 	}
 
 	/*
@@ -75,11 +76,11 @@ public class ClientInfo {
 		this.pseudo = pseudo;
 	}
 
-	public ArrayList<Case> getMain() {
+	public HashMap<String,Case> getMain() {
 		return main;
 	}
 
-	public void setMain(ArrayList<Case> main) {
+	public void setMain(HashMap<String,Case> main) {
 		this.main = main;
 	}
 

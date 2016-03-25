@@ -2,14 +2,18 @@ package application.model;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Plateau implements Serializable {
 
 
 	private ArrayList<Case> plateau ;
+	
+	private HashMap<String,Case> plateauMap;
 
 	public Plateau() {
 		plateau = new ArrayList<Case>();
+		plateauMap = new HashMap<String,Case>();
 		Case[][] plateauTab = new Case[12][9];
 		String[] ligne = { "A", "B", "C", "D", "E", "F", "G", "H", "I" };
 		String[] colonne = { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12" };
@@ -18,29 +22,38 @@ public class Plateau implements Serializable {
 		for (int i = 1; i <= 10; i++) {
 			for (int j = 1; j <= 7; j++) {
 				plateauTab[i][j] = new Case(ligne[j] + colonne [i]);
+				plateauMap.put(ligne[j]+colonne[i], new Case(ligne[j] + colonne [i]));
 			}
 		}
 		for(int y=0;y<12;y++){
 			switch (y){
 			case 0:
 				plateauTab[0][0]=new CaseTopLeft(ligne[0] + colonne[0]);
+				plateauMap.put(ligne[0]+colonne[0], new Case(ligne[0] + colonne [0]));
 				for (int ligneTab = 1 ; ligneTab < 8 ; ligneTab++)
 				{
 					plateauTab[y][ligneTab]=new CaseLeft(ligne[ligneTab] + colonne[y]);
+					plateauMap.put(ligne[ligneTab]+colonne[y], new Case(ligne[ligneTab] + colonne [y]));
 				}
 				plateauTab[y][8]=new CaseBotLeft(ligne[8] + colonne[y]);
+				plateauMap.put(ligne[8]+colonne[y], new Case(ligne[8] + colonne [y]));
 				break;
 			case 11 :
 				plateauTab[y][0]= new CaseTopRight(ligne[0] + colonne[y]);
+				plateauMap.put(ligne[0]+colonne[y], new Case(ligne[0] + colonne [y]));
 				for (int ligneTab = 1 ; ligneTab < 8 ; ligneTab++)
 				{
 					plateauTab[y][ligneTab]=new CaseRight(ligne[ligneTab] + colonne[y]);
+					plateauMap.put(ligne[ligneTab]+colonne[y], new Case(ligne[ligneTab] + colonne [y]));
 				}
 				plateauTab[y][8]=new CaseBotRight(ligne[8] + colonne[y]);
+				plateauMap.put(ligne[8]+colonne[y], new Case(ligne[8] + colonne [y]));
 				break;
 			default : 
 				plateauTab[y][0]=new CaseTop(ligne[0] + colonne[y]);
 				plateauTab[y][8]=new CaseBot(ligne[8] + colonne[y]);
+				plateauMap.put(ligne[0]+colonne[y], new Case(ligne[0] + colonne [y]));
+				plateauMap.put(ligne[8]+colonne[y], new Case(ligne[8] + colonne [y]));
 				break;
 			}
 		}
@@ -79,14 +92,10 @@ public class Plateau implements Serializable {
 	}
 
 	public void updateCase(String text) {
-		if(plateau.contains(new Case(text)))
-		{
-			plateau.get(plateau.indexOf(new Case(text))).lookCase();
-		}
-		for(Case c : plateau)
-		{
-			if(c.getNom().compareTo(text)==0)
-				c.setEtat(1);
-		}
+		plateauMap.get(text).setEtat(1);
+	}
+	
+	public Case getCase(String text) {
+		return plateauMap.get(text);
 	}
 }

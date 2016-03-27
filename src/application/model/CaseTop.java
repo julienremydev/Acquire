@@ -2,10 +2,6 @@ package application.model;
 
 public class CaseTop extends Case{
 
-	public CaseTop(String nn, Case n,Case s,Case e,Case w){
-		super(nn,n,s,e,w);
-	}
-	
 	public CaseTop(String n){
 		super(n);
 	}

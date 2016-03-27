@@ -22,27 +22,14 @@ public class Case implements Serializable {
 	public void setNom(String nom) {
 		this.nom = nom;
 	}
-
-	public Case(){
-		
-	}
 	
 	public Case(String n){
 		this.etat=0;
 		this.nom=n;
-		this.north=new Case();
-		this.south=new Case();
-		this.east=new Case();
-		this.west=new Case();
-	}
-	
-	public Case(String nn, Case n,Case s,Case e,Case w) {
-		this.etat = 0;
-		this.nom=nn;
-		this.north=n;
-		this.south=s;
-		this.east=e;
-		this.west=w;
+		this.north=null;
+		this.south=null;
+		this.east=null;
+		this.west=null;
 	}
 	
 	public Case getNorth() {
@@ -299,7 +286,6 @@ public class Case implements Serializable {
 	}
 	
 	public String toString(){
-		String []className=this.getClass().getName().split("\\.");
-		return "Case nom:"+this.getNom()+"("+className[2]+")"+", South:"+this.getSouth().getNom()+", North:"+this.getNorth().getNom()+", East:"+this.getEast().getNom()+", West:"+this.getWest().getNom();
+		return "Case nom:"+this.getNom()+", South:"+this.getSouth().getNom()+", North:"+this.getNorth().getNom()+", East:"+this.getEast().getNom()+", West:"+this.getWest().getNom();
 	}
 }

@@ -58,35 +58,35 @@ public class Plateau implements Serializable {
 			for (int i = 0; i <= plateauTab.length - 1; i++) {
 				for (int j = 0; j <= plateauTab[0].length - 1; j++) {
 					if (plateauTab[i][j] instanceof CaseTopLeft) {
-						plateauTab[i][j].setNeighbours(new Case(), plateauTab[i + 1][j], plateauTab[i][j + 1], new Case());
+						plateauTab[i][j].setNeighbours(new Case(null), plateauTab[i + 1][j], plateauTab[i][j + 1], new Case(null));
 					}
 
 					if (plateauTab[i][j] instanceof CaseTopRight) {
-						plateauTab[i][j].setNeighbours(new Case(), plateauTab[i + 1][j], new Case(), plateauTab[i][j - 1]);
+						plateauTab[i][j].setNeighbours(new Case(null), plateauTab[i + 1][j], new Case(null), plateauTab[i][j - 1]);
 					}
 
 					if (plateauTab[i][j] instanceof CaseTop) {
-						plateauTab[i][j].setNeighbours(new Case(), plateauTab[i][j + 1], plateauTab[i][j + 1], plateauTab[i][j - 1]);
+						plateauTab[i][j].setNeighbours(new Case(null), plateauTab[i][j + 1], plateauTab[i][j + 1], plateauTab[i][j - 1]);
 					}
 
 					if (plateauTab[i][j] instanceof CaseBotLeft) {
-						plateauTab[i][j].setNeighbours(plateauTab[i - 1][j], new Case(), plateauTab[i][j + 1], new Case());
+						plateauTab[i][j].setNeighbours(plateauTab[i - 1][j], new Case(null), plateauTab[i][j + 1], new Case(null));
 					}
 
 					if (plateauTab[i][j] instanceof CaseBotRight) {
-						plateauTab[i][j].setNeighbours(plateauTab[i - 1][j], new Case(), new Case(), plateauTab[i][j - 1]);
+						plateauTab[i][j].setNeighbours(plateauTab[i - 1][j], new Case(null), new Case(null), plateauTab[i][j - 1]);
 					}
 
 					if (plateauTab[i][j] instanceof CaseBot) {
-						plateauTab[i][j].setNeighbours(plateauTab[i - 1][j], new Case(), plateauTab[i][j + 1], plateauTab[i][j - 1]);
+						plateauTab[i][j].setNeighbours(plateauTab[i - 1][j], new Case(null), plateauTab[i][j + 1], plateauTab[i][j - 1]);
 					}
 
 					if (plateauTab[i][j] instanceof CaseLeft) {
-						plateauTab[i][j].setNeighbours(plateauTab[i - 1][j], plateauTab[i + 1][j], plateauTab[i][j + 1], new Case());
+						plateauTab[i][j].setNeighbours(plateauTab[i - 1][j], plateauTab[i + 1][j], plateauTab[i][j + 1], new Case(null));
 					}
 
 					if (plateauTab[i][j] instanceof CaseRight) {
-						plateauTab[i][j].setNeighbours(plateauTab[i - 1][j], plateauTab[i + 1][j], new Case(), plateauTab[i][j - 1]);
+						plateauTab[i][j].setNeighbours(plateauTab[i - 1][j], plateauTab[i + 1][j], new Case(null), plateauTab[i][j - 1]);
 					}
 
 					if ((i >= 1) && (j >= 1) && (i <= plateauTab.length - 1 - 1)
@@ -97,7 +97,7 @@ public class Plateau implements Serializable {
 			}
 		}
 	
-	
+
 	public void affichePlateau() {
 		String val = "";
 		for (int i = 0; i <= this.plateauTab.length - 1; i++) {
@@ -108,7 +108,9 @@ public class Plateau implements Serializable {
 		}
 		System.out.println(val);
 	}
-
+	
+	
+	
 	public ArrayList<Case> getPlateau() {
 		return plateauArray;
 	}

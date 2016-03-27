@@ -2,10 +2,6 @@ package application.model;
 
 public class CaseBotRight extends Case {
 
-	public CaseBotRight(String nn, Case n,Case s,Case e,Case w){
-		super(nn,n,s,e,w);
-	}
-	
 	public CaseBotRight(String n){
 		super(n);
 	}

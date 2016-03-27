@@ -6,92 +6,113 @@ import java.util.HashMap;
 
 public class Plateau implements Serializable {
 
-	private ArrayList<Case> plateauArray;
-
+	
 	private HashMap<String, Case> plateauMap;
 
+	public static String[] ligne = { "A", "B", "C", "D", "E", "F", "G", "H", "I" };
+	public static String[] colonne = { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12" };
+	
 	private Case[][] plateauTab;
 	public Plateau() {
-		plateauArray = new ArrayList<Case>();
 		plateauMap = new HashMap<String, Case>();
-		plateauTab = new Case[9][12];
-		String[] ligne = { "A", "B", "C", "D", "E", "F", "G", "H", "I" };
-		String[] colonne = { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12" };
+		//plateauTab = new Case[9][12];
+		
 		
 		
 			// TopLeft
-			plateauTab[0][0] = new CaseTopLeft(ligne[0] + colonne[0]);
+			//plateauTab[0][0] = new CaseTopLeft(ligne[0] + colonne[0]);
+			plateauMap.put(ligne[0] + colonne[0], new CaseTopLeft(ligne[0] + colonne[0]));
+			
+			
 			// BotLeft
-			plateauTab[plateauTab.length - 1][0] = new CaseBotLeft(ligne[plateauTab.length - 1] + colonne[0]);
+			//plateauTab[ligne.length - 1][0] = new CaseBotLeft(ligne[ligne.length - 1] + colonne[0]);
+			plateauMap.put(ligne[ligne.length - 1] + colonne[0], new CaseBotLeft(ligne[ligne.length - 1] + colonne[0]));
+			
 			// TopRight
-			plateauTab[0][plateauTab[0].length - 1] = new CaseTopRight(
-					ligne[0] + colonne[plateauTab[0].length - 1]);
+			//plateauTab[0][colonne.length - 1] = new CaseTopRight(ligne[0] + colonne[colonne.length - 1]);
+			plateauMap.put(ligne[0] + colonne[colonne.length - 1], new CaseTopRight(ligne[0] + colonne[colonne.length - 1]));
+			
 			// BotRight
-			plateauTab[plateauTab.length - 1][plateauTab[0].length - 1] = new CaseBotRight(
-					ligne[plateauTab.length - 1] + colonne[plateauTab[0].length - 1]);
+			//plateauTab[ligne.length - 1][colonne.length - 1] = new CaseBotRight(ligne[ligne.length - 1] + colonne[colonne.length - 1]);
+			plateauMap.put(ligne[ligne.length - 1] + colonne[colonne.length - 1], new CaseBotRight(ligne[ligne.length - 1] + colonne[colonne.length - 1]));
 
-			for (int x = 0; x <= plateauTab[0].length - 1; x++) {
+			for (int x = 0; x <= colonne.length - 1; x++) {
 
 				// Init TOP et BOT
-				if (x >= 1 && x <= plateauTab[0].length - 1 - 1) {
-					plateauTab[0][x] = new CaseTop(ligne[0] + colonne[x]);
-					plateauTab[plateauTab.length - 1][x] = new CaseBot(
-							ligne[plateauTab.length - 1] + colonne[x]);
+				if (x >= 1 && x <= colonne.length - 1 - 1) {
+					//plateauTab[0][x] = new CaseTop(ligne[0] + colonne[x]);
+					plateauMap.put(ligne[0] + colonne[x], new CaseTop(ligne[0] + colonne[x]));
+					
+					//plateauTab[ligne.length - 1][x] = new CaseBot(ligne[ligne.length - 1] + colonne[x]);
+					plateauMap.put(ligne[ligne.length - 1] + colonne[x], new CaseBot(ligne[ligne.length - 1] + colonne[x]));
+					
+					
 				}
 
 				// Init Left et Right
-				if (x >= 1 && x <= plateauTab.length - 1 - 1) {
-					plateauTab[x][0] = new CaseLeft(ligne[x] + colonne[0]);
-
-					plateauTab[x][plateauTab[0].length - 1] = new CaseRight(
-							ligne[x] + colonne[plateauTab[0].length - 1]);
+				if (x >= 1 && x <= ligne.length - 1 - 1) {
+					//plateauTab[x][0] = new CaseLeft(ligne[x] + colonne[0]);
+					plateauMap.put(ligne[x] + colonne[0], new CaseLeft(ligne[x] + colonne[0]));
+					
+					//plateauTab[x][colonne.length - 1] = new CaseRight(ligne[x] + colonne[colonne.length - 1]);
+					plateauMap.put(ligne[x] + colonne[colonne.length - 1], new CaseRight(ligne[x] + colonne[colonne.length - 1]));
 				}
 
 				// Init le reste les cases de milieu
-				if (x >= 1 && x <= plateauTab.length - 1 - 1) {
-					for (int i = 1; i <= plateauTab[0].length - 1 - 1; i++) {
-						plateauTab[x][i] = new Case(ligne[x] + colonne[i]);
+				if (x >= 1 && x <= ligne.length - 1 - 1) {
+					for (int i = 1; i <= colonne.length - 1 - 1; i++) {
+						//plateauTab[x][i] = new Case(ligne[x] + colonne[i]);
+						plateauMap.put(ligne[x] + colonne[i], new Case(ligne[x] + colonne[i]));
 					}
 				}
 			}
 
-			for (int i = 0; i <= plateauTab.length - 1; i++) {
-				for (int j = 0; j <= plateauTab[0].length - 1; j++) {
-					if (plateauTab[i][j] instanceof CaseTopLeft) {
-						plateauTab[i][j].setNeighbours(new Case(null), plateauTab[i + 1][j], plateauTab[i][j + 1], new Case(null));
+			for (int i = 0; i <= ligne.length - 1; i++) {
+				
+				for (int j = 0; j <= colonne.length - 1; j++) {
+					if (plateauMap.get(ligne[i]+colonne[j]) instanceof CaseTopLeft) {
+						
+						plateauMap.get(ligne[i]+colonne[j]).setNeighbours(null, plateauMap.get(ligne[i+1]+colonne[j]), plateauMap.get(ligne[i]+colonne[j + 1]), null);
 					}
 
-					if (plateauTab[i][j] instanceof CaseTopRight) {
-						plateauTab[i][j].setNeighbours(new Case(null), plateauTab[i + 1][j], new Case(null), plateauTab[i][j - 1]);
+					if (plateauMap.get(ligne[i]+colonne[j]) instanceof CaseTopRight) {
+						
+						plateauMap.get(ligne[i]+colonne[j]).setNeighbours(null, plateauMap.get(ligne[i+1]+colonne[j]), null, plateauMap.get(ligne[i]+colonne[j - 1]));
 					}
 
-					if (plateauTab[i][j] instanceof CaseTop) {
-						plateauTab[i][j].setNeighbours(new Case(null), plateauTab[i][j + 1], plateauTab[i][j + 1], plateauTab[i][j - 1]);
+					if (plateauMap.get(ligne[i]+colonne[j]) instanceof CaseTop) {
+						
+						plateauMap.get(ligne[i]+colonne[j]).setNeighbours(null, plateauMap.get(ligne[i]+colonne[j + 1]), plateauMap.get(ligne[i]+colonne[j + 1]), plateauMap.get(ligne[i]+colonne[j - 1]));
 					}
 
-					if (plateauTab[i][j] instanceof CaseBotLeft) {
-						plateauTab[i][j].setNeighbours(plateauTab[i - 1][j], new Case(null), plateauTab[i][j + 1], new Case(null));
+					if (plateauMap.get(ligne[i]+colonne[j]) instanceof CaseBotLeft) {
+						
+						plateauMap.get(ligne[i]+colonne[j]).setNeighbours(plateauMap.get(ligne[i - 1]+colonne[j]), null, plateauMap.get(ligne[i]+colonne[j + 1]), null);
 					}
 
-					if (plateauTab[i][j] instanceof CaseBotRight) {
-						plateauTab[i][j].setNeighbours(plateauTab[i - 1][j], new Case(null), new Case(null), plateauTab[i][j - 1]);
+					if (plateauMap.get(ligne[i]+colonne[j]) instanceof CaseBotRight) {
+						
+						plateauMap.get(ligne[i]+colonne[j]).setNeighbours(plateauMap.get(ligne[i - 1]+colonne[j]), null, null, plateauMap.get(ligne[i]+colonne[j - 1]));
 					}
 
-					if (plateauTab[i][j] instanceof CaseBot) {
-						plateauTab[i][j].setNeighbours(plateauTab[i - 1][j], new Case(null), plateauTab[i][j + 1], plateauTab[i][j - 1]);
+					if (plateauMap.get(ligne[i]+colonne[j]) instanceof CaseBot) {
+						
+						plateauMap.get(ligne[i]+colonne[j]).setNeighbours(plateauMap.get(ligne[i - 1]+colonne[j]), null, plateauMap.get(ligne[i]+colonne[j + 1]), plateauMap.get(ligne[i]+colonne[j - 1]));
 					}
 
-					if (plateauTab[i][j] instanceof CaseLeft) {
-						plateauTab[i][j].setNeighbours(plateauTab[i - 1][j], plateauTab[i + 1][j], plateauTab[i][j + 1], new Case(null));
+					if (plateauMap.get(ligne[i]+colonne[j]) instanceof CaseLeft) {
+						
+						plateauMap.get(ligne[i]+colonne[j]).setNeighbours(plateauMap.get(ligne[i - 1]+colonne[j]), plateauMap.get(ligne[i+1]+colonne[j]), plateauMap.get(ligne[i]+colonne[j + 1]), null);
 					}
 
-					if (plateauTab[i][j] instanceof CaseRight) {
-						plateauTab[i][j].setNeighbours(plateauTab[i - 1][j], plateauTab[i + 1][j], new Case(null), plateauTab[i][j - 1]);
+					if (plateauMap.get(ligne[i]+colonne[j]) instanceof CaseRight) {
+						
+						plateauMap.get(ligne[i]+colonne[j]).setNeighbours(plateauMap.get(ligne[i - 1]+colonne[j]), plateauMap.get(ligne[i+1]+colonne[j]), null, plateauMap.get(ligne[i]+colonne[j - 1]));
 					}
 
-					if ((i >= 1) && (j >= 1) && (i <= plateauTab.length - 1 - 1)
-							&& (j <= plateauTab[0].length - 1 - 1)) {	
-						plateauTab[i][j].setNeighbours(plateauTab[i - 1][j], plateauTab[i + 1][j], plateauTab[i][j + 1], plateauTab[i][j - 1]);
+					if ((i >= 1) && (j >= 1) && (i <= ligne.length - 1 - 1)
+							&& (j <= colonne.length - 1 - 1)) {	
+						plateauMap.get(ligne[i]+colonne[j]).setNeighbours(plateauMap.get(ligne[i - 1]+colonne[j]), plateauMap.get(ligne[i+1]+colonne[j]), plateauMap.get(ligne[i]+colonne[j + 1]), plateauMap.get(ligne[i]+colonne[j - 1]));
 					}
 				}
 			}
@@ -100,9 +121,11 @@ public class Plateau implements Serializable {
 
 	public void affichePlateau() {
 		String val = "";
-		for (int i = 0; i <= this.plateauTab.length - 1; i++) {
-			for (int j = 0; j <= this.plateauTab[0].length - 1; j++) {
-				val += plateauTab[i][j].toString() + "			";
+		for (int i = 0; i <= Plateau.ligne.length - 1; i++) {
+			for (int j = 0; j <= Plateau.colonne.length - 1; j++) {
+				if( plateauMap.get(ligne[i]+colonne[j]) != null){
+					val += plateauMap.get(ligne[i]+colonne[j]).toString() + "			";
+				}
 			}
 			val += "\n";
 		}
@@ -110,11 +133,6 @@ public class Plateau implements Serializable {
 	}
 	
 	
-	
-	public ArrayList<Case> getPlateau() {
-		return plateauArray;
-	}
-
 	public void updateCase(String text) {
 		plateauMap.get(text).setEtat(1);
 	}

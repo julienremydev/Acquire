@@ -2,9 +2,10 @@ package application.model;
 
 public class CaseRight extends  Case {
 
-	public CaseRight(String s){
-		super(s);
+	public CaseRight(String n){
+		super(n);
 	}
+	
 
 	@Override
 	public boolean surroundedByNothing() {

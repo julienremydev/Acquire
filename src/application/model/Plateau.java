@@ -6,96 +6,126 @@ import java.util.HashMap;
 
 public class Plateau implements Serializable {
 
+	private ArrayList<Case> plateauArray;
 
-	private ArrayList<Case> plateau ;
-	
-	private HashMap<String,Case> plateauMap;
+	private HashMap<String, Case> plateauMap;
 
+	private Case[][] plateauTab;
 	public Plateau() {
-		plateau = new ArrayList<Case>();
-		plateauMap = new HashMap<String,Case>();
-		Case[][] plateauTab = new Case[12][9];
+		plateauArray = new ArrayList<Case>();
+		plateauMap = new HashMap<String, Case>();
+		plateauTab = new Case[9][12];
 		String[] ligne = { "A", "B", "C", "D", "E", "F", "G", "H", "I" };
 		String[] colonne = { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12" };
+		
+		
+			// TopLeft
+			plateauTab[0][0] = new CaseTopLeft(ligne[0] + colonne[0]);
+			// BotLeft
+			plateauTab[plateauTab.length - 1][0] = new CaseBotLeft(ligne[plateauTab.length - 1] + colonne[0]);
+			// TopRight
+			plateauTab[0][plateauTab[0].length - 1] = new CaseTopRight(
+					ligne[0] + colonne[plateauTab[0].length - 1]);
+			// BotRight
+			plateauTab[plateauTab.length - 1][plateauTab[0].length - 1] = new CaseBotRight(
+					ligne[plateauTab.length - 1] + colonne[plateauTab[0].length - 1]);
 
-		//initialisation tout les cases
-		for (int i = 1; i <= 10; i++) {
-			for (int j = 1; j <= 7; j++) {
-				plateauTab[i][j] = new Case(ligne[j] + colonne [i]);
-				plateauMap.put(ligne[j]+colonne[i], new Case(ligne[j] + colonne [i]));
-			}
-		}
-		for(int y=0;y<12;y++){
-			switch (y){
-			case 0:
-				plateauTab[0][0]=new CaseTopLeft(ligne[0] + colonne[0]);
-				plateauMap.put(ligne[0]+colonne[0], new Case(ligne[0] + colonne [0]));
-				for (int ligneTab = 1 ; ligneTab < 8 ; ligneTab++)
-				{
-					plateauTab[y][ligneTab]=new CaseLeft(ligne[ligneTab] + colonne[y]);
-					plateauMap.put(ligne[ligneTab]+colonne[y], new Case(ligne[ligneTab] + colonne [y]));
+			for (int x = 0; x <= plateauTab[0].length - 1; x++) {
+
+				// Init TOP et BOT
+				if (x >= 1 && x <= plateauTab[0].length - 1 - 1) {
+					plateauTab[0][x] = new CaseTop(ligne[0] + colonne[x]);
+					plateauTab[plateauTab.length - 1][x] = new CaseBot(
+							ligne[plateauTab.length - 1] + colonne[x]);
 				}
-				plateauTab[y][8]=new CaseBotLeft(ligne[8] + colonne[y]);
-				plateauMap.put(ligne[8]+colonne[y], new Case(ligne[8] + colonne [y]));
-				break;
-			case 11 :
-				plateauTab[y][0]= new CaseTopRight(ligne[0] + colonne[y]);
-				plateauMap.put(ligne[0]+colonne[y], new Case(ligne[0] + colonne [y]));
-				for (int ligneTab = 1 ; ligneTab < 8 ; ligneTab++)
-				{
-					plateauTab[y][ligneTab]=new CaseRight(ligne[ligneTab] + colonne[y]);
-					plateauMap.put(ligne[ligneTab]+colonne[y], new Case(ligne[ligneTab] + colonne [y]));
+
+				// Init Left et Right
+				if (x >= 1 && x <= plateauTab.length - 1 - 1) {
+					plateauTab[x][0] = new CaseLeft(ligne[x] + colonne[0]);
+
+					plateauTab[x][plateauTab[0].length - 1] = new CaseRight(
+							ligne[x] + colonne[plateauTab[0].length - 1]);
 				}
-				plateauTab[y][8]=new CaseBotRight(ligne[8] + colonne[y]);
-				plateauMap.put(ligne[8]+colonne[y], new Case(ligne[8] + colonne [y]));
-				break;
-			default : 
-				plateauTab[y][0]=new CaseTop(ligne[0] + colonne[y]);
-				plateauTab[y][8]=new CaseBot(ligne[8] + colonne[y]);
-				plateauMap.put(ligne[0]+colonne[y], new Case(ligne[0] + colonne [y]));
-				plateauMap.put(ligne[8]+colonne[y], new Case(ligne[8] + colonne [y]));
-				break;
+
+				// Init le reste les cases de milieu
+				if (x >= 1 && x <= plateauTab.length - 1 - 1) {
+					for (int i = 1; i <= plateauTab[0].length - 1 - 1; i++) {
+						plateauTab[x][i] = new Case(ligne[x] + colonne[i]);
+					}
+				}
+			}
+
+			for (int i = 0; i <= plateauTab.length - 1; i++) {
+				for (int j = 0; j <= plateauTab[0].length - 1; j++) {
+					if (plateauTab[i][j] instanceof CaseTopLeft) {
+						plateauTab[i][j].setNeighbours(new Case(null), plateauTab[i + 1][j], plateauTab[i][j + 1], new Case(null));
+					}
+
+					if (plateauTab[i][j] instanceof CaseTopRight) {
+						plateauTab[i][j].setNeighbours(new Case(null), plateauTab[i + 1][j], new Case(null), plateauTab[i][j - 1]);
+					}
+
+					if (plateauTab[i][j] instanceof CaseTop) {
+						plateauTab[i][j].setNeighbours(new Case(null), plateauTab[i][j + 1], plateauTab[i][j + 1], plateauTab[i][j - 1]);
+					}
+
+					if (plateauTab[i][j] instanceof CaseBotLeft) {
+						plateauTab[i][j].setNeighbours(plateauTab[i - 1][j], new Case(null), plateauTab[i][j + 1], new Case(null));
+					}
+
+					if (plateauTab[i][j] instanceof CaseBotRight) {
+						plateauTab[i][j].setNeighbours(plateauTab[i - 1][j], new Case(null), new Case(null), plateauTab[i][j - 1]);
+					}
+
+					if (plateauTab[i][j] instanceof CaseBot) {
+						plateauTab[i][j].setNeighbours(plateauTab[i - 1][j], new Case(null), plateauTab[i][j + 1], plateauTab[i][j - 1]);
+					}
+
+					if (plateauTab[i][j] instanceof CaseLeft) {
+						plateauTab[i][j].setNeighbours(plateauTab[i - 1][j], plateauTab[i + 1][j], plateauTab[i][j + 1], new Case(null));
+					}
+
+					if (plateauTab[i][j] instanceof CaseRight) {
+						plateauTab[i][j].setNeighbours(plateauTab[i - 1][j], plateauTab[i + 1][j], new Case(null), plateauTab[i][j - 1]);
+					}
+
+					if ((i >= 1) && (j >= 1) && (i <= plateauTab.length - 1 - 1)
+							&& (j <= plateauTab[0].length - 1 - 1)) {	
+						plateauTab[i][j].setNeighbours(plateauTab[i - 1][j], plateauTab[i + 1][j], plateauTab[i][j + 1], plateauTab[i][j - 1]);
+					}
+				}
 			}
 		}
-		for (int i=0;i<12;i++) {
-			for (int j=0;j<9;j++) {
-				plateau.add(plateauTab[i][j]);
+	
+
+	public void affichePlateau() {
+		String val = "";
+		for (int i = 0; i <= this.plateauTab.length - 1; i++) {
+			for (int j = 0; j <= this.plateauTab[0].length - 1; j++) {
+				val += plateauTab[i][j].toString() + "			";
 			}
+			val += "\n";
 		}
+		System.out.println(val);
 	}
-
-	/**
-	 * ajoute nbcase fois des cases noir aléatoirement dans des cases ou il n y a rien
-	 * 
-	 * @param nbJoueur
-	 */
 	
-	//random dans list et pas tableau
 	
-	//	public void generateCaseNoir(int nbCase) {
-	//		int nbNoir = 0;
-	//		int random1;
-	//		int random2;
-	//
-	//		while (nbNoir != nbCase) {
-	//			random1 = (int) (Math.random() * (10 - 0)) + 0;
-	//			random2 = (int) (Math.random() * (13 - 0)) + 0;
-	//			if (this.plateauTab[random1][random2].getEtat() == 0) {
-	//				this.plateauTab[random1][random2].setEtat(-1);
-	//				nbNoir++;
-	//			}
-	//		}
-	//	}
-
+	
 	public ArrayList<Case> getPlateau() {
-		return plateau;
+		return plateauArray;
 	}
 
 	public void updateCase(String text) {
 		plateauMap.get(text).setEtat(1);
 	}
-	
+
 	public Case getCase(String text) {
 		return plateauMap.get(text);
+	}
+
+	public static void main(String[] Args) {
+		Plateau p = new Plateau();
+		p.affichePlateau();
+		
 	}
 }

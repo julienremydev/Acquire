@@ -2,10 +2,10 @@ package application.model;
 
 public class CaseTopLeft extends Case {
 
-	public CaseTopLeft(String s){
-		super(s);
+	public CaseTopLeft(String n) {
+		super(n);
 	}
-	
+
 	@Override
 	public boolean surroundedByNothing() {
 		// TODO Auto-generated method stub

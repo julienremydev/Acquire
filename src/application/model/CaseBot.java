@@ -1,11 +1,11 @@
 package application.model;
 
 public class CaseBot extends Case {
-	
-	public CaseBot(String s){
-		super(s);
+		
+	public CaseBot(String n) {
+		super(n);
 	}
-	
+
 	@Override
 	public boolean surroundedByNothing() {
 		// TODO Auto-generated method stub

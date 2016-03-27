@@ -2,9 +2,10 @@ package application.model;
 
 public class CaseBotRight extends Case {
 
-	public CaseBotRight(String s){
-		super(s);
+	public CaseBotRight(String n){
+		super(n);
 	}
+	
 	
 
 	@Override

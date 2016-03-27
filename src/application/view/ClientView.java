@@ -34,7 +34,7 @@ public class ClientView extends Application{
 		BorderPane root = new BorderPane();
 		//configurer add position
 		root.getChildren().add(JfxUtils.loadFxmlConnexion("connexion.fxml"));
-		Scene scene = new Scene(root,width-100,height-100);
+		Scene scene = new Scene(root,1000,600);
 		
 		//Application du code CSS
 		//scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());

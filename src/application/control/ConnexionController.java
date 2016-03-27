@@ -62,12 +62,8 @@ public class ConnexionController implements Initializable {
 	 *  On met à jour la scène de l'IG.
 	 * 
 	 */
-	private void setNewIG(ActionEvent e, ServeurInterface serveur) throws RemoteException, Exception {
-		Node source = (Node) e.getSource();
-		Stage stage = (Stage) source.getScene().getWindow();
-
-		Group root = new Group();
-		root.getChildren().add(JfxUtils.loadFxml("game.fxml", serveur, client));
+	private void setNewIG(Stage stage, Group root, ServeurInterface serveur) throws RemoteException, Exception {
+		
 		Scene scene = new Scene(root, stage.getWidth(), stage.getHeight());
 		stage.setTitle("Acquire");
 		stage.setScene(scene);
@@ -102,6 +98,8 @@ public class ConnexionController implements Initializable {
 
 		if (pseudo.getText().trim().length() < 3 || pseudo.getText().trim().length() > 12) {
 			erreur.setText("Le pseudo doit contenir entre 3 et 12 caractères.");
+		} else if (pseudo.getText().trim().equals("Serveur")){
+			erreur.setText("Le pseudo Serveur ne peut pas être utilisé par un joueur.");
 		} else if (!ipCorrecte(ip1.getText()) || !ipCorrecte(ip2.getText()) || !ipCorrecte(ip3.getText())
 				|| !ipCorrecte(ip4.getText())) {
 			erreur.setText("L'adresse IP n'est pas bonne.");
@@ -110,13 +108,18 @@ public class ConnexionController implements Initializable {
 				ServeurInterface serveur = (ServeurInterface) Naming.lookup("rmi://" + ip1.getText().trim() + "."
 						+ ip2.getText().trim() + "." + ip3.getText().trim() + "." + ip4.getText().trim() + ":42000/ACQUIRE");
 
+				
+				Node source = (Node) e.getSource();
+				Stage stage = (Stage) source.getScene().getWindow();
 
+				Group root = new Group();
+				root.getChildren().add(JfxUtils.loadFxml("testGame.fxml", serveur, client));
 				
 				//Inscription du client sur le serveur
 				boolean pseudoDispo = serveur.register(client, pseudo.getText());
 				if (pseudoDispo) {
 					client.setPseudo(pseudo.getText());
-					setNewIG(e, serveur);
+					setNewIG(stage, root, serveur);
 
 				} else {
 					erreur.setText("Le pseudo est utilisé par un autre joueur.");

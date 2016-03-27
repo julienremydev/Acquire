@@ -19,17 +19,9 @@ public class Chaine {
 	 */
 	public Chaine(TypeChaine tc){
 		this.typeChaine = tc;
-		this.nbActionRestante = 25;
+		this.nbActionRestante = this.nbActionTotal;
 		this.listeCase = new ArrayList<Case>();
 		this.actionParClient = new HashMap<String, Integer>();
-	}
-	
-	/**
-	 * fonction permettant d ajouter une case a la liste de case de la chaine
-	 * @param c
-	 */
-	public void addCase(Case c){
-		this.getListeCase().add(c);
 	}
 
 	/**
@@ -39,7 +31,7 @@ public class Chaine {
 	 * @return nombre effectivement acheter
 	 */
 	public int achatActionJoueur(int nb, String nomJoueur){
-		if(nb < 0){
+		if(nb < 0 || this.getNbActionRestante() == 0){
 			nb = 0;
 		}
 
@@ -52,10 +44,12 @@ public class Chaine {
 			this.setNbActionRestante(this.getNbActionRestante()-nb);
 		}
 		
-		if(this.actionParClient.containsKey(nomJoueur)){
-			this.actionParClient.put(nomJoueur, res + this.actionParClient.get(nomJoueur));
-		}else{
-			this.actionParClient.put(nomJoueur, res);			
+		if(res != 0){
+			if(this.getActionParClient().containsKey(nomJoueur)){
+				this.getActionParClient().put(nomJoueur, res + this.getActionParClient().get(nomJoueur));
+			}else{
+				this.getActionParClient().put(nomJoueur, res);			
+			}			
 		}
 		
 		return res;
@@ -67,8 +61,13 @@ public class Chaine {
 	 * @return nombre effectivement vendue
 	 */
 	public int vendActionJoueur(int nb, String nomJoueur){
-		if (nb < 0){
+		boolean joueurExiste = this.getActionParClient().containsKey(nomJoueur);
+		if (nb < 0 || !joueurExiste){
 			nb = 0;
+		}
+		
+		if (joueurExiste && nb > this.getActionParClient().get(nomJoueur)){
+			nb = this.getActionParClient().get(nomJoueur);
 		}
 		
 		int res = nb;
@@ -80,11 +79,11 @@ public class Chaine {
 			this.setNbActionRestante(this.getNbActionRestante()+nb);
 		}
 		
-		if(this.actionParClient.containsKey(nomJoueur)){
-			if (this.actionParClient.get(nomJoueur) >= res){
-				this.actionParClient.put(nomJoueur, this.actionParClient.get(nomJoueur) - res);				
+		if(joueurExiste){
+			if(this.getActionParClient().get(nomJoueur) - res > 0){
+				this.getActionParClient().put(nomJoueur, this.getActionParClient().get(nomJoueur) - res);											
 			}else{
-				res = 0;
+				this.getActionParClient().remove(nomJoueur);
 			}
 		}
 		
@@ -100,14 +99,12 @@ public class Chaine {
 	}
 	
 	/**
-	 * methode qui retourne le type de la chaine
-	 * @return
+	 * fonction permettant d ajouter une case a la liste de case de la chaine
+	 * @param c
 	 */
-	public static Chaine getChaine(int num){
-		TypeChaine.getTypeChaine(num);
-		return null;
+	public void addCase(Case c){
+		this.getListeCase().add(c);
 	}
-
 	
 	/*
 	 * Liste des Getters et Setters des tous les attributs
@@ -138,5 +135,13 @@ public class Chaine {
 
 	public static int getNbactiontotal() {
 		return nbActionTotal;
+	}
+
+	public HashMap<String, Integer> getActionParClient() {
+		return actionParClient;
+	}
+
+	public void setActionParClient(HashMap<String, Integer> actionParClient) {
+		this.actionParClient = actionParClient;
 	}
 }

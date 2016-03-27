@@ -15,7 +15,8 @@ public class Case implements Serializable {
 	private String nom;
 	
 	public String getNom() {
-		return nom;
+		String []className=this.getClass().getName().split("\\.");
+			return this.nom+"("+className[2]+")";
 	}
 
 	public void setNom(String nom) {
@@ -23,12 +24,25 @@ public class Case implements Serializable {
 	}
 
 	public Case(){
-		this.etat=0;
+		
 	}
 	
-	public Case(String n) {
-		this.etat = 0;
+	public Case(String n){
+		this.etat=0;
 		this.nom=n;
+		this.north=new Case();
+		this.south=new Case();
+		this.east=new Case();
+		this.west=new Case();
+	}
+	
+	public Case(String nn, Case n,Case s,Case e,Case w) {
+		this.etat = 0;
+		this.nom=nn;
+		this.north=n;
+		this.south=s;
+		this.east=e;
+		this.west=w;
 	}
 	
 	public Case getNorth() {
@@ -65,6 +79,20 @@ public class Case implements Serializable {
 	public  void setEtat(int etat) {
 		this.etat = etat;
 	}
+	
+	
+	
+	
+	public void setNeighbours(Case N, Case S, Case E, Case W){
+		this.north=N;
+		this.south=S;
+		this.east=E;
+		this.west=W;
+	}
+	
+	
+	
+	
 	/**
 	 * Regarde les différents cas possible des états adjacents à la case.
 	 * Appelle les fonctions qui vont bien à chaque fois.
@@ -269,8 +297,9 @@ public class Case implements Serializable {
 			return false;
 		}
 	}
-	public String toString(){
-		return this.getNom();
-	}
 	
+	public String toString(){
+		String []className=this.getClass().getName().split("\\.");
+		return "Case nom:"+this.getNom()+"("+className[2]+")"+", South:"+this.getSouth().getNom()+", North:"+this.getNorth().getNom()+", East:"+this.getEast().getNom()+", West:"+this.getWest().getNom();
+	}
 }

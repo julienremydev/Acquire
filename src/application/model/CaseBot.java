@@ -2,10 +2,14 @@ package application.model;
 
 public class CaseBot extends Case {
 	
-	public CaseBot(String s){
-		super(s);
+	public CaseBot(String nn, Case n,Case s,Case e,Case w){
+		super(nn,n,s,e,w);
 	}
 	
+	public CaseBot(String n) {
+		super(n);
+	}
+
 	@Override
 	public boolean surroundedByNothing() {
 		// TODO Auto-generated method stub

@@ -24,10 +24,21 @@ public class TableauDeBord {
 	public void setListeTypeChaine(ArrayList<Chaine> listeTypeChaine) {
 		this.listeChaine = listeTypeChaine;
 	}
+	
+	/**
+	 * Qui permets d'ajouter un client dans le tableauDeBord
+	 * @param c
+	 */
 	public void ajouterClient(ClientInfo c) {
 		this.infoParClient.add(c);
 	}
 	
+	
+	/**
+	 * Retourne la chaine à partir de son id
+	 * @param id
+	 * @return
+	 */
 	public Chaine getChaineById(int id){
 		Chaine toReturn = null;
 		for(Chaine c:listeChaine){

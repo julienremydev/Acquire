@@ -1,20 +1,11 @@
 package application.view;
 
 import java.awt.Dimension;
-import java.net.InetAddress;
-
-import application.control.ConnexionController;
 import javafx.application.Application;
-import javafx.application.Platform;
-import javafx.event.EventHandler;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Group;
 import javafx.scene.Scene;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
-import javafx.stage.WindowEvent;
+
 
 public class ClientView extends Application{
 

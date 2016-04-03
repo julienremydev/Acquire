@@ -3,16 +3,15 @@ package application.rmi;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.HashMap;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
 
 import application.control.PlateauController;
 import application.model.Case;
 import application.view.ClientView;
 
 public class Client extends UnicastRemoteObject implements ClientInterface {
-	
+
+	private static final long serialVersionUID = -3375116109320568837L;
+
 	private PlateauController plateauController;
 	
 	private ServeurInterface serveur;
@@ -73,7 +72,6 @@ public class Client extends UnicastRemoteObject implements ClientInterface {
 		this.serveur.getCasePlayed(text);
 		
 	}
-
 	@Override
 	public HashMap<String, Case> getMain() throws RemoteException {
 		return null;

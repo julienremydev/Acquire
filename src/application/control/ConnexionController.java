@@ -1,7 +1,6 @@
 package application.control;
 
 import java.net.InetAddress;
-import java.net.SocketException;
 import java.net.URL;
 import java.net.UnknownHostException;
 import java.rmi.ConnectException;
@@ -10,8 +9,8 @@ import java.rmi.Naming;
 import java.rmi.RemoteException;
 import java.util.ResourceBundle;
 
+import application.globale.Globals;
 import application.rmi.Client;
-import application.rmi.ClientInterface;
 import application.rmi.ServeurInterface;
 import application.view.JfxUtils;
 import javafx.application.Platform;
@@ -89,45 +88,61 @@ public class ConnexionController implements Initializable {
 		
 	}
 
+	public ServeurInterface connexion (String ip1, String ip2, String ip3, String ip4) throws Exception{
+		ServeurInterface serveur = (ServeurInterface) Naming.lookup("rmi://" + ip1 + "."
+				+ ip2 + "." + ip3 + "." + ip4 + ":42000/ACQUIRE");
+		return serveur;
+	}
+	public String verification_Pseudo_IP(String pseudo, String ip1, String ip2, String ip3, String ip4){
+		if (pseudo.length() < 3 || pseudo.length() > 12) {
+			return(Globals.erreurTaillePseudo);
+		} else if (pseudo.equals("Serveur")){
+			return(Globals.erreurPseudoReserve);
+		} else if (!ipCorrecte(ip1) || !ipCorrecte(ip2) || !ipCorrecte(ip3)
+				|| !ipCorrecte(ip4)) {
+			return(Globals.erreurAdresseIP);
+		}else{
+			return null;
+		}
+	}
 	/*
 	 * On vérifie que toutes les données du formulaire de connexion sont
 	 * valables d'un point de vue syntaxique. Le pseudo doit contenir au moins 3
 	 * caractères. L'adresse IP doit comporter 4 nombres entre 0 et 255.
 	 */
 	public void seConnecter(ActionEvent e) throws Exception {
-
-		if (pseudo.getText().trim().length() < 3 || pseudo.getText().trim().length() > 12) {
-			erreur.setText("Le pseudo doit contenir entre 3 et 12 caractères.");
-		} else if (pseudo.getText().trim().equals("Serveur")){
-			erreur.setText("Le pseudo Serveur ne peut pas être utilisé par un joueur.");
-		} else if (!ipCorrecte(ip1.getText()) || !ipCorrecte(ip2.getText()) || !ipCorrecte(ip3.getText())
-				|| !ipCorrecte(ip4.getText())) {
-			erreur.setText("L'adresse IP n'est pas bonne.");
-		} else {
+		String verifErreur = verification_Pseudo_IP(pseudo.getText().trim(), ip1.getText().trim(),ip2.getText().trim(),ip3.getText().trim(),ip4.getText().trim());
+		if (verifErreur != null){
+			erreur.setText(verifErreur);
+		}
+		else{
 			try {
-				ServeurInterface serveur = (ServeurInterface) Naming.lookup("rmi://" + ip1.getText().trim() + "."
-						+ ip2.getText().trim() + "." + ip3.getText().trim() + "." + ip4.getText().trim() + ":42000/ACQUIRE");
-
+				
+				ServeurInterface serveur = connexion(ip1.getText().trim(),ip2.getText().trim(),ip3.getText().trim(),ip4.getText().trim());
 				
 				Node source = (Node) e.getSource();
 				Stage stage = (Stage) source.getScene().getWindow();
-
 				Group root = new Group();
-				root.getChildren().add(JfxUtils.loadFxml("testGame.fxml", serveur, client));
-				
-				//Inscription du client sur le serveur
-				boolean pseudoDispo = serveur.register(client, pseudo.getText());
-				if (pseudoDispo) {
-					client.setPseudo(pseudo.getText());
-					setNewIG(stage, root, serveur);
+				root.getChildren().add(JfxUtils.loadFxml("game.fxml", serveur, client));
 
+				//Inscription du client sur le serveur
+				//La méthode register retourne un String avec l'erreur si la connexion n'est pas possible
+				String register = serveur.register(client, pseudo.getText());
+				
+				if (register != null) {
+					erreur.setText(register);
 				} else {
-					erreur.setText("Le pseudo est utilisé par un autre joueur.");
+					client.setPseudo(pseudo.getText().trim());
+					setNewIG(stage, root, serveur);
 				}
+				
+				
+				
+				
 			} catch (ConnectException exc1) {
-				erreur.setText("L'adresse du serveur n'est pas bonne ou le serveur n'a pas été lancé.");
+				erreur.setText(Globals.erreurIPServeur1);
 			} catch (ConnectIOException exc2) {
-				erreur.setText("L'adresse du serveur n'est pas bonne.");
+				erreur.setText(Globals.erreurIPServeur2);
 			}
 		}
 

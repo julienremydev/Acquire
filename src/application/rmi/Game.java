@@ -1,15 +1,13 @@
 package application.rmi;
 
 import java.io.Serializable;
-import java.rmi.RemoteException;
-import java.rmi.server.UnicastRemoteObject;
 
 import application.model.Plateau;
 import application.model.TableauDeBord;
 
 public class Game implements Serializable{
 
-	private String nomPartie;
+	private static final long serialVersionUID = 1964688809311788179L;
 	
 	private Plateau plateau;
 	

@@ -1,11 +1,8 @@
 package application.view;
 
 import java.io.IOException;
-import java.rmi.Naming;
-
 import application.control.PlateauController;
 import application.rmi.Client;
-import application.rmi.ClientInterface;
 import application.rmi.ServeurInterface;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;

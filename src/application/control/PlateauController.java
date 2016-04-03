@@ -46,11 +46,8 @@ public class PlateauController implements Initializable{
 		client=c;
 		client.setServeur(serveur);
 		client.setController(this);
-		
-		//Plutot attendre le lancement du jeu non ?
-		//client.getServeur().distribution();
-		
 	}
+	
 	public void setCases(ArrayList<Case> listCase) {
 		ObservableList<Node> childrens = grid.getChildren();
 		int i =0;
@@ -96,7 +93,7 @@ public class PlateauController implements Initializable{
 
 	public void envoyerTchat() throws RemoteException{
 		if (input.getText().trim().length() > 0)
-			client.getServeur().distributionTchat(client.getPseudo(), input.getText());
+			client.getServeur().distributionTchat(client.getPseudo(), input.getText().trim());
 	}
 	public void setChat(String s) {
 		Platform.runLater(() -> tchat.setText(s));

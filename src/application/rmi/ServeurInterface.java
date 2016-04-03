@@ -3,11 +3,9 @@ package application.rmi;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 
-import application.model.Plateau;
-
 public interface ServeurInterface extends Remote{
 
-	boolean register(ClientInterface client, String p) throws Exception;
+	String register(ClientInterface client, String p) throws Exception;
 
 	void distribution() throws RemoteException;
 	

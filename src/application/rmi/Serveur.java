@@ -13,6 +13,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import application.globale.Globals;
+import application.model.ClientInfo;
 
 public class Serveur extends UnicastRemoteObject implements ServeurInterface {
 	
@@ -82,6 +83,7 @@ public class Serveur extends UnicastRemoteObject implements ServeurInterface {
 			setChef(p);
 
 		liste_clients.put(p, client);
+		game.getTableau().ajouterClient(new ClientInfo(p)); // ajout du joueur dans le tableau de bord
 		distributionTchat("Serveur", "Le joueur " + p + " est entré dans la partie.");
 		Logger.getLogger("Client").log(Level.INFO, "Nouveau client enregistré dans le serveur.");
 		if (liste_clients.size() > 1)

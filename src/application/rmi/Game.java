@@ -16,6 +16,7 @@ public class Game implements Serializable{
 	protected Game(){
 		super();
 		this.plateau=new Plateau();
+		this.tableauDeBord = new TableauDeBord();
 	}
 	
 	public Plateau getPlateau() {

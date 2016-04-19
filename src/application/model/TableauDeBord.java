@@ -1,33 +1,33 @@
 package application.model;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import application.control.PlateauController;
 
 public class TableauDeBord {
-
-	private ArrayList<ClientInfo> infoParClient;
 	private static ArrayList<Chaine> listeChaine;
+	private HashMap<String, ClientInfo> infoParClient;
 
 	/**
 	 * Constructeur Tableau de bord
 	 */
 	public TableauDeBord() {
-		this.infoParClient = new ArrayList<ClientInfo>();
+		this.infoParClient = new HashMap<String, ClientInfo>();
 		this.listeChaine=new ArrayList<Chaine>();
 	}
 	/**
 	 * Retourne la liste des clients
 	 * @return
 	 */
-	public ArrayList<ClientInfo> getInfoParClient() {
+	public HashMap<String, ClientInfo> getInfoParClient() {
 		return infoParClient;
 	}
 	/**
 	 * Défini la nouvelle liste d'infoParClient avec la lister en paramètre
 	 * @param infoParClient
 	 */
-	public void setInfoParClient(ArrayList<ClientInfo> infoParClient) {
+	public void setInfoParClient(HashMap<String, ClientInfo> infoParClient) {
 		this.infoParClient = infoParClient;
 	}
 	/**
@@ -49,7 +49,7 @@ public class TableauDeBord {
 	 * @param c
 	 */
 	public void ajouterClient(ClientInfo c) {
-		this.infoParClient.add(c);
+		this.infoParClient.put(c.getPseudo(), c);
 	}
 	/**
 	 * Retourne la chaine si on passe correspondante à son id

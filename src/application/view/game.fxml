@@ -9,6 +9,9 @@
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.control.cell.*?> 
+<?import javafx.collections.*?> 
+<?import fxmltableview.*?> 
 
 <GridPane maxHeight="600.0" maxWidth="1000.0" minHeight="600.0" minWidth="1000.0" prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.control.PlateauController">
   <columnConstraints>
@@ -199,9 +202,12 @@
             <Insets left="10.0" />
          </GridPane.margin>
       </GridPane>
-      <TableView prefHeight="152.0" prefWidth="600.0" GridPane.rowIndex="1">
+      <TableView fx:id="tableauDeBord" prefHeight="152.0" prefWidth="600.0" GridPane.rowIndex="1">
          <columns>
-            <TableColumn prefWidth="75.0" text="Joueurs" />
+            <TableColumn prefWidth="75.0" text="Joueurs"> 
+            	<cellValueFactory><PropertyValueFactory property="pseudo" />
+        		</cellValueFactory>
+        	</TableColumn>
             <TableColumn prefWidth="30.0" text="S" />
             <TableColumn prefWidth="30.0" text="Z" />
             <TableColumn prefWidth="30.0" text="H" />
@@ -209,8 +215,14 @@
             <TableColumn prefWidth="30.0" text="A" />
             <TableColumn prefWidth="30.0" text="P" />
             <TableColumn prefWidth="30.0" text="Q" />
-            <TableColumn prefWidth="75.0" text="Cash" />
-            <TableColumn prefWidth="75.0" text="Net" />
+            <TableColumn prefWidth="75.0" text="Cash">
+            	<cellValueFactory><PropertyValueFactory property="cash" />
+        		</cellValueFactory>
+        	</TableColumn>
+            <TableColumn prefWidth="75.0" text="Net">
+            	<cellValueFactory><PropertyValueFactory property="net" />
+        		</cellValueFactory>
+        	</TableColumn>
          </columns>
          <GridPane.margin>
             <Insets top="10.0" />

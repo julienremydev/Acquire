@@ -2,15 +2,17 @@ package application.model;
 
 import java.util.HashMap;
 
+import javafx.beans.property.SimpleStringProperty;
+
 public class ClientInfo {
 	
 	private String pseudo;
 	
 	private HashMap<String,Case> main;
 	
-	private int net;
+	private Integer net;
 	
-	private int cash;
+	private Integer cash;
 	
 	/**
 	 * Constructeur de la classe client info qui initialise les donnees d un client
@@ -55,7 +57,9 @@ public class ClientInfo {
 	 * @param c
 	 */
 	public void addCaseToMain(Case c){
-		this.getMain().put(c.getNom(),c);
+		if(c != null){
+			this.getMain().put(c.getNom(),c);			
+		}
 	}
 	
 	/**
@@ -63,19 +67,21 @@ public class ClientInfo {
 	 * @param c
 	 */
 	public void rmCaseToMain(Case c){
-		this.getMain().remove(c.getNom());
+		if(c != null && this.getMain().containsKey(c.getNom())){
+			this.getMain().remove(c.getNom());			
+		}
 	}
 
 	/*
 	 * Getter & Setter
 	 */
-	public String getPseudo() {
-		return pseudo;
-	}
-
-	public void setPseudo(String pseudo) {
-		this.pseudo = pseudo;
-	}
+//	public String getPseudo() {
+//		return pseudo;
+//	}
+//
+//	public void setPseudo(String pseudo) {
+//		this.pseudo = pseudo;
+//	}
 
 	public HashMap<String,Case> getMain() {
 		return main;
@@ -99,5 +105,10 @@ public class ClientInfo {
 
 	public void setCash(int cash) {
 		this.cash = cash;
+	}
+
+	public String getPseudo() {
+		// TODO Auto-generated method stub
+		return pseudo;
 	}
 }

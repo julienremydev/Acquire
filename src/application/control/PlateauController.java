@@ -3,20 +3,25 @@ package application.control;
 import java.net.URL;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.ResourceBundle;
 
 import application.model.Case;
 import application.model.Chaine;
+import application.model.ClientInfo;
 import application.rmi.Client;
 import application.rmi.Game;
 import application.rmi.ServeurInterface;
 import javafx.application.Platform;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Background;
@@ -35,6 +40,8 @@ public class PlateauController implements Initializable{
 	private TextField input;
 	@FXML
 	private Button letsplay;
+	@FXML
+	private TableView<ClientInfo> tableauDeBord;
 
 	public void setDisable(ActionEvent e) throws Exception{
 		Button b = (Button) e.getSource();
@@ -89,7 +96,6 @@ public class PlateauController implements Initializable{
 				}
 						);
 			}
-
 			if (i==108) {
 				break;
 			}
@@ -109,8 +115,19 @@ public class PlateauController implements Initializable{
 		Platform.runLater(() -> tchat.setScrollTop(tchat.getHeight()));
 	}
 
+
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+		final ObservableList<ClientInfo> data =
+				FXCollections.observableArrayList(
+						new ClientInfo("Jacob"),
+						new ClientInfo("Isabella"),
+						new ClientInfo("Ethan"),
+						new ClientInfo("Emma"),
+						new ClientInfo("Michael")
+						);
+
+		tableauDeBord.setItems(data);
 		tchat.setEditable(false);
 		letsplay.setDisable(true);
 	}

@@ -40,38 +40,6 @@ public class Case implements Serializable {
 		this.west = null;
 	}
 
-	public Case getNorth() {
-		return north;
-	}
-
-	public void setNorth(Case north) {
-		this.north = north;
-	}
-
-	public Case getSouth() {
-		return south;
-	}
-
-	public void setSouth(Case south) {
-		this.south = south;
-	}
-
-	public Case getEast() {
-		return east;
-	}
-
-	public void setEast(Case east) {
-		this.east = east;
-	}
-
-	public Case getWest() {
-		return west;
-	}
-
-	public void setWest(Case west) {
-		this.west = west;
-	}
-
 	public Integer getEtat() {
 		return etat;
 	}
@@ -84,7 +52,13 @@ public class Case implements Serializable {
 	public void setEtat(int etat) {
 		this.etat = etat;
 	}
-
+ /**
+  * Méthode appelée par l'initialisation afin d'affecter les cases adjscente à notre case
+  * @param N
+  * @param S
+  * @param E
+  * @param W
+  */
 	public void setNeighbours(Case N, Case S, Case E, Case W) {
 		this.north = N;
 		this.south = S;
@@ -121,6 +95,8 @@ public class Case implements Serializable {
 			// nouvelle chaine
 			// user.askColorForNewChain();
 			this.setEtat(0);
+			ArrayList<Case> tabHotels = tabAdjascent(this.getNorth(), this.getSouth(), this.getEast(), this.getWest());
+			// AppelFonctionChoixCouleur (tabHotels);
 
 		/**
 		 * Présence d'une ou plusieures chaînes autour de la case Pas d'hôtels
@@ -328,7 +304,7 @@ public class Case implements Serializable {
 			return false;
 		}
 	}
-
+	
 	public String toString() {
 		String val = "Case nom:" + this.getNom();
 
@@ -353,5 +329,40 @@ public class Case implements Serializable {
 		
 
 		return val;
+	}
+	
+	/*
+	 * Getters et setters des cases adjascents 
+	 */
+	public Case getNorth() {
+		return north;
+	}
+
+	public void setNorth(Case north) {
+		this.north = north;
+	}
+
+	public Case getSouth() {
+		return south;
+	}
+
+	public void setSouth(Case south) {
+		this.south = south;
+	}
+
+	public Case getEast() {
+		return east;
+	}
+
+	public void setEast(Case east) {
+		this.east = east;
+	}
+
+	public Case getWest() {
+		return west;
+	}
+
+	public void setWest(Case west) {
+		this.west = west;
 	}
 }

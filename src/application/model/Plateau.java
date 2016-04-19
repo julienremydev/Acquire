@@ -129,6 +129,7 @@ public class Plateau implements Serializable {
 	public Case getCase(String text) {
 		return plateauMap.get(text);
 	}
+	
 
 	public static void main(String[] Args) {
 		Plateau p = new Plateau();

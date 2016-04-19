@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 import application.model.Case;
+import application.model.Chaine;
 import application.rmi.Client;
 import application.rmi.Game;
 import application.rmi.ServeurInterface;
@@ -112,5 +113,11 @@ public class PlateauController implements Initializable{
 	}
 	public void lancement() throws RemoteException{
 		client.getServeur().setLancement();
+	}
+
+
+	public static void nouvelleChaine(Chaine nouvelleChaine) {
+		// TODO Auto-generated method stub
+		
 	}
 }

@@ -1,7 +1,8 @@
 package application.model;
 
 import java.util.ArrayList;
-import java.util.HashMap;
+
+import application.control.PlateauController;
 
 public class TableauDeBord {
 
@@ -64,6 +65,22 @@ public class TableauDeBord {
 			}
 		}
 		return toReturn;
+	}
+	/**
+	 * Creation d'une nouvelle chaine, Changement de l'etat des hotels en chaîne, ajout de la chaine, à la liste de chaîne.
+	 * @param listeHotels
+	 * @param nomChaine
+	 */
+	public void creationChaine(ArrayList<Case> listeHotels, TypeChaine nomChaine)
+	{
+		Chaine nouvelleChaine = new Chaine(nomChaine);
+		for(Case hotelChaine : listeHotels)
+		{
+			nouvelleChaine.addCase(hotelChaine);
+			hotelChaine.setEtat(nomChaine.getNumero());
+		}
+		listeChaine.add(nouvelleChaine);
+		PlateauController.nouvelleChaine(nouvelleChaine);
 	}
 
 }

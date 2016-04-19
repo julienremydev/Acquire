@@ -14,6 +14,7 @@ import java.util.logging.Logger;
 
 import application.globale.Globals;
 import application.model.ClientInfo;
+import application.model.Action;
 
 public class Serveur extends UnicastRemoteObject implements ServeurInterface {
 	
@@ -61,10 +62,13 @@ public class Serveur extends UnicastRemoteObject implements ServeurInterface {
 	public void getCasePlayed(String text) throws RemoteException {
 		if (partiecommencee) {
 			Logger.getLogger("Serveur").log(Level.INFO, text);
-			game.getPlateau().updateCase(text);
+			Action action = game.getPlateau().updateCase(text);
+			//Envoi de l'action au client 
 			distribution();
 		}
 	}
+	
+	
 
 	/*
 	 * Cette méthode est appelée lors de la connexion d'un client. Le client est

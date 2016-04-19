@@ -88,7 +88,7 @@ public class Plateau implements Serializable {
 				for (int ligneTab = 1 ; ligneTab < 8 ; ligneTab++)
 				{
 
-					plateauMap.put(ligne[ligneTab] + colonne[y], new CaseRight(ligne[ligneTab] + colonne[y]));
+					//plateauMap.put(ligne[ligneTab] + colonne[y], new CaseRight(ligne[ligneTab] + colonne[y]));
 					plateauMap.get(ligne[ligneTab]+colonne[y]).setNeighbours(plateauMap.get(ligne[ligneTab - 1]+colonne[y]), plateauMap.get(ligne[ligneTab+1]+colonne[y]), null, plateauMap.get(ligne[ligneTab]+colonne[y - 1]));
 				}
 				plateauMap.get(ligne[8]+colonne[y]).setNeighbours(plateauMap.get(ligne[8 - 1]+colonne[y]), null, null, plateauMap.get(ligne[8]+colonne[y - 1]));
@@ -120,7 +120,7 @@ public class Plateau implements Serializable {
 	 * Met à jour la case du plateau passé en paramètre
 	 * @param text
 	 */
-	public void updateCase(String text) {
+	public Action updateCase(String text) {
 		Case caseModifiee = plateauMap.get(text);
 		//plateauMap.get(text).lookCase();
 		
@@ -143,14 +143,16 @@ public class Plateau implements Serializable {
 		 */
 		if (askColor && !askChain)
 		{
-			ArrayList<Case> tabHotels = caseModifiee.tabAdjascent(caseModifiee.getNorth(), caseModifiee.getSouth(), caseModifiee.getEast(), caseModifiee.getWest());
-			for(Case element : tabHotels)
-			{
-				element.setEtat(2);
-			}
-			caseModifiee.setEtat(2);
+			Action action = new Action(0);
+//			ArrayList<Case> tabHotels = caseModifiee.tabAdjascent(caseModifiee.getNorth(), caseModifiee.getSouth(), caseModifiee.getEast(), caseModifiee.getWest());
+//			for(Case element : tabHotels)
+//			{
+//				element.setEtat(2);
+//			}
+//			caseModifiee.setEtat(2);
+			return action;
 		}
-			
+		return null;
 		
 	}
 	/**

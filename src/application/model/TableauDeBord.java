@@ -7,7 +7,7 @@ import application.control.PlateauController;
 public class TableauDeBord {
 
 	private ArrayList<ClientInfo> infoParClient;
-	private ArrayList<Chaine> listeChaine;
+	private static ArrayList<Chaine> listeChaine;
 
 	/**
 	 * Constructeur Tableau de bord
@@ -71,7 +71,7 @@ public class TableauDeBord {
 	 * @param listeHotels
 	 * @param nomChaine
 	 */
-	public void creationChaine(ArrayList<Case> listeHotels, TypeChaine nomChaine)
+	public static void creationChaine(ArrayList<Case> listeHotels, TypeChaine nomChaine)
 	{
 		Chaine nouvelleChaine = new Chaine(nomChaine);
 		for(Case hotelChaine : listeHotels)

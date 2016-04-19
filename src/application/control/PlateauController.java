@@ -19,13 +19,14 @@ import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.Background;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 
 public class PlateauController implements Initializable{
-	
+
 	private Client client;
-	
+
 	@FXML
 	private GridPane grid;
 	@FXML
@@ -34,60 +35,67 @@ public class PlateauController implements Initializable{
 	private TextField input;
 	@FXML
 	private Button letsplay;
-	
+
 	public void setDisable(ActionEvent e) throws Exception{
 		Button b = (Button) e.getSource();
 		b.setDisable(true);
 		String text = b.getText();
 		client.sendCase(text);
 	}
-	
+
 
 	public void setClient(Client c, ServeurInterface serveur) throws RemoteException {
 		client=c;
 		client.setServeur(serveur);
 		client.setController(this);
 	}
-	
+
 	public void setCases(ArrayList<Case> listCase) {
 		ObservableList<Node> childrens = grid.getChildren();
 		int i =0;
-        for(Node node : childrens) {
-        	if (node instanceof Button) {
-        		Case c = new Case(((Button) node).getText());
-        		if (listCase.contains(c)) {
-        			((Button) node).setText("played");
-        		}
-        	}
-        	i++;
-        	if (i==108) {
-        		break;
-        	}
-        }
+		for(Node node : childrens) {
+			if (node instanceof Button) {
+				Case c = new Case(((Button) node).getText());
+				if (listCase.contains(c)) {
+					((Button) node).setText("played");
+				}
+			}
+			i++;
+			if (i==108) {
+				break;
+			}
+		}
 	}
-	
+
 	public void setGame(Game g) {
 		//recuperer la main du joueur
 		ObservableList<Node> childrens = grid.getChildren();
 		int i=0;
-        for(Node node : childrens) {
-        	if (node instanceof Button) {
-        		Button b = (Button) node;
-        		Case c = g.getPlateau().getCase(b.getText());
-        		if (c.getEtat()==1) {
-        			Platform.runLater(new Runnable() {
-        				public void run() {
-        					b.setTextFill(Color.RED);
-        				}
-        			});
-        		}
-        	}
-        	if (i==108) {
-        		break;
-        	}
-        }
+		for(Node node : childrens) {
+			if (node instanceof Button) {
+				Button b = (Button) node;
+				Case c = g.getPlateau().getCase(b.getText());
+
+				Platform.runLater(new Runnable() {
+					public void run() {
+						if (c.getEtat()==1) {
+							b.setTextFill(Color.RED);
+						}
+						if (c.getEtat()==2){
+							b.setTextFill(Color.YELLOW);
+
+						}
+					}
+				}
+						);
+			}
+
+			if (i==108) {
+				break;
+			}
+		}
 	}
-	
+
 	public void getMain() {
 	}
 
@@ -118,6 +126,6 @@ public class PlateauController implements Initializable{
 
 	public static void nouvelleChaine(Chaine nouvelleChaine) {
 		// TODO Auto-generated method stub
-		
+
 	}
 }

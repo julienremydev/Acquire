@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import application.rmi.Serveur;
+
 public class Plateau implements Serializable {
 
 
@@ -119,7 +121,37 @@ public class Plateau implements Serializable {
 	 * @param text
 	 */
 	public void updateCase(String text) {
-		plateauMap.get(text).setEtat(1);
+		Case caseModifiee = plateauMap.get(text);
+		//plateauMap.get(text).lookCase();
+		
+		boolean simpleCase = caseModifiee.surroundedByNothing();
+		boolean askColor = caseModifiee.surroundedByHotels();
+		boolean askChain = caseModifiee.surroundedByChains();
+
+		/**
+		 * Cas simple, aucune case initialisée autour, la case deviens donc un
+		 * hotel modification de l'etat de cette case
+		 */
+		if (simpleCase) {
+			caseModifiee.setEtat(1);
+		}
+
+		/**
+		 * Présence d'un ou plusieurs hotêls autour de la case Pas de chaînes
+		 * dans ce cas Appel de la fonction de choix de couleur de chaine coté
+		 * utilisateur
+		 */
+		if (askColor && !askChain)
+		{
+			ArrayList<Case> tabHotels = caseModifiee.tabAdjascent(caseModifiee.getNorth(), caseModifiee.getSouth(), caseModifiee.getEast(), caseModifiee.getWest());
+			for(Case element : tabHotels)
+			{
+				element.setEtat(2);
+			}
+			caseModifiee.setEtat(2);
+		}
+			
+		
 	}
 	/**
 	 * Retourne la case du plateau en fonction de son nom passé en paramètre

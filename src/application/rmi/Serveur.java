@@ -88,6 +88,7 @@ public class Serveur extends UnicastRemoteObject implements ServeurInterface {
 
 		liste_clients.put(p, client);
 		game.getTableau().ajouterClient(new ClientInfo(p)); // ajout du joueur dans le tableau de bord
+		
 		distributionTchat("Serveur", "Le joueur " + p + " est entré dans la partie.");
 		Logger.getLogger("Client").log(Level.INFO, "Nouveau client enregistré dans le serveur.");
 		if (liste_clients.size() > 1)
@@ -178,5 +179,9 @@ public class Serveur extends UnicastRemoteObject implements ServeurInterface {
 
 	public void setChef(String chef) {
 		this.chef = chef;
+	}
+	
+	public Game getGame() throws RemoteException{
+		return game;
 	}
 }

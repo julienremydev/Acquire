@@ -1,33 +1,36 @@
 package application.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 
 import application.control.PlateauController;
 
-public class TableauDeBord {
+public class TableauDeBord implements Serializable{
+	private static final long serialVersionUID = -3628602150383225255L;
+	
+	private ArrayList<ClientInfo> infoParClient;
 	private ArrayList<Chaine> listeChaine;
-	private HashMap<String, ClientInfo> infoParClient;
 
 	/**
 	 * Constructeur Tableau de bord
 	 */
 	public TableauDeBord(ArrayList<Chaine> listeDeChaine) {
-		this.infoParClient = new HashMap<String, ClientInfo>();
+		this.infoParClient = new ArrayList<ClientInfo>();
 		this.listeChaine=listeDeChaine;
 	}
 	/**
 	 * Retourne la liste des clients
 	 * @return
 	 */
-	public HashMap<String, ClientInfo> getInfoParClient() {
+	public ArrayList<ClientInfo> getInfoParClient() {
 		return infoParClient;
 	}
 	/**
 	 * Défini la nouvelle liste d'infoParClient avec la lister en paramètre
 	 * @param infoParClient
 	 */
-	public void setInfoParClient(HashMap<String, ClientInfo> infoParClient) {
+	public void setInfoParClient(ArrayList<ClientInfo> infoParClient) {
 		this.infoParClient = infoParClient;
 	}
 	/**
@@ -49,7 +52,7 @@ public class TableauDeBord {
 	 * @param c
 	 */
 	public void ajouterClient(ClientInfo c) {
-		this.infoParClient.put(c.getPseudo(), c);
+		this.infoParClient.add(c);
 	}
 	/**
 	 * Retourne la chaine si on passe correspondante à son id

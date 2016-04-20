@@ -1,11 +1,13 @@
 package application.model;
 
+import java.io.Serializable;
 import java.util.HashMap;
 
 import javafx.beans.property.SimpleStringProperty;
 
-public class ClientInfo {
-	
+public class ClientInfo implements Serializable{
+	private static final long serialVersionUID = -4425247831910575515L;
+
 	private String pseudo;
 	
 	private HashMap<String,Case> main;

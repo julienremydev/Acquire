@@ -21,13 +21,13 @@ public class TestTableauDeBord {
 	
 	TableauDeBord tableauTest;
 	ArrayList<Chaine> listeTypeChaine;
-	HashMap<String, ClientInfo> infoParClient;
+	ArrayList<ClientInfo> infoParClient;
 	
 	
 	@Before
 	public void initTableauBord(){
-		tableauTest = new TableauDeBord();
-		infoParClient = new HashMap<String, ClientInfo>();
+		tableauTest = new TableauDeBord(new ArrayList<Chaine>());
+		infoParClient = new ArrayList<ClientInfo>();
 		listeTypeChaine = new ArrayList<Chaine>();
 //		c1 = new ClientInfo("client1");
 //		c2 = new ClientInfo("client2");

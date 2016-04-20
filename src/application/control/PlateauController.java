@@ -118,16 +118,6 @@ public class PlateauController implements Initializable{
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		final ObservableList<ClientInfo> data =
-				FXCollections.observableArrayList(
-						new ClientInfo("Jacob"),
-						new ClientInfo("Isabella"),
-						new ClientInfo("Ethan"),
-						new ClientInfo("Emma"),
-						new ClientInfo("Michael")
-						);
-
-		tableauDeBord.setItems(data);
 		tchat.setEditable(false);
 		letsplay.setDisable(true);
 	}
@@ -138,6 +128,18 @@ public class PlateauController implements Initializable{
 	}
 	public void lancement() throws RemoteException{
 		client.getServeur().setLancement();
+		
+		try {
+			final ObservableList<ClientInfo> data = FXCollections.observableArrayList();
+			
+			for(ClientInfo ci : client.getServeur().getGame().getTableau().getInfoParClient()){
+				data.add(ci);
+			}
+			
+			tableauDeBord.setItems(data);
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		}
 	}
 
 

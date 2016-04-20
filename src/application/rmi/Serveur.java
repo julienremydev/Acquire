@@ -100,7 +100,7 @@ public class Serveur extends UnicastRemoteObject implements ServeurInterface {
 	public void setLancement() throws RemoteException {
 		partiecommencee = true;
 		distributionTchat("Serveur", "Le joueur " + getChef() + " a démarré la partie.");
-
+		distributionData ();
 		/*
 		 * 
 		 * 
@@ -144,6 +144,13 @@ public class Serveur extends UnicastRemoteObject implements ServeurInterface {
 		Enumeration<ClientInterface> e = liste_clients.elements();
 		while (e.hasMoreElements())
 			e.nextElement().receive(game);
+	}
+	
+	@Override
+	public void distributionData() throws RemoteException {
+		Enumeration<ClientInterface> e = liste_clients.elements();
+		while (e.hasMoreElements())
+			e.nextElement().receiveData();
 	}
 	
 	@Override

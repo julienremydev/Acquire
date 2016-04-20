@@ -12,7 +12,7 @@ public class Game implements Serializable{
 
 	private static final long serialVersionUID = 1964688809311788179L;
 	
-	public static ArrayList<Chaine> listeChaine;
+	public static ArrayList<Chaine> listeChaine = new ArrayList<Chaine> ();
 	
 	private Plateau plateau;
 	

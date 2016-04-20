@@ -29,7 +29,9 @@ public class Client extends UnicastRemoteObject implements ClientInterface {
 	public void receive(Game g) throws RemoteException {
 		plateauController.setGame(g);
 	}
-	
+	public void receiveData() throws RemoteException {
+		plateauController.setDataTableView();
+	}
 	public void receiveTchat(String s) {
 		plateauController.setChat(s);
 	}

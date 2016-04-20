@@ -1,11 +1,16 @@
 package application.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 
 import javafx.scene.paint.Color;
 
-public class Chaine {
+public class Chaine implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 6824670178136694341L;
 	private TypeChaine typeChaine;
 	private ArrayList<Case> listeCase;
 	private static final int nbActionTotal = 25;
@@ -143,5 +148,8 @@ public class Chaine {
 
 	public void setActionParClient(HashMap<String, Integer> actionParClient) {
 		this.actionParClient = actionParClient;
+	}
+	public boolean chaineDisponible(){
+		return listeCase.isEmpty();
 	}
 }

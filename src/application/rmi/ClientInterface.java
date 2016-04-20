@@ -17,5 +17,7 @@ public interface ClientInterface extends Remote{
 	void receiveTchat(String tchat) throws RemoteException;
 
 	void setBEnable(boolean b) throws RemoteException;
+
+	void receiveData() throws RemoteException;
 	
 }

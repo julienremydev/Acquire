@@ -126,12 +126,10 @@ public class PlateauController implements Initializable{
 	public void setBEnable(boolean b) {
 		letsplay.setDisable(!b);
 	}
-	public void lancement() throws RemoteException{
-		client.getServeur().setLancement();
-		
+	public void setDataTableView () {
 		try {
 			final ObservableList<ClientInfo> data = FXCollections.observableArrayList();
-			
+
 			for(ClientInfo ci : client.getServeur().getGame().getTableau().getInfoParClient()){
 				data.add(ci);
 			}
@@ -140,6 +138,9 @@ public class PlateauController implements Initializable{
 		} catch (RemoteException e) {
 			e.printStackTrace();
 		}
+	}
+	public void lancement() throws RemoteException{
+		client.getServeur().setLancement();
 	}
 
 

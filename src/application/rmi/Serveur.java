@@ -13,6 +13,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import application.globale.Globals;
+import application.model.TableauDeBord;
 
 public class Serveur extends UnicastRemoteObject implements ServeurInterface {
 	
@@ -93,7 +94,11 @@ public class Serveur extends UnicastRemoteObject implements ServeurInterface {
 	public void setLancement() throws RemoteException {
 		partiecommencee = true;
 		distributionTchat("Serveur", "Le joueur " + getChef() + " a démarré la partie.");
-
+		game.getPlateau().initialiseMainCaseNoir();
+		for(int i=0;i<TableauDeBord.infoParClient.size();i++){
+			game.getTableau().getInfoParClient().get(i).initialiseMain(game.getPlateau());
+		}
+		
 		/*
 		 * 
 		 * 
@@ -132,7 +137,6 @@ public class Serveur extends UnicastRemoteObject implements ServeurInterface {
 
 		// MODIFICATION DU GAME ICI
 		// APPEL DE LA FONCTION
-
 		// On envoie le game actualisé à chaque client.
 		Enumeration<ClientInterface> e = liste_clients.elements();
 		while (e.hasMoreElements())

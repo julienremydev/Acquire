@@ -6,8 +6,8 @@ import application.control.PlateauController;
 
 public class TableauDeBord {
 
-	private ArrayList<ClientInfo> infoParClient;
-	private ArrayList<Chaine> listeChaine;
+	public static ArrayList<ClientInfo> infoParClient;
+	public static ArrayList<Chaine> listeChaine;
 
 	/**
 	 * Constructeur Tableau de bord

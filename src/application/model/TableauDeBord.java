@@ -6,15 +6,15 @@ import java.util.HashMap;
 import application.control.PlateauController;
 
 public class TableauDeBord {
-	private static ArrayList<Chaine> listeChaine;
+	private ArrayList<Chaine> listeChaine;
 	private HashMap<String, ClientInfo> infoParClient;
 
 	/**
 	 * Constructeur Tableau de bord
 	 */
-	public TableauDeBord() {
+	public TableauDeBord(ArrayList<Chaine> listeDeChaine) {
 		this.infoParClient = new HashMap<String, ClientInfo>();
-		this.listeChaine=new ArrayList<Chaine>();
+		this.listeChaine=listeDeChaine;
 	}
 	/**
 	 * Retourne la liste des clients
@@ -71,16 +71,16 @@ public class TableauDeBord {
 	 * @param listeHotels
 	 * @param nomChaine
 	 */
-	public static void creationChaine(ArrayList<Case> listeHotels, TypeChaine nomChaine)
-	{
-		Chaine nouvelleChaine = new Chaine(nomChaine);
-		for(Case hotelChaine : listeHotels)
-		{
-			nouvelleChaine.addCase(hotelChaine);
-			hotelChaine.setEtat(nomChaine.getNumero());
-		}
-		listeChaine.add(nouvelleChaine);
-		PlateauController.nouvelleChaine(nouvelleChaine);
-	}
+//	public static void creationChaine(ArrayList<Case> listeHotels, TypeChaine nomChaine)
+//	{
+//		Chaine nouvelleChaine = new Chaine(nomChaine);
+//		for(Case hotelChaine : listeHotels)
+//		{
+//			nouvelleChaine.addCase(hotelChaine);
+//			hotelChaine.setEtat(nomChaine.getNumero());
+//		}
+//		listeChaine.add(nouvelleChaine);
+//		PlateauController.nouvelleChaine(nouvelleChaine);
+//	}
 
 }

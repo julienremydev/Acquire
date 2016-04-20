@@ -4,9 +4,10 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import application.rmi.Serveur;
+import application.rmi.Game;
 
 public class Plateau implements Serializable {
+
 
 
 	private HashMap<String, Case> plateauMap;
@@ -163,11 +164,11 @@ public class Plateau implements Serializable {
 	public Case getCase(String text) {
 		return plateauMap.get(text);
 	}
-	
-
-	public static void main(String[] Args) {
-		Plateau p = new Plateau();
-		p.affichePlateau();
-
-	}
+//	
+//
+//	public static void main(String[] Args) {
+//		Plateau p = new Plateau();
+//		p.affichePlateau();
+//
+//	}
 }

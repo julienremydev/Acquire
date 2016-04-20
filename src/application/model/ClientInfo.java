@@ -17,6 +17,8 @@ public class ClientInfo implements Serializable{
 	
 	private Integer cash;
 	
+	private HashMap<TypeChaine, Integer> actionParChaine;
+
 	/**
 	 * Constructeur de la classe client info qui initialise les donnees d un
 	 * client
@@ -29,6 +31,7 @@ public class ClientInfo implements Serializable{
 		this.net = 6000;
 		this.cash = 6000;
 		this.main = new ArrayList<String>();
+		this.actionParChaine = new HashMap<TypeChaine,Integer>();
 	}
 
 	/**
@@ -142,6 +145,14 @@ public class ClientInfo implements Serializable{
 		this.cash = cash;
 	}
 
+	public HashMap<TypeChaine, Integer> getActionParChaine() {
+		return actionParChaine;
+	}
+
+	public void setActionParChaine(HashMap<TypeChaine, Integer> actionParChaine) {
+		this.actionParChaine = actionParChaine;
+	}
+	
 	public String getPseudo() {
 		// TODO Auto-generated method stub
 		return pseudo;

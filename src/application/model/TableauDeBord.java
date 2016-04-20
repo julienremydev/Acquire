@@ -3,7 +3,7 @@ package application.model;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
-
+	
 import application.control.PlateauController;
 
 public class TableauDeBord implements Serializable{

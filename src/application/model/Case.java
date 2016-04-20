@@ -96,6 +96,8 @@ public class Case implements Serializable {
 			// user.askColorForNewChain();
 			this.setEtat(0);
 			ArrayList<Case> tabHotels = tabAdjascent(this.getNorth(), this.getSouth(), this.getEast(), this.getWest());
+			
+			//TableauDeBord.creationChaine(tabHotels,TypeChaine.SACKSON);
 			// AppelFonctionChoixCouleur (tabHotels);
 
 		/**
@@ -249,13 +251,13 @@ public class Case implements Serializable {
 	 */
 	public ArrayList<Case> tabAdjascent(Case cN, Case cS, Case cE, Case cW) {
 		ArrayList<Case> tab = new ArrayList();
-		if (cN != null)
+		if (cN.getEtat() != 0)
 			tab.add(cN);
-		if (cS != null)
+		if (cS.getEtat() != 0)
 			tab.add(cS);
-		if (cE != null)
+		if (cE.getEtat() != 0)
 			tab.add(cE);
-		if (cW != null)
+		if (cW.getEtat() != 0)
 			tab.add(cW);
 		return tab;
 	}

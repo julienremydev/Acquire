@@ -3,6 +3,7 @@ package test.model;
 import static org.junit.Assert.*;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -25,7 +26,7 @@ public class TestTableauDeBord {
 	
 	@Before
 	public void initTableauBord(){
-		tableauTest = new TableauDeBord();
+		tableauTest = new TableauDeBord(new ArrayList<Chaine>());
 		infoParClient = new ArrayList<ClientInfo>();
 		listeTypeChaine = new ArrayList<Chaine>();
 //		c1 = new ClientInfo("client1");

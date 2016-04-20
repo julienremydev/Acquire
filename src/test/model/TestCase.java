@@ -144,9 +144,8 @@ public class TestCase {
 		 */
 		test.add(north);
 		test.add(west);
-
-		// cas etats autour non compris dans l interval 2 8 --> False
-		assertFalse(caseTest.sameColorsArround(test, test.size()));
+		
+		
 
 		// cas 1 seul avec un etat entre 2 et 8 --> False
 		north.setEtat(5);
@@ -163,8 +162,7 @@ public class TestCase {
 		north.setEtat(0);
 		west.setEtat(0);
 
-		// cas etats autour non compris dans l interval 2 8 --> False
-		assertFalse(caseTest.sameColorsArround(test, test.size()));
+		
 
 		// cas 1 seul avec un etat entre 2 et 8 --> False
 		north.setEtat(5);
@@ -186,8 +184,7 @@ public class TestCase {
 		west.setEtat(0);
 		south.setEtat(0);
 
-		// cas etats autour non compris dans l interval 2 8 --> False
-		assertFalse(caseTest.sameColorsArround(test, test.size()));
+		
 
 		// cas 1 seul avec un etat entre 2 et 8 --> False
 		north.setEtat(5);

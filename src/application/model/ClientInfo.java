@@ -1,19 +1,22 @@
 package application.model;
 
 import java.util.ArrayList;
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Random;
+import javafx.beans.property.SimpleStringProperty;
 
-public class ClientInfo {
+public class ClientInfo implements Serializable{
+	private static final long serialVersionUID = -4425247831910575515L;
 
 	private String pseudo;
-
+	
 	private ArrayList<String> main;
-
-	private int net;
-
-	private int cash;
-
+	
+	private Integer net;
+	
+	private Integer cash;
+	
 	/**
 	 * Constructeur de la classe client info qui initialise les donnees d un
 	 * client
@@ -21,7 +24,7 @@ public class ClientInfo {
 	 * @param n
 	 *            : nom du pseudo du client
 	 */
-	public ClientInfo(String n, HashMap<String, Case> plateau) {
+	public ClientInfo(String n) {
 		this.pseudo = n;
 		this.net = 6000;
 		this.cash = 6000;
@@ -67,12 +70,19 @@ public class ClientInfo {
 	/**
 	 * Ajoute 1 cases cliquable pour le joueur
 	 */
+
 	public void ajouteMain1fois(Plateau plateau) {
 			Random generator = new Random();
 			String c=plateau.getCaseDisponible().get(0 + (int)(Math.random() * plateau.getCaseDisponible().size()));
 			main.add(c);	
 			plateau.getCaseDisponible().remove((0 + (int)(Math.random() * plateau.getCaseDisponible().size())));
-	}
+}
+	/**
+	public void addCaseToMain(Case c){
+		if(c != null){
+			this.getMain().put(c.getNom(),c);			
+		}
+	} **/
 	
 	
 	/**
@@ -88,20 +98,25 @@ public class ClientInfo {
 	 * 
 	 * @param c
 	 */
-	public void rmCaseToMain(Case c) {
-		this.getMain().remove(c.getNom());
+/**	
+	public void rmCaseToMain(Case c){
+		if(c != null && this.getMain().containsKey(c.getNom())){
+			this.getMain().remove(c.getNom());			
+		}
 	}
+	
+	**/
 
 	/*
 	 * Getter & Setter
 	 */
-	public String getPseudo() {
-		return pseudo;
-	}
-
-	public void setPseudo(String pseudo) {
-		this.pseudo = pseudo;
-	}
+//	public String getPseudo() {
+//		return pseudo;
+//	}
+//
+//	public void setPseudo(String pseudo) {
+//		this.pseudo = pseudo;
+//	}
 
 	public ArrayList<String> getMain() {
 		return main;
@@ -125,5 +140,10 @@ public class ClientInfo {
 
 	public void setCash(int cash) {
 		this.cash = cash;
+	}
+
+	public String getPseudo() {
+		// TODO Auto-generated method stub
+		return pseudo;
 	}
 }

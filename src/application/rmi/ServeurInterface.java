@@ -16,4 +16,8 @@ public interface ServeurInterface extends Remote{
 	void logout (String p) throws RemoteException;
 
 	void setLancement() throws RemoteException;
+	
+	Game getGame() throws RemoteException;
+
+	void distributionData() throws RemoteException;
 }

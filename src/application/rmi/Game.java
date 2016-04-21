@@ -40,7 +40,7 @@ public class Game implements Serializable{
 		listeChaine.add(fusion);
 		
 		this.plateau=new Plateau();
-		this.tableauDeBord = new TableauDeBord(listeChaine);
+		this.tableauDeBord = new TableauDeBord();
 	}
 	
 	public Plateau getPlateau() {

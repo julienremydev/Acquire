@@ -16,9 +16,8 @@ public class TableauDeBord implements Serializable{
 	 * Constructeur Tableau de bord
 	 */
 
-	public TableauDeBord(ArrayList<Chaine> listeDeChaine) {
+	public TableauDeBord() {
 		this.infoParClient = new ArrayList<ClientInfo>();
-		this.listeChaine=listeDeChaine;
 
 	}
 	/**

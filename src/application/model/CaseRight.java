@@ -7,10 +7,16 @@ public class CaseRight extends  Case {
 	}
 	
 
-	@Override
+	/**
+	 * Permet de savoir si les cases autour de la notre sont vides
+	 * 
+	 * @return
+	 */
 	public boolean surroundedByNothing() {
-		// TODO Auto-generated method stub
-		return false;
+		if ((this.getNorth().getEtat() == 0)  && (this.getSouth().getEtat() == 0) && (this.getWest().getEtat() == 0))
+			return true;
+		else
+			return false;
 	}
 
 	@Override

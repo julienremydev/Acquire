@@ -30,8 +30,14 @@ import javafx.scene.paint.Color;
 
 public class PlateauController implements Initializable {
 
+	/**
+	 * Client correspondant au plateau
+	 */
 	private Client client;
 
+	/**
+	 * element plateau
+	 */
 	@FXML
 	private GridPane grid;
 	@FXML
@@ -43,54 +49,86 @@ public class PlateauController implements Initializable {
 	@FXML
 	private TableView<ClientInfo> tableauDeBord;
 
+	/**
+	 * Methode lance au moment du clic sur une case
+	 * @param e :  correpond au bouton clique
+	 * @throws Exception
+	 */
 	public void setDisable(ActionEvent e) throws Exception {
+		//on recupere la source pour avoir le bouton
 		Button b = (Button) e.getSource();
-		b.setDisable(true);
+		//on recupere le nom de la case, exemple "A5"
 		String text = b.getText();
+		//on envoie via le rmi la case clique
 		client.sendCase(text);
 	}
 
+	/**
+	 * Methode permettant d'effectuer la liaison rmi
+	 * @param c : client
+	 * @param serveur
+	 * @throws RemoteException
+	 */
 	public void setClient(Client c, ServeurInterface serveur) throws RemoteException {
 		client = c;
 		client.setServeur(serveur);
 		client.setController(this);
 	}
 
-	public void setCases(ArrayList<Case> listCase) {
-		ObservableList<Node> childrens = grid.getChildren();
-		int i = 0;
-		for (Node node : childrens) {
-			if (node instanceof Button) {
-				Case c = new Case(((Button) node).getText());
-				if (listCase.contains(c)) {
-					((Button) node).setText("played");
-				}
-			}
-			i++;
-			if (i == 108) {
-				break;
-			}
-		}
-	}
-
+	/**
+	 * Methode permettant de mettre a jour le plateau
+	 * Appelé a chaque changement de tour
+	 * @param g : game
+	 */
 	public void setGame(Game g) {
 		// recuperer la main du joueur
+		
+		
+		//recuperation de l'ensemble des cases du plateau (graphique)
 		ObservableList<Node> childrens = grid.getChildren();
 		int i = 0;
 		for (Node node : childrens) {
 			if (node instanceof Button) {
 				Button b = (Button) node;
+				//recuperation de la case correspondant au bouton
 				Case c = g.getPlateau().getCase(b.getText());
-
+				//methode pour rafraichir l'interface
 				Platform.runLater(new Runnable() {
 					public void run() {
-						if (c.getEtat() == 1) {
-							b.setTextFill(Color.GREEN);
+						//verification de l'etat de la case et maj
+						switch (c.getEtat()) {
+						case -1 :
 							b.setStyle("-fx-background-color: #000000;");
-						}
-						if (c.getEtat() == 2) {
-							b.setTextFill(Color.YELLOW);
-
+							break;
+						case 0 :
+							break;
+						case 1 :
+							b.setStyle("-fx-background-color: #000000;");
+							break;
+						case 2 :
+							b.setStyle("-fx-background-color: #CC3333;");
+							break;
+						case 3 :
+							b.setStyle("-fx-background-color: #FFCC33;");
+							break;
+						case 4 :
+							b.setStyle("-fx-background-color: #FF6600;");
+							break;
+						case 5 :
+							b.setStyle("-fx-background-color: #336633;");
+							break;
+						case 6 :
+							b.setStyle("-fx-background-color: #333399;");
+							break;
+						case 7 :
+							b.setStyle("-fx-background-color: #996699;");
+							break;
+						case 8 :
+							b.setStyle("-fx-background-color: #669999;");
+							break;
+						default : 
+							//lancer une exception ?
+							break;
 						}
 					}
 				});
@@ -117,10 +155,12 @@ public class PlateauController implements Initializable {
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		tchat.setEditable(false);
+		letsplay.setOpacity(0);
 		letsplay.setDisable(true);
 	}
 
 	public void setBEnable(boolean b) {
+		letsplay.setOpacity(1);
 		letsplay.setDisable(!b);
 	}
 
@@ -137,15 +177,16 @@ public class PlateauController implements Initializable {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public void genererLaMainJoueur() throws RemoteException{
 		//distribuer l'affichage des mains
-			
+
 	}
-	
+
 
 	public void lancement() throws RemoteException {
 		client.getServeur().setLancement();
+		letsplay.setOpacity(0);
 		//setGame(client.getServeur().getGame());
 	}
 

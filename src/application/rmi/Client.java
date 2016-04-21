@@ -18,7 +18,6 @@ public class Client extends UnicastRemoteObject implements ClientInterface {
 	
 	private String pseudo;
 	
-	
 	public Client () throws Exception{
 	}
 
@@ -70,6 +69,11 @@ public class Client extends UnicastRemoteObject implements ClientInterface {
 		this.plateauController=plateauController;
 	}
 
+	/**
+	 * Methode qui envoie la case joue par le client au serveur via son nom
+	 * @param text
+	 * @throws RemoteException
+	 */
 	public void sendCase(String text) throws RemoteException {
 		this.serveur.getCasePlayed(text);
 		

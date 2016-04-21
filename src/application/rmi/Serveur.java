@@ -23,9 +23,11 @@ public class Serveur extends UnicastRemoteObject implements ServeurInterface {
 	private Hashtable<String, ClientInterface> liste_clients;
 
 	private Game game;
+	
 	private StringBuffer tchat;
 
 	private String chef;
+	
 	private boolean partiecommencee;
 
 	public Serveur() throws RemoteException {

@@ -10,6 +10,7 @@ public class ClientInfo implements Serializable{
 	private String pseudo;
 	
 	private HashMap<String,Case> mainn;
+	
 	private ArrayList<String> main;
 	
 	private Integer net;

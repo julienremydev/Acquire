@@ -12,6 +12,7 @@ import application.model.Action;
 import application.model.Case;
 import application.model.Chaine;
 import application.model.ClientInfo;
+import application.model.TypeChaine;
 import application.rmi.Client;
 import application.rmi.Game;
 import application.rmi.ServeurInterface;
@@ -53,43 +54,56 @@ public class PlateauController implements Initializable {
 
 	private ArrayList<String> main;
 
-	private int i ;
+	public void setChoixCreationChaine(Action a, Game g) {
 
-	public void setChoixCreationChaine (Action a, Game g){
 		ObservableList<Node> childrens = gridPaneAction.getChildren();
-		i=0;
-		for ( Chaine c : g.listeChaine) {
-			if (c.chaineDisponible()){
-				//définir les boutons ici avec le action listener !!!!!
-				//mettre les bons index 
-				Platform.runLater(new Runnable() {
-					public void run() {
-						System.out.println(i);
-						Button b =  new Button (c.getNomChaine().toString());
-						gridPaneAction.add(new Button (c.getNomChaine().toString()), 0, i);
+		int j = 0;
+		for (Chaine c : g.listeChaine) {
+			if (c.chaineDisponible()) {
+
+				int i = j;
+				Button b = new Button(c.getNomChaine().toString().substring(0, 1));
+
+				// définir le layout des boutons parce que c'est moche
+				b.setStyle("-fx-background-color: " + c.getNomChaine().getCouleurChaine() + ";");
+				b.setPrefWidth(300);
+				b.setPrefHeight(300);
+				b.setOnAction((event) -> {
+					g.getPlateau().creationChaine(a.getListeDeCaseAModifier(), c.getNomChaine());
+					try {
+						client.getServeur().distribution();
+					} catch (Exception e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
 					}
 				});
+				Platform.runLater(() -> gridPaneAction.add(b, i, 0));
 			}
-			i++;
+			j++;
 		}
 	}
+
 	/**
 	 * Methode lance au moment du clic sur une case
-	 * @param e :  correpond au bouton clique
+	 * 
+	 * @param e
+	 *            : correpond au bouton clique
 	 * @throws Exception
 	 */
 	public void setDisable(ActionEvent e) throws Exception {
-		//on recupere la source pour avoir le bouton
+		// on recupere la source pour avoir le bouton
 		Button b = (Button) e.getSource();
-		//on recupere le nom de la case, exemple "A5"
+		// on recupere le nom de la case, exemple "A5"
 		String text = b.getText();
-		//on envoie via le rmi la case clique
+		// on envoie via le rmi la case clique
 		client.sendCase(text);
 	}
 
 	/**
 	 * Methode permettant d'effectuer la liaison rmi
-	 * @param c : client
+	 * 
+	 * @param c
+	 *            : client
 	 * @param serveur
 	 * @throws RemoteException
 	 */
@@ -100,57 +114,59 @@ public class PlateauController implements Initializable {
 	}
 
 	/**
-	 * Methode permettant de mettre a jour le plateau
-	 * Appelé a chaque changement de tour
-	 * @param g : game
+	 * Methode permettant de mettre a jour le plateau Appelé a chaque changement
+	 * de tour
+	 * 
+	 * @param g
+	 *            : game
 	 */
 	public void setGame(Game g) {
 		// recuperer la main du joueur
 
-		//recuperation de l'ensemble des cases du plateau (graphique)
+		// recuperation de l'ensemble des cases du plateau (graphique)
 		ObservableList<Node> childrens = grid.getChildren();
 		int i = 0;
 		for (Node node : childrens) {
 			if (node instanceof Button) {
 				Button b = (Button) node;
-				//recuperation de la case correspondant au bouton
+				// recuperation de la case correspondant au bouton
 				Case c = g.getPlateau().getCase(b.getText());
-				//methode pour rafraichir l'interface
+				// methode pour rafraichir l'interface
 				Platform.runLater(new Runnable() {
 					public void run() {
-						//verification de l'etat de la case et maj
+						// verification de l'etat de la case et maj
 						switch (c.getEtat()) {
-						case -1 :
+						case -1:
 							b.setStyle("-fx-background-color: #000000;");
 							break;
-						case 0 :
+						case 0:
 							break;
-						case 1 :
+						case 1:
 							b.setStyle("-fx-background-color: #000000;");
 							break;
-						case 2 :
+						case 2:
 							b.setStyle("-fx-background-color: #CC3333;");
 							break;
-						case 3 :
+						case 3:
 							b.setStyle("-fx-background-color: #FFCC33;");
 							break;
-						case 4 :
+						case 4:
 							b.setStyle("-fx-background-color: #FF6600;");
 							break;
-						case 5 :
+						case 5:
 							b.setStyle("-fx-background-color: #336633;");
 							break;
-						case 6 :
+						case 6:
 							b.setStyle("-fx-background-color: #333399;");
 							break;
-						case 7 :
+						case 7:
 							b.setStyle("-fx-background-color: #996699;");
 							break;
-						case 8 :
+						case 8:
 							b.setStyle("-fx-background-color: #669999;");
 							break;
-						default : 
-							//lancer une exception ?
+						default:
+							// lancer une exception ?
 							break;
 						}
 					}
@@ -191,7 +207,7 @@ public class PlateauController implements Initializable {
 		try {
 			final ObservableList<ClientInfo> data = FXCollections.observableArrayList();
 
-			HashMap<String,ClientInfo> infoClient = client.getServeur().getGame().getTableau().getInfoParClient();
+			HashMap<String, ClientInfo> infoClient = client.getServeur().getGame().getTableau().getInfoParClient();
 			Collection<ClientInfo> values = infoClient.values();
 			for (ClientInfo ci : values) {
 				data.add(ci);
@@ -206,7 +222,7 @@ public class PlateauController implements Initializable {
 	public void lancement() throws RemoteException {
 		client.getServeur().setLancement();
 		letsplay.setOpacity(0);
-		//setGame(client.getServeur().getGame());
+		// setGame(client.getServeur().getGame());
 	}
 
 	public static void nouvelleChaine(Chaine nouvelleChaine) {
@@ -215,7 +231,7 @@ public class PlateauController implements Initializable {
 	}
 
 	public void setMain(ArrayList<String> main) {
-		this.main=main;
+		this.main = main;
 		majMainLancement();
 	}
 
@@ -225,9 +241,9 @@ public class PlateauController implements Initializable {
 		for (Node node : childrens) {
 			if (node instanceof Button) {
 				Button b = (Button) node;
-				//recuperation de la case correspondant au bouton
+				// recuperation de la case correspondant au bouton
 				if (main.contains(b.getText())) {
-					//methode pour rafraichir l'interface
+					// methode pour rafraichir l'interface
 					Platform.runLater(new Runnable() {
 						public void run() {
 							b.setDisable(false);

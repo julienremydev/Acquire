@@ -5,16 +5,16 @@ import java.util.HashMap;
 import javafx.scene.paint.Color;
 
 public enum TypeChaine {
-	SACKSON(1, Color.web("#CC3333"), 2),
-	ZETA(1, Color.web("#FFCC33"), 3),
-	HYDRA(2, Color.web("#FF6600"), 4),
-	FUSION(2, Color.web("#336633"), 5),
-	AMERICA(2, Color.web("#333399"), 6),
-	PHOENIX(3, Color.web("#996699"), 7),
-	QUANTUM(3, Color.web("#669999"), 8);
+	SACKSON(1, "#CC3333", 2),
+	ZETA(1, "#FFCC33", 3),
+	HYDRA(2, "#FF6600", 4),
+	FUSION(2, "#336633", 5),
+	AMERICA(2, "#333399", 6),
+	PHOENIX(3, "#996699", 7),
+	QUANTUM(3, "#669999", 8);
 
 	private int catChaine; // categorie de la chaine (1 = faible, 2 = moyen, 3 = fort)
-	private Color couleurChaine;
+	private String couleurChaine;
 	private int numero;
 	private static int[] nbHotel = {2,3,4,5,10,20,30,40};
 	
@@ -24,8 +24,9 @@ public enum TypeChaine {
 	 * @param c
 	 * @param n
 	 */
-	private TypeChaine(int cat, Color c, int n){
+	private TypeChaine(int cat, String c, int n){
 		this.catChaine = cat;
+		this.couleurChaine=c;
 		this.numero = n;
 	}
 	
@@ -91,4 +92,9 @@ public enum TypeChaine {
 	public int getNumero(){
 		return this.numero;
 	}
+
+	public String getCouleurChaine() {
+		return couleurChaine;
+	}
+
 }

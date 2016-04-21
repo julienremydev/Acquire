@@ -280,7 +280,7 @@ public class Plateau implements Serializable {
 	 * @param listeHotels
 	 * @param nomChaine
 	 */
-	public static void creationChaine(ArrayList<Case> listeHotels, TypeChaine nomChaine)
+	public void creationChaine(ArrayList<Case> listeHotels, TypeChaine nomChaine)
 	{
 		// Création de la nouvelle chaine
 		Chaine nouvelleChaine = new Chaine(nomChaine);

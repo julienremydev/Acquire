@@ -33,7 +33,15 @@ public class Action implements Serializable{
 	 */
 	public Action(ArrayList<Case> listeDeCase, int type) {
 		this.choix = type;
-		this.listeDeCaseAModifier = listeDeCase;
+		this.setListeDeCaseAModifier(listeDeCase);
+	}
+
+	public ArrayList<Case> getListeDeCaseAModifier() {
+		return listeDeCaseAModifier;
+	}
+
+	public void setListeDeCaseAModifier(ArrayList<Case> listeDeCaseAModifier) {
+		this.listeDeCaseAModifier = listeDeCaseAModifier;
 	}
 
 }

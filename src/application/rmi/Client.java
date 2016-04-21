@@ -5,6 +5,7 @@ import java.rmi.server.UnicastRemoteObject;
 import java.util.HashMap;
 
 import application.control.PlateauController;
+import application.model.Action;
 import application.model.Case;
 import application.view.ClientView;
 
@@ -33,6 +34,9 @@ public class Client extends UnicastRemoteObject implements ClientInterface {
 	}
 	public void receiveTchat(String s) {
 		plateauController.setChat(s);
+	}
+	public void receiveAction(Action a, Game g) throws RemoteException{
+		plateauController.setChoixCreationChaine(a,g);
 	}
 	public void setBEnable(boolean b) throws RemoteException{
 		plateauController.setBEnable(b);
@@ -75,7 +79,7 @@ public class Client extends UnicastRemoteObject implements ClientInterface {
 	 * @throws RemoteException
 	 */
 	public void sendCase(String text) throws RemoteException {
-		this.serveur.getCasePlayed(text);
+		this.serveur.getCasePlayed(text, pseudo);
 		
 	}
 	@Override

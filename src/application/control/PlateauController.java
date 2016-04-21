@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.ResourceBundle;
 
+import application.model.Action;
 import application.model.Case;
 import application.model.Chaine;
 import application.model.ClientInfo;
@@ -41,6 +42,8 @@ public class PlateauController implements Initializable {
 	@FXML
 	private GridPane grid;
 	@FXML
+	private GridPane gridPaneAction;
+	@FXML
 	private TextArea tchat;
 	@FXML
 	private TextField input;
@@ -49,6 +52,17 @@ public class PlateauController implements Initializable {
 	@FXML
 	private TableView<ClientInfo> tableauDeBord;
 
+	public void setChoixCreationChaine (Action a, Game g){
+		for ( Chaine c : g.listeChaine){
+			if (c.chaineDisponible()){
+				//définir les boutons ici avec le action listener !!!!!
+				//mettre les bons index 
+				
+				gridPaneAction.add(new Button (c.getNomChaine().toString()), 0, 0);
+				
+			}
+		}
+	}
 	/**
 	 * Methode lance au moment du clic sur une case
 	 * @param e :  correpond au bouton clique

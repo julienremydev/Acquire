@@ -1,8 +1,9 @@
 package application.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Action {
+public class Action implements Serializable{
 
 	private int choix; // 0 = choixCouleurNouvelleChaine / 1 choixCouleurFusionChaine
 	

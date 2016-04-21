@@ -61,11 +61,15 @@ public class Serveur extends UnicastRemoteObject implements ServeurInterface {
 	}
 	
 	@Override
-	public void getCasePlayed(String text) throws RemoteException {
+	public void getCasePlayed(String text, String pseudo) throws RemoteException {
 		if (partiecommencee) {
 			Logger.getLogger("Serveur").log(Level.INFO, text);
 			Action action = game.getPlateau().updateCase(text);
 			//Envoi de l'action au client 
+			if ( action.getChoix() == 0 ){
+				liste_clients.get(pseudo).receiveAction(action, game);
+			}
+			
 			distribution();
 		}
 	}

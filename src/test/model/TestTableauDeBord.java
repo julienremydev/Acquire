@@ -1,9 +1,11 @@
 package test.model;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -31,7 +33,7 @@ public class TestTableauDeBord {
 		ch2 = new Chaine (TypeChaine.FUSION);
 		listeTypeChaine.add(ch1);
 		listeTypeChaine.add(ch2);
-		tableauTest = new TableauDeBord(listeTypeChaine);
+		tableauTest = new TableauDeBord();
 		infoParClient = new ArrayList<ClientInfo>();
 		c1 = new ClientInfo("Yodaii");
 		c2 = new ClientInfo("Neo");

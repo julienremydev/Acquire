@@ -287,8 +287,8 @@ public class Plateau implements Serializable {
 		// Changement des états des hotels pour qu'ils appartiennent à la même chaine
 		for(Case hotelToChaine : listeHotels)
 		{
-			nouvelleChaine.addCase(hotelToChaine);
-			hotelToChaine.setEtat(nomChaine.getNumero());
+			nouvelleChaine.addCase(this.getCase(hotelToChaine.getNom()));
+			this.getCase(hotelToChaine.getNom()).setEtat(nomChaine.getNumero());
 		}
 		// Ajout de la chaine à la liste de chiane ? => ou changement d'un etat dans chaine qui permet de dire qu'elle est active.
 		//Game.listeChaine.add(nouvelleChaine);

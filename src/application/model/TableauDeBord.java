@@ -9,9 +9,8 @@ import application.control.PlateauController;
 public class TableauDeBord implements Serializable{
 	private static final long serialVersionUID = -3628602150383225255L;
 	
-	public static ArrayList<ClientInfo> infoParClient;
-	public static ArrayList<Chaine> listeChaine;
-
+	private ArrayList<ClientInfo> infoParClient;
+	private ArrayList<Chaine> listeChaine;
 
 	/**
 	 * Constructeur Tableau de bord

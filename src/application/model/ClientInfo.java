@@ -1,16 +1,15 @@
 package application.model;
 
-import java.util.ArrayList;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Random;
-import javafx.beans.property.SimpleStringProperty;
 
 public class ClientInfo implements Serializable{
 	private static final long serialVersionUID = -4425247831910575515L;
 
 	private String pseudo;
 	
+	private HashMap<String,Case> mainn;
 	private ArrayList<String> main;
 	
 	private Integer net;
@@ -20,95 +19,64 @@ public class ClientInfo implements Serializable{
 	private HashMap<TypeChaine, Integer> actionParChaine;
 
 	/**
-	 * Constructeur de la classe client info qui initialise les donnees d un
-	 * client
-	 * 
-	 * @param n
-	 *            : nom du pseudo du client
+	 * Constructeur de la classe client info qui initialise les donnees d un client
+	 * @param n : nom du pseudo du client
 	 */
-	public ClientInfo(String n) {
+	public ClientInfo(String n){
 		this.pseudo = n;
 		this.net = 6000;
 		this.cash = 6000;
-		this.main = new ArrayList<String>();
+		this.mainn = new HashMap<String,Case>();
+		this.main=new ArrayList<String>();
 		this.actionParChaine = new HashMap<TypeChaine,Integer>();
 	}
 
 	/**
-	 * methode metant a jour le cash du joueur en fonction d un montant passe en
-	 * parametre le montant peut etre positif (gain du joueur) le montant peut
-	 * etre negatif (achat du joueur)
-	 * 
+	 * methode metant a jour le cash du joueur en fonction d un montant passe en parametre
+	 * le montant peut etre positif (gain du joueur)
+	 * le montant peut etre negatif (achat du joueur)
 	 * @param montant
 	 * @return montant effectivement appliquee au cash
 	 */
-	public int updateCash(int montant) {
+	public int updateCash(int montant){
 		int res = montant;
-
-		if (this.getCash() + montant < 0) {
-			res = -this.getCash();
+		
+		if(this.getCash() + montant < 0){
+			res = - this.getCash();
 			this.setCash(0);
-		} else {
-			this.setCash(this.getCash() + montant);
+		}else{
+			this.setCash(this.getCash() + montant);			
 		}
-
+		
 		return res;
 	}
-
-	
-	/**
-	 * Ajoute 6 cases cliquable pour le joueur
-	 */
-	public void initialiseMain(Plateau plateau) {
-		int max=6;
-		for(int i=0;i<max;i++){
-			Random generator = new Random();
-			String c=plateau.getCaseDisponible().get(0 + (int)(Math.random() * plateau.getCaseDisponible().size()));
-			main.add(c);
-			plateau.getCaseDisponible().remove((0 + (int)(Math.random() * plateau.getCaseDisponible().size())));
-		}
-	}
-	
-	
-	/**
-	 * Ajoute 1 cases cliquable pour le joueur
-	 */
-
-	public void ajouteMain1fois(Plateau plateau) {
-			Random generator = new Random();
-			String c=plateau.getCaseDisponible().get(0 + (int)(Math.random() * plateau.getCaseDisponible().size()));
-			main.add(c);	
-			plateau.getCaseDisponible().remove((0 + (int)(Math.random() * plateau.getCaseDisponible().size())));
-}
-	/**
-	public void addCaseToMain(Case c){
-		if(c != null){
-			this.getMain().put(c.getNom(),c);			
-		}
-	} **/
-	
 	
 	/**
 	 * methode permettant de calculer le montant net du joueur
 	 */
-	public void updateNet() {
-
+	public void updateNet(){
+		
 	}
-
-
+	
 	/**
-	 * supprime une case de la main du joueur
-	 * 
+	 * ajoute une case dans la main du joueur
 	 * @param c
 	 */
-/**	
-	public void rmCaseToMain(Case c){
-		if(c != null && this.getMain().containsKey(c.getNom())){
-			this.getMain().remove(c.getNom());			
+	public void addCaseToMain(Case c){
+		if(c != null){
+			this.getMainn().put(c.getNom(),c);			
 		}
 	}
 	
-	**/
+	/**
+	 * supprime une case de la main du joueur
+	 * @param c
+	 */
+	public void rmCaseToMain(Case c){
+		if(c != null && this.getMainn().containsKey(c.getNom())){
+			this.getMainn().remove(c.getNom());			
+		}
+	}
 
 	/*
 	 * Getter & Setter
@@ -121,12 +89,12 @@ public class ClientInfo implements Serializable{
 //		this.pseudo = pseudo;
 //	}
 
-	public ArrayList<String> getMain() {
-		return main;
+	public HashMap<String,Case> getMainn() {
+		return mainn;
 	}
 
-	public void setMain(ArrayList<String> main) {
-		this.main = main;
+	public void setMain(HashMap<String,Case> main) {
+		this.mainn = main;
 	}
 
 	public int getNet() {
@@ -153,8 +121,41 @@ public class ClientInfo implements Serializable{
 		this.actionParChaine = actionParChaine;
 	}
 	
+	/**
+	 * @return
+	 */
 	public String getPseudo() {
 		// TODO Auto-generated method stub
 		return pseudo;
+	}
+	
+	/**
+	 * Ajoute 6 cases cliquable pour le joueur
+	 */
+	public void initialiseMain(Plateau plateau) {
+		int max=6;
+		//main.add("D3");
+		//plateau.getCasesDisponible().remove("D3");
+		for(int i=0;i<max;i++){
+			String c=plateau.getCasesDisponible().get(0 + (int)(Math.random() * plateau.getCasesDisponible().size()-1));
+			//String c=plateau.getCasesDisponible().get("D3");
+			main.add(c);
+			plateau.getCasesDisponible().remove(c);
+		}
+	}
+	
+	
+	/**
+	 * Ajoute 1 cases cliquable pour le joueur
+	 */
+
+	public void ajouteMain1fois(Plateau plateau) {
+			String c=plateau.getCasesDisponible().get(0 + (int)(Math.random() * plateau.getCasesDisponible().size()-1));
+			main.add(c);	
+			plateau.getCasesDisponible().remove(c);
+}
+
+	public ArrayList<String> getMain(){
+		return this.main;
 	}
 }

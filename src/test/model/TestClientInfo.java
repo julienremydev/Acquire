@@ -49,7 +49,7 @@ public class TestClientInfo {
 		Case c = new Case("test");
 		Case c2 = new Case("test2");
 		Case fail = null;
-		/**
+		
 		// cas main ajout case vide
 		// pas d'ajout dans la main
 		clientTest.addCaseToMain(fail);
@@ -94,6 +94,5 @@ public class TestClientInfo {
 		// cas case null
 		clientTest.rmCaseToMain(null);
 		assertEquals(test, clientTest.getMain());
-		**/
 	}
 }

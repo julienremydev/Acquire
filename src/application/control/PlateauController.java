@@ -28,7 +28,7 @@ import javafx.scene.layout.Background;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 
-public class PlateauController implements Initializable{
+public class PlateauController implements Initializable {
 
 	private Client client;
 
@@ -43,24 +43,23 @@ public class PlateauController implements Initializable{
 	@FXML
 	private TableView<ClientInfo> tableauDeBord;
 
-	public void setDisable(ActionEvent e) throws Exception{
+	public void setDisable(ActionEvent e) throws Exception {
 		Button b = (Button) e.getSource();
 		b.setDisable(true);
 		String text = b.getText();
 		client.sendCase(text);
 	}
 
-
 	public void setClient(Client c, ServeurInterface serveur) throws RemoteException {
-		client=c;
+		client = c;
 		client.setServeur(serveur);
 		client.setController(this);
 	}
 
 	public void setCases(ArrayList<Case> listCase) {
 		ObservableList<Node> childrens = grid.getChildren();
-		int i =0;
-		for(Node node : childrens) {
+		int i = 0;
+		for (Node node : childrens) {
 			if (node instanceof Button) {
 				Case c = new Case(((Button) node).getText());
 				if (listCase.contains(c)) {
@@ -68,35 +67,35 @@ public class PlateauController implements Initializable{
 				}
 			}
 			i++;
-			if (i==108) {
+			if (i == 108) {
 				break;
 			}
 		}
 	}
 
 	public void setGame(Game g) {
-		//recuperer la main du joueur
+		// recuperer la main du joueur
 		ObservableList<Node> childrens = grid.getChildren();
-		int i=0;
-		for(Node node : childrens) {
+		int i = 0;
+		for (Node node : childrens) {
 			if (node instanceof Button) {
 				Button b = (Button) node;
 				Case c = g.getPlateau().getCase(b.getText());
 
 				Platform.runLater(new Runnable() {
 					public void run() {
-						if (c.getEtat()==1) {
-							b.setTextFill(Color.RED);
+						if (c.getEtat() == 1) {
+							b.setTextFill(Color.GREEN);
+							b.setStyle("-fx-background-color: #000000;");
 						}
-						if (c.getEtat()==2){
+						if (c.getEtat() == 2) {
 							b.setTextFill(Color.YELLOW);
 
 						}
 					}
-				}
-						);
+				});
 			}
-			if (i==108) {
+			if (i == 108) {
 				break;
 			}
 		}
@@ -105,16 +104,15 @@ public class PlateauController implements Initializable{
 	public void getMain() {
 	}
 
-
-	public void envoyerTchat() throws RemoteException{
+	public void envoyerTchat() throws RemoteException {
 		if (input.getText().trim().length() > 0)
 			client.getServeur().distributionTchat(client.getPseudo(), input.getText().trim());
 	}
+
 	public void setChat(String s) {
 		Platform.runLater(() -> tchat.setText(s));
 		Platform.runLater(() -> tchat.setScrollTop(tchat.getHeight()));
 	}
-
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -122,27 +120,34 @@ public class PlateauController implements Initializable{
 		letsplay.setDisable(true);
 	}
 
-
 	public void setBEnable(boolean b) {
 		letsplay.setDisable(!b);
 	}
-	public void setDataTableView () {
+
+	public void setDataTableView() {
 		try {
 			final ObservableList<ClientInfo> data = FXCollections.observableArrayList();
 
-			for(ClientInfo ci : client.getServeur().getGame().getTableau().getInfoParClient()){
+			for (ClientInfo ci : client.getServeur().getGame().getTableau().getInfoParClient()) {
 				data.add(ci);
 			}
-			
+
 			tableauDeBord.setItems(data);
 		} catch (RemoteException e) {
 			e.printStackTrace();
 		}
 	}
-	public void lancement() throws RemoteException{
-		client.getServeur().setLancement();
+	
+	public void genererLaMainJoueur() throws RemoteException{
+		//distribuer l'affichage des mains
+			
 	}
+	
 
+	public void lancement() throws RemoteException {
+		client.getServeur().setLancement();
+		//setGame(client.getServeur().getGame());
+	}
 
 	public static void nouvelleChaine(Chaine nouvelleChaine) {
 		// TODO Auto-generated method stub

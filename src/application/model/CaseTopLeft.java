@@ -6,16 +6,28 @@ public class CaseTopLeft extends Case {
 		super(n);
 	}
 
-	@Override
+	/**
+	 * Permet de savoir si les cases autour de la notre sont vides
+	 * 
+	 * @return
+	 */
 	public boolean surroundedByNothing() {
-		// TODO Auto-generated method stub
-		return false;
+		if ((this.getSouth().getEtat() == 0) && (this.getEast().getEtat() == 0))
+			return true;
+		else
+			return false;
 	}
 
-	@Override
+	/**
+	 * Retourne true si on à au moins un hotel autour
+	 * 
+	 * @return
+	 */
 	public boolean surroundedByHotels() {
-		// TODO Auto-generated method stub
-		return false;
+		if ((this.getEast().getEtat() == 1) || (this.getSouth().getEtat() == 1))
+			return true;
+		else
+			return false;
 	}
 
 	@Override

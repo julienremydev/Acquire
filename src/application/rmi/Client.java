@@ -8,6 +8,7 @@ import java.util.HashMap;
 import application.control.PlateauController;
 import application.model.Action;
 import application.model.Case;
+import application.model.TypeChaine;
 import application.view.ClientView;
 
 public class Client extends UnicastRemoteObject implements ClientInterface {
@@ -90,6 +91,11 @@ public class Client extends UnicastRemoteObject implements ClientInterface {
 	
 	public void receiveMain(ArrayList<String> main) throws RemoteException {
 		plateauController.setMain(main);
+	}
+
+	public void pickColor(Action a, TypeChaine nomChaine) throws RemoteException {
+		this.serveur.creationChaineServeur(a, nomChaine);
+		
 	}
 
 }

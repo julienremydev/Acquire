@@ -69,13 +69,13 @@ public class PlateauController implements Initializable {
 				b.setPrefWidth(300);
 				b.setPrefHeight(300);
 				b.setOnAction((event) -> {
-					g.getPlateau().creationChaine(a.getListeDeCaseAModifier(), c.getNomChaine());
 					try {
-						client.getServeur().distribution();
-					} catch (Exception e) {
+						client.pickColor(a,c.getNomChaine());
+					} catch (Exception e1) {
 						// TODO Auto-generated catch block
-						e.printStackTrace();
+						e1.printStackTrace();
 					}
+					//g.getPlateau().creationChaine(a.getListeDeCaseAModifier(), c.getNomChaine());
 				});
 				Platform.runLater(() -> gridPaneAction.add(b, i, 0));
 			}

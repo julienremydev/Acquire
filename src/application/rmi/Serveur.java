@@ -18,6 +18,7 @@ import java.util.logging.Logger;
 import application.globale.Globals;
 import application.model.Action;
 import application.model.ClientInfo;
+import application.model.TypeChaine;
 
 public class Serveur extends UnicastRemoteObject implements ServeurInterface {
 
@@ -224,5 +225,12 @@ public class Serveur extends UnicastRemoteObject implements ServeurInterface {
 
 	public Game getGame() throws RemoteException{
 		return game;
+	}
+
+	@Override
+	public void creationChaineServeur(Action a, TypeChaine c) throws RemoteException {
+		getGame().getPlateau().creationChaine(a.getListeDeCaseAModifier(), c);
+		distribution();
+		
 	}
 }

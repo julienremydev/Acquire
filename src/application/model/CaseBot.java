@@ -6,16 +6,29 @@ public class CaseBot extends Case {
 		super(n);
 	}
 
+	/**
+	 * Permet de savoir si les cases autour de la notre sont vides
+	 * 
+	 * @return
+	 */
 	@Override
 	public boolean surroundedByNothing() {
-		// TODO Auto-generated method stub
-		return false;
+		if ((this.getNorth().getEtat() == 0)  && (this.getEast().getEtat() == 0) && (this.getWest().getEtat() == 0))
+			return true;
+		else
+			return false;
 	}
 
-	@Override
+	/**
+	 * Retourne true si on à au moins un hotel autour
+	 * 
+	 * @return
+	 */
 	public boolean surroundedByHotels() {
-		// TODO Auto-generated method stub
-		return false;
+		if ((this.getNorth().getEtat() == 1) || (this.getEast().getEtat() == 1)	|| (this.getWest().getEtat() == 1))
+			return true;
+		else
+			return false;
 	}
 
 	@Override

@@ -19,10 +19,16 @@ public class CaseRight extends  Case {
 			return false;
 	}
 
-	@Override
+	/**
+	 * Retourne true si on à au moins un hotel autour
+	 * 
+	 * @return
+	 */
 	public boolean surroundedByHotels() {
-		// TODO Auto-generated method stub
-		return false;
+		if ((this.getNorth().getEtat() == 1) || (this.getSouth().getEtat() == 1)|| (this.getWest().getEtat() == 1))
+			return true;
+		else
+			return false;
 	}
 
 	@Override

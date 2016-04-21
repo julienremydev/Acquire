@@ -175,36 +175,32 @@ public class Plateau implements Serializable {
 		 * Présence d'un ou plusieurs hotêls autour de la case Pas de chaînes
 		 * dans ce cas création d'un object Action de type 0 (hotels)
 		 */
-		
-
 		if (askColor && !askChain)
 		{
 			ArrayList<Case> tabCasesAModifier = caseModifiee.tabAdjascent(caseModifiee.getNorth(), caseModifiee.getSouth(), caseModifiee.getEast(), caseModifiee.getWest());
+			tabCasesAModifier.add(caseModifiee);
 			Action action = new Action(tabCasesAModifier,0);
-//			ArrayList<Case> tabHotels = caseModifiee.tabAdjascent(caseModifiee.getNorth(), caseModifiee.getSouth(), caseModifiee.getEast(), caseModifiee.getWest());
-//			for(Case element : tabHotels)
-//			{
-//				element.setEtat(2);
-//			}
-//			caseModifiee.setEtat(2);
 			return action;
 		}
-//		/**
-//		 * Présence d'une ou plusieures chaînes autour de la case Pas d'hôtels
-//		 * dans ce cas
-//		 */
-//		if (askChain && !askColor) // juste une ou plusieurs chaines, pas
-//			// d'hotel
-//		{
-//			// tableau des cases non null donc dans ce cas des cases avec
-//			// chaines.
-//			ArrayList<Case> tab = tabAdjascent(this.getNorth(), this.getSouth(), this.getEast(), this.getWest());
-//			/**
-//			 * Le tableau n'a qu'une taille de 1, donc simple changement de la
-//			 * couleur de la case
-//			 */
-//			if (tab.size() == 1)
-//				this.setEtat(tab.get(0).getEtat());
+		/**
+		 * Présence d'une ou plusieures chaînes autour de la case Pas d'hôtels
+		 * dans ce cas
+		 */
+		if (askChain && !askColor) // juste une ou plusieurs chaines, pas
+			// d'hotel
+		{
+			// tableau des cases non null donc dans ce cas des cases avec
+			// chaines.
+			ArrayList<Case> tab = caseModifiee.tabAdjascent(caseModifiee.getNorth(), caseModifiee.getSouth(), caseModifiee.getEast(), caseModifiee.getWest());
+			/**
+			 * Le tableau n'a qu'une taille de 1, donc simple changement de la
+			 * couleur de la case
+			 */
+			if (tab.size() == 1)
+				caseModifiee.setEtat(tab.get(0).getEtat());
+			
+		}
+		
 //			/**
 //			 * Tableau taille de 2, donc deux cases avec une chaine
 //			 */
@@ -282,13 +278,17 @@ public class Plateau implements Serializable {
 	 */
 	public void creationChaine(ArrayList<Case> listeHotels, TypeChaine nomChaine)
 	{
+		System.out.println("nomChaine.getNum"+nomChaine.getNumero());
+		
 		// Création de la nouvelle chaine
 		Chaine nouvelleChaine = new Chaine(nomChaine);
 		// Changement des états des hotels pour qu'ils appartiennent à la même chaine
 		for(Case hotelToChaine : listeHotels)
 		{
-			nouvelleChaine.addCase(this.getCase(hotelToChaine.getNom()));
-			this.getCase(hotelToChaine.getNom()).setEtat(nomChaine.getNumero());
+			System.out.println(hotelToChaine.getNom());
+			System.out.println("this."+this.getCase(hotelToChaine.getNomCase()));
+			nouvelleChaine.addCase(this.getCase(hotelToChaine.getNomCase()));
+			this.getCase(hotelToChaine.getNomCase()).setEtat(nomChaine.getNumero());
 		}
 		// Ajout de la chaine à la liste de chiane ? => ou changement d'un etat dans chaine qui permet de dire qu'elle est active.
 		//Game.listeChaine.add(nouvelleChaine);

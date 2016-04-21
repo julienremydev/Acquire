@@ -28,6 +28,10 @@ public class Case implements Serializable {
 	public void setNom(String nom) {
 		this.nom = nom;
 	}
+	
+	public String getNomCase(){
+		return this.nom;
+	}
 
 	public Case(){}
 	
@@ -251,13 +255,13 @@ public class Case implements Serializable {
 	 */
 	public ArrayList<Case> tabAdjascent(Case cN, Case cS, Case cE, Case cW) {
 		ArrayList<Case> tab = new ArrayList();
-		if (cN.getEtat() != 0)
+		if (cN != null && cN.getEtat() != 0)
 			tab.add(cN);
-		if (cS.getEtat() != 0)
+		if (cS != null && cS.getEtat() != 0)
 			tab.add(cS);
-		if (cE.getEtat() != 0)
+		if (cE != null && cE.getEtat() != 0)
 			tab.add(cE);
-		if (cW.getEtat() != 0)
+		if (cW != null && cW.getEtat() != 0)
 			tab.add(cW);
 		return tab;
 	}

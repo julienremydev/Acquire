@@ -26,4 +26,5 @@ public interface ClientInterface extends Remote{
 	
 	void receiveMain(ArrayList<String> main) throws RemoteException;
 	
+	
 }

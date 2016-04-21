@@ -9,7 +9,9 @@ import application.control.PlateauController;
 public class TableauDeBord implements Serializable{
 	private static final long serialVersionUID = -3628602150383225255L;
 	
-	private ArrayList<ClientInfo> infoParClient;
+	private HashMap<String,ClientInfo> infoParClient;
+	
+	
 	private ArrayList<Chaine> listeChaine;
 
 	/**
@@ -17,21 +19,21 @@ public class TableauDeBord implements Serializable{
 	 */
 
 	public TableauDeBord() {
-		this.infoParClient = new ArrayList<ClientInfo>();
+		this.infoParClient = new HashMap<String,ClientInfo>();
 
 	}
 	/**
 	 * Retourne la liste des clients
 	 * @return
 	 */
-	public ArrayList<ClientInfo> getInfoParClient() {
+	public HashMap<String,ClientInfo> getInfoParClient() {
 		return infoParClient;
 	}
 	/**
 	 * Défini la nouvelle liste d'infoParClient avec la lister en paramètre
 	 * @param infoParClient
 	 */
-	public void setInfoParClient(ArrayList<ClientInfo> infoParClient) {
+	public void setInfoParClient(HashMap<String,ClientInfo> infoParClient) {
 		this.infoParClient = infoParClient;
 	}
 	/**
@@ -53,7 +55,7 @@ public class TableauDeBord implements Serializable{
 	 * @param c
 	 */
 	public void ajouterClient(ClientInfo c) {
-		this.infoParClient.add(c);
+		this.infoParClient.put(c.getPseudo(),c);
 	}
 	/**
 	 * Retourne la chaine si on passe correspondante à son id

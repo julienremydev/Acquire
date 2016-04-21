@@ -12,7 +12,7 @@ public class Game implements Serializable{
 
 	private static final long serialVersionUID = 1964688809311788179L;
 	
-	public static ArrayList<Chaine> listeChaine = new ArrayList<Chaine> ();
+	public ArrayList<Chaine> listeChaine = new ArrayList<Chaine> ();
 	
 	private Plateau plateau;
 	
@@ -38,7 +38,6 @@ public class Game implements Serializable{
 		listeChaine.add(phoenix);
 		listeChaine.add(quantum);
 		listeChaine.add(fusion);
-		
 		this.plateau=new Plateau();
 		this.tableauDeBord = new TableauDeBord();
 	}

@@ -2,6 +2,7 @@ package application.rmi;
 
 import java.rmi.Remote;
 import java.rmi.RemoteException;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import application.model.Action;
@@ -22,5 +23,7 @@ public interface ClientInterface extends Remote{
 	void receiveData() throws RemoteException;
 	
 	void receiveAction(Action a, Game g) throws RemoteException;
+	
+	void receiveMain(ArrayList<String> main) throws RemoteException;
 	
 }

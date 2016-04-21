@@ -133,7 +133,7 @@ public class ClientInfo implements Serializable{
 	/**
 	 * Ajoute 6 cases cliquable pour le joueur
 	 */
-	public void initialiseMain(Plateau plateau) {
+	public ArrayList<String> initialiseMain(Plateau plateau) {
 		int max=6;
 		//main.add("D3");
 		//plateau.getCasesDisponible().remove("D3");
@@ -143,6 +143,7 @@ public class ClientInfo implements Serializable{
 			main.add(c);
 			plateau.getCasesDisponible().remove(c);
 		}
+		return main;
 	}
 	
 	

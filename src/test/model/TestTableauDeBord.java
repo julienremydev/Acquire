@@ -6,6 +6,7 @@ import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -23,7 +24,7 @@ public class TestTableauDeBord {
 	
 	TableauDeBord tableauTest;
 	ArrayList<Chaine> listeTypeChaine;
-	ArrayList<ClientInfo> infoParClient;
+	HashMap<String,ClientInfo> infoParClient;
 	
 	
 	@Before
@@ -34,11 +35,11 @@ public class TestTableauDeBord {
 		listeTypeChaine.add(ch1);
 		listeTypeChaine.add(ch2);
 		tableauTest = new TableauDeBord();
-		infoParClient = new ArrayList<ClientInfo>();
+		infoParClient = new HashMap<String,ClientInfo>();
 		c1 = new ClientInfo("Yodaii");
 		c2 = new ClientInfo("Neo");
-		infoParClient.add(c1);
-		infoParClient.add(c2);
+		infoParClient.put(c1.getPseudo(),c1);
+		infoParClient.put(c2.getPseudo(),c2);
 		
 		tableauTest.setInfoParClient(infoParClient);
 	}

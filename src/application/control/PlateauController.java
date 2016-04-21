@@ -3,9 +3,10 @@ package application.control;
 import java.net.URL;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
-import java.util.Map;
 import java.util.ResourceBundle;
+import java.util.Set;
 
 import application.model.Action;
 import application.model.Case;
@@ -25,9 +26,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.Background;
 import javafx.scene.layout.GridPane;
-import javafx.scene.paint.Color;
 
 public class PlateauController implements Initializable {
 
@@ -52,15 +51,26 @@ public class PlateauController implements Initializable {
 	@FXML
 	private TableView<ClientInfo> tableauDeBord;
 
+	private ArrayList<String> main;
+
+	private int i ;
+
 	public void setChoixCreationChaine (Action a, Game g){
-		for ( Chaine c : g.listeChaine){
+		ObservableList<Node> childrens = gridPaneAction.getChildren();
+		i=0;
+		for ( Chaine c : g.listeChaine) {
 			if (c.chaineDisponible()){
 				//définir les boutons ici avec le action listener !!!!!
 				//mettre les bons index 
-				
-				gridPaneAction.add(new Button (c.getNomChaine().toString()), 0, 0);
-				
+				Platform.runLater(new Runnable() {
+					public void run() {
+						System.out.println(i);
+						Button b =  new Button (c.getNomChaine().toString());
+						gridPaneAction.add(new Button (c.getNomChaine().toString()), 0, i);
+					}
+				});
 			}
+			i++;
 		}
 	}
 	/**
@@ -96,8 +106,7 @@ public class PlateauController implements Initializable {
 	 */
 	public void setGame(Game g) {
 		// recuperer la main du joueur
-		
-		
+
 		//recuperation de l'ensemble des cases du plateau (graphique)
 		ObservableList<Node> childrens = grid.getChildren();
 		int i = 0;
@@ -182,7 +191,9 @@ public class PlateauController implements Initializable {
 		try {
 			final ObservableList<ClientInfo> data = FXCollections.observableArrayList();
 
-			for (ClientInfo ci : client.getServeur().getGame().getTableau().getInfoParClient()) {
+			HashMap<String,ClientInfo> infoClient = client.getServeur().getGame().getTableau().getInfoParClient();
+			Collection<ClientInfo> values = infoClient.values();
+			for (ClientInfo ci : values) {
 				data.add(ci);
 			}
 
@@ -191,12 +202,6 @@ public class PlateauController implements Initializable {
 			e.printStackTrace();
 		}
 	}
-
-	public void genererLaMainJoueur() throws RemoteException{
-		//distribuer l'affichage des mains
-
-	}
-
 
 	public void lancement() throws RemoteException {
 		client.getServeur().setLancement();
@@ -207,5 +212,29 @@ public class PlateauController implements Initializable {
 	public static void nouvelleChaine(Chaine nouvelleChaine) {
 		// TODO Auto-generated method stub
 
+	}
+
+	public void setMain(ArrayList<String> main) {
+		this.main=main;
+		majMainLancement();
+	}
+
+	public void majMainLancement() {
+		ObservableList<Node> childrens = grid.getChildren();
+		int i = 0;
+		for (Node node : childrens) {
+			if (node instanceof Button) {
+				Button b = (Button) node;
+				//recuperation de la case correspondant au bouton
+				if (main.contains(b.getText())) {
+					//methode pour rafraichir l'interface
+					Platform.runLater(new Runnable() {
+						public void run() {
+							b.setDisable(false);
+						}
+					});
+				}
+			}
+		}
 	}
 }

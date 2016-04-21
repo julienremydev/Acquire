@@ -2,6 +2,7 @@ package application.rmi;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import application.control.PlateauController;
@@ -85,6 +86,10 @@ public class Client extends UnicastRemoteObject implements ClientInterface {
 	@Override
 	public HashMap<String, Case> getMain() throws RemoteException {
 		return null;
+	}
+	
+	public void receiveMain(ArrayList<String> main) throws RemoteException {
+		plateauController.setMain(main);
 	}
 
 }

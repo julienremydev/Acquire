@@ -2,6 +2,8 @@ package application.model;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Map.Entry;
 
@@ -152,7 +154,9 @@ public class Plateau implements Serializable {
 	 */
 	public Action updateCase(String text) {
 		Case caseModifiee = plateauMap.get(text);
+
 		// plateauMap.get(text).lookCase();
+
 
 		boolean simpleCase = caseModifiee.surroundedByNothing();
 		boolean askColor = caseModifiee.surroundedByHotels();
@@ -164,27 +168,131 @@ public class Plateau implements Serializable {
 		 */
 		if (simpleCase) {
 			caseModifiee.setEtat(1);
+			return null;
 		}
 
 		/**
 		 * Présence d'un ou plusieurs hotêls autour de la case Pas de chaînes
-		 * dans ce cas Appel de la fonction de choix de couleur de chaine coté
-		 * utilisateur
+		 * dans ce cas création d'un object Action de type 0 (hotels)
 		 */
-		if (askColor && !askChain) {
-			Action action = new Action(0);
-			// ArrayList<Case> tabHotels =
-			// caseModifiee.tabAdjascent(caseModifiee.getNorth(),
-			// caseModifiee.getSouth(), caseModifiee.getEast(),
-			// caseModifiee.getWest());
-			// for(Case element : tabHotels)
-			// {
-			// element.setEtat(2);
-			// }
-			// caseModifiee.setEtat(2);
+		
+
+		if (askColor && !askChain)
+		{
+			ArrayList<Case> tabCasesAModifier = caseModifiee.tabAdjascent(caseModifiee.getNorth(), caseModifiee.getSouth(), caseModifiee.getEast(), caseModifiee.getWest());
+			Action action = new Action(tabCasesAModifier,0);
+//			ArrayList<Case> tabHotels = caseModifiee.tabAdjascent(caseModifiee.getNorth(), caseModifiee.getSouth(), caseModifiee.getEast(), caseModifiee.getWest());
+//			for(Case element : tabHotels)
+//			{
+//				element.setEtat(2);
+//			}
+//			caseModifiee.setEtat(2);
 			return action;
 		}
+//		/**
+//		 * Présence d'une ou plusieures chaînes autour de la case Pas d'hôtels
+//		 * dans ce cas
+//		 */
+//		if (askChain && !askColor) // juste une ou plusieurs chaines, pas
+//			// d'hotel
+//		{
+//			// tableau des cases non null donc dans ce cas des cases avec
+//			// chaines.
+//			ArrayList<Case> tab = tabAdjascent(this.getNorth(), this.getSouth(), this.getEast(), this.getWest());
+//			/**
+//			 * Le tableau n'a qu'une taille de 1, donc simple changement de la
+//			 * couleur de la case
+//			 */
+//			if (tab.size() == 1)
+//				this.setEtat(tab.get(0).getEtat());
+//			/**
+//			 * Tableau taille de 2, donc deux cases avec une chaine
+//			 */
+//
+//			if (tab.size() >= 2)// regrouper le cas ou on a 2, 3 ou 4 cases
+//				// autour avec une chaine
+//			{
+//				int nbCases = tab.size();
+//				boolean sameColor = sameColorsArround(tab, nbCases);
+//				int chainePremiereCase;
+//				int chaineDeuxiemeCase;
+//				sameColor = sameColorsArround(tab, nbCases);
+//				/**
+//				 * Vérification si il s'agit de la même chaîne dans toutes les
+//				 * cases adjascentes, on change juste la couleur de la case.
+//				 */
+//				if (sameColor)
+//					this.setEtat(tab.get(0).getEtat());
+//				else {
+//					switch (nbCases) {
+//					case 2:
+//						chainePremiereCase = tab.get(0).getEtat();
+//						chaineDeuxiemeCase = tab.get(1).getEtat();
+//						/**
+//						 * Si leurs taille sont égales, on demande la couleur à
+//						 * l'utilisateur
+//						 */
+//						if (chainePremiereCase == chaineDeuxiemeCase) // avec
+//							// les
+//							// fonctions
+//							// que
+//							// yoh
+//							// va
+//							// faire
+//							this.setEtat(tab.get(0).getEtat()); // client.askColorChaineVoulue()
+//						// &&
+//						// chaine.SetChaine(int
+//						// nouvelleChaine)
+//
+//						else {
+//							if (chainePremiereCase > chaineDeuxiemeCase)
+//								// La premiere chaine est plus grande donc
+//								// changement etat case +
+//								// tab.get(1).SetChaine(tab.get(0))
+//								this.setEtat(tab.get(0).getEtat());
+//							else
+//								// pareil mais inversement avec les cases du
+//								// tableau
+//								this.setEtat(tab.get(1).getEtat());
+//						}
+//						break;
+//					case 3:
+//
+//						break;
+//					case 4:
+//						break;
+//					}
+//				}
+//				Collections.sort(tab, new Comparator<Case>() {
+//					@Override
+//					public int compare(Case tc1, Case tc2) {
+//						return tc1.getEtat().compareTo(tc2.getEtat());
+//					}
+//				});
+//			}
+//		}
 		return null;
+
+
+	}
+	/**
+	 * Creation d'une nouvelle chaine, Changement de l'etat des hotels en chaîne, ajout de la chaine, à la liste de chaîne.
+	 * @param listeHotels
+	 * @param nomChaine
+	 */
+	public static void creationChaine(ArrayList<Case> listeHotels, TypeChaine nomChaine)
+	{
+		// Création de la nouvelle chaine
+		Chaine nouvelleChaine = new Chaine(nomChaine);
+		// Changement des états des hotels pour qu'ils appartiennent à la même chaine
+		for(Case hotelToChaine : listeHotels)
+		{
+			nouvelleChaine.addCase(hotelToChaine);
+			hotelToChaine.setEtat(nomChaine.getNumero());
+		}
+		// Ajout de la chaine à la liste de chiane ? => ou changement d'un etat dans chaine qui permet de dire qu'elle est active.
+		//Game.listeChaine.add(nouvelleChaine);
+		
 
 	}
 
@@ -205,6 +313,7 @@ public class Plateau implements Serializable {
 	public Case getCase(String text) {
 		return plateauMap.get(text);
 	}
+
 
 	/**
 	 * Ajoute 6 cases cliquable pour le joueur
@@ -235,4 +344,5 @@ public class Plateau implements Serializable {
 	// p.affichePlateau();
 	//
 	// }
+
 }

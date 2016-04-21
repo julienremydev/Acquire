@@ -15,9 +15,11 @@ public class TableauDeBord implements Serializable{
 	/**
 	 * Constructeur Tableau de bord
 	 */
+
 	public TableauDeBord(ArrayList<Chaine> listeDeChaine) {
 		this.infoParClient = new ArrayList<ClientInfo>();
 		this.listeChaine=listeDeChaine;
+
 	}
 	/**
 	 * Retourne la liste des clients
@@ -70,6 +72,7 @@ public class TableauDeBord implements Serializable{
 		return toReturn;
 	}
 	
+
 	/**
 	 * fonction permettant au joueur d acheter des actions et met a jour le nombre d action restante
 	 * @param nb : nombre d action voulant etre acheter par le joueur
@@ -172,22 +175,6 @@ public class TableauDeBord implements Serializable{
 		
 		return res;
 	}
-	
-	/**
-	 * Creation d'une nouvelle chaine, Changement de l'etat des hotels en chaîne, ajout de la chaine, à la liste de chaîne.
-	 * @param listeHotels
-	 * @param nomChaine
-	 */
-//	public static void creationChaine(ArrayList<Case> listeHotels, TypeChaine nomChaine)
-//	{
-//		Chaine nouvelleChaine = new Chaine(nomChaine);
-//		for(Case hotelChaine : listeHotels)
-//		{
-//			nouvelleChaine.addCase(hotelChaine);
-//			hotelChaine.setEtat(nomChaine.getNumero());
-//		}
-//		listeChaine.add(nouvelleChaine);
-//		PlateauController.nouvelleChaine(nouvelleChaine);
-//	}
+
 
 }

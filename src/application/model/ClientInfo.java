@@ -19,6 +19,16 @@ public class ClientInfo implements Serializable{
 	
 	private HashMap<TypeChaine, Integer> actionParChaine;
 
+	// NE PAS TOUCHER A CES ATTRIBUTS (NECESSAIRE POUR LA VUE MEME SI NON UTILISE)
+	private Integer actionSackson;
+	private Integer actionAmerica;
+	private Integer actionFusion;
+	private Integer actionPhoenix;
+	private Integer actionHydra;
+	private Integer actionQuantum;
+	private Integer actionZeta;
+	//
+	
 	/**
 	 * Constructeur de la classe client info qui initialise les donnees d un client
 	 * @param n : nom du pseudo du client
@@ -30,6 +40,13 @@ public class ClientInfo implements Serializable{
 		this.mainn = new HashMap<String,Case>();
 		this.main=new ArrayList<String>();
 		this.actionParChaine = new HashMap<TypeChaine,Integer>();
+		this.actionParChaine.put(TypeChaine.SACKSON, 0);
+		this.actionParChaine.put(TypeChaine.AMERICA, 0);
+		this.actionParChaine.put(TypeChaine.FUSION, 0);
+		this.actionParChaine.put(TypeChaine.PHOENIX, 0);
+		this.actionParChaine.put(TypeChaine.HYDRA, 0);
+		this.actionParChaine.put(TypeChaine.QUANTUM, 0);
+		this.actionParChaine.put(TypeChaine.ZETA, 0);
 	}
 
 	/**
@@ -82,9 +99,9 @@ public class ClientInfo implements Serializable{
 	/*
 	 * Getter & Setter
 	 */
-//	public String getPseudo() {
-//		return pseudo;
-//	}
+	public String getPseudo() {
+		return pseudo;
+	}
 //
 //	public void setPseudo(String pseudo) {
 //		this.pseudo = pseudo;
@@ -121,14 +138,7 @@ public class ClientInfo implements Serializable{
 	public void setActionParChaine(HashMap<TypeChaine, Integer> actionParChaine) {
 		this.actionParChaine = actionParChaine;
 	}
-	
-	/**
-	 * @return
-	 */
-	public String getPseudo() {
-		// TODO Auto-generated method stub
-		return pseudo;
-	}
+
 	
 	/**
 	 * Ajoute 6 cases cliquable pour le joueur
@@ -147,6 +157,35 @@ public class ClientInfo implements Serializable{
 	}
 	
 	
+	public Integer getActionSackson() {
+		return this.actionParChaine.put(TypeChaine.SACKSON, 0);
+	}
+
+	public Integer getActionHydra() {
+		return this.actionParChaine.put(TypeChaine.HYDRA, 0);
+	}
+	
+	public Integer getActionAmerica() {
+		return this.actionParChaine.put(TypeChaine.AMERICA, 0);
+	}
+
+	public Integer getActionFusion() {
+		return this.actionParChaine.put(TypeChaine.FUSION, 0);
+	}
+
+	public Integer getActionPhoenix() {
+		return this.actionParChaine.put(TypeChaine.PHOENIX, 0);
+	}
+
+	public Integer getActionQuantum() {
+		return this.actionParChaine.put(TypeChaine.QUANTUM, 0);
+	}
+
+	public Integer getActionZeta() {
+		return this.actionParChaine.put(TypeChaine.ZETA, 0);
+	}
+
+
 	/**
 	 * Ajoute 1 cases cliquable pour le joueur
 	 */

@@ -208,13 +208,34 @@
             	<cellValueFactory><PropertyValueFactory property="pseudo" />
         		</cellValueFactory>
         	</TableColumn>
-            <TableColumn prefWidth="30.0" text="S" />
-            <TableColumn prefWidth="30.0" text="Z" />
-            <TableColumn prefWidth="30.0" text="H" />
-            <TableColumn prefWidth="30.0" text="F" />
-            <TableColumn prefWidth="30.0" text="A" />
-            <TableColumn prefWidth="30.0" text="P" />
-            <TableColumn prefWidth="30.0" text="Q" />
+            <TableColumn prefWidth="30.0" text="S">
+                <cellValueFactory><PropertyValueFactory property="actionSackson" />
+        		</cellValueFactory>
+        	</TableColumn>
+            <TableColumn prefWidth="30.0" text="Z">
+                <cellValueFactory><PropertyValueFactory property="actionParChaine.get(TypeChaine.ZETA)" />
+        		</cellValueFactory>
+        	</TableColumn>
+            <TableColumn prefWidth="30.0" text="H">
+                <cellValueFactory><PropertyValueFactory property="actionHydra" />
+        		</cellValueFactory>
+        	</TableColumn>
+            <TableColumn prefWidth="30.0" text="F">
+                <cellValueFactory><PropertyValueFactory property="actionParChaine.get(TypeChaine.FUSION)" />
+        		</cellValueFactory>
+        	</TableColumn>
+            <TableColumn prefWidth="30.0" text="A">
+                <cellValueFactory><PropertyValueFactory property="actionParChaine.get(TypeChaine.AMERICA)" />
+        		</cellValueFactory>
+        	</TableColumn>
+            <TableColumn prefWidth="30.0" text="P">
+                <cellValueFactory><PropertyValueFactory property="actionParChaine.get(TypeChaine.PHEONIX)" />
+        		</cellValueFactory>
+        	</TableColumn>
+            <TableColumn prefWidth="30.0" text="Q"> 
+           		<cellValueFactory><PropertyValueFactory property="actionParChaine.get(TypeChaine.QUANTUM)" />
+        		</cellValueFactory>
+        	</TableColumn>
             <TableColumn prefWidth="75.0" text="Cash">
             	<cellValueFactory><PropertyValueFactory property="cash" />
         		</cellValueFactory>

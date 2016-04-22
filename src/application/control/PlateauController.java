@@ -220,7 +220,7 @@ public class PlateauController implements Initializable {
 	}
 
 	public void lancement() throws RemoteException {
-		client.getServeur().setLancement();
+		client.getServeur().setLancement(); 
 		letsplay.setOpacity(0);
 		// setGame(client.getServeur().getGame());
 	}

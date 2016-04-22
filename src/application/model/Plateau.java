@@ -151,8 +151,9 @@ public class Plateau implements Serializable {
 	 * Met à jour la case du plateau passé en paramètre
 	 * 
 	 * @param text
+	 * @param listeChaine 
 	 */
-	public Action updateCase(String text) {
+	public Action updateCase(String text, ArrayList<Chaine> listeChaine) {
 		Case caseModifiee = plateauMap.get(text);
 
 		// plateauMap.get(text).lookCase();
@@ -186,20 +187,22 @@ public class Plateau implements Serializable {
 		 * Présence d'une ou plusieures chaînes autour de la case Pas d'hôtels
 		 * dans ce cas
 		 */
-		if (askChain && !askColor) // juste une ou plusieurs chaines, pas
-			// d'hotel
+		if (askChain && !askColor) // juste une ou plusieurs chaines, pas d'hotel
 		{
-			// tableau des cases non null donc dans ce cas des cases avec
-			// chaines.
+			// tableau des cases non null donc dans ce cas des cases avec chaines.
 			ArrayList<Case> tab = caseModifiee.tabAdjascent(caseModifiee.getNorth(), caseModifiee.getSouth(), caseModifiee.getEast(), caseModifiee.getWest());
 			/**
 			 * Le tableau n'a qu'une taille de 1, donc simple changement de la
 			 * couleur de la case
 			 */
 			if (tab.size() == 1)
+			{
 				caseModifiee.setEtat(tab.get(0).getEtat());
+				listeChaine.get(tab.get(0).getEtat()).addCase(caseModifiee);				
+				
+			}
 			
-		}
+		}	
 		
 //			/**
 //			 * Tableau taille de 2, donc deux cases avec une chaine

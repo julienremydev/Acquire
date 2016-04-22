@@ -46,7 +46,6 @@ public class Chaine implements Serializable{
 	}
 	
 	
-	
 	/*
 	 * Liste des Getters et Setters des tous les attributs
 	 */

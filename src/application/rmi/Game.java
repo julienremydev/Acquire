@@ -24,20 +24,24 @@ public class Game implements Serializable{
 	 */
 	protected Game(){
 		super();
-		Chaine america = new Chaine (TypeChaine.AMERICA);
+		
 		Chaine sackson = new Chaine (TypeChaine.SACKSON);
 		Chaine zeta = new Chaine (TypeChaine.ZETA);
 		Chaine hydra = new Chaine (TypeChaine.HYDRA);
+		Chaine fusion = new Chaine (TypeChaine.FUSION);
+		Chaine america = new Chaine (TypeChaine.AMERICA);
 		Chaine phoenix = new Chaine (TypeChaine.PHOENIX);
 		Chaine quantum= new Chaine (TypeChaine.QUANTUM);
-		Chaine fusion = new Chaine (TypeChaine.FUSION);
-		listeChaine.add(america);
+		
+		
 		listeChaine.add(sackson);
 		listeChaine.add(zeta);
 		listeChaine.add(hydra);
+		listeChaine.add(fusion);
+		listeChaine.add(america);
 		listeChaine.add(phoenix);
 		listeChaine.add(quantum);
-		listeChaine.add(fusion);
+		
 		this.plateau=new Plateau();
 		this.tableauDeBord = new TableauDeBord();
 	}
@@ -48,6 +52,10 @@ public class Game implements Serializable{
 	
 	public TableauDeBord getTableau() {
 		return this.tableauDeBord;
+	}
+	
+	public ArrayList<Chaine> getListeChaine(){
+		return this.listeChaine;
 	}
 
 }

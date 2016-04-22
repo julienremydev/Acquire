@@ -47,20 +47,24 @@ public class Serveur extends UnicastRemoteObject implements ServeurInterface {
 		if (liste_clients.containsKey(getChef()))
 			liste_clients.get(getChef()).setBEnable(b);
 	}
+
 	public String erreurRegister(String p) {
 		// Pseudo est déjà utilisé
-		if (liste_clients.containsKey(p)) 
+		if (liste_clients.containsKey(p))
 			return Globals.erreurPseudoUtilise;
 
-		// Il manque le chef de la partie et il reste une place, on ne connecte pas le joueur
-		else if (liste_clients.size() == 5 && !liste_clients.containsKey(getChef()) && !p.equals(getChef())) 
+		// Il manque le chef de la partie et il reste une place, on ne connecte
+		// pas le joueur
+		else if (liste_clients.size() == (Globals.nombre_joueurs_max - 1) && !liste_clients.containsKey(getChef())
+				&& !p.equals(getChef()))
 			return Globals.erreurPartieComplete2;
 
-		// La partie est complète ( 6 joueurs ) le joueur ne peut pas se connecter
-		else if (liste_clients.size() == 6) 
+		// La partie est complète ( 6 joueurs ) le joueur ne peut pas se
+		// connecter
+		else if (liste_clients.size() == Globals.nombre_joueurs_max)
 			return Globals.erreurPartieComplete;
 
-		else 
+		else
 			return null;
 	}
 
@@ -68,22 +72,19 @@ public class Serveur extends UnicastRemoteObject implements ServeurInterface {
 	public void getCasePlayed(String text, String pseudo) throws RemoteException {
 		if (partiecommencee) {
 			Logger.getLogger("Serveur").log(Level.INFO, text);
-			Action action = game.getPlateau().updateCase(text,game.getListeChaine());
-			//Envoi de l'action au client
-			//pas d'envoi d'action car aucune action
-			if (action==null) {
-				
-			}
-			else {
-				if ( action.getChoix() == 0 ){
+			Action action = game.getPlateau().updateCase(text, game.getListeChaine());
+			// Envoi de l'action au client
+			// pas d'envoi d'action car aucune action
+			if (action == null) {
+
+			} else {
+				if (action.getChoix() == 0) {
 					liste_clients.get(pseudo).receiveAction(action, game);
 				}
 			}
 			distribution();
 		}
 	}
-
-
 
 	/*
 	 * Cette méthode est appelée lors de la connexion d'un client. Le client est
@@ -97,12 +98,15 @@ public class Serveur extends UnicastRemoteObject implements ServeurInterface {
 		if (erreur != null)
 			return erreur;
 
-		// Le premier joueur qui se connecte est le chef de la partie, seul lui peut la lancer.
+		// Le premier joueur qui se connecte est le chef de la partie, seul lui
+		// peut la lancer.
 		if (liste_clients.size() == 0 && getChef() == null)
 			setChef(p);
 
 		liste_clients.put(p, client);
-		game.getTableau().ajouterClient(new ClientInfo(p)); // ajout du joueur dans le tableau de bord
+		game.getTableau().ajouterClient(new ClientInfo(p)); // ajout du joueur
+															// dans le tableau
+															// de bord
 
 		distributionTchat("Serveur", "Le joueur " + p + " est entré dans la partie.");
 		Logger.getLogger("Client").log(Level.INFO, "Nouveau client enregistré dans le serveur.");
@@ -111,14 +115,15 @@ public class Serveur extends UnicastRemoteObject implements ServeurInterface {
 
 		return null;
 	}
+
 	@Override
 	public void setLancement() throws RemoteException {
 		partiecommencee = true;
 		distributionTchat("Serveur", "Le joueur " + getChef() + " a démarré la partie.");
-		
-		//initialisation des cases noirs pour chaque joueur
+
+		// initialisation des cases noirs pour chaque joueur
 		game.getPlateau().initialiseMainCaseNoir(game.getTableau().getInfoParClient().size());
-		
+
 		distributionMain();
 		distributionData();
 		distribution();
@@ -131,19 +136,15 @@ public class Serveur extends UnicastRemoteObject implements ServeurInterface {
 		 */
 	}
 
-
-	private void distributionMain() throws RemoteException{
-		Enumeration<ClientInterface> e = liste_clients.elements();
-		while (e.hasMoreElements()) {
+	private void distributionMain() throws RemoteException {
+		Collection<ClientInterface> e = liste_clients.values();
+		for (ClientInterface c : e) {
 			ArrayList<String> main = new ArrayList<String>();
-			HashMap<String,ClientInfo> infoClient = game.getTableau().getInfoParClient();
-			Collection<ClientInfo> values = infoClient.values();
-			for (ClientInfo ci : values) {
-				main = ci.initialiseMain(game.getPlateau());
-			}
-			e.nextElement().receiveMain(main);
+			main = game.getTableau().getInfoParClient().get(c.getPseudo()).initialiseMain(game.getPlateau());
+			c.receiveMain(main);
 			main.clear();
 		}
+
 	}
 
 	/*
@@ -223,7 +224,7 @@ public class Serveur extends UnicastRemoteObject implements ServeurInterface {
 		this.chef = chef;
 	}
 
-	public Game getGame() throws RemoteException{
+	public Game getGame() throws RemoteException {
 		return game;
 	}
 
@@ -231,6 +232,6 @@ public class Serveur extends UnicastRemoteObject implements ServeurInterface {
 	public void creationChaineServeur(Action a, TypeChaine c) throws RemoteException {
 		getGame().getPlateau().creationChaine(a.getListeDeCaseAModifier(), c);
 		distribution();
-		
+
 	}
 }

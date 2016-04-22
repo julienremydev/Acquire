@@ -3,6 +3,9 @@ package application.model;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Random;
+
+import application.globale.Globals;
 
 public class ClientInfo implements Serializable{
 	private static final long serialVersionUID = -4425247831910575515L;
@@ -144,12 +147,14 @@ public class ClientInfo implements Serializable{
 	 * Ajoute 6 cases cliquable pour le joueur
 	 */
 	public ArrayList<String> initialiseMain(Plateau plateau) {
-		int max=6;
-		//main.add("D3");
-		//plateau.getCasesDisponible().remove("D3");
+		int max=Globals.nombre_joueurs_max;
+		Random randomGenerator = new Random();
+		int index;
+		System.out.println(plateau.getCasesDisponible());
 		for(int i=0;i<max;i++){
-			String c=plateau.getCasesDisponible().get(0 + (int)(Math.random() * plateau.getCasesDisponible().size()-1));
-			//String c=plateau.getCasesDisponible().get("D3");
+			System.out.println(plateau.getCasesDisponible().size());
+			index = randomGenerator.nextInt(plateau.getCasesDisponible().size());
+			String c=plateau.getCasesDisponible().get(index);
 			main.add(c);
 			plateau.getCasesDisponible().remove(c);
 		}

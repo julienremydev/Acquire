@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
+import java.util.Random;
 import java.util.Map.Entry;
 
 public class Plateau implements Serializable {
@@ -324,8 +325,11 @@ public class Plateau implements Serializable {
 
 	public void initialiseMainCaseNoir(int nbClient) {
 		int max = nbClient;
+		Random randomGenerator = new Random();
+		int index;
 		for (int i = 0; i < max; i++) {
-			String c = casesDisponible.get(0 + (int) (Math.random() * casesDisponible.size() - 1));
+			index = randomGenerator.nextInt(casesDisponible.size());
+			String c = casesDisponible.get(index);
 			plateauMap.get(c).setEtat(1);
 			casesDisponible.remove(c);
 		}

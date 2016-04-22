@@ -178,9 +178,13 @@ public class Plateau implements Serializable {
 		 */
 		if (askColor && !askChain)
 		{
-			ArrayList<Case> tabCasesAModifier = caseModifiee.tabAdjascent(caseModifiee.getNorth(), caseModifiee.getSouth(), caseModifiee.getEast(), caseModifiee.getWest());
+			ArrayList<Case> tabCasesAModifier = new ArrayList<Case>();
+			tabCasesAModifier.add(caseModifiee);
+			// on vérifie pour chaque cases si elle n'a pas une autre cases pareille
+			tabCasesAModifier=addRecurse(tabCasesAModifier);
 			tabCasesAModifier.add(caseModifiee);
 			Action action = new Action(tabCasesAModifier,0);
+			//Vérifier s'il y a des cases autour des cases autour ...
 			return action;
 		}
 		/**
@@ -275,28 +279,46 @@ public class Plateau implements Serializable {
 
 	}
 	/**
+	 * Methode récursive qui ajout les cases hotels adjascentes au hotels dans la liste
+	 * La liste de retour contiendra donc toutes les cases hotels adjascentes uniques
+	 * @return
+	 */
+	public ArrayList<Case> addRecurse (ArrayList<Case> cases) {
+        ArrayList<Case> listRecurse = new ArrayList<Case>();
+        for (Case c : cases) {
+            if (c.surroundedByHotels()) {
+                ArrayList<Case> listHotels = c.tabAdjascent(c.getNorth(),c.getSouth(),c.getEast(),c.getWest());
+                for (Case hotel : listHotels) {
+                    if (!cases.contains(hotel)) {
+                        listRecurse.add(hotel);
+                    }
+                }
+                cases.addAll(addRecurse(listRecurse));
+            }
+            else {
+                return listRecurse;
+            }
+        }
+        return listRecurse;
+        
+    }
+	/**
 	 * Creation d'une nouvelle chaine, Changement de l'etat des hotels en chaîne, ajout de la chaine, à la liste de chaîne.
 	 * @param listeHotels
 	 * @param nomChaine
 	 */
 	public void creationChaine(ArrayList<Case> listeHotels, TypeChaine nomChaine)
 	{
-		System.out.println("nomChaine.getNum"+nomChaine.getNumero());
-		
 		// Création de la nouvelle chaine
 		Chaine nouvelleChaine = new Chaine(nomChaine);
 		// Changement des états des hotels pour qu'ils appartiennent à la même chaine
 		for(Case hotelToChaine : listeHotels)
 		{
-			System.out.println(hotelToChaine.getNom());
-			System.out.println("this."+this.getCase(hotelToChaine.getNomCase()));
 			nouvelleChaine.addCase(this.getCase(hotelToChaine.getNomCase()));
 			this.getCase(hotelToChaine.getNomCase()).setEtat(nomChaine.getNumero());
 		}
 		// Ajout de la chaine à la liste de chiane ? => ou changement d'un etat dans chaine qui permet de dire qu'elle est active.
 		//Game.listeChaine.add(nouvelleChaine);
-		
-
 	}
 
 	public ArrayList<String> getCasesDisponible() {
@@ -324,11 +346,18 @@ public class Plateau implements Serializable {
 
 	public void initialiseMainCaseNoir(int nbClient) {
 		int max = nbClient;
+		plateauMap.get("E4").setEtat(1);
+		casesDisponible.remove("E4");
+		plateauMap.get("E5").setEtat(1);
+		casesDisponible.remove("E5");
 		for (int i = 0; i < max; i++) {
 			String c = casesDisponible.get(0 + (int) (Math.random() * casesDisponible.size() - 1));
 			plateauMap.get(c).setEtat(1);
 			casesDisponible.remove(c);
 		}
+		
+		
+		
 	}
 
 	/**

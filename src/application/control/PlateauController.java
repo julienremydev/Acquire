@@ -6,13 +6,11 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.ResourceBundle;
-import java.util.Set;
 
 import application.model.Action;
 import application.model.Case;
 import application.model.Chaine;
 import application.model.ClientInfo;
-import application.model.TypeChaine;
 import application.rmi.Client;
 import application.rmi.Game;
 import application.rmi.ServeurInterface;
@@ -54,17 +52,19 @@ public class PlateauController implements Initializable {
 
 	private ArrayList<String> main;
 
+	/**
+	 * Methode permettant d'afficher les choix possibles pour la creation dune chaine
+	 * @param a
+	 * @param g
+	 */
 	public void setChoixCreationChaine(Action a, Game g) {
-
-		ObservableList<Node> childrens = gridPaneAction.getChildren();
 		int j = 0;
 		for (Chaine c : g.listeChaine) {
 			if (c.chaineDisponible()) {
-
 				int i = j;
 				Button b = new Button(c.getNomChaine().toString().substring(0, 1));
 
-				// définir le layout des boutons parce que c'est moche
+				// TODO définir le layout des boutons parce que c'est moche
 				b.setStyle("-fx-background-color: " + c.getNomChaine().getCouleurChaine() + ";");
 				b.setPrefWidth(300);
 				b.setPrefHeight(300);
@@ -75,7 +75,6 @@ public class PlateauController implements Initializable {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
 					}
-					//g.getPlateau().creationChaine(a.getListeDeCaseAModifier(), c.getNomChaine());
 				});
 				Platform.runLater(() -> gridPaneAction.add(b, i, 0));
 			}
@@ -125,7 +124,6 @@ public class PlateauController implements Initializable {
 
 		// recuperation de l'ensemble des cases du plateau (graphique)
 		ObservableList<Node> childrens = grid.getChildren();
-		int i = 0;
 		for (Node node : childrens) {
 			if (node instanceof Button) {
 				Button b = (Button) node;
@@ -140,6 +138,7 @@ public class PlateauController implements Initializable {
 							b.setStyle("-fx-background-color: #000000;");
 							break;
 						case 0:
+							//case vide
 							break;
 						case 1:
 							b.setStyle("-fx-background-color: #000000;");
@@ -166,19 +165,13 @@ public class PlateauController implements Initializable {
 							b.setStyle("-fx-background-color: #669999;");
 							break;
 						default:
-							// lancer une exception ?
+							// TODO lancer une exception ?
 							break;
 						}
 					}
 				});
 			}
-			if (i == 108) {
-				break;
-			}
 		}
-	}
-
-	public void getMain() {
 	}
 
 	public void envoyerTchat() throws RemoteException {
@@ -222,12 +215,7 @@ public class PlateauController implements Initializable {
 	public void lancement() throws RemoteException {
 		client.getServeur().setLancement(); 
 		letsplay.setOpacity(0);
-		// setGame(client.getServeur().getGame());
-	}
-
-	public static void nouvelleChaine(Chaine nouvelleChaine) {
-		// TODO Auto-generated method stub
-
+		// TODO setGame(client.getServeur().getGame()); ??
 	}
 
 	public void setMain(ArrayList<String> main) {
@@ -237,7 +225,6 @@ public class PlateauController implements Initializable {
 
 	public void majMainLancement() {
 		ObservableList<Node> childrens = grid.getChildren();
-		int i = 0;
 		for (Node node : childrens) {
 			if (node instanceof Button) {
 				Button b = (Button) node;

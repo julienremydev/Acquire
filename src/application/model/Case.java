@@ -6,6 +6,8 @@ import java.util.Collections;
 import java.util.Comparator;
 
 public class Case implements Serializable {
+
+	private static final long serialVersionUID = -7478757850540161294L;
 	private Case north;
 	private Case south;
 	private Case east;
@@ -14,27 +16,16 @@ public class Case implements Serializable {
 	private int etat;
 	private String nom;
 
-	public String getNom() {
-		String[] className = this.getClass().getName().split("\\.");
-		String ret = "";
-		if (this.nom == null && this.getClass() == null) {
-			ret = "null";
-		} else
-			ret = this.nom + "(" + className[2] + ")";
-
-		return ret;
-	}
-
 	public void setNom(String nom) {
 		this.nom = nom;
 	}
-	
-	public String getNomCase(){
+
+	public String getNom(){
 		return this.nom;
 	}
 
 	public Case(){}
-	
+
 	public Case(String n) {
 		this.etat = 0;
 		this.nom = n;
@@ -56,13 +47,13 @@ public class Case implements Serializable {
 	public void setEtat(int etat) {
 		this.etat = etat;
 	}
- /**
-  * Méthode appelée par l'initialisation afin d'affecter les cases adjscente à notre case
-  * @param N
-  * @param S
-  * @param E
-  * @param W
-  */
+	/**
+	 * Méthode appelée par l'initialisation afin d'affecter les cases adjscente à notre case
+	 * @param N
+	 * @param S
+	 * @param E
+	 * @param W
+	 */
 	public void setNeighbours(Case N, Case S, Case E, Case W) {
 		this.north = N;
 		this.south = S;
@@ -99,21 +90,21 @@ public class Case implements Serializable {
 			// nouvelle chaine
 			// user.askColorForNewChain();
 			this.setEtat(0);
-			ArrayList<Case> tabHotels = tabAdjascent(this.getNorth(), this.getSouth(), this.getEast(), this.getWest());
-			
-			//TableauDeBord.creationChaine(tabHotels,TypeChaine.SACKSON);
-			// AppelFonctionChoixCouleur (tabHotels);
+		ArrayList<Case> tabHotels = tabAdjascent();
+
+		//TableauDeBord.creationChaine(tabHotels,TypeChaine.SACKSON);
+		// AppelFonctionChoixCouleur (tabHotels);
 
 		/**
 		 * Présence d'une ou plusieures chaînes autour de la case Pas d'hôtels
 		 * dans ce cas
 		 */
 		if (askChain && !askColor) // juste une ou plusieurs chaines, pas
-									// d'hotel
+			// d'hotel
 		{
 			// tableau des cases non null donc dans ce cas des cases avec
 			// chaines.
-			ArrayList<Case> tab = tabAdjascent(this.getNorth(), this.getSouth(), this.getEast(), this.getWest());
+			ArrayList<Case> tab = tabAdjascent();
 			/**
 			 * Le tableau n'a qu'une taille de 1, donc simple changement de la
 			 * couleur de la case
@@ -125,7 +116,7 @@ public class Case implements Serializable {
 			 */
 
 			if (tab.size() >= 2)// regrouper le cas ou on a 2, 3 ou 4 cases
-								// autour avec une chaine
+				// autour avec une chaine
 			{
 				int nbCases = tab.size();
 				boolean sameColor = sameColorsArround(tab, nbCases);
@@ -148,16 +139,16 @@ public class Case implements Serializable {
 						 * l'utilisateur
 						 */
 						if (chainePremiereCase == chaineDeuxiemeCase) // avec
-																		// les
-																		// fonctions
-																		// que
-																		// yoh
-																		// va
-																		// faire
+							// les
+							// fonctions
+							// que
+							// yoh
+							// va
+							// faire
 							this.setEtat(tab.get(0).getEtat()); // client.askColorChaineVoulue()
-																// &&
-																// chaine.SetChaine(int
-																// nouvelleChaine)
+						// &&
+						// chaine.SetChaine(int
+						// nouvelleChaine)
 
 						else {
 							if (chainePremiereCase > chaineDeuxiemeCase)
@@ -253,16 +244,16 @@ public class Case implements Serializable {
 	 * @param cW
 	 * @return
 	 */
-	public ArrayList<Case> tabAdjascent(Case cN, Case cS, Case cE, Case cW) {
-		ArrayList<Case> tab = new ArrayList();
-		if (cN != null && cN.getEtat() != 0)
-			tab.add(cN);
-		if (cS != null && cS.getEtat() != 0)
-			tab.add(cS);
-		if (cE != null && cE.getEtat() != 0)
-			tab.add(cE);
-		if (cW != null && cW.getEtat() != 0)
-			tab.add(cW);
+	public ArrayList<Case> tabAdjascent() {
+		ArrayList<Case> tab = new ArrayList<Case>();
+		if (this.getNorth() != null && this.getNorth().getEtat() != 0)
+			tab.add(this.getNorth());
+		if (this.getSouth() != null && this.getSouth().getEtat() != 0)
+			tab.add(this.getSouth());
+		if (this.getEast() != null && this.getEast().getEtat() != 0)
+			tab.add(this.getEast());
+		if (this.getWest() != null && this.getWest().getEtat() != 0)
+			tab.add(this.getWest());
 		return tab;
 	}
 
@@ -288,7 +279,7 @@ public class Case implements Serializable {
 				return false;
 		case 4:
 			if (tab.get(0).getEtat() == tab.get(1).getEtat() && tab.get(1).getEtat() == tab.get(2).getEtat()
-					&& tab.get(2).getEtat() == tab.get(3).getEtat())
+			&& tab.get(2).getEtat() == tab.get(3).getEtat())
 				return true;
 			else
 				return false;
@@ -310,33 +301,11 @@ public class Case implements Serializable {
 			return false;
 		}
 	}
-	
+
 	public String toString() {
-		String val = "Case nom:" + this.getNom();
-
-		if (this.getNorth() != null) {
-			val += ", North:" + this.getNorth().getNom();
-		} else val +=", North:" +"null";
-		
-
-		if (this.getSouth() != null) {
-			val += ", South:" + this.getSouth().getNom();
-		} else val +=", South:" + "null";
-		
-
-		if (this.getEast() != null) {
-			val += ", East:" + this.getEast().getNom();
-		} else val += ", East:" +"null";
-	
-
-		if (this.getWest() != null) {
-			val += ", West:" + this.getWest().getNom();
-		} else val += ", West:" +"null";
-		
-
-		return val;
+		return this.nom;
 	}
-	
+
 	/*
 	 * Getters et setters des cases adjascents 
 	 */

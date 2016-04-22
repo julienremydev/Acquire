@@ -13,8 +13,6 @@ public interface ClientInterface extends Remote{
 	void receive(Game g) throws RemoteException;
 	
 	String getPseudo() throws RemoteException;
-	
-	HashMap<String,Case> getMain() throws RemoteException;
 
 	void receiveTchat(String tchat) throws RemoteException;
 

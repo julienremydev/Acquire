@@ -180,9 +180,9 @@ public class Plateau implements Serializable {
 		if (askColor && !askChain)
 		{
 			ArrayList<Case> tabCasesAModifier = new ArrayList<Case>();
-			tabCasesAModifier.add(caseModifiee);
+			//tabCasesAModifier.add(caseModifiee);
 			// on vérifie pour chaque cases si elle n'a pas une autre cases pareille
-			tabCasesAModifier=addRecurse(tabCasesAModifier);
+			tabCasesAModifier=addRecurse(tabCasesAModifier,caseModifiee);
 			tabCasesAModifier.add(caseModifiee);
 			Action action = new Action(tabCasesAModifier,0);
 			//Vérifier s'il y a des cases autour des cases autour ...
@@ -195,7 +195,7 @@ public class Plateau implements Serializable {
 		if (askChain && !askColor) // juste une ou plusieurs chaines, pas d'hotel
 		{
 			// tableau des cases non null donc dans ce cas des cases avec chaines.
-			ArrayList<Case> tab = caseModifiee.tabAdjascent(caseModifiee.getNorth(), caseModifiee.getSouth(), caseModifiee.getEast(), caseModifiee.getWest());
+			ArrayList<Case> tab = caseModifiee.tabAdjascent();
 			/**
 			 * Le tableau n'a qu'une taille de 1, donc simple changement de la
 			 * couleur de la case
@@ -204,77 +204,77 @@ public class Plateau implements Serializable {
 			{
 				caseModifiee.setEtat(tab.get(0).getEtat());
 				listeChaine.get(tab.get(0).getEtat()).addCase(caseModifiee);				
-				
+
 			}
-			
+
 		}	
-		
-//			/**
-//			 * Tableau taille de 2, donc deux cases avec une chaine
-//			 */
-//
-//			if (tab.size() >= 2)// regrouper le cas ou on a 2, 3 ou 4 cases
-//				// autour avec une chaine
-//			{
-//				int nbCases = tab.size();
-//				boolean sameColor = sameColorsArround(tab, nbCases);
-//				int chainePremiereCase;
-//				int chaineDeuxiemeCase;
-//				sameColor = sameColorsArround(tab, nbCases);
-//				/**
-//				 * Vérification si il s'agit de la même chaîne dans toutes les
-//				 * cases adjascentes, on change juste la couleur de la case.
-//				 */
-//				if (sameColor)
-//					this.setEtat(tab.get(0).getEtat());
-//				else {
-//					switch (nbCases) {
-//					case 2:
-//						chainePremiereCase = tab.get(0).getEtat();
-//						chaineDeuxiemeCase = tab.get(1).getEtat();
-//						/**
-//						 * Si leurs taille sont égales, on demande la couleur à
-//						 * l'utilisateur
-//						 */
-//						if (chainePremiereCase == chaineDeuxiemeCase) // avec
-//							// les
-//							// fonctions
-//							// que
-//							// yoh
-//							// va
-//							// faire
-//							this.setEtat(tab.get(0).getEtat()); // client.askColorChaineVoulue()
-//						// &&
-//						// chaine.SetChaine(int
-//						// nouvelleChaine)
-//
-//						else {
-//							if (chainePremiereCase > chaineDeuxiemeCase)
-//								// La premiere chaine est plus grande donc
-//								// changement etat case +
-//								// tab.get(1).SetChaine(tab.get(0))
-//								this.setEtat(tab.get(0).getEtat());
-//							else
-//								// pareil mais inversement avec les cases du
-//								// tableau
-//								this.setEtat(tab.get(1).getEtat());
-//						}
-//						break;
-//					case 3:
-//
-//						break;
-//					case 4:
-//						break;
-//					}
-//				}
-//				Collections.sort(tab, new Comparator<Case>() {
-//					@Override
-//					public int compare(Case tc1, Case tc2) {
-//						return tc1.getEtat().compareTo(tc2.getEtat());
-//					}
-//				});
-//			}
-//		}
+
+		//			/**
+		//			 * Tableau taille de 2, donc deux cases avec une chaine
+		//			 */
+		//
+		//			if (tab.size() >= 2)// regrouper le cas ou on a 2, 3 ou 4 cases
+		//				// autour avec une chaine
+		//			{
+		//				int nbCases = tab.size();
+		//				boolean sameColor = sameColorsArround(tab, nbCases);
+		//				int chainePremiereCase;
+		//				int chaineDeuxiemeCase;
+		//				sameColor = sameColorsArround(tab, nbCases);
+		//				/**
+		//				 * Vérification si il s'agit de la même chaîne dans toutes les
+		//				 * cases adjascentes, on change juste la couleur de la case.
+		//				 */
+		//				if (sameColor)
+		//					this.setEtat(tab.get(0).getEtat());
+		//				else {
+		//					switch (nbCases) {
+		//					case 2:
+		//						chainePremiereCase = tab.get(0).getEtat();
+		//						chaineDeuxiemeCase = tab.get(1).getEtat();
+		//						/**
+		//						 * Si leurs taille sont égales, on demande la couleur à
+		//						 * l'utilisateur
+		//						 */
+		//						if (chainePremiereCase == chaineDeuxiemeCase) // avec
+		//							// les
+		//							// fonctions
+		//							// que
+		//							// yoh
+		//							// va
+		//							// faire
+		//							this.setEtat(tab.get(0).getEtat()); // client.askColorChaineVoulue()
+		//						// &&
+		//						// chaine.SetChaine(int
+		//						// nouvelleChaine)
+		//
+		//						else {
+		//							if (chainePremiereCase > chaineDeuxiemeCase)
+		//								// La premiere chaine est plus grande donc
+		//								// changement etat case +
+		//								// tab.get(1).SetChaine(tab.get(0))
+		//								this.setEtat(tab.get(0).getEtat());
+		//							else
+		//								// pareil mais inversement avec les cases du
+		//								// tableau
+		//								this.setEtat(tab.get(1).getEtat());
+		//						}
+		//						break;
+		//					case 3:
+		//
+		//						break;
+		//					case 4:
+		//						break;
+		//					}
+		//				}
+		//				Collections.sort(tab, new Comparator<Case>() {
+		//					@Override
+		//					public int compare(Case tc1, Case tc2) {
+		//						return tc1.getEtat().compareTo(tc2.getEtat());
+		//					}
+		//				});
+		//			}
+		//		}
 		return null;
 
 
@@ -284,25 +284,31 @@ public class Plateau implements Serializable {
 	 * La liste de retour contiendra donc toutes les cases hotels adjascentes uniques
 	 * @return
 	 */
-	public ArrayList<Case> addRecurse (ArrayList<Case> cases) {
-        ArrayList<Case> listRecurse = new ArrayList<Case>();
-        for (Case c : cases) {
-            if (c.surroundedByHotels()) {
-                ArrayList<Case> listHotels = c.tabAdjascent(c.getNorth(),c.getSouth(),c.getEast(),c.getWest());
-                for (Case hotel : listHotels) {
-                    if (!cases.contains(hotel)) {
-                        listRecurse.add(hotel);
-                    }
-                }
-                cases.addAll(addRecurse(listRecurse));
-            }
-            else {
-                return listRecurse;
-            }
-        }
-        return listRecurse;
-        
-    }
+	public ArrayList<Case> addRecurse (ArrayList<Case> casesDone, Case c) {
+		ArrayList<Case> listRecurse = new ArrayList<Case>();
+		casesDone.add(c);
+		if (c.surroundedByHotels()) {
+			ArrayList<Case> listHotels = c.tabAdjascent();
+			for (Case hotel : listHotels) {
+				if (!casesDone.contains(hotel)) {
+					listRecurse.add(hotel);
+				}
+			}
+			if (listRecurse.isEmpty()) {
+				return null;
+			}
+			else {
+				for (Case caseToDo : listRecurse) {
+					ArrayList<Case> returnedList = addRecurse(casesDone, caseToDo);
+					if (returnedList!=null) {
+						casesDone.addAll(returnedList);
+					}
+				}
+			}
+		}
+		return casesDone;
+
+	}
 	/**
 	 * Creation d'une nouvelle chaine, Changement de l'etat des hotels en chaîne, ajout de la chaine, à la liste de chaîne.
 	 * @param listeHotels
@@ -315,8 +321,8 @@ public class Plateau implements Serializable {
 		// Changement des états des hotels pour qu'ils appartiennent à la même chaine
 		for(Case hotelToChaine : listeHotels)
 		{
-			nouvelleChaine.addCase(this.getCase(hotelToChaine.getNomCase()));
-			this.getCase(hotelToChaine.getNomCase()).setEtat(nomChaine.getNumero());
+			nouvelleChaine.addCase(this.getCase(hotelToChaine.getNom()));
+			this.getCase(hotelToChaine.getNom()).setEtat(nomChaine.getNumero());
 		}
 		// Ajout de la chaine à la liste de chiane ? => ou changement d'un etat dans chaine qui permet de dire qu'elle est active.
 		//Game.listeChaine.add(nouvelleChaine);
@@ -355,9 +361,9 @@ public class Plateau implements Serializable {
 			plateauMap.get(c).setEtat(1);
 			casesDisponible.remove(c);
 		}
-		
-		
-		
+
+
+
 	}
 
 	/**

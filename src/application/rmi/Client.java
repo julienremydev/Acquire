@@ -23,26 +23,7 @@ public class Client extends UnicastRemoteObject implements ClientInterface {
 	
 	public Client () throws Exception{
 	}
-
-	/*
-	 * La méthode receive est appelée par le serveur. Mise à jour du plateau de
-	 * jeu du client avec le game passé en paramètre.
-	 */
-	public void receive(Game g) throws RemoteException {
-		plateauController.setGame(g);
-	}
-	public void receiveData() throws RemoteException {
-		plateauController.setDataTableView();
-	}
-	public void receiveTchat(String s) {
-		plateauController.setChat(s);
-	}
-	public void receiveAction(Action a, Game g) throws RemoteException{
-		plateauController.setChoixCreationChaine(a,g);
-	}
-	public void setBEnable(boolean b) throws RemoteException{
-		plateauController.setBEnable(b);
-	}
+	
 	public static void main(String[] args) throws Exception {
 		System.setProperty("java.security.policy","file:./security.policy");
 		System.setSecurityManager(new SecurityManager());
@@ -51,10 +32,66 @@ public class Client extends UnicastRemoteObject implements ClientInterface {
 		ClientView view = new ClientView();
 		view.lancer();
 	}
+
+	/**
+	 * La méthode receive est appelée par le serveur. Mise à jour du plateau de
+	 * jeu du client avec le game passé en paramètre.
+	 */
+	public void receive(Game g) throws RemoteException {
+		plateauController.setGame(g);
+	}
 	
-	public void sendServeurAction() {
+	/**
+	 * La méthode receive est appelée par le serveur. Mise à jour du tableau de bord
+	 * du client passé en paramètre.
+	 */
+	public void receiveData() throws RemoteException {
+		plateauController.setDataTableView();
+	}
+	
+	public void receiveTchat(String s) {
+		plateauController.setChat(s);
+	}
+	
+	/**
+	 * La méthode receiveAction est appelée par le serveur
+	 * Permet au joueur de connaitre les actions possibles (fusion ou creation chaine)
+	 */
+	public void receiveAction(Action a, Game g) throws RemoteException{
+		plateauController.setChoixCreationChaine(a,g);
+	}
+	
+	public void setBEnable(boolean b) throws RemoteException{
+		plateauController.setBEnable(b);
 	}
 
+	/**
+	 * Methode qui envoie la case joue par le client au serveur via son nom
+	 * @param text
+	 * @throws RemoteException
+	 */
+	public void sendCase(String text) throws RemoteException {
+		this.serveur.getCasePlayed(text, pseudo);
+		
+	}
+	
+	/**
+	 * Methode qui permet l'envoie de la main du serveur au client
+	 */
+	public void receiveMain(ArrayList<String> main) throws RemoteException {
+		plateauController.setMain(main);
+	}
+	
+	/**
+	 * Methode permettant l ajout d une chaine au plateau (choix de la couleur)
+	 * @param a
+	 * @param nomChaine
+	 * @throws RemoteException
+	 */
+	public void pickColor(Action a, TypeChaine nomChaine) throws RemoteException {
+		this.serveur.creationChaineServeur(a, nomChaine);
+	}
+	
 	public String getPseudo() {
 		return pseudo;
 	}
@@ -74,28 +111,4 @@ public class Client extends UnicastRemoteObject implements ClientInterface {
 	public void setController(PlateauController plateauController) {
 		this.plateauController=plateauController;
 	}
-
-	/**
-	 * Methode qui envoie la case joue par le client au serveur via son nom
-	 * @param text
-	 * @throws RemoteException
-	 */
-	public void sendCase(String text) throws RemoteException {
-		this.serveur.getCasePlayed(text, pseudo);
-		
-	}
-	@Override
-	public HashMap<String, Case> getMain() throws RemoteException {
-		return null;
-	}
-	
-	public void receiveMain(ArrayList<String> main) throws RemoteException {
-		plateauController.setMain(main);
-	}
-
-	public void pickColor(Action a, TypeChaine nomChaine) throws RemoteException {
-		this.serveur.creationChaineServeur(a, nomChaine);
-		
-	}
-
 }

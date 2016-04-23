@@ -203,7 +203,8 @@ public class Plateau implements Serializable {
 			if (tab.size() == 1)
 			{
 				caseModifiee.setEtat(tab.get(0).getEtat());
-				listeChaine.get(tab.get(0).getEtat()).addCase(caseModifiee);				
+				// La liste de chaine va de 0 a 7 alors que nos états vont de 2 a 8, le -2 est alors nécessaire
+				listeChaine.get(tab.get(0).getEtat()-2).addCase(caseModifiee);				
 
 			}
 
@@ -355,7 +356,7 @@ public class Plateau implements Serializable {
 		int max = nbClient;
 		Random randomGenerator = new Random();
 		int index;
-		for (int i = 0; i < max; i++) {
+		for (int i = 0; i < max*16; i++) {
 			index = randomGenerator.nextInt(casesDisponible.size());
 			String c = casesDisponible.get(index);
 			plateauMap.get(c).setEtat(1);

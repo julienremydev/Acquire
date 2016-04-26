@@ -1,5 +1,9 @@
 package application.control;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.net.InetAddress;
 import java.net.URL;
 import java.net.UnknownHostException;
@@ -21,13 +25,17 @@ import javafx.fxml.Initializable;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 
 public class ConnexionController implements Initializable {
 	
+	private File fileJSON;
 	private Client client;
 
 	@FXML
@@ -44,7 +52,14 @@ public class ConnexionController implements Initializable {
 	private Label ipclient;
 	@FXML
 	private Label erreur;
+	@FXML
+	private Button chargerJSON;
+	@FXML
+	private Label pathJSON;
+	@FXML
+	private CheckBox checkBoxJSON;
 
+	
 	/*
 	 * Vérification syntaxique de l'adresse IP. Return true si la syntaxe est
 	 * correcte, false sinon.
@@ -105,6 +120,20 @@ public class ConnexionController implements Initializable {
 			return null;
 		}
 	}
+	public String verification_JSON(boolean selected, File file) throws FileNotFoundException{
+		if (selected && file != null){
+			String errorJSON = checkFile(file);
+			if ( errorJSON != null ){
+        		erreur.setText(errorJSON);
+			}else {
+				return null;
+			}
+		}else if (selected){
+			return Globals.erreurChooseFileJSON;
+		}
+		return null;
+		
+	}
 	/*
 	 * On vérifie que toutes les données du formulaire de connexion sont
 	 * valables d'un point de vue syntaxique. Le pseudo doit contenir au moins 3
@@ -112,8 +141,11 @@ public class ConnexionController implements Initializable {
 	 */
 	public void seConnecter(ActionEvent e) throws Exception {
 		String verifErreur = verification_Pseudo_IP(pseudo.getText().trim(), ip1.getText().trim(),ip2.getText().trim(),ip3.getText().trim(),ip4.getText().trim());
+		String verifErreurJSON = verification_JSON(checkBoxJSON.isSelected(), fileJSON);
 		if (verifErreur != null){
 			erreur.setText(verifErreur);
+		}else if (verifErreurJSON != null){
+			erreur.setText(verifErreurJSON);
 		}
 		else{
 			try {
@@ -125,17 +157,26 @@ public class ConnexionController implements Initializable {
 				Group root = new Group();
 				root.getChildren().add(JfxUtils.loadFxml("game.fxml", serveur, client));
 
-				//Inscription du client sur le serveur
-				//La méthode register retourne un String avec l'erreur si la connexion n'est pas possible
-				String register = serveur.register(client, pseudo.getText());
 				
-				if (register != null) {
-					erreur.setText(register);
-				} else {
-					client.setPseudo(pseudo.getText().trim());
-					setNewIG(stage, root, serveur);
+				//Chargement d'une partie avec un fichier JSON
+				if (checkBoxJSON.isSelected()){
+					/*
+					 * CHARGEMENT DU JSON
+					 * 
+					 */
 				}
-				
+				else{
+					//Inscription du client sur le serveur
+					//La méthode register retourne un String avec l'erreur si la connexion n'est pas possible
+					String register = serveur.register(client, pseudo.getText());
+					
+					if (register != null) {
+						erreur.setText(register);
+					} else {
+						client.setPseudo(pseudo.getText().trim());
+						setNewIG(stage, root, serveur);
+					}
+				}
 				
 				
 				
@@ -147,13 +188,50 @@ public class ConnexionController implements Initializable {
 		}
 
 	}
-
+	/*
+	 * Méthode qui vérifie la syntaxe et le format du fichier JSON
+	 * 
+	 */
+	public String checkFile(File file) throws FileNotFoundException{
+		pathJSON.setText(file.toString());
+        BufferedReader br = new BufferedReader( new FileReader(file.toString()));
+		
+        
+        return Globals.erreurFileJSON;
+	}
 	/*
 	 * Méthode appelée lors de l'initialisation du contrôleur. On affiche l'IP
 	 * du client.
 	 */
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+		
+		
+		/*
+		 * Chargement du fichier JSON
+		 * Vérification de la bonne syntaxe du fichier (méthode checkFile)
+		 */
+		chargerJSON.setOnAction(new EventHandler<ActionEvent>(){
+	         public void handle(ActionEvent e) {
+	            FileChooser fileChooser = new FileChooser();
+	            
+	            //On définit le filtre des extensions :JSON
+	            FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("JSON files (*.json)", "*.json");
+	            fileChooser.getExtensionFilters().add(extFilter);
+	            
+	            //Récupération du stage
+	            Node source = (Node) e.getSource();
+				Stage stage = (Stage) source.getScene().getWindow();
+				
+	            File file = fileChooser.showOpenDialog(stage);
+
+	            if (file != null) {
+	            	pathJSON.setText(file.toString());
+	            	fileJSON = file;
+                }
+	        }
+	    });
+		
 		try {
 			client = new Client();
 		} catch (Exception e1) {

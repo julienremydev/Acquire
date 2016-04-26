@@ -2,6 +2,7 @@ package test.control;
 
 import static org.junit.Assert.*;
 
+import java.io.File;
 import java.net.MalformedURLException;
 import java.net.UnknownHostException;
 import java.rmi.ConnectException;
@@ -78,6 +79,14 @@ public class TestConnexionController {
 		assertEquals(controller.verification_Pseudo_IP("Serveur", "127", "0", "0", "1"), Globals.erreurPseudoReserve);
 		assertEquals(controller.verification_Pseudo_IP("toto", "", "0", "0", "1"), Globals.erreurAdresseIP);
 	}
-
+	@Test
+	public void testVerificationJSON() {
+		File file = null;
+		assertEquals(controller.verification_JSON(true, file), Globals.erreurChooseFileJSON);
+		
+		file = new File("");
+		assertEquals(controller.verification_JSON(true, file), Globals.erreurFileNotFoundJSON);
+		
+	}
 	
 }

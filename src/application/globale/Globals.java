@@ -10,6 +10,9 @@ public class Globals {
 	public final static String erreurIPServeur1 = "L'adresse du serveur n'est pas bonne ou le serveur n'a pas été lancé.";
 	public final static String erreurIPServeur2 = "L'adresse du serveur n'est pas bonne.";
 	public final static String erreurFileJSON = "Le fichier JSON a été corrompu ou n'est pas du bon format.";
+	public final static String erreurChooseFileJSON = "Vous devez sélectionner un fichier au format JSON, ou décocher la case pour vous connecter.";
+	public final static String erreurFileNotFoundJSON = "Le chemin du fichier n'est pas correct.";
+	public final static String erreurChargementJSONimpossible = "Chargement JSON impossible. Une partie est en cours.";
+	public final static String erreurForbiddenPlayer = "Vous n'êtes pas autorisé à rejoindre cette partie. \n Attendez la fin de la partie en cours ou vérifiez la syntaxe de votre pseudo si vous en faites partie.";
 	public final static int nombre_joueurs_max = 6;
-	public static final String erreurChooseFileJSON = "Vous devez sélectionner un fichier au format JSON, ou décocher la case pour vous connecter.";
 }

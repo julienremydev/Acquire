@@ -8,7 +8,7 @@ import application.model.TypeChaine;
 
 public interface ServeurInterface extends Remote{
 
-	String register(ClientInterface client, String p) throws Exception;
+	String register(ClientInterface client, String p, boolean loadJSON) throws Exception;
 
 	void distribution() throws RemoteException;
 	

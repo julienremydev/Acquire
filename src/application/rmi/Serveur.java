@@ -33,6 +33,8 @@ public class Serveur extends UnicastRemoteObject implements ServeurInterface {
 	private String chef;
 
 	private boolean partiecommencee;
+	
+	private boolean partiechargee;
 
 	public Serveur() throws RemoteException {
 		Logger.getLogger("Serveur").log(Level.INFO, "Serveur lancé");
@@ -40,7 +42,8 @@ public class Serveur extends UnicastRemoteObject implements ServeurInterface {
 
 		game = new Game();
 		tchat = new StringBuffer("[Serveur] Serveur lancé.\n");
-		partiecommencee = false;
+		setPartiecommencee(false);
+		partiechargee = false;
 	}
 
 	private void setBEnable(boolean b) throws RemoteException {
@@ -48,14 +51,22 @@ public class Serveur extends UnicastRemoteObject implements ServeurInterface {
 			liste_clients.get(getChef()).setBEnable(b);
 	}
 
-	public String erreurRegister(String p) {
+	public String erreurRegister(String p, boolean loadJSON) {
+		//Chargement d'une partie et il y a déjà des joueurs sur le serveur
+		if (loadJSON && liste_clients.size() != 0 )
+			return Globals.erreurChargementJSONimpossible;
+		
 		// Pseudo est déjà utilisé
-		if (liste_clients.containsKey(p))
+		else if (liste_clients.containsKey(p))
 			return Globals.erreurPseudoUtilise;
 
+		//La partie est commencée ou chargée : on vérifie les correpondances entre les pseudos
+		else if ((partiechargee || isPartiecommencee()) && !game.getTableau().getInfoParClient().containsKey(p))
+			return Globals.erreurForbiddenPlayer;
+		
 		// Il manque le chef de la partie et il reste une place, on ne connecte
 		// pas le joueur
-		else if (liste_clients.size() == (Globals.nombre_joueurs_max - 1) && !liste_clients.containsKey(getChef())
+		else if (!partiechargee && liste_clients.size() == (Globals.nombre_joueurs_max - 1) && !liste_clients.containsKey(getChef())
 				&& !p.equals(getChef()))
 			return Globals.erreurPartieComplete2;
 
@@ -70,7 +81,7 @@ public class Serveur extends UnicastRemoteObject implements ServeurInterface {
 
 	@Override
 	public void getCasePlayed(String text, String pseudo) throws RemoteException {
-		if (partiecommencee) {
+		if (isPartiecommencee()) {
 			Logger.getLogger("Serveur").log(Level.INFO, text);
 			Action action = game.getPlateau().updateCase(text, game.getListeChaine());
 			// Envoi de l'action au client
@@ -92,25 +103,41 @@ public class Serveur extends UnicastRemoteObject implements ServeurInterface {
 	 * il a le même pseudo qu'un autre joueur.
 	 */
 	@Override
-	public synchronized String register(ClientInterface client, String p) throws Exception {
+	public synchronized String register(ClientInterface client, String p, boolean loadJSON) throws Exception {
 
-		String erreur = erreurRegister(p);
+		String erreur = erreurRegister(p, loadJSON);
 		if (erreur != null)
 			return erreur;
-
-		// Le premier joueur qui se connecte est le chef de la partie, seul lui
-		// peut la lancer.
+			
+		
+		// Le premier joueur qui se connecte est le chef de la partie, seul lui peut la lancer.
 		if (liste_clients.size() == 0 && getChef() == null)
 			setChef(p);
 
 		liste_clients.put(p, client);
-		game.getTableau().ajouterClient(new ClientInfo(p)); // ajout du joueur
-															// dans le tableau
-															// de bord
-
-		distributionTchat("Serveur", "Le joueur " + p + " est entré dans la partie.");
+		
+		//Chargement du fichier JSON : MAJ du GAME+ClientInfo
+		if ( loadJSON ){
+			/*
+			 * TODO :Chargement du fichier JSON : MAJ du GAME+ClientInfo
+			 * 
+			 */
+			partiechargee = true;
+			setPartiecommencee(true);
+			distributionTchat("Serveur", "Le joueur " + p + " a chargé une partie.");
+		}else{
+			//ajout du joueur dans le tableau de bord
+			game.getTableau().ajouterClient(new ClientInfo(p)); 
+			distributionTchat("Serveur", "Le joueur " + p + " est entré dans la partie.");
+		}
+		
 		Logger.getLogger("Client").log(Level.INFO, "Nouveau client enregistré dans le serveur.");
-		if (liste_clients.size() > 1)
+		if ( partiechargee || isPartiecommencee()){
+			//distributionMain(); -> MARCHE PAAAAAAAAAAAAAAAAAAAAS
+			distributionData();
+			distribution();
+		}
+		if (liste_clients.size() > 1 && !partiechargee)
 			setBEnable(true);
 
 		return null;
@@ -118,22 +145,21 @@ public class Serveur extends UnicastRemoteObject implements ServeurInterface {
 
 	@Override
 	public void setLancement() throws RemoteException {
-		partiecommencee = true;
+		setPartiecommencee(true);
 		distributionTchat("Serveur", "Le joueur " + getChef() + " a démarré la partie.");
 
 		// initialisation des cases noirs pour chaque joueur
 		game.getPlateau().initialiseMainCaseNoir(game.getTableau().getInfoParClient().size());
 
+		//INITIALISATION de lA MAIN ICI ???????????????????
+		
+		
+		/*
+		 * DISTRIBUTION de la main , du tableau des scores et du game
+		 */
 		distributionMain();
 		distributionData();
 		distribution();
-		/*
-		 * 
-		 * 
-		 * Appel de la fonction de distribution des jetons ICI
-		 * 
-		 * DISTRIBUTIOn DU GAME
-		 */
 	}
 
 	private void distributionMain() throws RemoteException {
@@ -146,7 +172,6 @@ public class Serveur extends UnicastRemoteObject implements ServeurInterface {
 		}
 
 	}
-
 	/*
 	 * Suppression du client de la HashTable quand un client ferme son
 	 * application.
@@ -156,13 +181,15 @@ public class Serveur extends UnicastRemoteObject implements ServeurInterface {
 		if (liste_clients.containsKey(p)) {
 			liste_clients.remove(p);
 			distributionTchat("Serveur", "Le joueur " + p + " s'est déconnecté du serveur.");
-			if (p.equals(getChef()) && !partiecommencee) {
+			if (p.equals(getChef()) && !isPartiecommencee()) {
 				distributionTchat("Serveur", "En attente de la reconnexion du joueur " + p + " pour lancer la partie.");
 			}
 			Logger.getLogger("Client").log(Level.INFO, "Le joueur " + p + " s'est déconnecté du serveur.");
 
 			if (liste_clients.size() < 2)
 				setBEnable(false);
+			if (liste_clients.size() == 0)
+				chef = "";
 		}
 	}
 
@@ -233,5 +260,13 @@ public class Serveur extends UnicastRemoteObject implements ServeurInterface {
 		getGame().getPlateau().creationChaine(a.getListeDeCaseAModifier(), c);
 		distribution();
 
+	}
+
+	public boolean isPartiecommencee() {
+		return partiecommencee;
+	}
+
+	public void setPartiecommencee(boolean partiecommencee) {
+		this.partiecommencee = partiecommencee;
 	}
 }

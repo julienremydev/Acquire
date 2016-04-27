@@ -20,6 +20,7 @@ public class TableauDeBord implements Serializable{
 
 	public TableauDeBord() {
 		this.infoParClient = new HashMap<String,ClientInfo>();
+		this.listeChaine= new ArrayList<Chaine>();
 
 	}
 	/**
@@ -42,6 +43,12 @@ public class TableauDeBord implements Serializable{
 	 */
 	public ArrayList<Chaine> getListeTypeChaine() {
 		return listeChaine;
+	}
+	public ArrayList<Chaine> getListeChaine() {
+		return listeChaine;
+	}
+	public void setListeChaine(ArrayList<Chaine> listeChaine) {
+		this.listeChaine = listeChaine;
 	}
 	/**
 	 * Permet de définir la liste de chaines
@@ -83,21 +90,25 @@ public class TableauDeBord implements Serializable{
 	 */
 	public int achatActionJoueur(int nb, String nomJoueur, TypeChaine tc){
 		int indexChaine = -1;
-		int indexJoueur = -1;
+		//int indexJoueur = -1;
+		
 		
 		for(int i=0; i<listeChaine.size(); i++){
 			if (listeChaine.get(i).getNomChaine().equals(tc)){
 				indexChaine = i;
 			}
 		}
+		/**
 		for(int i=0; i<infoParClient.size(); i++){
 			if (infoParClient.get(i).getPseudo() == nomJoueur){
 				indexJoueur = i;
 			}
 		}
+		
+		**/
 		int res = 0;
 		
-		if (indexChaine != -1 && indexJoueur != -1){
+		if (indexChaine != -1 && this.infoParClient.get(nomJoueur)!=null){
 			if(nb < 0 || this.listeChaine.get(indexChaine).getNbActionRestante() == 0){
 				nb = 0;
 			}
@@ -111,14 +122,13 @@ public class TableauDeBord implements Serializable{
 			}
 			
 			if(res != 0){
-				if(this.infoParClient.get(indexJoueur).getActionParChaine().containsKey(tc)){
-					this.infoParClient.get(indexJoueur).getActionParChaine().put(tc, res + this.infoParClient.get(indexJoueur).getActionParChaine().get(tc));
+				if(this.infoParClient.get(nomJoueur).getActionParChaine().containsKey(tc)){
+					this.infoParClient.get(nomJoueur).getActionParChaine().put(tc, res + this.infoParClient.get(nomJoueur).getActionParChaine().get(tc));
 				}else{
-					this.infoParClient.get(indexJoueur).getActionParChaine().put(tc, res);			
+					this.infoParClient.get(nomJoueur).getActionParChaine().put(tc, res);			
 				}			
 			}
 		}
-		
 		return res;
 	}
 	
@@ -131,29 +141,31 @@ public class TableauDeBord implements Serializable{
 	 */
 	public int vendActionJoueur(int nb, String nomJoueur, TypeChaine tc){
 		int indexChaine = -1;
-		int indexJoueur = -1;
+		//int indexJoueur = -1;
 		
 		for(int i=0; i<listeChaine.size(); i++){
 			if (listeChaine.get(i).getNomChaine().equals(tc)){
 				indexChaine = i;
 			}
 		}
+		/**
 		for(int i=0; i<infoParClient.size(); i++){
 			if (infoParClient.get(i).getPseudo() == nomJoueur){
 				indexJoueur = i;
 			}
-		}
+		}**/
 		
 		int res = 0;
 		
-		if (indexChaine != -1 && indexJoueur != -1){
-			boolean joueurExiste = this.infoParClient.get(indexJoueur).getActionParChaine().containsKey(tc);
+		if (indexChaine != -1 && this.infoParClient.get(nomJoueur)!=null){
+			boolean joueurExiste = this.infoParClient.get(nomJoueur).getActionParChaine().containsKey(tc);
 			if (nb < 0 || !joueurExiste){
 				nb = 0;
+				res=0;
 			}
 			
-			if (joueurExiste && nb > this.infoParClient.get(indexJoueur).getActionParChaine().get(tc)){
-				res = this.infoParClient.get(indexJoueur).getActionParChaine().get(tc);
+			if (joueurExiste && nb > this.infoParClient.get(nomJoueur).getActionParChaine().get(tc)){
+				res = this.infoParClient.get(nomJoueur).getActionParChaine().get(tc);
 			}
 			
 			if(this.listeChaine.get(indexChaine).getNbActionRestante()+nb > Chaine.getNbactiontotal()){ // on ne peut pas avoir plus de 25 action
@@ -163,13 +175,13 @@ public class TableauDeBord implements Serializable{
 				res=nb;
 				this.listeChaine.get(indexChaine).setNbActionRestante(this.listeChaine.get(indexChaine).getNbActionRestante()+nb);
 			}
-			
+				
 			if(joueurExiste){
-				if(this.infoParClient.get(indexJoueur).getActionParChaine().get(tc) - res > 0){
-					this.infoParClient.get(indexJoueur).getActionParChaine().put(tc, this.infoParClient.get(indexJoueur).getActionParChaine().get(tc) - res);
+				if(this.infoParClient.get(nomJoueur).getActionParChaine().get(tc) - res > 0){
+					this.infoParClient.get(nomJoueur).getActionParChaine().put(tc, this.infoParClient.get(nomJoueur).getActionParChaine().get(tc) - res);
 					
 				}else{
-					this.infoParClient.get(indexJoueur).getActionParChaine().remove(tc);
+					this.infoParClient.get(nomJoueur).getActionParChaine().remove(tc);
 				}
 			}
 		}

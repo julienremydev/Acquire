@@ -7,6 +7,9 @@ import java.util.HashMap;
 import javafx.scene.paint.Color;
 
 public class Chaine implements Serializable{
+	public TypeChaine getTypeChaine() {
+		return typeChaine;
+	}
 	/**
 	 * 
 	 */

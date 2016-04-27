@@ -140,10 +140,7 @@ public class TestTableauDeBord {
 		// action vendue = 3, action restante = 25
 		// plus d actionnaire, 0 action detenue
 		nbActionVendue = 4;
-		System.out.println(tableauTest.getInfoParClient().get("Yodaii").getActionParChaine().get(ch1.getTypeChaine()));
 		actionVendue = tableauTest.vendActionJoueur(nbActionVendue, "Yodaii", ch1.getNomChaine());
-		System.out.println(tableauTest.getInfoParClient().get("Yodaii").getActionParChaine().get(ch1.getTypeChaine()));
-		System.out.println(actionVendue);
 		assertEquals(3, actionVendue);
 		assertEquals(25, tableauTest.getListeChaine().get(0).getNbActionRestante());
 	}

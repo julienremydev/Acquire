@@ -58,14 +58,14 @@ public class TestClientInfo {
 		// cas normal ajout d une case dans main vide
 		// ajout d une case dans la main
 		clientTest.addCaseToMain(c);
-		HashMap<String, Case> test = new HashMap<String, Case>();
-		test.put(c.getNom(), c);
+		ArrayList<String> test = new ArrayList<String>();
+		test.add(c.getNom());
 		assertEquals(test, clientTest.getMain());
 		
 		// cas normal ajout d une case dans main avec deja case
 		// main contient 2 cases
 		clientTest.addCaseToMain(c2);
-		test.put(c2.getNom(), c2);
+		test.add(c2.getNom());
 		assertEquals(test, clientTest.getMain());
 	}
 	
@@ -78,14 +78,14 @@ public class TestClientInfo {
 		
 		// cas ou il reste des case dans la main
 		clientTest.rmCaseToMain(c2);
-		HashMap<String, Case> test = new HashMap<String, Case>();
-		test.put(c.getNom(), c);
-		assertEquals(test, clientTest.getMain());
+		ArrayList<String> test = new ArrayList<String>();
+		test.add(c.getNom());
 		
 		// cas ou la main et vide
 		clientTest.rmCaseToMain(c);
 		test.remove(c.getNom());
-		assertEquals(test, clientTest.getMain());	
+		assertEquals(test, clientTest.getMain());
+		assertTrue(clientTest.getMain().isEmpty());
 		
 		// cas case pas dans main
 		clientTest.rmCaseToMain(new Case("test3"));

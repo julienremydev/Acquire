@@ -30,10 +30,16 @@ public class CaseTop extends Case{
 		else
 			return false;
 	}
-	@Override
+	/**
+	 * Retourne true si on à au moins une une chaine autour
+	 * 
+	 * @return
+	 */
 	public boolean surroundedByChains() {
-		// TODO Auto-generated method stub
-		return false;
+		if ((this.getEast().getEtat() >=2) || (this.getSouth().getEtat() >=2)|| (this.getWest().getEtat() >=2))
+			return true;
+		else
+			return false;
 	}
 
 }

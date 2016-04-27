@@ -276,6 +276,21 @@ public class Plateau implements Serializable {
 		//				});
 		//			}
 		//		}
+//		/**
+//		 * Présense d'un ou plusieurs hotêls avec une ou plusieures chaînes
+//		 */
+//
+//		if (askChain && askColor) {
+//			// Ici on a au mooins une chain et au moins 1 hotel
+//			// chercher ou on a la chaine et récupérer son etat pour avoir la
+//			// couleur
+//			// chercher les hotels ou autres chaines
+//			// regarder la taille des chaines pour savoir la quelle est la plus
+//			// grande
+//			// si taille == user.askColorForChains
+//			// si taille != on prend etat de la plus grande chaine
+//			this.setEtat(3);
+//		}
 		return null;
 
 

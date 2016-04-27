@@ -24,7 +24,9 @@ public class Case implements Serializable {
 		return this.nom;
 	}
 
-	public Case(){}
+	public Case(){
+		this.etat=0;
+	}
 
 	public Case(String n) {
 		this.etat = 0;
@@ -61,140 +63,6 @@ public class Case implements Serializable {
 		this.west = W;
 	}
 
-	/**
-	 * Regarde les différents cas possible des états adjacents à la case.
-	 * Appelle les fonctions qui vont bien à chaque fois.
-	 */
-	public void lookCase() {
-
-		boolean simpleCase = this.surroundedByNothing();
-		boolean askColor = this.surroundedByHotels();
-		boolean askChain = this.surroundedByChains();
-
-		/**
-		 * Cas simple, aucune case initialisée autour, la case deviens donc un
-		 * hotel modification de l'etat de cette case
-		 */
-		if (simpleCase) {
-			this.setEtat(1);
-		}
-
-		/**
-		 * Présence d'un ou plusieurs hotêls autour de la case Pas de chaînes
-		 * dans ce cas Appel de la fonction de choix de couleur de chaine coté
-		 * utilisateur
-		 */
-		if (askColor && !askChain)
-			// En vrai ici il faudra faire l'appel de la fonction qui va
-			// demander à l'utilisateur la couleur qu'il veut choisir pour sa
-			// nouvelle chaine
-			// user.askColorForNewChain();
-			this.setEtat(0);
-		ArrayList<Case> tabHotels = tabAdjascent();
-
-		//TableauDeBord.creationChaine(tabHotels,TypeChaine.SACKSON);
-		// AppelFonctionChoixCouleur (tabHotels);
-
-		/**
-		 * Présence d'une ou plusieures chaînes autour de la case Pas d'hôtels
-		 * dans ce cas
-		 */
-		if (askChain && !askColor) // juste une ou plusieurs chaines, pas
-			// d'hotel
-		{
-			// tableau des cases non null donc dans ce cas des cases avec
-			// chaines.
-			ArrayList<Case> tab = tabAdjascent();
-			/**
-			 * Le tableau n'a qu'une taille de 1, donc simple changement de la
-			 * couleur de la case
-			 */
-			if (tab.size() == 1)
-				this.setEtat(tab.get(0).getEtat());
-			/**
-			 * Tableau taille de 2, donc deux cases avec une chaine
-			 */
-
-			if (tab.size() >= 2)// regrouper le cas ou on a 2, 3 ou 4 cases
-				// autour avec une chaine
-			{
-				int nbCases = tab.size();
-				boolean sameColor = sameColorsArround(tab, nbCases);
-				int chainePremiereCase;
-				int chaineDeuxiemeCase;
-				sameColor = sameColorsArround(tab, nbCases);
-				/**
-				 * Vérification si il s'agit de la même chaîne dans toutes les
-				 * cases adjascentes, on change juste la couleur de la case.
-				 */
-				if (sameColor)
-					this.setEtat(tab.get(0).getEtat());
-				else {
-					switch (nbCases) {
-					case 2:
-						chainePremiereCase = tab.get(0).getEtat();
-						chaineDeuxiemeCase = tab.get(1).getEtat();
-						/**
-						 * Si leurs taille sont égales, on demande la couleur à
-						 * l'utilisateur
-						 */
-						if (chainePremiereCase == chaineDeuxiemeCase) // avec
-							// les
-							// fonctions
-							// que
-							// yoh
-							// va
-							// faire
-							this.setEtat(tab.get(0).getEtat()); // client.askColorChaineVoulue()
-						// &&
-						// chaine.SetChaine(int
-						// nouvelleChaine)
-
-						else {
-							if (chainePremiereCase > chaineDeuxiemeCase)
-								// La premiere chaine est plus grande donc
-								// changement etat case +
-								// tab.get(1).SetChaine(tab.get(0))
-								this.setEtat(tab.get(0).getEtat());
-							else
-								// pareil mais inversement avec les cases du
-								// tableau
-								this.setEtat(tab.get(1).getEtat());
-						}
-						break;
-					case 3:
-
-						break;
-					case 4:
-						break;
-					}
-				}
-				Collections.sort(tab, new Comparator<Case>() {
-					@Override
-					public int compare(Case tc1, Case tc2) {
-						return tc1.getEtat().compareTo(tc2.getEtat());
-					}
-				});
-			}
-		}
-
-		/**
-		 * Présense d'un ou plusieurs hotêls avec une ou plusieures chaînes
-		 */
-
-		if (askChain && askColor) {
-			// Ici on a au mooins une chain et au moins 1 hotel
-			// chercher ou on a la chaine et récupérer son etat pour avoir la
-			// couleur
-			// chercher les hotels ou autres chaines
-			// regarder la taille des chaines pour savoir la quelle est la plus
-			// grande
-			// si taille == user.askColorForChains
-			// si taille != on prend etat de la plus grande chaine
-			this.setEtat(3);
-		}
-
-	}
 
 	/**
 	 * Permet de savoir si les cases autour de la notre sont vides
@@ -295,11 +163,17 @@ public class Case implements Serializable {
 	 * @return
 	 */
 	public boolean equals(Case c) {
-		if (this.getNom().compareTo(c.getNom()) == 0) {
-			return true;
-		} else {
-			return false;
+		if(c != null)
+		{
+			if (this.getNom().compareTo(c.getNom()) == 0) {
+				return true;
+			} else {
+				return false;
+			}
 		}
+		else
+			return false;
+		
 	}
 
 	public String toString() {

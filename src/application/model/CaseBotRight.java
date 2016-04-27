@@ -32,10 +32,16 @@ public class CaseBotRight extends Case {
 			return false;
 	}
 
-	@Override
+	/**
+	 * Retourne true si on à au moins une une chaine autour
+	 * 
+	 * @return
+	 */
 	public boolean surroundedByChains() {
-		// TODO Auto-generated method stub
-		return false;
+		if ((this.getNorth().getEtat() >=2) || (this.getWest().getEtat() >=2))
+			return true;
+		else
+			return false;
 	}
 
 }

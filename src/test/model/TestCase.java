@@ -1,5 +1,8 @@
 package test.model;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
 
@@ -7,6 +10,14 @@ import org.junit.Before;
 import org.junit.Test;
 
 import application.model.Case;
+import application.model.CaseBot;
+import application.model.CaseBotLeft;
+import application.model.CaseBotRight;
+import application.model.CaseLeft;
+import application.model.CaseRight;
+import application.model.CaseTop;
+import application.model.CaseTopLeft;
+import application.model.CaseTopRight;
 
 public class TestCase {
 	Case caseTest;
@@ -14,10 +25,28 @@ public class TestCase {
 	Case south;
 	Case east;
 	Case west;
+	
+	CaseBot caseTestBot;
+	CaseTop caseTestTop;
+	CaseLeft caseTestLeft;
+	CaseRight caseTestRight;
+	CaseBotLeft caseTestBotLeft;
+	CaseBotRight caseTestBotRight;
+	CaseTopLeft caseTestTopLeft;
+	CaseTopRight caseTestTopRight;
 
 	@Before
 	public void initCase(){
 		caseTest = new Case();
+		caseTestBot = new CaseBot("bot");
+		caseTestTop = new CaseTop("top");
+		caseTestRight = new CaseRight("right");
+		caseTestLeft = new CaseLeft("left");
+		caseTestBotLeft = new CaseBotLeft("botLeft");
+		caseTestBotRight = new CaseBotRight("botRight");
+		caseTestTopLeft = new CaseTopLeft("topLeft");
+		caseTestTopRight = new CaseTopRight("topRight");
+		
 		north = new Case();
 		south = new Case();
 		east = new Case();
@@ -26,6 +55,11 @@ public class TestCase {
 		caseTest.setSouth(south);
 		caseTest.setEast(east);
 		caseTest.setWest(west);
+		
+		caseTestBotLeft.setNorth(north);
+		caseTestBotLeft.setSouth(south);
+		caseTestBotLeft.setEast(east);
+		caseTestBotLeft.setWest(west);
 	}
 
 	@Test
@@ -80,65 +114,108 @@ public class TestCase {
 	public void testSurroundedByChains() {
 		// toutes les cases autour ont un etat egal a 0
 		assertFalse(caseTest.surroundedByChains());
+		assertFalse(caseTestBotLeft.surroundedByChains());
 
 		// une case autour a un etat egal a 1 et les autres a 0
 		north.setEtat(1);
 		assertFalse(caseTest.surroundedByChains());
+		assertFalse(caseTestBotLeft.surroundedByChains());
 
 		// une case autour a un etat egal a -1 et les autres a 0
 		north.setEtat(-1);
 		assertFalse(caseTest.surroundedByChains());
+		assertFalse(caseTestBotLeft.surroundedByChains());
 
 		// une case autour a un etat egal a une valeur >= 2 et les autres a 0
 		north.setEtat(5);
 		assertTrue(caseTest.surroundedByChains());
+		assertTrue(caseTestBotLeft.surroundedByChains());
 
 		// toutes les cases autour ont un etat egal a une meme valeur >= 2
 		south.setEtat(5);
 		east.setEtat(5);
 		west.setEtat(5);
 		assertTrue(caseTest.surroundedByChains());
+		assertTrue(caseTestBotLeft.surroundedByChains());
 
 		// toutes les cases autour ont un etat egal a differente valeur >= 2
 		south.setEtat(3);
 		east.setEtat(7);
 		west.setEtat(6);
 		assertTrue(caseTest.surroundedByChains());
+		assertTrue(caseTestBotLeft.surroundedByChains());
 	}
 
-	@Test
-	public void testLookCase(){
-		caseTest.lookCase();
-		assertEquals(1, (int)caseTest.getEtat());
-		north.setEtat(1);
-		caseTest.lookCase();
-		assertNotEquals(1, (int)caseTest.getEtat());
-	}
 
 	@Test
 	public void testTabAdjacent(){
-		//TODO refaire ce test avec creation des cases de chaque endroit
-//		ArrayList<Case> test = new ArrayList<Case>();
-//		assertEquals(test, caseTest.tabAdjascent();
-//
-//		test.add(north);
-//		test.add(south);
-//
-//		assertEquals(test, caseTest.tabAdjascent(north, south, null, null));
-//		assertNotEquals(test, caseTest.tabAdjascent(null, null, null, null));
-//		assertNotEquals(test, caseTest.tabAdjascent(north, null, null, null));
-//		assertNotEquals(test, caseTest.tabAdjascent(north, south, east, null));
-//		assertNotEquals(test, caseTest.tabAdjascent(north, south, east, west));
-//		test.add(east);
-//		test.add(west);
-//
-//		assertEquals(test, caseTest.tabAdjascent(north, south, east, west));
+		
+		ArrayList<Case> test = new ArrayList<Case>();
+		test.add(north);
+		test.add(south);
+		test.add(east);
+		test.add(west);
+		
+		assertNotEquals(test, caseTest.tabAdjascent());
+
+		north.setEtat(1);
+		south.setEtat(2);
+		east.setEtat(3);
+		west.setEtat(4);
+		
+		assertEquals(test, caseTest.tabAdjascent());
+		
+		ArrayList<Case> particulier = new ArrayList<Case>();
+		particulier.add(east);
+		particulier.add(north);
+		east.setEtat(0);
+		north.setEtat(0);
+		assertNotEquals(test, caseTestBotLeft.tabAdjascent());
+		
+		east.setEtat(5);
+		north.setEtat(8);
+		assertEquals(test, caseTestBotLeft.tabAdjascent());
+		
+		
+	}
+	
+	@Test
+	public void setNeighbours(){
+		caseTest.setNeighbours(north, south, east, west);
+		assertEquals(north,caseTest.getNorth());
+		assertEquals(south,caseTest.getSouth());
+		assertEquals(east,caseTest.getEast());
+		assertEquals(west,caseTest.getWest());
+		
+		CaseBotRight caseTestBR = new CaseBotRight("test");
+		caseTest.setNeighbours(null, south, caseTestBR, west);
+		assertEquals(null,caseTest.getNorth());
+		assertEquals(south,caseTest.getSouth());
+		assertEquals(caseTestBR,caseTest.getEast());
+		assertEquals(west,caseTest.getWest());
+		
+		
 	}
 
 	@Test
 	public void testSameColorsArround(){
+		// Test Case Particulier
+		ArrayList<Case> testCaseParticulier = new ArrayList<Case>();
+		testCaseParticulier.add(north);
+		testCaseParticulier.add(south);
+		// cas 1 seul avec un etat entre 2 et 8 --> False
+		north.setEtat(5);
+		assertFalse(caseTestBotLeft.sameColorsArround(testCaseParticulier, testCaseParticulier.size()));
+		// cas avec 2 etats différents --> False
+		south.setEtat(4);
+		assertFalse(caseTestBotLeft.sameColorsArround(testCaseParticulier, testCaseParticulier.size()));
+		// case les 2 etats dans l'interval 2 8 --> True
+		south.setEtat(5);
+		assertTrue(caseTestBotLeft.sameColorsArround(testCaseParticulier, testCaseParticulier.size()));
+		
+		//Test Case Normale
 		ArrayList<Case> test = new ArrayList<Case>();
-
+		//
 		/*
 		 *  TAILLE LIST = 2
 		 */
@@ -146,7 +223,7 @@ public class TestCase {
 		test.add(west);
 		
 		
-
+		
 		// cas 1 seul avec un etat entre 2 et 8 --> False
 		north.setEtat(5);
 		assertFalse(caseTest.sameColorsArround(test, test.size()));
@@ -161,7 +238,7 @@ public class TestCase {
 		test.add(south);
 		north.setEtat(0);
 		west.setEtat(0);
-
+		south.setEtat(0);
 		
 
 		// cas 1 seul avec un etat entre 2 et 8 --> False
@@ -206,8 +283,18 @@ public class TestCase {
 	@Test
 	public void testEquals(){
 		caseTest.setNom("test");
-
 		assertTrue(caseTest.equals(new Case("test")));
 		assertFalse(caseTest.equals(new Case("False")));
+		assertFalse(caseTest.equals(null));
+		// Essai sur les autres types de cases
+		assertFalse(caseTestBot.equals(null));
+		assertFalse(caseTestBotLeft.equals(null));
+		assertFalse(caseTestBotRight.equals(null));
+		assertFalse(caseTestLeft.equals(null));
+		assertFalse(caseTestRight.equals(null));
+		assertFalse(caseTestTop.equals(null));
+		assertFalse(caseTestTopLeft.equals(null));
+		assertFalse(caseTestTopRight.equals(null));
+		
 	}
 }

@@ -25,16 +25,22 @@ public class CaseRight extends  Case {
 	 * @return
 	 */
 	public boolean surroundedByHotels() {
-		if ((this.getNorth().getEtat() == 1) || (this.getSouth().getEtat() == 1)|| (this.getWest().getEtat() == 1))
+		if ((this.getNorth().getEtat() >=2) || (this.getSouth().getEtat() >=2)|| (this.getWest().getEtat()>=2))
 			return true;
 		else
 			return false;
 	}
 
-	@Override
+	/**
+	 * Retourne true si on à au moins une une chaine autour
+	 * 
+	 * @return
+	 */
 	public boolean surroundedByChains() {
-		// TODO Auto-generated method stub
-		return false;
+		if ((this.getNorth().getEtat() == 1) || (this.getSouth().getEtat() == 1)|| (this.getWest().getEtat() == 1))
+			return true;
+		else
+			return false;
 	}
 
 }

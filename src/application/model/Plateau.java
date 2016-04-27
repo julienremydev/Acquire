@@ -344,6 +344,14 @@ public class Plateau implements Serializable {
 		//Game.listeChaine.add(nouvelleChaine);
 	}
 
+	public HashMap<String, Case> getPlateauMap() {
+		return plateauMap;
+	}
+
+	public void setPlateauMap(HashMap<String, Case> plateauMap) {
+		this.plateauMap = plateauMap;
+	}
+
 	public ArrayList<String> getCasesDisponible() {
 		return casesDisponible;
 	}
@@ -371,7 +379,7 @@ public class Plateau implements Serializable {
 		int max = nbClient;
 		Random randomGenerator = new Random();
 		int index;
-		for (int i = 0; i < max*16; i++) {
+		for (int i = 0; i < max; i++) {
 			index = randomGenerator.nextInt(casesDisponible.size());
 			String c = casesDisponible.get(index);
 			plateauMap.get(c).setEtat(1);
@@ -389,7 +397,7 @@ public class Plateau implements Serializable {
 	public void ajouteMain1foisCaseNoir() {
 		String c = casesDisponible.get(0 + (int) (Math.random() * casesDisponible.size() - 1));
 		plateauMap.get(c).setEtat(1);
-		plateauMap.remove(c);
+		casesDisponible.remove(c);
 	}
 	//
 	//

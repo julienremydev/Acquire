@@ -31,10 +31,11 @@ public class CaseBot extends Case {
 			return false;
 	}
 
-	@Override
 	public boolean surroundedByChains() {
-		// TODO Auto-generated method stub
-		return false;
+		if ((this.getNorth().getEtat() >=2) || (this.getEast().getEtat() >=2)	|| (this.getWest().getEtat() >=2))
+			return true;
+		else
+			return false;
 	}
 
 }

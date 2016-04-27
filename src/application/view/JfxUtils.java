@@ -9,6 +9,14 @@ import javafx.scene.Node;
 
 public class JfxUtils {
  
+	/**
+	 * Charge le ficheir fxml
+	 * @param fxml
+	 * @param serveur
+	 * @param client
+	 * @return
+	 * @throws Exception
+	 */
     public static Node loadFxml(String fxml, ServeurInterface serveur, Client client) throws Exception{
         FXMLLoader loader = new FXMLLoader();
 
@@ -21,7 +29,12 @@ public class JfxUtils {
             throw new IllegalStateException("cannot load FXML screen", e);
         }
     }
-    
+    /**
+     * Charge le fichier fxml 
+     * @param fxml
+     * @return
+     * @throws Exception
+     */
     public static Node loadFxmlConnexion(String fxml) throws Exception{
         FXMLLoader loader = new FXMLLoader();
 

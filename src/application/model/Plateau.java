@@ -397,12 +397,6 @@ public class Plateau implements Serializable {
 		plateauMap.get(c).setEtat(1);
 		casesDisponible.remove(c);
 	}
-	//
-	//
-	// public static void main(String[] Args) {
-	// Plateau p = new Plateau();
-	// p.affichePlateau();
-	//
-	// }
+	
 
 }

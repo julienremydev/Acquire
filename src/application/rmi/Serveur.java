@@ -50,7 +50,12 @@ public class Serveur extends UnicastRemoteObject implements ServeurInterface {
 		if (liste_clients.containsKey(getChef()))
 			liste_clients.get(getChef()).setBEnable(b);
 	}
-
+	/**
+	 * Verification lors de la connexion
+	 * @param p
+	 * @param loadJSON
+	 * @return
+	 */
 	public String erreurRegister(String p, boolean loadJSON) {
 		//Chargement d'une partie et il y a déjà des joueurs sur le serveur
 		if (loadJSON && liste_clients.size() != 0 )
@@ -78,7 +83,9 @@ public class Serveur extends UnicastRemoteObject implements ServeurInterface {
 		else
 			return null;
 	}
-
+	/**
+	 * Récupere la case clické
+	 */
 	@Override
 	public void getCasePlayed(String text, String pseudo) throws RemoteException {
 		if (isPartiecommencee()) {
@@ -97,7 +104,7 @@ public class Serveur extends UnicastRemoteObject implements ServeurInterface {
 		}
 	}
 
-	/*
+	/**
 	 * Cette méthode est appelée lors de la connexion d'un client. Le client est
 	 * ajouté à la liste des clients du serveur. Le client n'est pas ajouté si
 	 * il a le même pseudo qu'un autre joueur.
@@ -142,7 +149,9 @@ public class Serveur extends UnicastRemoteObject implements ServeurInterface {
 
 		return null;
 	}
-
+	/**
+	 * Méthode de lancement de la partie
+	 */
 	@Override
 	public void setLancement() throws RemoteException {
 		setPartiecommencee(true);
@@ -161,7 +170,10 @@ public class Serveur extends UnicastRemoteObject implements ServeurInterface {
 		distributionData();
 		distribution();
 	}
-
+	/**
+	 * Dsitribue les cases pour chaques joueurs
+	 * @throws RemoteException
+	 */
 	private void distributionMain() throws RemoteException {
 		Collection<ClientInterface> e = liste_clients.values();
 		for (ClientInterface c : e) {
@@ -172,7 +184,7 @@ public class Serveur extends UnicastRemoteObject implements ServeurInterface {
 		}
 
 	}
-	/*
+	/**
 	 * Suppression du client de la HashTable quand un client ferme son
 	 * application.
 	 */
@@ -193,7 +205,7 @@ public class Serveur extends UnicastRemoteObject implements ServeurInterface {
 		}
 	}
 
-	/*
+	/**
 	 * Distribution à chaque client du game , à chaque modification du plateau
 	 * et des variables du jeu.
 	 */
@@ -208,14 +220,18 @@ public class Serveur extends UnicastRemoteObject implements ServeurInterface {
 		while (e.hasMoreElements())
 			e.nextElement().receive(game);
 	}
-
+/**
+ * Distribution des données de la table vue
+ */
 	@Override
 	public void distributionData() throws RemoteException {
 		Enumeration<ClientInterface> e = liste_clients.elements();
 		while (e.hasMoreElements())
 			e.nextElement().receiveData();
 	}
-
+	/**
+	 * Distribution du chat
+	 */
 	@Override
 	public void distributionTchat(String pseudo, String s) throws RemoteException {
 		tchat.append("[" + pseudo + "] " + s + "\n");

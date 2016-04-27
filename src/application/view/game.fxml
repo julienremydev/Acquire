@@ -202,7 +202,7 @@
             <Insets left="10.0" />
          </GridPane.margin>
       </GridPane>
-      <TableView fx:id="tableauDeBord" prefHeight="152.0" prefWidth="600.0" GridPane.rowIndex="1">
+      <TableView text-align="CENTER" fx:id="tableauDeBord" prefHeight="152.0" prefWidth="600.0" GridPane.rowIndex="1">
          <columns>
             <TableColumn prefWidth="75.0" text="Joueurs"> 
             	<cellValueFactory><PropertyValueFactory property="pseudo" />
@@ -213,7 +213,7 @@
         		</cellValueFactory>
         	</TableColumn>
             <TableColumn prefWidth="30.0" text="Z">
-                <cellValueFactory><PropertyValueFactory property="actionParChaine.get(TypeChaine.ZETA)" />
+                <cellValueFactory><PropertyValueFactory property="actionZeta" />
         		</cellValueFactory>
         	</TableColumn>
             <TableColumn prefWidth="30.0" text="H">
@@ -221,19 +221,19 @@
         		</cellValueFactory>
         	</TableColumn>
             <TableColumn prefWidth="30.0" text="F">
-                <cellValueFactory><PropertyValueFactory property="actionParChaine.get(TypeChaine.FUSION)" />
+                <cellValueFactory><PropertyValueFactory property="actionFusion" />
         		</cellValueFactory>
         	</TableColumn>
             <TableColumn prefWidth="30.0" text="A">
-                <cellValueFactory><PropertyValueFactory property="actionParChaine.get(TypeChaine.AMERICA)" />
+                <cellValueFactory><PropertyValueFactory property="actionAmerica" />
         		</cellValueFactory>
         	</TableColumn>
             <TableColumn prefWidth="30.0" text="P">
-                <cellValueFactory><PropertyValueFactory property="actionParChaine.get(TypeChaine.PHEONIX)" />
+                <cellValueFactory><PropertyValueFactory property="actionPhoenix" />
         		</cellValueFactory>
         	</TableColumn>
             <TableColumn prefWidth="30.0" text="Q"> 
-           		<cellValueFactory><PropertyValueFactory property="actionParChaine.get(TypeChaine.QUANTUM)" />
+           		<cellValueFactory><PropertyValueFactory property="actionQuantum" />
         		</cellValueFactory>
         	</TableColumn>
             <TableColumn prefWidth="75.0" text="Cash">

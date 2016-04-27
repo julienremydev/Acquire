@@ -20,11 +20,11 @@ public class CaseRight extends  Case {
 	}
 
 	/**
-	 * Retourne true si on à au moins un hotel autour
 	 * 
+	 * Retourne true si on à au moins une une chaine autour
 	 * @return
 	 */
-	public boolean surroundedByHotels() {
+	public boolean surroundedByChains() {
 		if ((this.getNorth().getEtat() >=2) || (this.getSouth().getEtat() >=2)|| (this.getWest().getEtat()>=2))
 			return true;
 		else
@@ -32,11 +32,11 @@ public class CaseRight extends  Case {
 	}
 
 	/**
-	 * Retourne true si on à au moins une une chaine autour
 	 * 
+	 * Retourne true si on à au moins un hotel autour
 	 * @return
 	 */
-	public boolean surroundedByChains() {
+	public boolean surroundedByHotels() {
 		if ((this.getNorth().getEtat() == 1) || (this.getSouth().getEtat() == 1)|| (this.getWest().getEtat() == 1))
 			return true;
 		else

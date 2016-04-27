@@ -371,7 +371,7 @@ public class Plateau implements Serializable {
 		int max = nbClient;
 		Random randomGenerator = new Random();
 		int index;
-		for (int i = 0; i < max*16; i++) {
+		for (int i = 0; i < max; i++) {
 			index = randomGenerator.nextInt(casesDisponible.size());
 			String c = casesDisponible.get(index);
 			plateauMap.get(c).setEtat(1);

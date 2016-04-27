@@ -1,5 +1,10 @@
 package application.globale;
 
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.Map;
+import java.util.stream.Stream;
+
 public class Globals {
 	public final static String erreurTaillePseudo = "Le pseudo doit contenir entre 3 et 12 caractères.";
 	public final static String erreurPseudoReserve = "Le pseudo 'Serveur' ne peut pas être utilisé par un joueur.";
@@ -15,4 +20,20 @@ public class Globals {
 	public final static String erreurChargementJSONimpossible = "Chargement JSON impossible. Une partie est en cours.";
 	public final static String erreurForbiddenPlayer = "Vous n'êtes pas autorisé à rejoindre cette partie. \n Attendez la fin de la partie en cours ou vérifiez la syntaxe de votre pseudo si vous en faites partie.";
 	public final static int nombre_joueurs_max = 6;
+	
+	/**
+	 * Methode de tri d'une map (utilisé pour l'ordre des joueurs selon la pioche)
+	 * @param map
+	 * @return
+	 */
+	public static <String extends Comparable<? super String>> HashMap<String, String> 
+	sortByValue( HashMap<String, String> map ) {
+		HashMap<String, String> result = new LinkedHashMap<>();
+		Stream<Map.Entry<String, String>> st = map.entrySet().stream();
+
+		st.sorted( Map.Entry.comparingByValue() )
+		.forEachOrdered( e -> result.put(e.getKey(), e.getValue()) );
+
+		return result;
+	}
 }

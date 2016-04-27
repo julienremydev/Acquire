@@ -26,6 +26,8 @@ public class Serveur extends UnicastRemoteObject implements ServeurInterface {
 
 	private Hashtable<String, ClientInterface> liste_clients;
 
+	private ArrayList<String> ordre_joueur;
+
 	private Game game;
 
 	private StringBuffer tchat;
@@ -33,19 +35,25 @@ public class Serveur extends UnicastRemoteObject implements ServeurInterface {
 	private String chef;
 
 	private boolean partiecommencee;
-	
+
 	private boolean partiechargee;
 
 	public Serveur() throws RemoteException {
 		Logger.getLogger("Serveur").log(Level.INFO, "Serveur lancé");
 		setListe_clients(new Hashtable<String, ClientInterface>());
-
+		setOrdre_joueur(new ArrayList<String>());
 		game = new Game();
 		tchat = new StringBuffer("[Serveur] Serveur lancé.\n");
 		setPartiecommencee(false);
 		partiechargee = false;
 	}
-
+	
+	/**
+	 * Methode permettant de savoir qui est l'admin du jeu
+	 * Lui attribuer la possibilité de lancer la partie
+	 * @param b
+	 * @throws RemoteException
+	 */
 	private void setBEnable(boolean b) throws RemoteException {
 		if (liste_clients.containsKey(getChef()))
 			liste_clients.get(getChef()).setBEnable(b);
@@ -55,7 +63,7 @@ public class Serveur extends UnicastRemoteObject implements ServeurInterface {
 		//Chargement d'une partie et il y a déjà des joueurs sur le serveur
 		if (loadJSON && liste_clients.size() != 0 )
 			return Globals.erreurChargementJSONimpossible;
-		
+
 		// Pseudo est déjà utilisé
 		else if (liste_clients.containsKey(p))
 			return Globals.erreurPseudoUtilise;
@@ -63,7 +71,7 @@ public class Serveur extends UnicastRemoteObject implements ServeurInterface {
 		//La partie est commencée ou chargée : on vérifie les correpondances entre les pseudos
 		else if ((partiechargee || isPartiecommencee()) && !game.getTableau().getInfoParClient().containsKey(p))
 			return Globals.erreurForbiddenPlayer;
-		
+
 		// Il manque le chef de la partie et il reste une place, on ne connecte
 		// pas le joueur
 		else if (!partiechargee && liste_clients.size() == (Globals.nombre_joueurs_max - 1) && !liste_clients.containsKey(getChef())
@@ -79,7 +87,10 @@ public class Serveur extends UnicastRemoteObject implements ServeurInterface {
 			return null;
 	}
 
-	@Override
+	/**
+	 * Methode recuperant la case joue par un joueur avec son pseudo
+	 * Traitement du modele
+	 */
 	public void getCasePlayed(String text, String pseudo) throws RemoteException {
 		if (isPartiecommencee()) {
 			Logger.getLogger("Serveur").log(Level.INFO, text);
@@ -108,14 +119,14 @@ public class Serveur extends UnicastRemoteObject implements ServeurInterface {
 		String erreur = erreurRegister(p, loadJSON);
 		if (erreur != null)
 			return erreur;
-			
-		
+
+
 		// Le premier joueur qui se connecte est le chef de la partie, seul lui peut la lancer.
 		if (liste_clients.size() == 0 && getChef() == null)
 			setChef(p);
 
 		liste_clients.put(p, client);
-		
+
 		//Chargement du fichier JSON : MAJ du GAME+ClientInfo
 		if ( loadJSON ){
 			/*
@@ -130,10 +141,10 @@ public class Serveur extends UnicastRemoteObject implements ServeurInterface {
 			if ( !game.getTableau().getInfoParClient().containsKey(p) ){
 				game.getTableau().ajouterClient(new ClientInfo(p)); 
 			}
-			
+
 			distributionTchat("Serveur", "Le joueur " + p + " est entré dans la partie.");
 		}
-		
+
 		Logger.getLogger("Client").log(Level.INFO, "Nouveau client enregistré dans le serveur.");
 		if ( partiechargee || isPartiecommencee()){
 			distributionMain();
@@ -152,24 +163,45 @@ public class Serveur extends UnicastRemoteObject implements ServeurInterface {
 		distributionTchat("Serveur", "Le joueur " + getChef() + " a démarré la partie.");
 
 		// initialisation des cases noirs pour chaque joueur
-		game.getPlateau().initialiseMainCaseNoir(game.getTableau().getInfoParClient().size());
+		//game.getPlateau().initialiseMainCaseNoir(game.getTableau().getInfoParClient().size());
 		initalisationMain();
 		//INITIALISATION de lA MAIN ICI ???????????????????
-		
-		
+
+
 		/*
 		 * DISTRIBUTION de la main , du tableau des scores et du game
 		 */
 		distributionMain();
 		distributionData();
 		distribution();
+
+		liste_clients.get(ordre_joueur.get(0)).turn();
 	}
 
+	/**
+	 * Methode d'initialisation des mains de chaque joueur ainsi que la pioche de la case noire
+	 * @throws RemoteException
+	 */
 	private void initalisationMain() throws RemoteException {
 		Enumeration<String> enumKeys = liste_clients.keys();
+		HashMap<String,String> listeCasesNoires = new HashMap<String,String>();
 		while (enumKeys.hasMoreElements()) {
 			String key = enumKeys.nextElement();
 			game.getTableau().getInfoParClient().get(key).initialiseMain(game.getPlateau());
+			listeCasesNoires.put(key,game.getPlateau().initialiseMainCaseNoir());
+		}
+		setTurn(listeCasesNoires);
+	}
+
+	/**
+	 * Methode permettant d'attribuer l'ordre des joueurs
+	 * @param listeCasesNoires
+	 */
+	private void setTurn(HashMap<String,String> listeCasesNoires) {
+		HashMap<String, String> result = Globals.sortByValue(listeCasesNoires);
+		Collection<String> keys = result.keySet();
+		for (String key : keys) {
+			ordre_joueur.add(key);
 		}
 	}
 
@@ -263,6 +295,14 @@ public class Serveur extends UnicastRemoteObject implements ServeurInterface {
 		return game;
 	}
 
+	public ArrayList<String> getOrdre_joueur() {
+		return ordre_joueur;
+	}
+
+	public void setOrdre_joueur(ArrayList<String> ordre_joueur) {
+		this.ordre_joueur = ordre_joueur;
+	}
+
 	@Override
 	public void creationChaineServeur(Action a, TypeChaine c) throws RemoteException {
 		getGame().getPlateau().creationChaine(a.getListeDeCaseAModifier(), c);
@@ -275,5 +315,22 @@ public class Serveur extends UnicastRemoteObject implements ServeurInterface {
 
 	public void setPartiecommencee(boolean partiecommencee) {
 		this.partiecommencee = partiecommencee;
+	}
+	/**
+	 * Methode de calcul du prochain tour et notification du client
+	 */
+	public void nextTurn(String pseudo) {
+		int currentIndice = this.ordre_joueur.indexOf(pseudo);
+		try {
+			if (this.ordre_joueur.size()==currentIndice+1) {
+				liste_clients.get(this.ordre_joueur.get(0)).turn();
+			}
+			else {
+				liste_clients.get(this.ordre_joueur.get(currentIndice+1)).turn();
+			}
+		} catch (RemoteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 }

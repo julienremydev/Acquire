@@ -96,6 +96,15 @@ public class PlateauController implements Initializable {
 		String text = b.getText();
 		// on envoie via le rmi la case clique
 		client.sendCase(text);
+		this.setOff();
+		/*
+		 * 
+		 */
+		// TODO verifier que c'est bien la fin du tour (creation chaine etc)
+		/*
+		 * 
+		 */
+		client.nextTurn();
 	}
 
 	/**
@@ -110,6 +119,7 @@ public class PlateauController implements Initializable {
 		client = c;
 		client.setServeur(serveur);
 		client.setController(this);
+		this.setOff();
 	}
 
 	/**
@@ -215,7 +225,6 @@ public class PlateauController implements Initializable {
 	public void lancement() throws RemoteException {    
 		client.getServeur().setLancement(); 
 		letsplay.setOpacity(0);
-		// TODO setGame(client.getServeur().getGame()); ??
 	}
 
 	public void setMain(ArrayList<String> main) {
@@ -239,5 +248,19 @@ public class PlateauController implements Initializable {
 				}
 			}
 		}
+	}
+	
+	/**
+	 * Methode permettant de bloquer les actions du joueur sur le plateau (fin de tour)
+	 */
+	public void setOff() {
+		grid.setMouseTransparent(true);
+	}
+	
+	/**
+	 * Methode permettant d'activer les actions du joueur sur le plateau (début de tour)
+	 */
+	public void setOn() {
+		grid.setMouseTransparent(false);
 	}
 }

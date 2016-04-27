@@ -23,6 +23,8 @@ public interface ClientInterface extends Remote{
 	void receiveAction(Action a, Game g) throws RemoteException;
 	
 	void receiveMain(ArrayList<String> main) throws RemoteException;
+
+	void turn() throws RemoteException;
 	
 	
 }

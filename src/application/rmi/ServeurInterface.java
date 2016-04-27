@@ -25,4 +25,6 @@ public interface ServeurInterface extends Remote{
 	Game getGame() throws RemoteException;
 
 	void distributionData() throws RemoteException;
+
+	void nextTurn(String pseudo) throws RemoteException;
 }

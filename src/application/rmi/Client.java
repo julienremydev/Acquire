@@ -111,4 +111,18 @@ public class Client extends UnicastRemoteObject implements ClientInterface {
 	public void setController(PlateauController plateauController) {
 		this.plateauController=plateauController;
 	}
+
+	@Override
+	public void turn() throws RemoteException {
+		this.plateauController.setOn();
+	}
+
+	public void nextTurn() {
+		try {
+		serveur.nextTurn(pseudo);
+		}
+		catch (RemoteException e) {
+			// TODO define
+		}
+	}
 }

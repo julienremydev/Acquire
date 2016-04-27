@@ -104,7 +104,6 @@ public class TestTableauDeBord {
 		int actionVendue = tableauTest.vendActionJoueur(nbActionVendue, "Yodaii", ch1.getNomChaine());
 		assertEquals(0, actionVendue);
 		assertEquals(25, tableauTest.getListeChaine().get(0).getNbActionRestante());
-		assertFalse(c1.getActionParChaine().containsKey(ch1.getNomChaine()));
 
 		tableauTest.achatActionJoueur(5, "Yodaii", ch1.getNomChaine());
 
@@ -118,41 +117,35 @@ public class TestTableauDeBord {
 		assertTrue(c1.getActionParChaine().containsKey(ch1.getNomChaine()));
 		assertEquals(5, (int)c1.getActionParChaine().get(ch1.getNomChaine()));
 
-		// cas action vend < nb action detenue par actionnaire et pas bonne chaine
-		// action vendue = 2, action restante = 22
+		// cas action vendu < nb action detenue par actionnaire et pas bonne chaine
+		// action vendue = 2, action restante = 20
 		// Yodaii actionnaire, 3 action detenue
 		nbActionVendue = 2;
 		actionVendue = tableauTest.vendActionJoueur(nbActionVendue, "Neo", ch1.getNomChaine());
-		//System.out.println(actionVendue);
-		assertEquals(2, actionVendue);
-		//assertEquals(3, tableauTest.getListeChaine().get(0).getNbActionRestante());
-		assertFalse(c2.getActionParChaine().containsKey(ch1.getNomChaine()));
+		assertEquals(0, actionVendue);
+		assertEquals(20, tableauTest.getListeChaine().get(0).getNbActionRestante());
 		
-		// cas action vend < nb action detenue par actionnaire
+		// cas action vendu < nb action detenue par actionnaire
 		// action vendue = 2, action restante = 22
 		// Yodaii actionnaire, 3 action detenue
 		nbActionVendue = 2;
-		
 		actionVendue = tableauTest.vendActionJoueur(nbActionVendue, "Yodaii", ch1.getNomChaine());
-		
 		assertEquals(2, actionVendue);
-		assertEquals(24, tableauTest.getListeChaine().get(0).getNbActionRestante());
+		assertEquals(22, tableauTest.getListeChaine().get(0).getNbActionRestante());
 		assertTrue(c1.getActionParChaine().containsKey(ch1.getNomChaine()));
 		assertEquals(3, (int)c1.getActionParChaine().get(ch1.getNomChaine()));
 
 		
-		/**
-		// cas action achete > nb action detenue par actionnaire
+		// cas action vendu > nb action detenue par actionnaire
 		// action vendue = 3, action restante = 25
 		// plus d actionnaire, 0 action detenue
-		nbActionVendue = 3;
+		nbActionVendue = 4;
 		System.out.println(tableauTest.getInfoParClient().get("Yodaii").getActionParChaine().get(ch1.getTypeChaine()));
 		actionVendue = tableauTest.vendActionJoueur(nbActionVendue, "Yodaii", ch1.getNomChaine());
 		System.out.println(tableauTest.getInfoParClient().get("Yodaii").getActionParChaine().get(ch1.getTypeChaine()));
 		System.out.println(actionVendue);
-		assertEquals(0, actionVendue);
+		assertEquals(3, actionVendue);
 		assertEquals(25, tableauTest.getListeChaine().get(0).getNbActionRestante());
-		assertFalse(c1.getActionParChaine().containsKey(ch1.getNomChaine())); **/
 	}
 
 }

@@ -3,15 +3,15 @@ package application.model;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
-	
+
 import application.control.PlateauController;
 
 public class TableauDeBord implements Serializable{
 	private static final long serialVersionUID = -3628602150383225255L;
-	
+
 	private HashMap<String,ClientInfo> infoParClient;
-	
-	
+
+
 	private ArrayList<Chaine> listeChaine;
 
 	/**
@@ -74,12 +74,12 @@ public class TableauDeBord implements Serializable{
 		for(Chaine c:listeChaine){
 			if(c.getNomChaine().getNumero()==id){
 				toReturn=c;
-				
+
 			}
 		}
 		return toReturn;
 	}
-	
+
 
 	/**
 	 * fonction permettant au joueur d acheter des actions et met a jour le nombre d action restante
@@ -90,104 +90,79 @@ public class TableauDeBord implements Serializable{
 	 */
 	public int achatActionJoueur(int nb, String nomJoueur, TypeChaine tc){
 		int indexChaine = -1;
-		//int indexJoueur = -1;
-		
-		
+		ClientInfo joueur = null;
+
+
 		for(int i=0; i<listeChaine.size(); i++){
 			if (listeChaine.get(i).getNomChaine().equals(tc)){
 				indexChaine = i;
 			}
 		}
-		/**
-		for(int i=0; i<infoParClient.size(); i++){
-			if (infoParClient.get(i).getPseudo() == nomJoueur){
-				indexJoueur = i;
-			}
+		if (infoParClient.containsKey(nomJoueur)){
+			joueur = infoParClient.get(nomJoueur);
 		}
-		
-		**/
-		int res = 0;
-		
-		if (indexChaine != -1 && this.infoParClient.get(nomJoueur)!=null){
-			if(nb < 0 || this.listeChaine.get(indexChaine).getNbActionRestante() == 0){
-				nb = 0;
-			}
-			
-			if(this.listeChaine.get(indexChaine).getNbActionRestante()-nb < 0){ // on ne peut pas avoir un nombre daction restante negatif
-				res = this.listeChaine.get(indexChaine).getNbActionRestante();
-				this.listeChaine.get(indexChaine).setNbActionRestante(0);
-			} else {
-				res = nb;
-				this.listeChaine.get(indexChaine).setNbActionRestante(this.listeChaine.get(indexChaine).getNbActionRestante()-nb);
-			}
-			
-			if(res != 0){
-				if(this.infoParClient.get(nomJoueur).getActionParChaine().containsKey(tc)){
-					this.infoParClient.get(nomJoueur).getActionParChaine().put(tc, res + this.infoParClient.get(nomJoueur).getActionParChaine().get(tc));
-				}else{
-					this.infoParClient.get(nomJoueur).getActionParChaine().put(tc, res);			
-				}			
-			}
+
+	int res = 0;
+
+	if (indexChaine != -1 && this.infoParClient.get(nomJoueur)!=null){
+		if(nb < 0 || this.listeChaine.get(indexChaine).getNbActionRestante() == 0){
+			nb = 0;
 		}
-		return res;
+
+		if(this.listeChaine.get(indexChaine).getNbActionRestante()-nb < 0){ // on ne peut pas avoir un nombre daction restante negatif
+			res = this.listeChaine.get(indexChaine).getNbActionRestante();
+			this.listeChaine.get(indexChaine).setNbActionRestante(0);
+		} else {
+			res = nb;
+			this.listeChaine.get(indexChaine).setNbActionRestante(this.listeChaine.get(indexChaine).getNbActionRestante()-nb);
+		}
+
+		if(res != 0){
+			joueur.getActionParChaine().put(tc, res + joueur.getActionParChaine().get(tc));
+		}
 	}
-	
-	/**
-	 * fonction permettant au joueur de vendre des actions et met a jour le nombre d action restante
-	 * @param nb : nombre d action voulant etre vendue par le joueur
-	 * @param nomJoueur : nom du joueur qui vend
-	 * @param tc : type de la chaine
-	 * @return nombre effectivement vendue
-	 */
-	public int vendActionJoueur(int nb, String nomJoueur, TypeChaine tc){
-		int indexChaine = -1;
-		//int indexJoueur = -1;
-		
-		for(int i=0; i<listeChaine.size(); i++){
-			if (listeChaine.get(i).getNomChaine().equals(tc)){
-				indexChaine = i;
-			}
+	return res;
+}
+
+/**
+ * fonction permettant au joueur de vendre des actions et met a jour le nombre d action restante
+ * @param nb : nombre d action voulant etre vendue par le joueur
+ * @param nomJoueur : nom du joueur qui vend
+ * @param tc : type de la chaine
+ * @return nombre effectivement vendue
+ */
+public int vendActionJoueur(int nb, String nomJoueur, TypeChaine tc){
+	int indexChaine = -1;
+	ClientInfo joueur = null;
+
+	for(int i=0; i<listeChaine.size(); i++){
+		if (listeChaine.get(i).getNomChaine().equals(tc)){
+			indexChaine = i;
 		}
-		/**
-		for(int i=0; i<infoParClient.size(); i++){
-			if (infoParClient.get(i).getPseudo() == nomJoueur){
-				indexJoueur = i;
-			}
-		}**/
-		
-		int res = 0;
-		
-		if (indexChaine != -1 && this.infoParClient.get(nomJoueur)!=null){
-			boolean joueurExiste = this.infoParClient.get(nomJoueur).getActionParChaine().containsKey(tc);
-			if (nb < 0 || !joueurExiste){
-				nb = 0;
-				res=0;
-			}
-			
-			if (joueurExiste && nb > this.infoParClient.get(nomJoueur).getActionParChaine().get(tc)){
-				res = this.infoParClient.get(nomJoueur).getActionParChaine().get(tc);
-			}
-			
-			if(this.listeChaine.get(indexChaine).getNbActionRestante()+nb > Chaine.getNbactiontotal()){ // on ne peut pas avoir plus de 25 action
-				res = Chaine.getNbactiontotal()-this.listeChaine.get(indexChaine).getNbActionRestante();
-				this.listeChaine.get(indexChaine).setNbActionRestante(Chaine.getNbactiontotal());
-			} else {
-				res=nb;
-				this.listeChaine.get(indexChaine).setNbActionRestante(this.listeChaine.get(indexChaine).getNbActionRestante()+nb);
-			}
-				
-			if(joueurExiste){
-				if(this.infoParClient.get(nomJoueur).getActionParChaine().get(tc) - res > 0){
-					this.infoParClient.get(nomJoueur).getActionParChaine().put(tc, this.infoParClient.get(nomJoueur).getActionParChaine().get(tc) - res);
-					
-				}else{
-					this.infoParClient.get(nomJoueur).getActionParChaine().remove(tc);
-				}
-			}
-		}
-		
-		return res;
 	}
+	if (infoParClient.containsKey(nomJoueur)){
+		joueur = infoParClient.get(nomJoueur);
+	}
+
+	int res = 0;
+
+	if (indexChaine != -1 && this.infoParClient.get(nomJoueur)!=null){
+		Integer nbActionJoueur = this.infoParClient.get(nomJoueur).getActionParChaine().get(tc);
+		if (nb < 0 || nbActionJoueur<=0){
+			nb = 0;
+			res=0;
+		}else if (nb > nbActionJoueur){
+			res = nbActionJoueur;
+		} else {
+			res = nb;
+		}
+
+		this.infoParClient.get(nomJoueur).getActionParChaine().put(tc, nbActionJoueur - res);
+		this.listeChaine.get(indexChaine).setNbActionRestante(this.listeChaine.get(indexChaine).getNbActionRestante() + res);;
+	}
+
+	return res;
+}
 
 
 }

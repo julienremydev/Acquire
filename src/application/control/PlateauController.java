@@ -198,7 +198,7 @@ public class PlateauController implements Initializable {
 
 	public void setDataTableView() {
 		try {
-			final ObservableList<ClientInfo> data = FXCollections.observableArrayList();
+			ObservableList<ClientInfo> data = FXCollections.observableArrayList();
 
 			HashMap<String, ClientInfo> infoClient = client.getServeur().getGame().getTableau().getInfoParClient();
 			Collection<ClientInfo> values = infoClient.values();

@@ -386,8 +386,6 @@ public class Plateau implements Serializable {
 			casesDisponible.remove(c);
 		}
 
-
-
 	}
 
 	/**

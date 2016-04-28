@@ -41,14 +41,6 @@ public class Client extends UnicastRemoteObject implements ClientInterface {
 		plateauController.setGame(g);
 	}
 	
-	/**
-	 * La méthode receive est appelée par le serveur. Mise à jour du tableau de bord
-	 * du client passé en paramètre.
-	 */
-	public void receiveData() throws RemoteException {
-		plateauController.setDataTableView();
-	}
-	
 	public void receiveTchat(String s) {
 		plateauController.setChat(s);
 	}
@@ -75,12 +67,6 @@ public class Client extends UnicastRemoteObject implements ClientInterface {
 		
 	}
 	
-	/**
-	 * Methode qui permet l'envoie de la main du serveur au client
-	 */
-	public void receiveMain(ArrayList<String> main) throws RemoteException {
-		plateauController.setMain(main);
-	}
 	
 	/**
 	 * Methode permettant l ajout d une chaine au plateau (choix de la couleur)
@@ -117,12 +103,7 @@ public class Client extends UnicastRemoteObject implements ClientInterface {
 		this.plateauController.setOn();
 	}
 
-	public void nextTurn() {
-		try {
+	public void nextTurn() throws RemoteException {
 		serveur.nextTurn(pseudo);
-		}
-		catch (RemoteException e) {
-			// TODO define
-		}
 	}
 }

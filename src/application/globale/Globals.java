@@ -6,6 +6,9 @@ import java.util.Map;
 import java.util.stream.Stream;
 
 public class Globals {
+	/*
+	 * Constantes -> Erreurs 
+	 */
 	public final static String erreurTaillePseudo = "Le pseudo doit contenir entre 3 et 12 caractères.";
 	public final static String erreurPseudoReserve = "Le pseudo 'Serveur' ne peut pas être utilisé par un joueur.";
 	public final static String erreurAdresseIP = "L'adresse IP n'est pas bonne.";
@@ -19,7 +22,21 @@ public class Globals {
 	public final static String erreurFileNotFoundJSON = "Le chemin du fichier n'est pas correct.";
 	public final static String erreurChargementJSONimpossible = "Chargement JSON impossible. Une partie est en cours.";
 	public final static String erreurForbiddenPlayer = "Vous n'êtes pas autorisé à rejoindre cette partie. \n Attendez la fin de la partie en cours ou vérifiez la syntaxe de votre pseudo si vous en faites partie.";
+
+	/*
+	 * Constantes -> Couleurs des boutons du plateau
+	 */
+	public final static String colorCasePlayer = "-fx-background-color: #FFDE5E;";
+	public final static String colorCaseGrey = "-fx-background-color: #C1BAB2;";
+	public final static String colorCaseEmpty = "-fx-background-color: #FFFFFF;";
+	public final static String colorCaseHotel = "-fx-background-color: #000000;";
+	
+	/*
+	 * Constantes -> Variables du Game 
+	 */
 	public final static int nombre_joueurs_max = 6;
+	
+	
 	
 	/**
 	 * Methode de tri d'une map (utilisé pour l'ordre des joueurs selon la pioche)

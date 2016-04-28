@@ -27,9 +27,6 @@ public class ClientView extends Application{
 		root.getChildren().add(JfxUtils.loadFxmlConnexion("connexion.fxml"));
 		Scene scene = new Scene(root,1000,600);
 		
-		//Application du code CSS
-		//scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
-		
 		//Mise en place de la Scene et Lancement
 		primaryStage.setScene(scene);
 		primaryStage.sizeToScene();

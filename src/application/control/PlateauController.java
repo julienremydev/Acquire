@@ -7,6 +7,7 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.ResourceBundle;
 
+import application.globale.Globals;
 import application.model.Action;
 import application.model.Case;
 import application.model.Chaine;
@@ -26,6 +27,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
+import javafx.scene.paint.Color;
 
 public class PlateauController implements Initializable {
 
@@ -50,10 +52,10 @@ public class PlateauController implements Initializable {
 	@FXML
 	private TableView<ClientInfo> tableauDeBord;
 
-	private ArrayList<String> main;
-
 	/**
-	 * Methode permettant d'afficher les choix possibles pour la creation dune chaine
+	 * Methode permettant d'afficher les choix possibles pour la creation dune
+	 * chaine
+	 * 
 	 * @param a
 	 * @param g
 	 */
@@ -65,12 +67,13 @@ public class PlateauController implements Initializable {
 				Button b = new Button(c.getNomChaine().toString().substring(0, 1));
 
 				// TODO définir le layout des boutons parce que c'est moche
-				b.setStyle("-fx-background-color: " + c.getNomChaine().getCouleurChaine() + ";");
+				b.setStyle(c.getNomChaine().getCouleurChaine());
 				b.setPrefWidth(300);
 				b.setPrefHeight(300);
 				b.setOnAction((event) -> {
 					try {
-						client.pickColor(a,c.getNomChaine());
+						client.pickColor(a, c.getNomChaine());
+						gridPaneAction.getChildren().clear();
 					} catch (Exception e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
@@ -130,56 +133,47 @@ public class PlateauController implements Initializable {
 	 *            : game
 	 */
 	public void setGame(Game g) {
-		// recuperer la main du joueur
+		
+		setDataTableView(g);
 
 		// recuperation de l'ensemble des cases du plateau (graphique)
 		ObservableList<Node> childrens = grid.getChildren();
 		for (Node node : childrens) {
 			if (node instanceof Button) {
 				Button b = (Button) node;
+				b.setTextFill(Color.BLACK);
+
 				// recuperation de la case correspondant au bouton
 				Case c = g.getPlateau().getCase(b.getText());
+
 				// methode pour rafraichir l'interface
 				Platform.runLater(new Runnable() {
 					public void run() {
-						// verification de l'etat de la case et maj
-						switch (c.getEtat()) {
-						case -1:
-							b.setStyle("-fx-background-color: #000000;");
-							break;
-						case 0:
-							//case vide
-							break;
-						case 1:
-							b.setStyle("-fx-background-color: #000000;");
-							break;
-						case 2:
-							b.setStyle("-fx-background-color: #CC3333;");
-							break;
-						case 3:
-							b.setStyle("-fx-background-color: #FFCC33;");
-							break;
-						case 4:
-							b.setStyle("-fx-background-color: #FF6600;");
-							break;
-						case 5:
-							b.setStyle("-fx-background-color: #336633;");
-							break;
-						case 6:
-							b.setStyle("-fx-background-color: #333399;");
-							break;
-						case 7:
-							b.setStyle("-fx-background-color: #996699;");
-							break;
-						case 8:
-							b.setStyle("-fx-background-color: #669999;");
-							break;
-						default:
-							// TODO lancer une exception ?
-							break;
+
+						//si le joueur possède la case dans sa main
+						if (g.getTableau().getInfoParClient().get(client.getPseudo()).getMain().contains(b.getText())) {
+							b.setStyle(Globals.colorCasePlayer);
+							b.setDisable(false);
+						} else {
+							// verification de l'etat de la case et maj
+							if (c.getEtat() == -1) {
+								// case grisée
+								b.setStyle(Globals.colorCaseGrey);
+							} else if (c.getEtat() == 0) {
+								// case vide
+								b.setStyle(Globals.colorCaseEmpty);
+							} else if (c.getEtat() == 1) {
+								// hôtel
+								b.setStyle(Globals.colorCaseHotel);
+								b.setTextFill(Color.WHITE);
+							} else {
+								b.setStyle(g.listeChaine.get(c.getEtat()-2).getNomChaine().getCouleurChaine());
+							}
 						}
+
 					}
 				});
+
 			}
 		}
 	}
@@ -206,59 +200,34 @@ public class PlateauController implements Initializable {
 		letsplay.setDisable(!b);
 	}
 
-	public void setDataTableView() {
-		try {
-			ObservableList<ClientInfo> data = FXCollections.observableArrayList();
+	private void setDataTableView(Game g) {
+		ObservableList<ClientInfo> data = FXCollections.observableArrayList();
 
-			HashMap<String, ClientInfo> infoClient = client.getServeur().getGame().getTableau().getInfoParClient();
-			Collection<ClientInfo> values = infoClient.values();
-			for (ClientInfo ci : values) {
-				data.add(ci);
-			}
-
-			tableauDeBord.setItems(data);
-		} catch (RemoteException e) {
-			e.printStackTrace();
+		HashMap<String, ClientInfo> infoClient = g.getTableau().getInfoParClient();
+		Collection<ClientInfo> values = infoClient.values();
+		for (ClientInfo ci : values) {
+			data.add(ci);
 		}
+
+		tableauDeBord.setItems(data);
 	}
 
-	public void lancement() throws RemoteException {    
-		client.getServeur().setLancement(); 
+	public void lancement() throws RemoteException {
+		client.getServeur().setLancement();
 		letsplay.setOpacity(0);
 	}
 
-	public void setMain(ArrayList<String> main) {
-		this.main = main;
-		majMainLancement();
-	}
-
-	public void majMainLancement() {
-		ObservableList<Node> childrens = grid.getChildren();
-		for (Node node : childrens) {
-			if (node instanceof Button) {
-				Button b = (Button) node;
-				// recuperation de la case correspondant au bouton
-				if (main.contains(b.getText())) {
-					// methode pour rafraichir l'interface
-					Platform.runLater(new Runnable() {
-						public void run() {
-							b.setDisable(false);
-						}
-					});
-				}
-			}
-		}
-	}
-	
 	/**
-	 * Methode permettant de bloquer les actions du joueur sur le plateau (fin de tour)
+	 * Methode permettant de bloquer les actions du joueur sur le plateau (fin
+	 * de tour)
 	 */
 	public void setOff() {
 		grid.setMouseTransparent(true);
 	}
-	
+
 	/**
-	 * Methode permettant d'activer les actions du joueur sur le plateau (début de tour)
+	 * Methode permettant d'activer les actions du joueur sur le plateau (début
+	 * de tour)
 	 */
 	public void setOn() {
 		grid.setMouseTransparent(false);

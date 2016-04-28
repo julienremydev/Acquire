@@ -325,24 +325,6 @@ public class Plateau implements Serializable {
 		return casesDone;
 
 	}
-	/**
-	 * Creation d'une nouvelle chaine, Changement de l'etat des hotels en chaîne, ajout de la chaine, à la liste de chaîne.
-	 * @param listeHotels
-	 * @param nomChaine
-	 */
-	public void creationChaine(ArrayList<Case> listeHotels, TypeChaine nomChaine)
-	{
-		// Création de la nouvelle chaine
-		Chaine nouvelleChaine = new Chaine(nomChaine);
-		// Changement des états des hotels pour qu'ils appartiennent à la même chaine
-		for(Case hotelToChaine : listeHotels)
-		{
-			nouvelleChaine.addCase(this.getCase(hotelToChaine.getNom()));
-			this.getCase(hotelToChaine.getNom()).setEtat(nomChaine.getNumero());
-		}
-		// Ajout de la chaine à la liste de chiane ? => ou changement d'un etat dans chaine qui permet de dire qu'elle est active.
-		//Game.listeChaine.add(nouvelleChaine);
-	}
 
 	public HashMap<String, Case> getPlateauMap() {
 		return plateauMap;

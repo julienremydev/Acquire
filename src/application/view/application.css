@@ -1,0 +1,3 @@
+#grid .button:disabled {
+-fx-opacity: 1;
+}

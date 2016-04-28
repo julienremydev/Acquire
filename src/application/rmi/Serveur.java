@@ -104,6 +104,15 @@ public class Serveur extends UnicastRemoteObject implements ServeurInterface {
 					liste_clients.get(pseudo).receiveAction(action, game);
 				}
 			}
+			if (game.getTableau().getInfoParClient().get(pseudo).getMain().contains(text)) {
+                int indice = game.getTableau().getInfoParClient().get(pseudo).getMain().indexOf(text);
+                game.getTableau().getInfoParClient().get(pseudo).getMain().remove(indice);
+                game.getTableau().getInfoParClient().get(pseudo).ajouteMain1fois(game.getPlateau());
+            }
+            else {
+                // TODO throw case pas dans la main exception
+                System.out.println("Case cliqué non dans la main du joueur : "+text);
+            }
 			distribution();
 		}
 	}
@@ -147,8 +156,6 @@ public class Serveur extends UnicastRemoteObject implements ServeurInterface {
 
 		Logger.getLogger("Client").log(Level.INFO, "Nouveau client enregistré dans le serveur.");
 		if ( partiechargee || isPartiecommencee()){
-			distributionMain();
-			distributionData();
 			distribution();
 		}
 		if (liste_clients.size() > 1 && !partiechargee && !partiecommencee)
@@ -164,15 +171,13 @@ public class Serveur extends UnicastRemoteObject implements ServeurInterface {
 
 		// initialisation des cases noirs pour chaque joueur
 		//game.getPlateau().initialiseMainCaseNoir(game.getTableau().getInfoParClient().size());
+		
+		//INITIALISATION de lA MAIN
 		initalisationMain();
-		//INITIALISATION de lA MAIN ICI ???????????????????
-
 
 		/*
 		 * DISTRIBUTION de la main , du tableau des scores et du game
 		 */
-		distributionMain();
-		distributionData();
 		distribution();
 
 		liste_clients.get(ordre_joueur.get(0)).turn();
@@ -205,13 +210,6 @@ public class Serveur extends UnicastRemoteObject implements ServeurInterface {
 		}
 	}
 
-	private void distributionMain() throws RemoteException {
-		Enumeration<String> enumKeys = liste_clients.keys();
-		while (enumKeys.hasMoreElements()) {
-			String key = enumKeys.nextElement();
-			liste_clients.get(key).receiveMain(game.getTableau().getInfoParClient().get(key).getMain());
-		}
-	}
 	/*
 	 * Suppression du client de la HashTable quand un client ferme son
 	 * application.
@@ -226,7 +224,7 @@ public class Serveur extends UnicastRemoteObject implements ServeurInterface {
 			}
 			Logger.getLogger("Client").log(Level.INFO, "Le joueur " + p + " s'est déconnecté du serveur.");
 
-			if (liste_clients.size() < 2)
+			if (liste_clients.size() < 2 && !partiechargee && !partiecommencee)
 				setBEnable(false);
 			if (liste_clients.size() == 0)
 				chef = "";
@@ -249,12 +247,6 @@ public class Serveur extends UnicastRemoteObject implements ServeurInterface {
 			e.nextElement().receive(game);
 	}
 
-	@Override
-	public void distributionData() throws RemoteException {
-		Enumeration<ClientInterface> e = liste_clients.elements();
-		while (e.hasMoreElements())
-			e.nextElement().receiveData();
-	}
 
 	@Override
 	public void distributionTchat(String pseudo, String s) throws RemoteException {
@@ -305,7 +297,7 @@ public class Serveur extends UnicastRemoteObject implements ServeurInterface {
 
 	@Override
 	public void creationChaineServeur(Action a, TypeChaine c) throws RemoteException {
-		getGame().getPlateau().creationChaine(a.getListeDeCaseAModifier(), c);
+		getGame().creationChaine(a.getListeDeCaseAModifier(), c);
 		distribution();
 	}
 
@@ -319,18 +311,13 @@ public class Serveur extends UnicastRemoteObject implements ServeurInterface {
 	/**
 	 * Methode de calcul du prochain tour et notification du client
 	 */
-	public void nextTurn(String pseudo) {
+	public void nextTurn(String pseudo)  throws RemoteException {
 		int currentIndice = this.ordre_joueur.indexOf(pseudo);
-		try {
-			if (this.ordre_joueur.size()==currentIndice+1) {
-				liste_clients.get(this.ordre_joueur.get(0)).turn();
-			}
-			else {
-				liste_clients.get(this.ordre_joueur.get(currentIndice+1)).turn();
-			}
-		} catch (RemoteException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		if (this.ordre_joueur.size()==currentIndice+1) {
+			liste_clients.get(this.ordre_joueur.get(0)).turn();
+		}
+		else {
+			liste_clients.get(this.ordre_joueur.get(currentIndice+1)).turn();
 		}
 	}
 }

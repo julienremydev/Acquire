@@ -79,6 +79,9 @@ public class ConnexionController implements Initializable {
 	private void setNewIG(Stage stage, Group root, ServeurInterface serveur) throws RemoteException, Exception {
 
 		Scene scene = new Scene(root, stage.getWidth(), stage.getHeight());
+		//Application du code CSS
+		scene.getStylesheets().add(getClass().getResource("/application/view/application.css").toExternalForm());
+				
 		stage.setTitle("Acquire");
 		stage.setScene(scene);
 
@@ -207,6 +210,14 @@ public class ConnexionController implements Initializable {
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 
+		//curseur sur le pseudo
+		Platform.runLater(new Runnable() {
+	        @Override
+	        public void run() {
+	            pseudo.requestFocus();
+	        }
+	    });
+		
 		/*
 		 * Chargement du fichier JSON Vérification de la bonne syntaxe du
 		 * fichier (méthode checkFile)

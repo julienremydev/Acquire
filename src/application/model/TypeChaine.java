@@ -5,13 +5,13 @@ import java.util.HashMap;
 import javafx.scene.paint.Color;
 
 public enum TypeChaine {
-	SACKSON(1, "#CC3333", 2),
-	ZETA(1, "#FFCC33", 3),
-	HYDRA(2, "#FF6600", 4),
-	FUSION(2, "#336633", 5),
-	AMERICA(2, "#333399", 6),
-	PHOENIX(3, "#996699", 7),
-	QUANTUM(3, "#669999", 8);
+	SACKSON(1, "-fx-background-color: #CC3333;", 2),
+	ZETA(1, "-fx-background-color: #FFCC33;", 3),
+	HYDRA(2, "-fx-background-color: #FF6600;", 4),
+	FUSION(2, "-fx-background-color: #336633;", 5),
+	AMERICA(2, "-fx-background-color: #333399;", 6),
+	PHOENIX(3, "-fx-background-color: #996699;", 7),
+	QUANTUM(3, "-fx-background-color: #669999;", 8);
 
 	private int catChaine; // categorie de la chaine (1 = faible, 2 = moyen, 3 = fort)
 	private String couleurChaine;

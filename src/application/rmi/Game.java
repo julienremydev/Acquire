@@ -3,6 +3,7 @@ package application.rmi;
 import java.io.Serializable;
 import java.util.ArrayList;
 
+import application.model.Case;
 import application.model.Chaine;
 import application.model.Plateau;
 import application.model.TableauDeBord;
@@ -46,6 +47,18 @@ public class Game implements Serializable{
 		this.tableauDeBord = new TableauDeBord();
 	}
 	
+	/**
+	 * Creation d'une nouvelle chaine, Changement de l'etat des hotels en chaîne, ajout de la chaine, à la liste de chaîne.
+	 * @param listeHotels
+	 * @param nomChaine
+	 */
+	public void creationChaine(ArrayList<Case> listeHotels, TypeChaine nomChaine){
+		// Changement des états des hotels pour qu'ils appartiennent à la même chaine
+		for(Case hotelToChaine : listeHotels){
+			listeChaine.get(nomChaine.getNumero()-2).addCase(getPlateau().getCase(hotelToChaine.getNom()));
+			getPlateau().getCase(hotelToChaine.getNom()).setEtat(nomChaine.getNumero());
+		}
+	}
 	public Plateau getPlateau() {
 		return this.plateau;
 	}

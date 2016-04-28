@@ -17,12 +17,8 @@ public interface ClientInterface extends Remote{
 	void receiveTchat(String tchat) throws RemoteException;
 
 	void setBEnable(boolean b) throws RemoteException;
-
-	void receiveData() throws RemoteException;
 	
 	void receiveAction(Action a, Game g) throws RemoteException;
-	
-	void receiveMain(ArrayList<String> main) throws RemoteException;
 
 	void turn() throws RemoteException;
 	

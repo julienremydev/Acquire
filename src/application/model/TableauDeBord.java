@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import application.control.PlateauController;
+import application.globale.Globals;
 
 public class TableauDeBord implements Serializable{
 	private static final long serialVersionUID = -3628602150383225255L;
@@ -70,17 +71,36 @@ public class TableauDeBord implements Serializable{
 	 * @return
 	 */
 	public Chaine getChaineById(int id){
-		Chaine toReturn = null;
 		for(Chaine c:listeChaine){
 			if(c.getNomChaine().getNumero()==id){
-				toReturn=c;
-
+				return c;
 			}
 		}
-		return toReturn;
+		return null;
 	}
 
 
+	public boolean actionAvailableForPlayer(String pseudo){
+		if (infoParClient.containsKey(pseudo)){
+			int cash = infoParClient.get(pseudo).getCash();
+			for(Chaine chaine : listeChaine){
+				if ( !chaine.chaineDisponible() && chaine.getNbActionRestante() > 0 && TypeChaine.prixAction(chaine.getNomChaine(), Globals.nbActionTotal-chaine.getNbActionRestante()) < cash){
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+	
+	public boolean actionAvailableForPlayer(String pseudo, int idChaine){
+		if (infoParClient.containsKey(pseudo)){
+			int cash = infoParClient.get(pseudo).getCash();
+			if ( !getChaineById(idChaine).chaineDisponible() && getChaineById(idChaine).getNbActionRestante() > 0 && TypeChaine.prixAction(getChaineById(idChaine).getNomChaine(), Globals.nbActionTotal-getChaineById(idChaine).getNbActionRestante()) < cash)
+				return true;
+		}
+		return false;
+	}
+	
 	/**
 	 * fonction permettant au joueur d acheter des actions et met a jour le nombre d action restante
 	 * @param nb : nombre d action voulant etre acheter par le joueur

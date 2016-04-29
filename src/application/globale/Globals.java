@@ -35,6 +35,7 @@ public class Globals {
 	 * Constantes -> Variables du Game 
 	 */
 	public final static int nombre_joueurs_max = 6;
+	public final static int nbActionTotal = 25;
 	
 	
 	

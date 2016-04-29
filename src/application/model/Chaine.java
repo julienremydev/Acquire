@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import application.globale.Globals;
 import javafx.scene.paint.Color;
 
 public class Chaine implements Serializable{
@@ -16,7 +17,6 @@ public class Chaine implements Serializable{
 	private static final long serialVersionUID = 6824670178136694341L;
 	private TypeChaine typeChaine;
 	private ArrayList<Case> listeCase;
-	private static final int nbActionTotal = 25;
 	private int nbActionRestante;
 	private HashMap<String, Integer> actionParClient;
 	
@@ -27,7 +27,7 @@ public class Chaine implements Serializable{
 	 */
 	public Chaine(TypeChaine tc){
 		this.typeChaine = tc;
-		this.nbActionRestante = this.nbActionTotal;
+		this.nbActionRestante = Globals.nbActionTotal;
 		this.listeCase = new ArrayList<Case>();
 		this.actionParClient = new HashMap<String, Integer>();
 	}
@@ -76,10 +76,6 @@ public class Chaine implements Serializable{
 
 	public void setNbActionRestante(int nbActionRestante) {
 		this.nbActionRestante = nbActionRestante;
-	}
-
-	public static int getNbactiontotal() {
-		return nbActionTotal;
 	}
 
 	public HashMap<String, Integer> getActionParClient() {

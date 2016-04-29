@@ -12,6 +12,7 @@ import application.model.Action;
 import application.model.Case;
 import application.model.Chaine;
 import application.model.ClientInfo;
+import application.model.TypeChaine;
 import application.rmi.Client;
 import application.rmi.Game;
 import application.rmi.ServeurInterface;
@@ -36,6 +37,7 @@ public class PlateauController implements Initializable {
 	 */
 	private Client client;
 
+	private ArrayList<TypeChaine> liste_actions = new ArrayList<TypeChaine> ();
 	/**
 	 * element plateau
 	 */
@@ -61,16 +63,27 @@ public class PlateauController implements Initializable {
 	public void setChoixAchatAction(Game game) {
 		// TODO BIEN FAIRE LALGO 
 		int j = 0;
-		for (Chaine c : game.listeChaine) {
-			if (!c.chaineDisponible()) {
+		for (Chaine c : game.getListeChaine()){
+			if (game.getTableau().actionAvailableForPlayer(client.getPseudo(), c.getNomChaine().getNumero())) {
 				int i = j;
-				Button b = new Button(c.getNomChaine().toString().substring(0, 1));
+				Button b = new Button(c.getNomChaine().toString().substring(0, 1)+"\n"+TypeChaine.prixAction(c.getNomChaine(), Globals.nbActionTotal-c.getNbActionRestante()));
+				
 				b.setStyle(c.getNomChaine().getCouleurChaine());
+				
 				b.setPrefWidth(300);
+				
 				b.setPrefHeight(300);
+				
 				b.setOnAction((event) -> {
 					try {
-						gridPaneAction.add(new Button(c.getNomChaine().toString().substring(0, 1)), i, 1);
+						if ( liste_actions.size() < 3 ){
+							Button buttonAction = new Button(c.getNomChaine().toString().substring(0, 1));
+							buttonAction.setStyle(c.getNomChaine().getCouleurChaine());
+							buttonAction.setPrefWidth(300);
+							buttonAction.setPrefHeight(300);
+							Platform.runLater(() -> gridPaneAction.add(buttonAction, liste_actions.size(), 1));
+							liste_actions.add(c.getNomChaine());
+						}
 					} catch (Exception e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
@@ -80,7 +93,20 @@ public class PlateauController implements Initializable {
 			}
 			j++;
 		}
-		gridPaneAction.add(new Button("Acheter"), 7, 1);
+		Button buyIT =new Button("Acheter");
+		buyIT.setPrefWidth(300);
+		buyIT.setPrefHeight(300);
+		buyIT.setOnAction((event) -> {
+			try {
+				client.buyAction (liste_actions.size(),liste_actions.get(0));
+				liste_actions.clear();
+				gridPaneAction.getChildren().clear();
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		});
+		Platform.runLater(() -> gridPaneAction.add(buyIT, 5, 1));
 		//TODO ajouter bouton acheter action, qui appelle une fonction sur le serveur 
 		//qui termine le tour du joueur 
 	}
@@ -95,7 +121,7 @@ public class PlateauController implements Initializable {
 	 */
 	public void setChoixCreationChaine(Action a, Game g) {
 		int j = 0;
-		for (Chaine c : g.listeChaine) {
+		for (Chaine c : g.getListeChaine()) {
 			if (c.chaineDisponible()) {
 				int i = j;
 				Button b = new Button(c.getNomChaine().toString().substring(0, 1));
@@ -200,7 +226,7 @@ public class PlateauController implements Initializable {
 								b.setStyle(Globals.colorCaseHotel);
 								b.setTextFill(Color.WHITE);
 							} else {
-								b.setStyle(g.listeChaine.get(c.getEtat()-2).getNomChaine().getCouleurChaine());
+								b.setStyle(g.getListeChaine().get(c.getEtat()-2).getNomChaine().getCouleurChaine());
 							}
 						}
 

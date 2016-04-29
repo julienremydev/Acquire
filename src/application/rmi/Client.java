@@ -77,6 +77,10 @@ public class Client extends UnicastRemoteObject implements ClientInterface {
 		this.serveur.creationChaineServeur(nomChaine);
 	}
 	
+	public void buyAction(int nb, TypeChaine tc) throws RemoteException {
+		this.serveur.achatAction(nb,getPseudo(),tc);
+	}
+	
 	public String getPseudo() {
 		return pseudo;
 	}

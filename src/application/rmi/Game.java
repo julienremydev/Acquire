@@ -13,8 +13,6 @@ public class Game implements Serializable{
 
 	private static final long serialVersionUID = 1964688809311788179L;
 	
-	public ArrayList<Chaine> listeChaine = new ArrayList<Chaine> ();
-	
 	private Plateau plateau;
 	
 	private TableauDeBord tableauDeBord;
@@ -34,17 +32,18 @@ public class Game implements Serializable{
 		Chaine phoenix = new Chaine (TypeChaine.PHOENIX);
 		Chaine quantum= new Chaine (TypeChaine.QUANTUM);
 		
-		
-		listeChaine.add(sackson);
-		listeChaine.add(zeta);
-		listeChaine.add(hydra);
-		listeChaine.add(fusion);
-		listeChaine.add(america);
-		listeChaine.add(phoenix);
-		listeChaine.add(quantum);
-		
 		this.plateau=new Plateau();
 		this.tableauDeBord = new TableauDeBord();
+		
+		getListeChaine().add(sackson);
+		getListeChaine().add(zeta);
+		getListeChaine().add(hydra);
+		getListeChaine().add(fusion);
+		getListeChaine().add(america);
+		getListeChaine().add(phoenix);
+		getListeChaine().add(quantum);
+		
+		
 	}
 	
 	/**
@@ -55,7 +54,7 @@ public class Game implements Serializable{
 	public void creationChaine(ArrayList<Case> listeHotels, TypeChaine nomChaine){
 		// Changement des états des hotels pour qu'ils appartiennent à la même chaine
 		for(Case hotelToChaine : listeHotels){
-			listeChaine.get(nomChaine.getNumero()-2).addCase(getPlateau().getCase(hotelToChaine.getNom()));
+			getListeChaine().get(nomChaine.getNumero()-2).addCase(getPlateau().getCase(hotelToChaine.getNom()));
 			getPlateau().getCase(hotelToChaine.getNom()).setEtat(nomChaine.getNumero());
 		}
 	}
@@ -68,7 +67,7 @@ public class Game implements Serializable{
 	}
 	
 	public ArrayList<Chaine> getListeChaine(){
-		return this.listeChaine;
+		return tableauDeBord.getListeChaine();
 	}
 
 }

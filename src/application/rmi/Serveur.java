@@ -104,16 +104,14 @@ public class Serveur extends UnicastRemoteObject implements ServeurInterface {
 			action = game.getPlateau().updateCase(text, game.getListeChaine());
 			
 			
-			if (game.getListeChaine().get(0).chaineDisponible()){//TODO remplacer le true par méthode qui vérifie si le joueur a assez de maille
-				piocheCaseFinTour(text,pseudo);
-				if (action == null) {
-					nextTurn(pseudo);
-				}else{
-					nextTurnAction();
-				}
+			
+			piocheCaseFinTour(text,pseudo);
+			if (action == null) {
+				sendEndTurnAction();
 			}else{
-				liste_clients.get(playerTurn).receiveBuyAction(game);
+				nextTurnAction();
 			}
+			
 			distribution();
 		}
 	}
@@ -121,10 +119,26 @@ public class Serveur extends UnicastRemoteObject implements ServeurInterface {
 	@Override
 	public void creationChaineServeur(TypeChaine c) throws RemoteException {
 		getGame().creationChaine(action.getListeDeCaseAModifier(), c);
-		nextTurn(playerTurn);
 		distribution();
+		
+		sendEndTurnAction ();
 	}
 	
+	@Override
+	public void achatAction(int nb, String pseudo, TypeChaine tc) throws RemoteException{
+		getGame().getTableau().achatActionJoueur(nb, pseudo, tc);
+		distribution();
+		
+		nextTurn(playerTurn);
+	}
+	
+	private void sendEndTurnAction () throws RemoteException{
+		if (!game.getTableau().actionAvailableForPlayer(playerTurn)){
+			nextTurn(playerTurn);
+		}else{
+			liste_clients.get(playerTurn).receiveBuyAction(game);
+		}
+	}
 	private void nextTurnAction() throws RemoteException{
 		//Premier appel -> On définit l'ordre des tours selon le type d'action
 		if ( ordre_joueur_action.size() == 0){

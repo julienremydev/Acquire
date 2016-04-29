@@ -21,7 +21,7 @@ public class Game implements Serializable{
 	 * Constructeur permettant l'initialisation de la liste de chaîne accessible par plateau et tableauDeBord
 	 * Initialisation du plateau et du TableauDeBord
 	 */
-	protected Game(){
+	public Game(){
 		super();
 		
 		Chaine sackson = new Chaine (TypeChaine.SACKSON);

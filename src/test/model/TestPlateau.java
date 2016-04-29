@@ -290,6 +290,10 @@ public class TestPlateau {
 		
 	}
 	// test updateCase pour changement de couleur de chaines
+
+
+
+
 	@Test
 	public void testupdateCase(){
 		// création de 3 Chaines avec des taille différentes

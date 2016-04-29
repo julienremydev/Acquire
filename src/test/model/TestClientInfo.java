@@ -95,4 +95,8 @@ public class TestClientInfo {
 		clientTest.rmCaseToMain(null);
 		assertEquals(test, clientTest.getMain());
 	}
+	
+	public void testAjouteMain1fois() {
+		
+	}
 }

@@ -3,6 +3,8 @@ package test.model;
 import static org.junit.Assert.*;
 
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -144,7 +146,7 @@ public class TestPlateau {
 
 	@Test
 	public void testaddRecurseCoin() {
-		ArrayList<Case> retourne = new ArrayList<Case>();
+		Set<Case> retourne = new HashSet<Case>();
 		
 		plateauTest.getPlateauMap().get("A10").setEtat(1);
 		plateauTest.getPlateauMap().get("A11").setEtat(1);
@@ -163,7 +165,7 @@ public class TestPlateau {
 	}
 	@Test
 	public void testaddRecurseMultiple() {
-		ArrayList<Case> retourne = new ArrayList<Case>();
+		Set<Case> retourne = new HashSet<Case>();
 		
 		plateauTest.getPlateauMap().get("C8").setEtat(1);
 		plateauTest.getPlateauMap().get("C9").setEtat(1);
@@ -292,8 +294,6 @@ public class TestPlateau {
 	public void testupdateCase(){
 		// création de 3 Chaines avec des taille différentes
 		// l'une d'elle aura une taille plus grande et les autres devrons donc fusionner avec celle-ci
-		
-
 		// Ajout de 2 cases à la chaine 1
 		listeChaine.get(0).addCase(plateauTest.getPlateauMap().get("E9"));
 		listeChaine.get(0).addCase(plateauTest.getPlateauMap().get("E10"));
@@ -314,7 +314,7 @@ public class TestPlateau {
 		int variableTest1 = listeChaine.get(2).tailleChaine();
 		int variableTest2 = listeChaine.get(1).tailleChaine();
 		int variableTest3 = listeChaine.get(0).tailleChaine();
-		assertEquals(9,variableTest1);
+		assertEquals(10,variableTest1);
 		assertEquals(0,variableTest2);
 		assertEquals(0,variableTest3);
 	}

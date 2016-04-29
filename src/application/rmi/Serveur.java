@@ -253,6 +253,8 @@ public class Serveur extends UnicastRemoteObject implements ServeurInterface {
 			listeCasesNoires.put(key,game.getPlateau().initialiseMainCaseNoir());
 		}
 		setTurn(listeCasesNoires);
+		
+		
 	}
 
 	/**

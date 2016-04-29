@@ -1,9 +1,6 @@
 package test.model;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 import java.util.ArrayList;
 
@@ -145,15 +142,16 @@ public class TestPlateau {
 
 	}
 
-	//La methode test quand on clique sur un bouton il créer une chaine
 	@Test
-	public void testaddRecurse() {
+	public void testaddRecurseCoin() {
 		ArrayList<Case> retourne = new ArrayList<Case>();
+		
 		plateauTest.getPlateauMap().get("A10").setEtat(1);
 		plateauTest.getPlateauMap().get("A11").setEtat(1);
 		plateauTest.getPlateauMap().get("B11").setEtat(1);
 		plateauTest.getPlateauMap().get("B12").setEtat(1);
 		plateauTest.getPlateauMap().get("C12").setEtat(1);
+		
 		plateauTest.addRecurse(retourne, plateauTest.getPlateauMap().get("A12"));
 
 		assertTrue(retourne.contains(plateauTest.getPlateauMap().get("A10")));
@@ -162,10 +160,23 @@ public class TestPlateau {
 		assertTrue(retourne.contains(plateauTest.getPlateauMap().get("B11")));
 		assertTrue(retourne.contains(plateauTest.getPlateauMap().get("B12")));
 		assertTrue(retourne.contains(plateauTest.getPlateauMap().get("C12")));
+	}
+	@Test
+	public void testaddRecurseMultiple() {
+		ArrayList<Case> retourne = new ArrayList<Case>();
+		
+		plateauTest.getPlateauMap().get("C8").setEtat(1);
+		plateauTest.getPlateauMap().get("C9").setEtat(1);
+		plateauTest.getPlateauMap().get("C11").setEtat(1);
+		plateauTest.getPlateauMap().get("C12").setEtat(1);
+		
+		plateauTest.addRecurse(retourne, plateauTest.getPlateauMap().get("C10"));
 
-		// for(int i=0;i<retourne.size();i++){
-		// System.out.println(retourne.get(i).toString());
-		// }
+		assertTrue(retourne.contains(plateauTest.getPlateauMap().get("C8")));
+		assertTrue(retourne.contains(plateauTest.getPlateauMap().get("C9")));
+		assertTrue(retourne.contains(plateauTest.getPlateauMap().get("C11")));
+		assertTrue(retourne.contains(plateauTest.getPlateauMap().get("C12")));
+		assertFalse(retourne.contains(plateauTest.getPlateauMap().get("A12")));
 	}
 
 	//La methode test si les cases noirs sont generer correctement
@@ -276,6 +287,7 @@ public class TestPlateau {
 		assertEquals(listeChaine.get(2),plateauTest.sameSizeChaine(listeChaine));
 		
 	}
+	// test updateCase pour changement de couleur de chaines
 	@Test
 	public void testupdateCase(){
 		// création de 3 Chaines avec des taille différentes
@@ -306,4 +318,7 @@ public class TestPlateau {
 		assertEquals(0,variableTest2);
 		assertEquals(0,variableTest3);
 	}
+	
+	
+	
 }

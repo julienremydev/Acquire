@@ -5,7 +5,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Random;
+import java.util.Set;
 
 public class Plateau implements Serializable {
 
@@ -178,11 +180,13 @@ public class Plateau implements Serializable {
 		 */
 		if (askColor && !askChain)
 		{
-			ArrayList<Case> tabCasesAModifier = new ArrayList<Case>();
+			Set<Case> setCasesAModifier = new HashSet<Case>();
 			//tabCasesAModifier.add(caseModifiee);
 			// on vérifie pour chaque cases si elle n'a pas une autre cases pareille
-			tabCasesAModifier=addRecurse(tabCasesAModifier,caseModifiee);
+			ArrayList tabCasesAModifier = new ArrayList();
+			tabCasesAModifier= addRecurse(setCasesAModifier,caseModifiee);
 			tabCasesAModifier.add(caseModifiee);
+			System.out.println(tabCasesAModifier);
 			Action action = new Action(tabCasesAModifier,0);
 			//Vérifier s'il y a des cases autour des cases autour ...
 			return action;
@@ -242,6 +246,7 @@ public class Plateau implements Serializable {
 						for(Chaine c : chaineDifferente)
 						{
 							listeChaine.get(grandeChaine.getTypeChaine().getNumero()-2).modifChain(c);
+							listeChaine.get(grandeChaine.getTypeChaine().getNumero()-2).addCase(caseModifiee);
 						}
 					}
 
@@ -275,8 +280,8 @@ public class Plateau implements Serializable {
 	 * La liste de retour contiendra donc toutes les cases hotels adjascentes uniques
 	 * @return
 	 */
-	public ArrayList<Case> addRecurse (ArrayList<Case> casesDone, Case c) {
-		ArrayList<Case> listRecurse = new ArrayList<Case>();
+	public ArrayList<Case> addRecurse (Set<Case> casesDone, Case c) {
+		Set<Case> listRecurse = new HashSet();
 		casesDone.add(c);
 		if (c.surroundedByHotels()) {
 			ArrayList<Case> listHotels = c.tabAdjascent();
@@ -297,7 +302,9 @@ public class Plateau implements Serializable {
 				}
 			}
 		}
-		return casesDone;
+		ArrayList casesDone1 = new ArrayList(listRecurse) ;
+
+		return casesDone1;
 
 	}
 

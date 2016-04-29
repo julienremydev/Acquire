@@ -1,9 +1,12 @@
 package application.globale;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.stream.Stream;
+
+import application.model.ClientInfo;
 
 public class Globals {
 	/*
@@ -53,5 +56,21 @@ public class Globals {
 		.forEachOrdered( e -> result.put(e.getKey(), e.getValue()) );
 
 		return result;
+	}
+	
+	/**
+	 * Methode de tri d'une map (utilisé pour l'ordre des joueurs selon la pioche)
+	 * @param map
+	 * @return
+	 */
+	public static ArrayList<ClientInfo> 
+	sortByValueAction( HashMap<ClientInfo, Integer> map ) {
+		ArrayList<ClientInfo> liste_clients = new ArrayList<ClientInfo>();
+		Stream<Map.Entry<ClientInfo, Integer>> st = map.entrySet().stream();
+
+		st.sorted( Map.Entry.comparingByValue() )
+		.forEachOrdered( e -> liste_clients.add(e.getKey()) );
+
+		return liste_clients;
 	}
 }

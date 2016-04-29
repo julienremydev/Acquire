@@ -20,6 +20,14 @@ public class ClientInfo implements Serializable{
 
 	private HashMap<TypeChaine, Integer> actionParChaine;
 
+	private HashMap<TypeChaine, String> etatParChaine;
+	//etat 0 = pas d'action
+	//etat 1 = actionnaire
+	//etat 2 = secondaire
+	//etat 3 = primaire
+	//etat 4 = secondaire2
+	//etat 5 = primaire2
+
 	// NE PAS TOUCHER A CES ATTRIBUTS (NECESSAIRE POUR LA VUE MEME SI NON UTILISE)
 	private Integer actionSackson;
 	private Integer actionAmerica;
@@ -47,6 +55,14 @@ public class ClientInfo implements Serializable{
 		this.actionParChaine.put(TypeChaine.HYDRA, 0);
 		this.actionParChaine.put(TypeChaine.QUANTUM, 0);
 		this.actionParChaine.put(TypeChaine.ZETA, 0);
+		this.etatParChaine = new HashMap<TypeChaine,String>();
+		this.etatParChaine.put(TypeChaine.SACKSON, "0,0");
+		this.etatParChaine.put(TypeChaine.AMERICA, "0,0");
+		this.etatParChaine.put(TypeChaine.FUSION,"0,0");
+		this.etatParChaine.put(TypeChaine.PHOENIX, "0,0");
+		this.etatParChaine.put(TypeChaine.HYDRA, "0,0");
+		this.etatParChaine.put(TypeChaine.QUANTUM, "0,0");
+		this.etatParChaine.put(TypeChaine.ZETA, "0,0");
 	}
 
 	/**
@@ -74,32 +90,33 @@ public class ClientInfo implements Serializable{
 	 * methode permettant de calculer le montant net du joueur
 	 */
 	public void updateNet(){
-		//TODO algorithme de calcul
-	}
-
-	/**
-	 * ajoute une case dans la main du joueur
-	 * @param c
-	 */
-	public void addCaseToMain(Case c){
-		if(c != null){
-			this.getMain().add(c.getNom());			
+		this.net=this.cash;
+		for (TypeChaine c : this.actionParChaine.keySet()) {
+			this.net+=this.getPrime(c);
 		}
 	}
 
-	/**
-	 * supprime une case de la main du joueur
-	 * @param c
-	 */
-	public void rmCaseToMain(Case c){
-		if(c != null && this.getMain().contains(c.getNom())){
-			this.getMain().remove(c.getNom());			
-		}
-		else {
-			// TODO Gestion Case pas dans la main 
-		}
+	public int getPrime(TypeChaine c) {
+		String etat = etatParChaine.get(c);
+		int nbActions = actionParChaine.get(c);
+		String[] tabEtat = etat.split(",");
+		int nbJoueursAction = Integer.parseInt(tabEtat[1]);
+		switch (tabEtat[0]) {
+		case "0" :
+		return 0;
+		case "A" :
+			return TypeChaine.prixAction(c, nbActions);
+		case "S" :
+			return (TypeChaine.primeActionnaireSecondaire(c, nbActions)/nbJoueursAction)%100;
+		case "M" :
+			return (TypeChaine.primeActionnairePrincipal(c, nbActions)/nbJoueursAction)%100;
+		case "M+" :
+			return (TypeChaine.primeActionnairePrincipal(c, nbActions)+TypeChaine.primeActionnairePrincipal(c, nbActions))%100;
+		default :
+			return -1;
+		} 
 	}
-	
+
 	/**
 	 * Ajoute 6 cases cliquable pour le joueur
 	 * @param plateau
@@ -190,8 +207,13 @@ public class ClientInfo implements Serializable{
 	public Integer getActionZeta() {
 		return this.actionParChaine.get(TypeChaine.ZETA);
 	}
-	
+
 	public ArrayList<String> getMain(){
 		return this.main;
 	}
+
+	public void setEtat(int nb, String etat) {
+		this.etatParChaine.replace(TypeChaine.getTypeChaine(nb), etat);
+	}
+
 }

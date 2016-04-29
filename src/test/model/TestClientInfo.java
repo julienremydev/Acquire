@@ -3,16 +3,18 @@ package test.model;
 import static org.junit.Assert.*;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 import org.junit.Before;
 import org.junit.Test;
 
 import application.model.Case;
 import application.model.ClientInfo;
+import application.model.Plateau;
 
 public class TestClientInfo {
 	ClientInfo clientTest;
+	
+	Plateau plateau = new Plateau();
 	
 	@Before
 	public void initClient(){
@@ -43,60 +45,22 @@ public class TestClientInfo {
 		assertEquals(6000, clientTest.getCash());
 		assertEquals(6000, montantApplique);
 	}
-
+	
 	@Test
-	public void testAddCaseToMain(){
-		Case c = new Case("test");
-		Case c2 = new Case("test2");
-		Case fail = null;
-		
-		// cas main ajout case vide
-		// pas d'ajout dans la main
-		clientTest.addCaseToMain(fail);
-		assertTrue(clientTest.getMain().isEmpty());
-		
-		// cas normal ajout d une case dans main vide
-		// ajout d une case dans la main
-		clientTest.addCaseToMain(c);
-		ArrayList<String> test = new ArrayList<String>();
-		test.add(c.getNom());
-		assertEquals(test, clientTest.getMain());
-		
-		// cas normal ajout d une case dans main avec deja case
-		// main contient 2 cases
-		clientTest.addCaseToMain(c2);
-		test.add(c2.getNom());
-		assertEquals(test, clientTest.getMain());
+	public void testAjouteMain1fois() {
+		clientTest.ajouteMain1fois(plateau);
+		assertEquals(1, clientTest.getMain().size());
+		String cas = clientTest.getMain().get(0);
+		assertFalse(plateau.getCasesDisponible().contains(cas));
 	}
 	
 	@Test 
-	public void testRmCaseToMain(){
-		Case c = new Case("test");
-		Case c2 = new Case("test2");
-		clientTest.addCaseToMain(c);
-		clientTest.addCaseToMain(c2);
-		
-		// cas ou il reste des case dans la main
-		clientTest.rmCaseToMain(c2);
-		ArrayList<String> test = new ArrayList<String>();
-		test.add(c.getNom());
-		
-		// cas ou la main et vide
-		clientTest.rmCaseToMain(c);
-		test.remove(c.getNom());
-		assertEquals(test, clientTest.getMain());
-		assertTrue(clientTest.getMain().isEmpty());
-		
-		// cas case pas dans main
-		clientTest.rmCaseToMain(new Case("test3"));
-		assertEquals(test, clientTest.getMain());
-		
-		// cas case null
-		clientTest.rmCaseToMain(null);
-		assertEquals(test, clientTest.getMain());
+	public void testUpdateNet() {
+		//TODO ajouter actions
 	}
 	
-	public void testAjouteMain1fois() {
-		
+	@Test
+	public void testGetPrime() {
+		//TODO ajouter actions
 	}
 }

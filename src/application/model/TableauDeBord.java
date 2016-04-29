@@ -4,8 +4,8 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.Set;
 
-import application.control.PlateauController;
 import application.globale.Globals;
 
 public class TableauDeBord implements Serializable{
@@ -79,7 +79,7 @@ public class TableauDeBord implements Serializable{
 		}
 		return null;
 	}
-	
+
 	/**
 	 * methode qui permet au joueur d acheter des actions dans plusieurs chaine a la fois
 	 * @param nomJoueur
@@ -103,7 +103,7 @@ public class TableauDeBord implements Serializable{
 		}
 		return false;
 	}
-	
+
 	public boolean actionAvailableForPlayer(String pseudo, int idChaine){
 		if (infoParClient.containsKey(pseudo)){
 			int cash = infoParClient.get(pseudo).getCash();
@@ -112,7 +112,7 @@ public class TableauDeBord implements Serializable{
 		}
 		return false;
 	}
-	
+
 	/**
 	 * fonction permettant au joueur d acheter des actions et met a jour le nombre d action restante
 	 * @param nb : nombre d action voulant etre acheter par le joueur
@@ -161,10 +161,10 @@ public class TableauDeBord implements Serializable{
 				res = i;
 			}
 		}
-		
+
 		return res;
 	}
-	
+
 	/**
 	 * methode qui retourne le nombre d action a vendre
 	 * @param nb nombre d action voulant etre vendues
@@ -172,7 +172,7 @@ public class TableauDeBord implements Serializable{
 	 */
 	public int getNbActionAVendre(int nb, int indexChaine, TypeChaine tc, ClientInfo joueur){
 		int res = 0;
-		
+
 		if (indexChaine != -1 && joueur!=null){
 			Integer nbActionJoueur = joueur.getActionParChaine().get(tc);
 			if (nb < 0 || nbActionJoueur<=0){
@@ -184,10 +184,10 @@ public class TableauDeBord implements Serializable{
 				res = nb;
 			}	
 		}
-		
+
 		return res;
 	}
-	
+
 	/**
 	 * methode qui retourne le nombre d action a achete
 	 * @param nb nombre d action a achete
@@ -198,24 +198,30 @@ public class TableauDeBord implements Serializable{
 	 */
 	public int getNbActionAAchete(int nb, int indexChaine, TypeChaine tc, ClientInfo joueur){
 		int res = 0;
-		
-		if (indexChaine != -1 && joueur!=null){
+
+		if (indexChaine != -1 && this.infoParClient.get(joueur.getPseudo())!=null){
 			if(nb < 0 || this.listeChaine.get(indexChaine).getNbActionRestante() == 0){
 				nb = 0;
 			}
 
 			if(this.listeChaine.get(indexChaine).getNbActionRestante()-nb < 0){ // on ne peut pas avoir un nombre daction restante negatif
 				res = this.listeChaine.get(indexChaine).getNbActionRestante();
+
 				this.listeChaine.get(indexChaine).setNbActionRestante(0);
 			} else {
 				res = nb;
 				this.listeChaine.get(indexChaine).setNbActionRestante(this.listeChaine.get(indexChaine).getNbActionRestante()-nb);
 			}
+
+			if(res != 0){
+				joueur.getActionParChaine().put(tc, res + joueur.getActionParChaine().get(tc));
+				joueur.setEtat(tc.getNumero(), "A,0");
+			}
 		}
-		
 		return res;
 	}
-	
+
+
 	/**
 	 * methode qui retourne le client info associé a un joueur
 	 * @param nom du joueur
@@ -246,23 +252,45 @@ public class TableauDeBord implements Serializable{
 			nb = nb-1;
 			res = nb/2;
 		}
+		return res;
+	}
 
-		int indexChaineAchatAction = -1;
-		for(int i=0; i<listeChaine.size(); i++){
-			if (listeChaine.get(i).getTypeChaine().equals(chaineAchatAction)){
-				indexChaineAchatAction = i;
+	public void updateActionnaire(Set<TypeChaine> liste_chaine) {
+		int nbActionMax=0;
+		int nbActionMax2=0;
+		ArrayList<ClientInfo>liste_clients_major=new ArrayList<ClientInfo>();
+		ArrayList<ClientInfo>liste_clients_second=new ArrayList<ClientInfo>();
+		HashMap<ClientInfo, Integer>  liste_sort = new HashMap<ClientInfo, Integer>();
+		for (TypeChaine tc : liste_chaine) {
+			for (ClientInfo c : infoParClient.values()) {
+				liste_sort.put(c,c.getActionParChaine().get(tc));
+			}
+			ArrayList<ClientInfo> clients = Globals.sortByValueAction(liste_sort);
+			int iterator=0;
+			int nbMajor=0;
+			while (iterator<=clients.size()) {
+				nbActionMax = liste_sort.get(clients.get(iterator));
+				if (nbActionMax==liste_sort.get(clients.get(iterator))) {
+					liste_clients_major.add(clients.get(iterator));
+					nbMajor++;
+				}
+				else if (nbMajor==1) {
+					nbActionMax2=liste_sort.get(clients.get(iterator));
+					if (nbActionMax2>0&&nbActionMax2==liste_sort.get(clients.get(iterator))) {
+						liste_clients_second.add(clients.get(iterator));
+					}
+				}
+				iterator++;
+			}
+			for (ClientInfo c : liste_clients_major) {
+				if (nbActionMax2==0) {
+					c.setEtat(tc.getNumero(), "M+,0");
+				}
+				c.setEtat(tc.getNumero(), "M,"+liste_clients_major.size());
+			}
+			for (ClientInfo c : liste_clients_major) {
+				c.setEtat(tc.getNumero(), "S,"+liste_clients_second.size());
 			}
 		}
-
-		if(listeChaine.get(indexChaineAchatAction).getNbActionRestante()+res >= 0 && infoParClient.get(nomJoueur).getActionParChaine().get(chaineVendAction).intValue() >= nb){
-			res = vendActionJoueur(nb, nomJoueur, chaineVendAction);
-			res = res/2;
-		}else{
-			res = 0;
-		}
-
-		achatActionJoueur(res, nomJoueur, chaineAchatAction);
-
-		return res;
 	}
 }

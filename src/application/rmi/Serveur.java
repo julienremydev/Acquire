@@ -127,7 +127,7 @@ public class Serveur extends UnicastRemoteObject implements ServeurInterface {
 	@Override
 	public void achatAction(String nomJoueur, HashMap<TypeChaine, Integer> actionAAcheter) throws RemoteException{
 		getGame().getTableau().achatActions(nomJoueur, actionAAcheter);
-		
+		getGame().getTableau().updateActionnaire(actionAAcheter.keySet());
 		distribution();
 		
 		nextTurn(playerTurn);

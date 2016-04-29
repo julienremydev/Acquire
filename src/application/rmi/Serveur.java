@@ -247,7 +247,6 @@ public class Serveur extends UnicastRemoteObject implements ServeurInterface {
 	private void initalisationMain() throws RemoteException {
 		Enumeration<String> enumKeys = liste_clients.keys();
 		HashMap<String,String> listeCasesNoires = new HashMap<String,String>();
-		System.out.println(game.getPlateau().getCasesDisponible());
 		while (enumKeys.hasMoreElements()) {
 			String key = enumKeys.nextElement();
 			game.getTableau().getInfoParClient().get(key).initialiseMain(game.getPlateau());

@@ -11,6 +11,8 @@ public class Action implements Serializable{
 	
 	private ArrayList<Case> listeDeCaseAModifier;
 	
+	private ArrayList<Chaine> listeDeChaineAProposer;
+	
 	public int getChoix() {
 		return choix;
 	}
@@ -35,6 +37,16 @@ public class Action implements Serializable{
 		this.choix = type;
 		this.setListeDeCaseAModifier(listeDeCase);
 	}
+	
+	/**
+	 * Constructeur, prend en parametre la liste des cases à modifier ainsi que le type du choix à effectuer
+	 * @param listeDeCase
+	 * @param type
+	 */
+	public Action(int type,ArrayList<Chaine> listeDeChaine) {
+		this.choix = type;
+		this.setListeDeChaineAProposer(listeDeChaine);
+	}
 
 	public ArrayList<Case> getListeDeCaseAModifier() {
 		return listeDeCaseAModifier;
@@ -43,5 +55,15 @@ public class Action implements Serializable{
 	public void setListeDeCaseAModifier(ArrayList<Case> listeDeCaseAModifier) {
 		this.listeDeCaseAModifier = listeDeCaseAModifier;
 	}
+
+	public ArrayList<Chaine> getListeDeChaineAProposer() {
+		return listeDeChaineAProposer;
+	}
+
+	public void setListeDeChaineAProposer(ArrayList<Chaine> listeDeChaineAProposer) {
+		this.listeDeChaineAProposer = listeDeChaineAProposer;
+	}
+	
+
 
 }

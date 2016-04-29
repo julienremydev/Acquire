@@ -234,7 +234,7 @@ public class Plateau implements Serializable {
 					if(grandeChaine == null)
 					{
 						// faire une action car il faut demander quelle chaine l'utilisateur veut choisir
-						Action action = new Action(tab,0);
+						Action action = new Action(1,chaineDifferente);
 					}
 					else
 					{

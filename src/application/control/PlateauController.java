@@ -88,7 +88,7 @@ public class PlateauController implements Initializable {
 							buttonAction.setStyle(c.getNomChaine().getCouleurChaine());
 							buttonAction.setPrefWidth(300);
 							buttonAction.setPrefHeight(300);
-							Platform.runLater(() -> gridPaneAction.add(buttonAction, totalesActionsJoueurs(), 1));
+							Platform.runLater(() -> gridPaneAction.add(buttonAction, totalesActionsJoueurs() - 1, 1));
 							if ( liste_actions.containsKey(c.getNomChaine()))
 								liste_actions.put(c.getNomChaine(), 1 + liste_actions.get(c.getNomChaine()) );
 							else

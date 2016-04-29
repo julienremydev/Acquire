@@ -100,6 +100,7 @@ public class Chaine implements Serializable{
 
 	private void removeAll() {
 		this.listeCase.removeAll(listeCase);
+		System.out.println(this.listeCase.size());
 		
 	}
 }

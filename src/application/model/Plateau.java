@@ -209,9 +209,6 @@ public class Plateau implements Serializable {
 				listeChaine.get(tab.get(0).getEtat()-2).addCase(caseModifiee);				
 
 			}
-
-
-
 			/**
 			 * Tableau taille de >2, donc plusieures cases avec une chaine
 			 */
@@ -245,8 +242,8 @@ public class Plateau implements Serializable {
 						for(Chaine c : chaineDifferente)
 						{
 							listeChaine.get(grandeChaine.getTypeChaine().getNumero()-2).modifChain(c);
-							listeChaine.get(grandeChaine.getTypeChaine().getNumero()-2).addCase(caseModifiee);
 						}
+						listeChaine.get(grandeChaine.getTypeChaine().getNumero()-2).addCase(caseModifiee);
 					}
 
 

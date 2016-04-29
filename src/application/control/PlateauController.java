@@ -51,6 +51,11 @@ public class PlateauController implements Initializable {
 	private Button letsplay;
 	@FXML
 	private TableView<ClientInfo> tableauDeBord;
+	
+	/**
+	 * Liste d'objet du tableau de bard
+	 */
+	ObservableList<ClientInfo> dataTableView;
 
 	
 	public void setChoixAchatAction(Game game) {
@@ -229,20 +234,23 @@ public class PlateauController implements Initializable {
 	}
 
 	private void setDataTableView(Game g) {
-		ObservableList<ClientInfo> data = FXCollections.observableArrayList();
-
 		HashMap<String, ClientInfo> infoClient = g.getTableau().getInfoParClient();
 		Collection<ClientInfo> values = infoClient.values();
 		for (ClientInfo ci : values) {
-			data.add(ci);
+			dataTableView.add(ci);
 		}
 
-		tableauDeBord.setItems(data);
+		tableauDeBord.setItems(dataTableView);
+	}
+	
+	private void updateDataTableView(ClientInfo ci){
+		// TODO mise à jour des données du tableau de bord
 	}
 
 	public void lancement() throws RemoteException {
 		client.getServeur().setLancement();
 		letsplay.setOpacity(0);
+		dataTableView = FXCollections.observableArrayList();
 	}
 
 	/**

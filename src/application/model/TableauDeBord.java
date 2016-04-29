@@ -164,5 +164,40 @@ public int vendActionJoueur(int nb, String nomJoueur, TypeChaine tc){
 	return res;
 }
 
+/**
+ * Méthode permettant d echanger des actions d une chaine par une autre
+ * @param nb d action que le joueur souhaite echanger
+ * @param chaineVendAction chaine dont le joueur veux vendre ses actions
+ * @param chaineAchatAction chaine dont le joueur veux acheter des actions
+ * @param nomJoueur nom du joueur qui faire l echange
+ * @return le nombre d action que le joueur obtient de chaineAchatAction
+ */
+public int echangeAction(int nb, TypeChaine chaineVendAction, TypeChaine chaineAchatAction, String nomJoueur){
+	int res = 0;
 
+	if(nb % 2 == 0){
+		res = nb/2;
+	}else{
+		nb = nb-1;
+		res = nb/2;
+	}
+	
+	int indexChaineAchatAction = -1;
+	for(int i=0; i<listeChaine.size(); i++){
+		if (listeChaine.get(i).getTypeChaine().equals(chaineAchatAction)){
+			indexChaineAchatAction = i;
+		}
+	}
+	
+	if(listeChaine.get(indexChaineAchatAction).getNbActionRestante()+res >= 0 && infoParClient.get(nomJoueur).getActionParChaine().get(chaineVendAction).intValue() >= nb){
+		res = vendActionJoueur(nb, nomJoueur, chaineVendAction);
+		res = res/2;
+	}else{
+		res = 0;
+	}
+	
+	achatActionJoueur(res, nomJoueur, chaineAchatAction);
+	
+	return res;
+}
 }

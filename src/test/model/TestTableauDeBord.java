@@ -21,12 +21,12 @@ public class TestTableauDeBord {
 	ClientInfo c2;
 	Chaine ch1;
 	Chaine ch2;
-	
+
 	TableauDeBord tableauTest;
 	ArrayList<Chaine> listeTypeChaine;
 	HashMap<String,ClientInfo> infoParClient;
-	
-	
+
+
 	@Before
 	public void initTableauBord(){
 		listeTypeChaine = new ArrayList<Chaine>();
@@ -40,19 +40,19 @@ public class TestTableauDeBord {
 		c2 = new ClientInfo("Neo");
 		infoParClient.put(c1.getPseudo(),c1);
 		infoParClient.put(c2.getPseudo(),c2);
-		
+
 		tableauTest.setInfoParClient(infoParClient);
 		tableauTest.setListeTypeChaine(listeTypeChaine);
 	}
-	
+
 	@Test
 	public void testGetChaineById() {
-		
+
 		assertEquals(ch1, tableauTest.getChaineById(6));
 		assertEquals(ch2, tableauTest.getChaineById(5));
 		assertNotEquals(ch2, tableauTest.getChaineById(6));
 	}
-	
+
 	@Test
 	public void testAchatActionJoueur() {
 		// cas action achete < 0
@@ -61,10 +61,10 @@ public class TestTableauDeBord {
 		int nbActionAchete = -10;
 		int actionAchete = tableauTest.achatActionJoueur(nbActionAchete, "Yodaii", ch1.getNomChaine());
 		assertEquals(0, actionAchete);
-		
+
 		assertEquals(25, tableauTest.getListeChaine().get(0).getNbActionRestante());
-		
-		
+
+
 
 		// cas normal action achete < action restantes
 		// action achete = 3, action restante = 22
@@ -124,7 +124,7 @@ public class TestTableauDeBord {
 		actionVendue = tableauTest.vendActionJoueur(nbActionVendue, "Neo", ch1.getNomChaine());
 		assertEquals(0, actionVendue);
 		assertEquals(20, tableauTest.getListeChaine().get(0).getNbActionRestante());
-		
+
 		// cas action vendu < nb action detenue par actionnaire
 		// action vendue = 2, action restante = 22
 		// Yodaii actionnaire, 3 action detenue
@@ -135,7 +135,7 @@ public class TestTableauDeBord {
 		assertTrue(c1.getActionParChaine().containsKey(ch1.getNomChaine()));
 		assertEquals(3, (int)c1.getActionParChaine().get(ch1.getNomChaine()));
 
-		
+
 		// cas action vendu > nb action detenue par actionnaire
 		// action vendue = 3, action restante = 25
 		// plus d actionnaire, 0 action detenue
@@ -145,4 +145,44 @@ public class TestTableauDeBord {
 		assertEquals(25, tableauTest.getListeChaine().get(0).getNbActionRestante());
 	}
 
+
+	@Test
+	public void testEchangeAction(){
+		tableauTest.achatActionJoueur(10, "Yodaii", ch1.getNomChaine());
+
+		// cas normal action detenu > action a echanger et action a acheter <= action restante
+		// action a echanger = 4, action possedees = 10
+		// action detenu de la chaine 1 = 6
+		// action detenu de la chaine 2 = 2
+		int nbActionAEchanger = 4;
+		int res = tableauTest.echangeAction(nbActionAEchanger, ch1.getTypeChaine(), ch2.getTypeChaine(), "Yodaii");
+		assertEquals(2, res);
+		assertEquals(2, c1.getActionParChaine().get(ch2.getTypeChaine()).intValue());
+		assertEquals(6, c1.getActionParChaine().get(ch1.getTypeChaine()).intValue());
+
+		// cas normal action detenu > action a echanger et action a acheter <= action restante
+		// action a echanger = 5 != paire, action possedes = 6
+		// action detenu de la chaine 1 = 4
+		// action detenu de la chaine 2 = 4
+		nbActionAEchanger = 5;
+		res = tableauTest.echangeAction(nbActionAEchanger, ch1.getTypeChaine(), ch2.getTypeChaine(), "Yodaii");
+		assertEquals(2, res);
+		assertEquals(4, c1.getActionParChaine().get(ch2.getTypeChaine()).intValue());
+		assertEquals(2, c1.getActionParChaine().get(ch1.getTypeChaine()).intValue());
+
+		// cas action a echanger > action detenu
+		// action a echanger 6, action possedees 2
+		// action detenu de la chaine 1 et 2 inchangees
+		res = tableauTest.echangeAction(nbActionAEchanger, ch1.getTypeChaine(), ch2.getTypeChaine(), "Yodaii");
+		assertEquals(4, c1.getActionParChaine().get(ch2.getTypeChaine()).intValue());
+		assertEquals(2, c1.getActionParChaine().get(ch1.getTypeChaine()).intValue());
+
+		// cas action a acheter < action restante
+		// action a echanger 6, action restante 3
+		// action detenu de la chaine 1 et 2 inchangees
+		tableauTest.achatActionJoueur(18, "Yodaii", ch2.getNomChaine());
+		res = tableauTest.echangeAction(nbActionAEchanger, ch1.getTypeChaine(), ch2.getTypeChaine(), "Yodaii");
+		assertEquals(22, c1.getActionParChaine().get(ch2.getTypeChaine()).intValue());
+		assertEquals(2, c1.getActionParChaine().get(ch1.getTypeChaine()).intValue());
+	}
 }

@@ -66,6 +66,7 @@ public class ClientInfo implements Serializable{
 		else {
 			this.setCash(this.getCash() + montant);			
 		}
+		
 		return res;
 	}
 

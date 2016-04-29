@@ -161,7 +161,7 @@ public class Serveur extends UnicastRemoteObject implements ServeurInterface {
 	 * @param text
 	 * @param pseudo
 	 */
-	private void piocheCaseFinTour(String text, String pseudo){
+	public void piocheCaseFinTour(String text, String pseudo){
 		//Pioche d'une case a la fin du tour
 		if (game.getTableau().getInfoParClient().get(pseudo).getMain().contains(text)) {
             int indice = game.getTableau().getInfoParClient().get(pseudo).getMain().indexOf(text);

@@ -78,7 +78,20 @@ public class TableauDeBord implements Serializable{
 		}
 		return null;
 	}
-
+	
+	/**
+	 * methode qui permet au joueur d acheter des actions dans plusieurs chaine a la fois
+	 * @param nomJoueur
+	 * @param actionAAcheter
+	 */
+	public void achatActions(String nomJoueur, HashMap<TypeChaine, Integer> actionAAcheter){
+		for(int i=0; i<listeChaine.size(); i++){
+			Integer nbAction = actionAAcheter.get(listeChaine.get(i).getTypeChaine());
+			if(nbAction != null){
+				achatActionJoueur((int)nbAction, nomJoueur, listeChaine.get(i).getTypeChaine());
+			}
+		}
+	}
 
 	public boolean actionAvailableForPlayer(String pseudo){
 		if (infoParClient.containsKey(pseudo)){
@@ -109,130 +122,148 @@ public class TableauDeBord implements Serializable{
 	 * @return nombre effectivement acheter
 	 */
 	public int achatActionJoueur(int nb, String nomJoueur, TypeChaine tc){
-		int indexChaine = -1;
-		ClientInfo joueur = null;
+		int indexChaine = getIndexChaine(tc);
+		ClientInfo joueur = getClientInfo(nomJoueur);
+		int res = getNbActionAAchete(nb, indexChaine, tc, joueur);
+		
+		joueur.getActionParChaine().put(tc, res + joueur.getActionParChaine().get(tc));
+		joueur.updateCash(-res * TypeChaine.prixAction(tc, listeChaine.get(indexChaine).getListeCase().size()));
+		return res;
+	}
 
+	/**
+	 * fonction permettant au joueur de vendre des actions et met a jour le nombre d action restante
+	 * @param nb : nombre d action voulant etre vendue par le joueur
+	 * @param nomJoueur : nom du joueur qui vend
+	 * @param tc : type de la chaine
+	 * @return nombre effectivement vendue
+	 */
+	public int vendActionJoueur(int nb, String nomJoueur, TypeChaine tc){
+		int indexChaine = getIndexChaine(tc);
+		ClientInfo joueur = getClientInfo(nomJoueur); 
+		int res = getNbActionAVendre(nb, indexChaine, tc, joueur);
+
+		joueur.getActionParChaine().put(tc, (int)joueur.getActionParChaine().get(tc) - res);
+		this.listeChaine.get(indexChaine).setNbActionRestante(this.listeChaine.get(indexChaine).getNbActionRestante() + res);
+		joueur.updateCash(res * TypeChaine.prixAction(tc, listeChaine.get(indexChaine).getListeCase().size()));
+		return res;
+	}
+
+	/**
+	 * methode qui retourne l index de la chaine passe en parametre
+	 * @param tc type de la chaine
+	 * @return index de la chaine
+	 */
+	public int getIndexChaine(TypeChaine tc){
+		int res = -1;
 
 		for(int i=0; i<listeChaine.size(); i++){
 			if (listeChaine.get(i).getNomChaine().equals(tc)){
-				indexChaine = i;
+				res = i;
 			}
 		}
-		if (infoParClient.containsKey(nomJoueur)){
-			joueur = infoParClient.get(nomJoueur);
-		}
-
-	int res = 0;
-
-	if (indexChaine != -1 && this.infoParClient.get(nomJoueur)!=null){
-		if(nb < 0 || this.listeChaine.get(indexChaine).getNbActionRestante() == 0){
-			nb = 0;
-		}
-
-		if(this.listeChaine.get(indexChaine).getNbActionRestante()-nb < 0){ // on ne peut pas avoir un nombre daction restante negatif
-			res = this.listeChaine.get(indexChaine).getNbActionRestante();
-			this.listeChaine.get(indexChaine).setNbActionRestante(0);
-		} else {
-			res = nb;
-			this.listeChaine.get(indexChaine).setNbActionRestante(this.listeChaine.get(indexChaine).getNbActionRestante()-nb);
-		}
-
-		if(res != 0){
-			joueur.getActionParChaine().put(tc, res + joueur.getActionParChaine().get(tc));
-		}
-	}
-	return res;
-}
-
-/**
- * methode qui permet au joueur d acheter des actions dans plusieurs chaine a la fois
- * @param nomJoueur
- * @param actionAAcheter
- */
-public void achatActions(String nomJoueur, HashMap<TypeChaine, Integer> actionAAcheter){
-	for(int i=0; i<listeChaine.size(); i++){
-		Integer nbAction = actionAAcheter.get(listeChaine.get(i).getTypeChaine());
-		if(nbAction != null){
-			achatActionJoueur((int)nbAction, nomJoueur, listeChaine.get(i).getTypeChaine());
-		}
-	}
-}
-	
-	
-/**
- * fonction permettant au joueur de vendre des actions et met a jour le nombre d action restante
- * @param nb : nombre d action voulant etre vendue par le joueur
- * @param nomJoueur : nom du joueur qui vend
- * @param tc : type de la chaine
- * @return nombre effectivement vendue
- */
-public int vendActionJoueur(int nb, String nomJoueur, TypeChaine tc){
-	int indexChaine = -1;
-	ClientInfo joueur = null;
-
-	for(int i=0; i<listeChaine.size(); i++){
-		if (listeChaine.get(i).getNomChaine().equals(tc)){
-			indexChaine = i;
-		}
-	}
-	if (infoParClient.containsKey(nomJoueur)){
-		joueur = infoParClient.get(nomJoueur);
-	}
-
-	int res = 0;
-
-	if (indexChaine != -1 && joueur!=null){
-		Integer nbActionJoueur = joueur.getActionParChaine().get(tc);
-		if (nb < 0 || nbActionJoueur<=0){
-			nb = 0;
-			res=0;
-		}else if (nb > nbActionJoueur){
-			res = nbActionJoueur;
-		} else {
-			res = nb;
-		}
-
-		joueur.getActionParChaine().put(tc, nbActionJoueur - res);
-		this.listeChaine.get(indexChaine).setNbActionRestante(this.listeChaine.get(indexChaine).getNbActionRestante() + res);;
-	}
-
-	return res;
-}
-
-/**
- * Méthode permettant d echanger des actions d une chaine par une autre
- * @param nb d action que le joueur souhaite echanger
- * @param chaineVendAction chaine dont le joueur veux vendre ses actions
- * @param chaineAchatAction chaine dont le joueur veux acheter des actions
- * @param nomJoueur nom du joueur qui faire l echange
- * @return le nombre d action que le joueur obtient de chaineAchatAction
- */
-public int echangeAction(int nb, TypeChaine chaineVendAction, TypeChaine chaineAchatAction, String nomJoueur){
-	int res = 0;
-
-	if(nb % 2 == 0){
-		res = nb/2;
-	}else{
-		nb = nb-1;
-		res = nb/2;
+		
+		return res;
 	}
 	
-	int indexChaineAchatAction = -1;
-	for(int i=0; i<listeChaine.size(); i++){
-		if (listeChaine.get(i).getTypeChaine().equals(chaineAchatAction)){
-			indexChaineAchatAction = i;
+	/**
+	 * methode qui retourne le nombre d action a vendre
+	 * @param nb nombre d action voulant etre vendues
+	 * @return action a vendre
+	 */
+	public int getNbActionAVendre(int nb, int indexChaine, TypeChaine tc, ClientInfo joueur){
+		int res = 0;
+		
+		if (indexChaine != -1 && joueur!=null){
+			Integer nbActionJoueur = joueur.getActionParChaine().get(tc);
+			if (nb < 0 || nbActionJoueur<=0){
+				nb = 0;
+				res=0;
+			}else if (nb > nbActionJoueur){
+				res = nbActionJoueur;
+			} else {
+				res = nb;
+			}	
 		}
+		
+		return res;
 	}
 	
-	if(listeChaine.get(indexChaineAchatAction).getNbActionRestante()+res >= 0 && infoParClient.get(nomJoueur).getActionParChaine().get(chaineVendAction).intValue() >= nb){
-		res = vendActionJoueur(nb, nomJoueur, chaineVendAction);
-		res = res/2;
-	}else{
-		res = 0;
+	/**
+	 * methode qui retourne le nombre d action a achete
+	 * @param nb nombre d action a achete
+	 * @param indexChaine de la chaine ou l on doit acheter les actions
+	 * @param tc type chaine de la chaine
+	 * @param joueur qui achete les actions
+	 * @return nombre d action a acheter
+	 */
+	public int getNbActionAAchete(int nb, int indexChaine, TypeChaine tc, ClientInfo joueur){
+		int res = 0;
+		
+		if (indexChaine != -1 && joueur!=null){
+			if(nb < 0 || this.listeChaine.get(indexChaine).getNbActionRestante() == 0){
+				nb = 0;
+			}
+
+			if(this.listeChaine.get(indexChaine).getNbActionRestante()-nb < 0){ // on ne peut pas avoir un nombre daction restante negatif
+				res = this.listeChaine.get(indexChaine).getNbActionRestante();
+				this.listeChaine.get(indexChaine).setNbActionRestante(0);
+			} else {
+				res = nb;
+				this.listeChaine.get(indexChaine).setNbActionRestante(this.listeChaine.get(indexChaine).getNbActionRestante()-nb);
+			}
+		}
+		
+		return res;
 	}
 	
-	achatActionJoueur(res, nomJoueur, chaineAchatAction);
-	
-	return res;
-}
+	/**
+	 * methode qui retourne le client info associé a un joueur
+	 * @param nom du joueur
+	 * @return le client info du joueur ou null si inconnu
+	 */
+	public ClientInfo getClientInfo(String nom){
+		ClientInfo joueur = null;
+		if (infoParClient.containsKey(nom)){
+			joueur = infoParClient.get(nom);
+		}
+		return joueur;
+	}
+
+	/**
+	 * Méthode permettant d echanger des actions d une chaine par une autre
+	 * @param nb d action que le joueur souhaite echanger
+	 * @param chaineVendAction chaine dont le joueur veux vendre ses actions
+	 * @param chaineAchatAction chaine dont le joueur veux acheter des actions
+	 * @param nomJoueur nom du joueur qui faire l echange
+	 * @return le nombre d action que le joueur obtient de chaineAchatAction
+	 */
+	public int echangeAction(int nb, TypeChaine chaineVendAction, TypeChaine chaineAchatAction, String nomJoueur){
+		int res = 0;
+
+		if(nb % 2 == 0){
+			res = nb/2;
+		}else{
+			nb = nb-1;
+			res = nb/2;
+		}
+
+		int indexChaineAchatAction = -1;
+		for(int i=0; i<listeChaine.size(); i++){
+			if (listeChaine.get(i).getTypeChaine().equals(chaineAchatAction)){
+				indexChaineAchatAction = i;
+			}
+		}
+
+		if(listeChaine.get(indexChaineAchatAction).getNbActionRestante()+res >= 0 && infoParClient.get(nomJoueur).getActionParChaine().get(chaineVendAction).intValue() >= nb){
+			res = vendActionJoueur(nb, nomJoueur, chaineVendAction);
+			res = res/2;
+		}else{
+			res = 0;
+		}
+
+		achatActionJoueur(res, nomJoueur, chaineAchatAction);
+
+		return res;
+	}
 }

@@ -1,6 +1,6 @@
 package test.rmi;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 
 import java.rmi.RemoteException;
 import java.util.ArrayList;
@@ -126,8 +126,18 @@ public class TestServeur {
 	}
 	
 	@Test
-	public void testPiocheCaseFinTour(){
+	public void testPiocheCaseFinTour() throws RemoteException{
 		ClientInfo c = new ClientInfo("Yodaii");
-		serveur.getGame().getTableau().getInfoParClient().put("Yodaii", value);
+		c.getMain().add("A1");
+		c.getMain().add("B1");
+		c.getMain().add("C1");
+		c.getMain().add("D1");
+		c.getMain().add("E1");
+		c.getMain().add("F1");
+		
+		serveur.getGame().getTableau().getInfoParClient().put("Yodaii", c);
+		serveur.piocheCaseFinTour("A1", "Yodaii");
+		assertFalse(c.getMain().get(0) == "A1");
+		assertEquals(6, c.getMain().size());
 	}
 }

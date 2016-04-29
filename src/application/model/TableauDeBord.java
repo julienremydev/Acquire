@@ -161,8 +161,8 @@ public int vendActionJoueur(int nb, String nomJoueur, TypeChaine tc){
 
 	int res = 0;
 
-	if (indexChaine != -1 && this.infoParClient.get(nomJoueur)!=null){
-		Integer nbActionJoueur = this.infoParClient.get(nomJoueur).getActionParChaine().get(tc);
+	if (indexChaine != -1 && joueur!=null){
+		Integer nbActionJoueur = joueur.getActionParChaine().get(tc);
 		if (nb < 0 || nbActionJoueur<=0){
 			nb = 0;
 			res=0;
@@ -172,7 +172,7 @@ public int vendActionJoueur(int nb, String nomJoueur, TypeChaine tc){
 			res = nb;
 		}
 
-		this.infoParClient.get(nomJoueur).getActionParChaine().put(tc, nbActionJoueur - res);
+		joueur.getActionParChaine().put(tc, nbActionJoueur - res);
 		this.listeChaine.get(indexChaine).setNbActionRestante(this.listeChaine.get(indexChaine).getNbActionRestante() + res);;
 	}
 

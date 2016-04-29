@@ -2,6 +2,11 @@ package test.rmi;
 
 import static org.junit.Assert.assertEquals;
 
+import java.rmi.RemoteException;
+import java.util.ArrayList;
+import java.util.HashMap;
+
+import org.junit.Before;
 import org.junit.Test;
 
 import application.globale.Globals;
@@ -13,11 +18,13 @@ public class TestServeur {
 
 	Serveur serveur;
 	
-	
+	@Before
+	public void itinializeServer() throws RemoteException{
+		serveur = new Serveur();
+	}
 	
 	@Test
-	public void testRegisterClient() throws Exception {
-		serveur = new Serveur();
+	public void testRegisterClient() throws Exception{
 
 		/*
 		 * Scénario de Test avec tous les cas possibles d'une partie normale avant le lancement : 
@@ -102,4 +109,25 @@ public class TestServeur {
 		serveur.getListe_clients().put("toto2", new Client());
 	}
 
+	@Test
+	public void testSetTurn(){
+		ArrayList<String> hmTest = new ArrayList<>();
+		hmTest.add("Yodaii");
+		hmTest.add("Neo");
+		hmTest.add("Jakkos");
+		
+		HashMap<String, String> hmATrie = new HashMap<>();
+		hmATrie.put("Jakkos", "I9");
+		hmATrie.put("Yodaii", "A1");
+		hmATrie.put("Neo", "C6");
+		
+		serveur.setTurn(hmATrie);
+		assertEquals(hmTest, serveur.getOrdre_joueur());
+	}
+	
+	@Test
+	public void testPiocheCaseFinTour(){
+		ClientInfo c = new ClientInfo("Yodaii");
+		serveur.getGame().getTableau().getInfoParClient().put("Yodaii", value);
+	}
 }

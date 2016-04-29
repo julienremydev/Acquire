@@ -166,7 +166,7 @@ public class PlateauController implements Initializable {
 	 *            : game
 	 */
 	public void setGame(Game g) {
-		
+		dataTableView = FXCollections.observableArrayList();
 		setDataTableView(g);
 
 		// recuperation de l'ensemble des cases du plateau (graphique)
@@ -250,7 +250,6 @@ public class PlateauController implements Initializable {
 	public void lancement() throws RemoteException {
 		client.getServeur().setLancement();
 		letsplay.setOpacity(0);
-		dataTableView = FXCollections.observableArrayList();
 	}
 
 	/**

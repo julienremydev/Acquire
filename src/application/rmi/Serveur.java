@@ -140,6 +140,12 @@ public class Serveur extends UnicastRemoteObject implements ServeurInterface {
 		ordre_joueur_action.remove(0);
 		
 	}
+	
+	/**
+	 * methode qui permet au joueur de piocher une case à la fin de son tour
+	 * @param text
+	 * @param pseudo
+	 */
 	private void piocheCaseFinTour(String text, String pseudo){
 		//Pioche d'une case a la fin du tour
 		if (game.getTableau().getInfoParClient().get(pseudo).getMain().contains(text)) {
@@ -238,7 +244,7 @@ public class Serveur extends UnicastRemoteObject implements ServeurInterface {
 	 * Methode permettant d'attribuer l'ordre des joueurs
 	 * @param listeCasesNoires
 	 */
-	private void setTurn(HashMap<String,String> listeCasesNoires) {
+	public void setTurn(HashMap<String,String> listeCasesNoires) {
 		HashMap<String, String> result = Globals.sortByValue(listeCasesNoires);
 		Collection<String> keys = result.keySet();
 		for (String key : keys) {

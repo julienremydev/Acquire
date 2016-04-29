@@ -121,13 +121,12 @@ public class TableauDeBord implements Serializable{
 	 * @return nombre effectivement acheter
 	 */
 	public int achatActionJoueur(int nb, String nomJoueur, TypeChaine tc){
-		System.out.println(listeChaine.get(tc.getNumero()-2).tailleChaine());
 		int indexChaine = getIndexChaine(tc);
 		ClientInfo joueur = getClientInfo(nomJoueur);
 		int res = getNbActionAAchete(nb, tc.getNumero()-2, tc, joueur);
-		
+
 		joueur.getActionParChaine().put(tc, res + joueur.getActionParChaine().get(tc));
-		joueur.updateCash(-res * TypeChaine.prixAction(tc, listeChaine.get(tc.getNumero()-2).getListeCase().size()));
+		joueur.updateCash(-res * TypeChaine.prixAction(tc, listeChaine.get(indexChaine).tailleChaine()));
 		return res;
 	}
 

@@ -37,7 +37,7 @@ public class PlateauController implements Initializable {
 	 */
 	private Client client;
 
-	private ArrayList<TypeChaine> liste_actions = new ArrayList<TypeChaine> ();
+	private HashMap<TypeChaine, Integer> liste_actions = new HashMap<TypeChaine, Integer> ();
 	/**
 	 * element plateau
 	 */
@@ -59,7 +59,14 @@ public class PlateauController implements Initializable {
 	 */
 	ObservableList<ClientInfo> dataTableView;
 
-	
+	private int totalesActionsJoueurs (){
+		int tot = 0;
+		Collection<TypeChaine> keys = liste_actions.keySet();
+		for (TypeChaine key : keys) {
+			tot += liste_actions.get(key);
+		}
+		return tot;
+	}
 	public void setChoixAchatAction(Game game) {
 		// TODO BIEN FAIRE LALGO 
 		int j = 0;
@@ -76,13 +83,16 @@ public class PlateauController implements Initializable {
 				
 				b.setOnAction((event) -> {
 					try {
-						if ( liste_actions.size() < 3 ){
+						if ( totalesActionsJoueurs() < 3 ){
 							Button buttonAction = new Button(c.getNomChaine().toString().substring(0, 1));
 							buttonAction.setStyle(c.getNomChaine().getCouleurChaine());
 							buttonAction.setPrefWidth(300);
 							buttonAction.setPrefHeight(300);
 							Platform.runLater(() -> gridPaneAction.add(buttonAction, liste_actions.size(), 1));
-							liste_actions.add(c.getNomChaine());
+							if ( liste_actions.containsKey(c.getNomChaine()))
+								liste_actions.put(c.getNomChaine(), 1 + liste_actions.get(c.getNomChaine()) );
+							else
+								liste_actions.put(c.getNomChaine(), 1);
 						}
 					} catch (Exception e1) {
 						// TODO Auto-generated catch block
@@ -98,7 +108,7 @@ public class PlateauController implements Initializable {
 		buyIT.setPrefHeight(300);
 		buyIT.setOnAction((event) -> {
 			try {
-				client.buyAction (liste_actions.size(),liste_actions.get(0));
+				client.buyAction (liste_actions);
 				liste_actions.clear();
 				gridPaneAction.getChildren().clear();
 			} catch (Exception e) {

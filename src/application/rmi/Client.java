@@ -2,6 +2,7 @@ package application.rmi;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
+import java.util.HashMap;
 
 import application.control.PlateauController;
 import application.model.Action;
@@ -77,8 +78,8 @@ public class Client extends UnicastRemoteObject implements ClientInterface {
 		this.serveur.creationChaineServeur(nomChaine);
 	}
 	
-	public void buyAction(int nb, TypeChaine tc) throws RemoteException {
-		this.serveur.achatAction(nb,getPseudo(),tc);
+	public void buyAction(HashMap<TypeChaine, Integer> actionAAcheter) throws RemoteException {
+		this.serveur.achatAction(getPseudo(), actionAAcheter);
 	}
 	
 	public String getPseudo() {

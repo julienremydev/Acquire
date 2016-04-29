@@ -2,6 +2,7 @@ package application.rmi;
 
 import java.rmi.Remote;
 import java.rmi.RemoteException;
+import java.util.HashMap;
 
 import application.model.Action;
 import application.model.TypeChaine;
@@ -26,5 +27,5 @@ public interface ServeurInterface extends Remote{
 
 	void nextTurn(String pseudo) throws RemoteException;
 
-	void achatAction(int nb, String pseudo, TypeChaine tc) throws RemoteException;
+	void achatAction(String nomJoueur, HashMap<TypeChaine, Integer> actionAAcheter) throws RemoteException;
 }

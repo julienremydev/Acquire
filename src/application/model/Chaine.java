@@ -36,15 +36,17 @@ public class Chaine implements Serializable{
 	 * fonction retournant la taille de la chaine d hotel
 	 * @return taille de la chaine dhotel
 	 */
-	public int tailleChaine(){
+	public Integer tailleChaine(){
 		return this.getListeCase().size();
 	}
 	
 	/**
 	 * fonction permettant d ajouter une case a la liste de case de la chaine
+	 * modification de l'état de la case en même temps
 	 * @param c
 	 */
 	public void addCase(Case c){
+		c.setEtat(this.typeChaine.getNumero());
 		this.getListeCase().add(c);
 	}
 	
@@ -89,5 +91,19 @@ public class Chaine implements Serializable{
 	}
 	public boolean chaineDisponible(){
 		return listeCase.isEmpty();
+	}
+
+	public void modifChain(Chaine c) {
+		ArrayList<Case> listeChangement = c.getListeCase();
+		for (Case caseChaine : listeChangement)
+		{
+			this.addCase(caseChaine);
+		}
+		c.removeAll();
+	}
+
+	private void removeAll() {
+		this.listeCase.removeAll(listeCase);
+		
 	}
 }

@@ -1,17 +1,16 @@
 package test.model;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
-import java.util.Map;
-import java.util.Map.Entry;
-import java.util.Random;
 
 import org.junit.Before;
 import org.junit.Test;
 
 import application.model.Case;
-import application.model.Chaine;
 import application.model.Plateau;
 import application.model.TypeChaine;
 
@@ -171,7 +170,7 @@ public class TestPlateau {
 		int j = 0;
 		int nbJoueur = 3;
 		int casesDispDebut = plateauTest.getCasesDisponible().size();
-		plateauTest.initialiseMainCaseNoir(nbJoueur);
+		plateauTest.initialiseMainCaseNoir();
 		int casesDispApres = plateauTest.getCasesDisponible().size();
 		assertTrue(casesDispApres == casesDispDebut - nbJoueur);
 
@@ -224,5 +223,9 @@ public class TestPlateau {
 		assertTrue(plateauTest.getPlateauMap().get("B12").getEtat() == TypeChaine.AMERICA.getNumero());
 		assertTrue(plateauTest.getPlateauMap().get("C12").getEtat() == TypeChaine.AMERICA.getNumero());
 
+	}
+	@Test
+	public void testlisteChaineDiffentes(){
+		
 	}
 }

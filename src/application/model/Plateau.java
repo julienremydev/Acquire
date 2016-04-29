@@ -6,7 +6,6 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Random;
-import java.util.Map.Entry;
 
 public class Plateau implements Serializable {
 
@@ -202,80 +201,55 @@ public class Plateau implements Serializable {
 			 */
 			if (tab.size() == 1)
 			{
-				caseModifiee.setEtat(tab.get(0).getEtat());
 				// La liste de chaine va de 0 a 7 alors que nos états vont de 2 a 8, le -2 est alors nécessaire
+				// addCase ajoute la case dans la chaine, et change par la même occasion l'état de la case
 				listeChaine.get(tab.get(0).getEtat()-2).addCase(caseModifiee);				
 
 			}
 
-		}	
 
-		//			/**
-		//			 * Tableau taille de 2, donc deux cases avec une chaine
-		//			 */
-		//
-		//			if (tab.size() >= 2)// regrouper le cas ou on a 2, 3 ou 4 cases
-		//				// autour avec une chaine
-		//			{
-		//				int nbCases = tab.size();
-		//				boolean sameColor = sameColorsArround(tab, nbCases);
-		//				int chainePremiereCase;
-		//				int chaineDeuxiemeCase;
-		//				sameColor = sameColorsArround(tab, nbCases);
-		//				/**
-		//				 * Vérification si il s'agit de la même chaîne dans toutes les
-		//				 * cases adjascentes, on change juste la couleur de la case.
-		//				 */
-		//				if (sameColor)
-		//					this.setEtat(tab.get(0).getEtat());
-		//				else {
-		//					switch (nbCases) {
-		//					case 2:
-		//						chainePremiereCase = tab.get(0).getEtat();
-		//						chaineDeuxiemeCase = tab.get(1).getEtat();
-		//						/**
-		//						 * Si leurs taille sont égales, on demande la couleur à
-		//						 * l'utilisateur
-		//						 */
-		//						if (chainePremiereCase == chaineDeuxiemeCase) // avec
-		//							// les
-		//							// fonctions
-		//							// que
-		//							// yoh
-		//							// va
-		//							// faire
-		//							this.setEtat(tab.get(0).getEtat()); // client.askColorChaineVoulue()
-		//						// &&
-		//						// chaine.SetChaine(int
-		//						// nouvelleChaine)
-		//
-		//						else {
-		//							if (chainePremiereCase > chaineDeuxiemeCase)
-		//								// La premiere chaine est plus grande donc
-		//								// changement etat case +
-		//								// tab.get(1).SetChaine(tab.get(0))
-		//								this.setEtat(tab.get(0).getEtat());
-		//							else
-		//								// pareil mais inversement avec les cases du
-		//								// tableau
-		//								this.setEtat(tab.get(1).getEtat());
-		//						}
-		//						break;
-		//					case 3:
-		//
-		//						break;
-		//					case 4:
-		//						break;
-		//					}
-		//				}
-		//				Collections.sort(tab, new Comparator<Case>() {
-		//					@Override
-		//					public int compare(Case tc1, Case tc2) {
-		//						return tc1.getEtat().compareTo(tc2.getEtat());
-		//					}
-		//				});
-		//			}
-		//		}
+
+			/**
+			 * Tableau taille de >2, donc plusieures cases avec une chaine
+			 */
+
+			if (tab.size() >= 2)
+			{
+				int nbCases = tab.size();
+				boolean sameColor = caseModifiee.sameColorsArround(tab, nbCases);				
+				/**
+				 * Vérification si il s'agit de la même chaîne dans toutes les
+				 * cases adjascentes, on change juste la couleur de la case.
+				 */
+				// de la même couleur donc on ajoute simplement la case à la chaine
+				if (sameColor)
+					listeChaine.get(tab.get(0).getEtat()-2).addCase(caseModifiee);
+				// Couleur différents
+				else
+				{
+					// On vérifie la taille des chianes pour savoir si elle sont différentes. 
+					ArrayList<Chaine> chaineDifferente = listeChaineDifferentes(tab, listeChaine);
+					Chaine grandeChaine = sameSizeChaine(chaineDifferente);
+					// il n'y a pas de chaine plus grande qu'une autre
+					if(grandeChaine != null)
+					{
+						// faire une action car il faut demander quelle chaine l'utilisateur veut choisir
+						Action action = new Action(tab,0);
+					}
+					else
+					{
+						for(Chaine c : chaineDifferente)
+						{
+							listeChaine.get(grandeChaine.getTypeChaine().getNumero()-2).modifChain(c);
+						}
+					}
+
+
+				}
+			}
+			return null;
+		}
+
 		//		/**
 		//		 * Présense d'un ou plusieurs hotêls avec une ou plusieures chaînes
 		//		 */
@@ -370,6 +344,58 @@ public class Plateau implements Serializable {
 		String c = casesDisponible.get(0 + (int) (Math.random() * casesDisponible.size() - 1));
 		plateauMap.get(c).setEtat(1);
 		casesDisponible.remove(c);
+	}
+	/**
+	 * Retourn l'arrayList de case avec des etat différents, donc des chaines différentes
+	 * @param tab
+	 * @return
+	 */
+	public  ArrayList<Chaine> listeChaineDifferentes(ArrayList<Case> tab,  ArrayList<Chaine> listeChaine)
+	{
+		ArrayList<Chaine> tabReturn = new ArrayList<>();
+		ArrayList<Integer> tabTest = new ArrayList<>();
+		for(Case caseTest : tab)
+		{
+			if(! tabTest.contains(caseTest.getEtat()))
+			{
+				tabReturn.add(listeChaine.get(caseTest.getEtat()-2));
+				tabTest.add(caseTest.getEtat());
+			}
+
+		}
+		return null;
+	}
+	/**
+	 * Verifie la taille des chaines passé en paramètre, retourne faux si taille différentes, vrai si égales
+	 * @return
+	 */
+	public Chaine sameSizeChaine(ArrayList<Chaine> chaineDifferentes){
+		ArrayList<Integer> tabTest = new ArrayList<>();
+		ArrayList<Chaine> tabChaineTailleDiff = new ArrayList<>();
+		for(Chaine ch : chaineDifferentes)
+		{
+			if(! tabTest.contains(ch.tailleChaine()))
+			{
+				tabTest.add(ch.tailleChaine());
+				tabChaineTailleDiff.add(ch);
+			}
+		}
+		if(tabTest.size() == 1)
+		{
+			return null;
+		}
+		else
+		{
+
+			Collections.sort(tabChaineTailleDiff,new Comparator<Chaine>(){
+				@Override
+				public int compare(Chaine c1, Chaine c2){
+					return c1.tailleChaine().compareTo(c2.tailleChaine());
+				}
+			});
+			return tabChaineTailleDiff.get(0);
+
+		}
 	}
 
 

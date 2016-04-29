@@ -125,6 +125,21 @@ public class TableauDeBord implements Serializable{
 }
 
 /**
+ * methode qui permet au joueur d acheter des actions dans plusieurs chaine a la fois
+ * @param nomJoueur
+ * @param actionAAcheter
+ */
+public void achatActions(String nomJoueur, HashMap<TypeChaine, Integer> actionAAcheter){
+	for(int i=0; i<listeChaine.size(); i++){
+		Integer nbAction = actionAAcheter.get(listeChaine.get(i).getTypeChaine());
+		if(nbAction != null){
+			achatActionJoueur((int)nbAction, nomJoueur, listeChaine.get(i).getTypeChaine());
+		}
+	}
+}
+	
+	
+/**
  * fonction permettant au joueur de vendre des actions et met a jour le nombre d action restante
  * @param nb : nombre d action voulant etre vendue par le joueur
  * @param nomJoueur : nom du joueur qui vend

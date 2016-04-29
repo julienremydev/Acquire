@@ -185,4 +185,15 @@ public class TestTableauDeBord {
 		assertEquals(22, c1.getActionParChaine().get(ch2.getTypeChaine()).intValue());
 		assertEquals(2, c1.getActionParChaine().get(ch1.getTypeChaine()).intValue());
 	}
+	
+	@Test
+	public void testAchatActions(){
+		HashMap<TypeChaine, Integer> hm= new HashMap<>();
+		hm.put(ch1.getTypeChaine(), 2);
+		hm.put(ch2.getTypeChaine(), 3); 
+		
+		tableauTest.achatActions("Yodaii", hm);
+		assertEquals(2, c1.getActionParChaine().get(ch1.getTypeChaine()).intValue());
+		assertEquals(3, c1.getActionParChaine().get(ch2.getTypeChaine()).intValue());
+	}
 }

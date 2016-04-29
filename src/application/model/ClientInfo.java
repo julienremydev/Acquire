@@ -164,31 +164,31 @@ public class ClientInfo implements Serializable{
 	}
 
 	public Integer getActionSackson() {
-		return this.actionParChaine.put(TypeChaine.SACKSON, 0);
+		return this.actionParChaine.get(TypeChaine.SACKSON);
 	}
 
 	public Integer getActionHydra() {
-		return this.actionParChaine.put(TypeChaine.HYDRA, 0);
+		return this.actionParChaine.get(TypeChaine.HYDRA);
 	}
 
 	public Integer getActionAmerica() {
-		return this.actionParChaine.put(TypeChaine.AMERICA, 0);
+		return this.actionParChaine.get(TypeChaine.AMERICA);
 	}
 
 	public Integer getActionFusion() {
-		return this.actionParChaine.put(TypeChaine.FUSION, 0);
+		return this.actionParChaine.get(TypeChaine.FUSION);
 	}
 
 	public Integer getActionPhoenix() {
-		return this.actionParChaine.put(TypeChaine.PHOENIX, 0);
+		return this.actionParChaine.get(TypeChaine.PHOENIX);
 	}
 
 	public Integer getActionQuantum() {
-		return this.actionParChaine.put(TypeChaine.QUANTUM, 0);
+		return this.actionParChaine.get(TypeChaine.QUANTUM);
 	}
 
 	public Integer getActionZeta() {
-		return this.actionParChaine.put(TypeChaine.ZETA, 0);
+		return this.actionParChaine.get(TypeChaine.ZETA);
 	}
 	
 	public ArrayList<String> getMain(){

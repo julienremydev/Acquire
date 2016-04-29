@@ -202,7 +202,6 @@ public class PlateauController implements Initializable {
 	 *            : game
 	 */
 	public void setGame(Game g) {
-		dataTableView = FXCollections.observableArrayList();
 		setDataTableView(g);
 
 		// recuperation de l'ensemble des cases du plateau (graphique)
@@ -262,6 +261,7 @@ public class PlateauController implements Initializable {
 		tchat.setEditable(false);
 		letsplay.setOpacity(0);
 		letsplay.setDisable(true);
+		dataTableView = FXCollections.observableArrayList();
 	}
 
 	public void setBEnable(boolean b) {
@@ -270,17 +270,13 @@ public class PlateauController implements Initializable {
 	}
 
 	private void setDataTableView(Game g) {
+		dataTableView.clear();
 		HashMap<String, ClientInfo> infoClient = g.getTableau().getInfoParClient();
 		Collection<ClientInfo> values = infoClient.values();
 		for (ClientInfo ci : values) {
 			dataTableView.add(ci);
 		}
-
 		tableauDeBord.setItems(dataTableView);
-	}
-	
-	private void updateDataTableView(ClientInfo ci){
-		// TODO mise à jour des données du tableau de bord
 	}
 
 	public void lancement() throws RemoteException {

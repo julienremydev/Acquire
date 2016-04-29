@@ -2,6 +2,7 @@ package application.model;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 
 import application.control.PlateauController;
@@ -85,11 +86,9 @@ public class TableauDeBord implements Serializable{
 	 * @param actionAAcheter
 	 */
 	public void achatActions(String nomJoueur, HashMap<TypeChaine, Integer> actionAAcheter){
-		for(int i=0; i<listeChaine.size(); i++){
-			Integer nbAction = actionAAcheter.get(listeChaine.get(i).getTypeChaine());
-			if(nbAction != null){
-				achatActionJoueur((int)nbAction, nomJoueur, listeChaine.get(i).getTypeChaine());
-			}
+		Collection<TypeChaine> keys = actionAAcheter.keySet();
+		for (TypeChaine key : keys) {
+			achatActionJoueur(actionAAcheter.get(key), nomJoueur, key);
 		}
 	}
 
@@ -122,12 +121,13 @@ public class TableauDeBord implements Serializable{
 	 * @return nombre effectivement acheter
 	 */
 	public int achatActionJoueur(int nb, String nomJoueur, TypeChaine tc){
+		System.out.println(listeChaine.get(tc.getNumero()-2).tailleChaine());
 		int indexChaine = getIndexChaine(tc);
 		ClientInfo joueur = getClientInfo(nomJoueur);
-		int res = getNbActionAAchete(nb, indexChaine, tc, joueur);
+		int res = getNbActionAAchete(nb, tc.getNumero()-2, tc, joueur);
 		
 		joueur.getActionParChaine().put(tc, res + joueur.getActionParChaine().get(tc));
-		joueur.updateCash(-res * TypeChaine.prixAction(tc, listeChaine.get(indexChaine).getListeCase().size()));
+		joueur.updateCash(-res * TypeChaine.prixAction(tc, listeChaine.get(tc.getNumero()-2).getListeCase().size()));
 		return res;
 	}
 
@@ -145,7 +145,7 @@ public class TableauDeBord implements Serializable{
 
 		joueur.getActionParChaine().put(tc, (int)joueur.getActionParChaine().get(tc) - res);
 		this.listeChaine.get(indexChaine).setNbActionRestante(this.listeChaine.get(indexChaine).getNbActionRestante() + res);
-		joueur.updateCash(res * TypeChaine.prixAction(tc, listeChaine.get(indexChaine).getListeCase().size()));
+		joueur.updateCash(res * TypeChaine.prixAction(tc, listeChaine.get(indexChaine).tailleChaine()));
 		return res;
 	}
 

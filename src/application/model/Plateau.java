@@ -231,13 +231,14 @@ public class Plateau implements Serializable {
 					ArrayList<Chaine> chaineDifferente = listeChaineDifferentes(tab, listeChaine);
 					Chaine grandeChaine = sameSizeChaine(chaineDifferente);
 					// il n'y a pas de chaine plus grande qu'une autre
-					if(grandeChaine != null)
+					if(grandeChaine == null)
 					{
 						// faire une action car il faut demander quelle chaine l'utilisateur veut choisir
 						Action action = new Action(tab,0);
 					}
 					else
 					{
+						chaineDifferente.remove(grandeChaine);
 						for(Chaine c : chaineDifferente)
 						{
 							listeChaine.get(grandeChaine.getTypeChaine().getNumero()-2).modifChain(c);
@@ -363,7 +364,7 @@ public class Plateau implements Serializable {
 			}
 
 		}
-		return null;
+		return tabReturn;
 	}
 	/**
 	 * Verifie la taille des chaines passé en paramètre, retourne faux si taille différentes, vrai si égales
@@ -390,7 +391,7 @@ public class Plateau implements Serializable {
 			Collections.sort(tabChaineTailleDiff,new Comparator<Chaine>(){
 				@Override
 				public int compare(Chaine c1, Chaine c2){
-					return c1.tailleChaine().compareTo(c2.tailleChaine());
+					return c2.tailleChaine().compareTo(c1.tailleChaine());
 				}
 			});
 			return tabChaineTailleDiff.get(0);

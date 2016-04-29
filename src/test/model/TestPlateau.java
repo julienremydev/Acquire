@@ -11,15 +11,24 @@ import org.junit.Before;
 import org.junit.Test;
 
 import application.model.Case;
+import application.model.Chaine;
 import application.model.Plateau;
 import application.model.TypeChaine;
 
 public class TestPlateau {
 	Plateau plateauTest;
-
+	ArrayList<Chaine> listeChaine = new ArrayList<>();
+	Chaine sackson = new Chaine (TypeChaine.SACKSON);
+	Chaine zeta = new Chaine (TypeChaine.ZETA);
+	Chaine hydra = new Chaine (TypeChaine.HYDRA);
 	@Before
 	public void initPlateau() {
 		plateauTest = new Plateau();
+		
+		
+		listeChaine.add(sackson);
+		listeChaine.add(zeta);
+		listeChaine.add(hydra);
 	}
 
 	// Vérification de la bonne initialisation des cases adjacentes dans les
@@ -93,7 +102,7 @@ public class TestPlateau {
 		assertTrue((plateauTest.getCase("D11").getNom().equals("D11")));
 	}
 
-	
+
 	//La methode test les cases adjacentes des cases present sur le plateau
 	@Test
 	public void testInitCasesAdjascentes() {
@@ -163,7 +172,7 @@ public class TestPlateau {
 	 * Ajoute 6 cases cliquable pour le joueur
 	 */
 
-	
+
 	//La methode test si les cases noirs sont generer correctement
 	@Test
 	public void TestinitialiseMainCaseNoir() {
@@ -191,8 +200,8 @@ public class TestPlateau {
 		plateauTest.ajouteMain1foisCaseNoir();
 		int casesDispApres = plateauTest.getCasesDisponible().size();
 		assertTrue(casesDispApres == casesDispDebut - 1);
-		
-		
+
+
 		for ( String e : plateauTest.getPlateauMap().keySet()) {
 			if(plateauTest.getPlateauMap().get(e).getEtat()==1){
 				j++;
@@ -202,30 +211,56 @@ public class TestPlateau {
 
 	}
 
-	
+
 	//la methode verifie si une chaine est crée correctement ou pas 
+//	@Test
+//	public void TestcreationChaine() {
+//		ArrayList<Case> list = new ArrayList<Case>();
+//		list.add(plateauTest.getPlateauMap().get("A10"));
+//		list.add(plateauTest.getPlateauMap().get("A11"));
+//		list.add(plateauTest.getPlateauMap().get("A12"));
+//		list.add(plateauTest.getPlateauMap().get("B12"));
+//		list.add(plateauTest.getPlateauMap().get("B11"));
+//		list.add(plateauTest.getPlateauMap().get("C12"));
+//
+//		plateauTest.creationChaine(list, TypeChaine.AMERICA);
+//
+//		assertTrue(plateauTest.getPlateauMap().get("A10").getEtat() ==  TypeChaine.AMERICA.getNumero());
+//		assertTrue(plateauTest.getPlateauMap().get("A11").getEtat() == TypeChaine.AMERICA.getNumero());
+//		assertTrue(plateauTest.getPlateauMap().get("A12").getEtat() == TypeChaine.AMERICA.getNumero());
+//		assertTrue(plateauTest.getPlateauMap().get("B11").getEtat() == TypeChaine.AMERICA.getNumero());
+//		assertTrue(plateauTest.getPlateauMap().get("B12").getEtat() == TypeChaine.AMERICA.getNumero());
+//		assertTrue(plateauTest.getPlateauMap().get("C12").getEtat() == TypeChaine.AMERICA.getNumero());
+//
+//	}
 	@Test
-	public void TestcreationChaine() {
-		ArrayList<Case> list = new ArrayList<Case>();
-		list.add(plateauTest.getPlateauMap().get("A10"));
-		list.add(plateauTest.getPlateauMap().get("A11"));
-		list.add(plateauTest.getPlateauMap().get("A12"));
-		list.add(plateauTest.getPlateauMap().get("B12"));
-		list.add(plateauTest.getPlateauMap().get("B11"));
-		list.add(plateauTest.getPlateauMap().get("C12"));
-
-		plateauTest.creationChaine(list, TypeChaine.AMERICA);
-
-		assertTrue(plateauTest.getPlateauMap().get("A10").getEtat() ==  TypeChaine.AMERICA.getNumero());
-		assertTrue(plateauTest.getPlateauMap().get("A11").getEtat() == TypeChaine.AMERICA.getNumero());
-		assertTrue(plateauTest.getPlateauMap().get("A12").getEtat() == TypeChaine.AMERICA.getNumero());
-		assertTrue(plateauTest.getPlateauMap().get("B11").getEtat() == TypeChaine.AMERICA.getNumero());
-		assertTrue(plateauTest.getPlateauMap().get("B12").getEtat() == TypeChaine.AMERICA.getNumero());
-		assertTrue(plateauTest.getPlateauMap().get("C12").getEtat() == TypeChaine.AMERICA.getNumero());
-
-	}
-	@Test
-	public void testlisteChaineDiffentes(){
+	public void testupdateCase(){
+		// création de 3 Chaines avec des taille différentes
+		// l'une d'elle aura une taille plus grande et les autres devrons donc fusionner avec celle-ci
 		
+
+		// Ajout de 2 cases à la chaine 1
+		listeChaine.get(0).addCase(plateauTest.getPlateauMap().get("E9"));
+		listeChaine.get(0).addCase(plateauTest.getPlateauMap().get("E10"));
+		
+		// Ajout de 3 cases à la chaine 2
+		listeChaine.get(1).addCase(plateauTest.getPlateauMap().get("B8"));
+		listeChaine.get(1).addCase(plateauTest.getPlateauMap().get("C8"));
+		listeChaine.get(1).addCase(plateauTest.getPlateauMap().get("D8"));
+		// Ajout de 4 cases à la chaine 3
+		listeChaine.get(2).addCase(plateauTest.getPlateauMap().get("E6"));
+		listeChaine.get(2).addCase(plateauTest.getPlateauMap().get("E7"));
+		listeChaine.get(2).addCase(plateauTest.getPlateauMap().get("F6"));
+		listeChaine.get(2).addCase(plateauTest.getPlateauMap().get("F7"));
+		
+		// on applique la fonction update case
+		// on doit donc se retrouver avec toutes les cases dans la chaine la plus grande
+		plateauTest.updateCase("E8", listeChaine);
+		int variableTest1 = listeChaine.get(2).tailleChaine();
+		int variableTest2 = listeChaine.get(1).tailleChaine();
+		int variableTest3 = listeChaine.get(0).tailleChaine();
+		assertEquals(9,variableTest1);
+		assertEquals(0,variableTest2);
+		assertEquals(0,variableTest3);
 	}
 }

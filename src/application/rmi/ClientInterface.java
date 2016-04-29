@@ -21,6 +21,8 @@ public interface ClientInterface extends Remote{
 	void receiveAction(Action a, Game g) throws RemoteException;
 
 	void turn() throws RemoteException;
+
+	void receiveBuyAction(Game game) throws RemoteException;
 	
 	
 }

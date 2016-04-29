@@ -16,7 +16,7 @@ public interface ServeurInterface extends Remote{
 
 	void getCasePlayed(String text, String pseudo) throws RemoteException;
 	
-	void creationChaineServeur(Action a,TypeChaine c) throws RemoteException;
+	void creationChaineServeur(TypeChaine c) throws RemoteException;
 	
 	void logout (String p) throws RemoteException;
 

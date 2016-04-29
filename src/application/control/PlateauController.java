@@ -52,6 +52,35 @@ public class PlateauController implements Initializable {
 	@FXML
 	private TableView<ClientInfo> tableauDeBord;
 
+	
+	public void setChoixAchatAction(Game game) {
+		// TODO BIEN FAIRE LALGO 
+		int j = 0;
+		for (Chaine c : game.listeChaine) {
+			if (!c.chaineDisponible()) {
+				int i = j;
+				Button b = new Button(c.getNomChaine().toString().substring(0, 1));
+				b.setStyle(c.getNomChaine().getCouleurChaine());
+				b.setPrefWidth(300);
+				b.setPrefHeight(300);
+				b.setOnAction((event) -> {
+					try {
+						gridPaneAction.add(new Button(c.getNomChaine().toString().substring(0, 1)), i, 1);
+					} catch (Exception e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+				});
+				Platform.runLater(() -> gridPaneAction.add(b, i, 0));
+			}
+			j++;
+		}
+		gridPaneAction.add(new Button("Acheter"), 7, 1);
+		//TODO ajouter bouton acheter action, qui appelle une fonction sur le serveur 
+		//qui termine le tour du joueur 
+	}
+	
+	
 	/**
 	 * Methode permettant d'afficher les choix possibles pour la creation dune
 	 * chaine
@@ -107,7 +136,6 @@ public class PlateauController implements Initializable {
 		/*
 		 * 
 		 */
-		client.nextTurn();
 	}
 
 	/**
@@ -232,4 +260,5 @@ public class PlateauController implements Initializable {
 	public void setOn() {
 		grid.setMouseTransparent(false);
 	}
+
 }

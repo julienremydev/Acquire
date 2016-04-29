@@ -367,7 +367,7 @@ public class Plateau implements Serializable {
 		return tabReturn;
 	}
 	/**
-	 * Verifie la taille des chaines passé en paramètre, retourne faux si taille différentes, vrai si égales
+	 * Fonction qui regarde si les chaines sont de même taille. Si c'est le cas retourne null. Sinon retourne la plus grande chaine
 	 * @return
 	 */
 	public Chaine sameSizeChaine(ArrayList<Chaine> chaineDifferentes){

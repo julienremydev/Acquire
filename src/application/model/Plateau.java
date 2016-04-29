@@ -186,7 +186,6 @@ public class Plateau implements Serializable {
 			ArrayList tabCasesAModifier = new ArrayList();
 			tabCasesAModifier= addRecurse(setCasesAModifier,caseModifiee);
 			tabCasesAModifier.add(caseModifiee);
-			System.out.println(tabCasesAModifier);
 			Action action = new Action(tabCasesAModifier,0);
 			//Vérifier s'il y a des cases autour des cases autour ...
 			return action;

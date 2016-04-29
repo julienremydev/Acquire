@@ -123,7 +123,7 @@ public class TableauDeBord implements Serializable{
 	public int achatActionJoueur(int nb, String nomJoueur, TypeChaine tc){
 		int indexChaine = getIndexChaine(tc);
 		ClientInfo joueur = getClientInfo(nomJoueur);
-		int res = getNbActionAAchete(nb, tc.getNumero()-2, tc, joueur);
+		int res = getNbActionAAchete(nb, indexChaine, tc, joueur);
 
 		joueur.getActionParChaine().put(tc, res + joueur.getActionParChaine().get(tc));
 		joueur.updateCash(-res * TypeChaine.prixAction(tc, listeChaine.get(indexChaine).tailleChaine()));
@@ -237,31 +237,30 @@ public class TableauDeBord implements Serializable{
 	 * @param nomJoueur nom du joueur qui faire l echange
 	 * @return le nombre d action que le joueur obtient de chaineAchatAction
 	 */
-	public int echangeAction(int nb, TypeChaine chaineVendAction, TypeChaine chaineAchatAction, String nomJoueur){
+	public int echangeAction(int nb, TypeChaine chaineVendAction, TypeChaine chaineAchatAction, String nomJoueur){		
+		int indexChaineAchatAction = getIndexChaine(chaineAchatAction);
+		int indexChaineVendAction = getIndexChaine(chaineVendAction);
+		ClientInfo joueur = getClientInfo(nomJoueur);
 		int res = 0;
-
+		
 		if(nb % 2 == 0){
 			res = nb/2;
 		}else{
 			nb = nb-1;
 			res = nb/2;
 		}
+		
+		res = getNbActionAAchete(res, indexChaineAchatAction, chaineAchatAction, joueur);
 
-		int indexChaineAchatAction = -1;
-		for(int i=0; i<listeChaine.size(); i++){
-			if (listeChaine.get(i).getTypeChaine().equals(chaineAchatAction)){
-				indexChaineAchatAction = i;
-			}
-		}
-
-		if(listeChaine.get(indexChaineAchatAction).getNbActionRestante()+res >= 0 && infoParClient.get(nomJoueur).getActionParChaine().get(chaineVendAction).intValue() >= nb){
-			res = vendActionJoueur(nb, nomJoueur, chaineVendAction);
-			res = res/2;
+		if(res >= 0 && infoParClient.get(nomJoueur).getActionParChaine().get(chaineVendAction).intValue() >= nb){
+			joueur.getActionParChaine().put(chaineVendAction, (int)joueur.getActionParChaine().get(chaineVendAction) - nb);
+			this.listeChaine.get(indexChaineVendAction).setNbActionRestante(this.listeChaine.get(indexChaineVendAction).getNbActionRestante() + res);
 		}else{
 			res = 0;
 		}
 
-		achatActionJoueur(res, nomJoueur, chaineAchatAction);
+		joueur.getActionParChaine().put(chaineAchatAction, res + joueur.getActionParChaine().get(chaineAchatAction));
+		joueur.updateCash(-res * TypeChaine.prixAction(chaineAchatAction, listeChaine.get(indexChaineAchatAction).tailleChaine()));
 
 		return res;
 	}

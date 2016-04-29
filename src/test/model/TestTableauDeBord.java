@@ -56,6 +56,7 @@ public class TestTableauDeBord {
 	@Test
 	public void testAchatActionJoueur() {
 		ch1.getListeCase().add(new Case("A1"));
+		ch1.getListeCase().add(new Case("B1"));
 		
 		// cas action achete < 0
 		// action achete = 0, action restante = 25
@@ -105,6 +106,7 @@ public class TestTableauDeBord {
 	@Test
 	public void testVendActionJoueur(){
 		ch1.getListeCase().add(new Case("A1"));
+		ch1.getListeCase().add(new Case("B1"));
 		
 		// cas actionnaire innexistant
 		int nbActionVendue = 2;

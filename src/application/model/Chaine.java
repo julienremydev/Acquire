@@ -37,7 +37,6 @@ public class Chaine implements Serializable{
 	 * @return taille de la chaine dhotel
 	 */
 	public Integer tailleChaine(){
-		System.out.println(this.getListeCase().size());
 		return this.getListeCase().size();
 	}
 	

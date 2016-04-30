@@ -1,7 +1,6 @@
 package test.model;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
 
@@ -9,6 +8,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import application.model.Case;
@@ -20,6 +20,7 @@ import application.model.TypeChaine;
 public class TestTableauDeBord {
 	ClientInfo c1;
 	ClientInfo c2;
+	ClientInfo c3;
 	Chaine ch1;
 	Chaine ch2;
 
@@ -33,20 +34,32 @@ public class TestTableauDeBord {
 		listeTypeChaine = new ArrayList<Chaine>();
 		ch1 = new Chaine (TypeChaine.AMERICA);
 		ch2 = new Chaine (TypeChaine.FUSION);
+		Chaine ch3 = new Chaine (TypeChaine.HYDRA);
+		Chaine ch4 = new Chaine (TypeChaine.PHOENIX);
+		Chaine ch5 = new Chaine (TypeChaine.QUANTUM);
+		Chaine ch6 = new Chaine (TypeChaine.SACKSON);
+		Chaine ch7 = new Chaine (TypeChaine.ZETA);
 		listeTypeChaine.add(ch1);
 		listeTypeChaine.add(ch2);
+		listeTypeChaine.add(ch3);
+		listeTypeChaine.add(ch4);
+		listeTypeChaine.add(ch5);
+		listeTypeChaine.add(ch6);
+		listeTypeChaine.add(ch7);
 		tableauTest = new TableauDeBord();
 		infoParClient = new HashMap<String,ClientInfo>();
 		c1 = new ClientInfo("Yodaii");
 		c2 = new ClientInfo("Neo");
+		c3 = new ClientInfo("Joke");
 		infoParClient.put(c1.getPseudo(),c1);
 		infoParClient.put(c2.getPseudo(),c2);
-
+		infoParClient.put(c3.getPseudo(),c3);
 		tableauTest.setInfoParClient(infoParClient);
 		tableauTest.setListeTypeChaine(listeTypeChaine);
 	}
 
 	@Test
+	
 	public void testGetChaineById() {
 		assertEquals(ch1, tableauTest.getChaineById(6));
 		assertEquals(ch2, tableauTest.getChaineById(5));
@@ -54,6 +67,7 @@ public class TestTableauDeBord {
 	}
 
 	@Test
+	
 	public void testAchatActionJoueur() {
 		ch1.getListeCase().add(new Case("A1"));
 		ch1.getListeCase().add(new Case("B1"));
@@ -104,6 +118,7 @@ public class TestTableauDeBord {
 	}
 
 	@Test
+	
 	public void testVendActionJoueur(){
 		ch1.getListeCase().add(new Case("A1"));
 		ch1.getListeCase().add(new Case("B1"));
@@ -160,6 +175,7 @@ public class TestTableauDeBord {
 
 
 	@Test
+	
 	public void testEchangeAction(){
 		tableauTest.achatActionJoueur(10, "Yodaii", ch1.getNomChaine());
 
@@ -200,6 +216,7 @@ public class TestTableauDeBord {
 	}
 	
 	@Test
+	
 	public void testAchatActions(){
 		HashMap<TypeChaine, Integer> hm= new HashMap<>();
 		hm.put(ch1.getTypeChaine(), 2);
@@ -208,5 +225,49 @@ public class TestTableauDeBord {
 		tableauTest.achatActions("Yodaii", hm);
 		assertEquals(2, c1.getActionParChaine().get(ch1.getTypeChaine()).intValue());
 		assertEquals(3, c1.getActionParChaine().get(ch2.getTypeChaine()).intValue());
+	}
+	
+	@Test
+	public void testUpdateActionnaire() {
+		c1.getActionParChaine().put(TypeChaine.AMERICA, 1);
+		tableauTest.updateActionnaire();
+		String etat = c1.getEtatParChaine().get(TypeChaine.AMERICA);
+		assertEquals("M+,0",etat);
+		c2.getActionParChaine().put(TypeChaine.AMERICA, 2);
+		tableauTest.updateActionnaire();
+		etat = c1.getEtatParChaine().get(TypeChaine.AMERICA);
+		String etat2 = c2.getEtatParChaine().get(TypeChaine.AMERICA);
+		assertEquals("S,1", etat);
+		assertEquals("M,1", etat2);
+		c1.getActionParChaine().put(TypeChaine.AMERICA, 2);
+		tableauTest.updateActionnaire();
+		etat = c1.getEtatParChaine().get(TypeChaine.AMERICA);
+		etat2 = c2.getEtatParChaine().get(TypeChaine.AMERICA);
+		assertEquals("M,2", etat);
+		assertEquals("M,2", etat2);
+		c3.getActionParChaine().put(TypeChaine.AMERICA, 2);
+		tableauTest.updateActionnaire();
+		etat = c1.getEtatParChaine().get(TypeChaine.AMERICA);
+		etat2 = c2.getEtatParChaine().get(TypeChaine.AMERICA);
+		String etat3 = c3.getEtatParChaine().get(TypeChaine.AMERICA);
+		assertEquals("M,3", etat);
+		assertEquals("M,3", etat2);
+		assertEquals("M,3", etat3);
+		c3.getActionParChaine().put(TypeChaine.AMERICA, 4);
+		tableauTest.updateActionnaire();
+		etat = c1.getEtatParChaine().get(TypeChaine.AMERICA);
+		etat2 = c2.getEtatParChaine().get(TypeChaine.AMERICA);
+		etat3 = c3.getEtatParChaine().get(TypeChaine.AMERICA);
+		assertEquals("S,2", etat);
+		assertEquals("S,2", etat2);
+		assertEquals("M,1", etat3);
+		c2.getActionParChaine().put(TypeChaine.AMERICA, 4);
+		tableauTest.updateActionnaire();
+		etat = c1.getEtatParChaine().get(TypeChaine.AMERICA);
+		etat2 = c2.getEtatParChaine().get(TypeChaine.AMERICA);
+		etat3 = c3.getEtatParChaine().get(TypeChaine.AMERICA);
+		assertEquals("A,0", etat);
+		assertEquals("M,2", etat2);
+		assertEquals("M,2", etat3);
 	}
 }

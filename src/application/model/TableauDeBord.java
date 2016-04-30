@@ -284,7 +284,7 @@ public class TableauDeBord implements Serializable{
 			}
 			ArrayList<ClientInfo> clients = Globals.sortByValueAction(liste_sort);
 			int iterator=0;
-			int iterator2=0;;
+			int iterator2=0;
 			int nbMajor=0;
 			while (iterator<=clients.size()-1) {
 				if (iterator==0) {
@@ -301,12 +301,15 @@ public class TableauDeBord implements Serializable{
 					}
 					if (iterator2==0) {
 						nbActionMax2=liste_sort.get(clients.get(iterator));
+						iterator2++;
 					}
 					if (nbActionMax2>0&&nbActionMax2==liste_sort.get(clients.get(iterator))&&nbActionMax!=0) {
 						nbActionMax2=liste_sort.get(clients.get(iterator));
 						liste_clients_second.add(clients.get(iterator));
 					}
-					iterator2++;
+				}
+				else {
+					liste_clients_second.add(clients.get(iterator));
 				}
 				iterator++;
 			}
@@ -319,7 +322,13 @@ public class TableauDeBord implements Serializable{
 				}
 			}
 			for (ClientInfo c : liste_clients_second) {
-				c.setEtat(tc.getNumero(), "S,"+liste_clients_second.size());
+				if (nbMajor>1) {
+					c.setEtat(tc.getNumero(), "A,0");
+				}
+				else {
+					c.setEtat(tc.getNumero(), "S,"+liste_clients_second.size());	
+				}
+
 			}
 			for (ClientInfo c : infoParClient.values()) {
 				c.updateNet(listeChaine);

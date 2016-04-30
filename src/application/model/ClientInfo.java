@@ -8,7 +8,7 @@ import java.util.Random;
 import application.globale.Globals;
 
 public class ClientInfo implements Serializable{
-	
+
 	private static final long serialVersionUID = -4425247831910575515L;
 
 	private String pseudo;
@@ -28,6 +28,8 @@ public class ClientInfo implements Serializable{
 	//etat 3 = primaire
 	//etat 4 = secondaire2
 	//etat 5 = primaire2
+
+
 
 	// NE PAS TOUCHER A CES ATTRIBUTS (NECESSAIRE POUR LA VUE MEME SI NON UTILISE)
 	private Integer actionSackson;
@@ -83,7 +85,7 @@ public class ClientInfo implements Serializable{
 		else {
 			this.setCash(this.getCash() + montant);			
 		}
-		
+
 		return res;
 	}
 
@@ -105,12 +107,16 @@ public class ClientInfo implements Serializable{
 		int nbJoueursAction = Integer.parseInt(tabEtat[1]);
 		switch (tabEtat[0]) {
 		case "0" :
-		return 0;
+			return 0;
 		case "A" :
 			return action;
 		case "S" :
 			return action+(Globals.getResultat(TypeChaine.primeActionnaireSecondaire(c, nombreHotel)/nbJoueursAction));
 		case "M" :
+			if (nbJoueursAction>1) {
+				return action+((Globals.getResultat((TypeChaine.primeActionnairePrincipal(c, nombreHotel)
+						+TypeChaine.primeActionnaireSecondaire(c, nombreHotel))/nbJoueursAction)));
+			}
 			return action+(Globals.getResultat(TypeChaine.primeActionnairePrincipal(c, nombreHotel)/nbJoueursAction));
 		case "M+" :
 			return action+(Globals.getResultat(TypeChaine.primeActionnairePrincipal(c, nombreHotel)+TypeChaine.primeActionnaireSecondaire(c, nombreHotel)));
@@ -156,6 +162,10 @@ public class ClientInfo implements Serializable{
 
 	public void setPseudo(String pseudo) {
 		this.pseudo = pseudo;
+	}
+
+	public HashMap<TypeChaine, String> getEtatParChaine() {
+		return etatParChaine;
 	}
 
 	public int getNet() {
@@ -217,7 +227,7 @@ public class ClientInfo implements Serializable{
 	public void setEtat(int nb, String etat) {
 		this.etatParChaine.replace(TypeChaine.getTypeChaine(nb), etat);
 	}
-	
+
 	public String toString() {
 		return this.pseudo;
 	}

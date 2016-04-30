@@ -10,6 +10,7 @@ import org.junit.Test;
 import application.model.Case;
 import application.model.ClientInfo;
 import application.model.Plateau;
+import application.model.TypeChaine;
 
 public class TestClientInfo {
 	ClientInfo clientTest;
@@ -61,6 +62,22 @@ public class TestClientInfo {
 	
 	@Test
 	public void testGetPrime() {
-		//TODO ajouter actions
+		clientTest.setEtat(TypeChaine.AMERICA.getNumero(), "M+,0");
+		clientTest.getActionParChaine().put(TypeChaine.AMERICA, 2);
+		clientTest.getActionParChaine().put(TypeChaine.QUANTUM, 2);
+		int prixAction = clientTest.getPrime(TypeChaine.AMERICA, 2);
+		assertEquals(5100, prixAction);
+		clientTest.setEtat(TypeChaine.AMERICA.getNumero(), "S,2");
+		prixAction = clientTest.getPrime(TypeChaine.AMERICA, 2);
+		assertEquals(1400,prixAction);
+		clientTest.setEtat(TypeChaine.AMERICA.getNumero(), "M,4");
+		prixAction = clientTest.getPrime(TypeChaine.AMERICA, 2);
+		assertEquals(1700,prixAction);
+		clientTest.setEtat(TypeChaine.AMERICA.getNumero(), "M+,0");
+		prixAction = clientTest.getPrime(TypeChaine.AMERICA, 45);
+		assertEquals(18700,prixAction);
+		clientTest.setEtat(TypeChaine.QUANTUM.getNumero(), "M+,0");
+		prixAction = clientTest.getPrime(TypeChaine.QUANTUM, 3);
+		assertEquals(8500,prixAction);
 	}
 }

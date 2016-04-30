@@ -91,7 +91,7 @@ public class Globals {
 			return param;
 		}
 		if (modulo<50) {
-			return ((param/100)-1)*100;
+			return ((param/100))*100;
 		}
 		else {
 			return ((param/100)+1)*100;

@@ -88,7 +88,9 @@ public class Chaine implements Serializable{
 	public boolean chaineDisponible(){
 		return listeCase.isEmpty();
 	}
-
+	/*
+	 * Ajout les cases de la chaine passée en parametre à la chaine actuelle, puis supprime de la chaine en parametre
+	 */
 	public void modifChain(Chaine c) {
 		ArrayList<Case> listeChangement = c.getListeCase();
 		for (Case caseChaine : listeChangement)
@@ -99,8 +101,6 @@ public class Chaine implements Serializable{
 	}
 
 	private void removeAll() {
-		this.listeCase.removeAll(listeCase);
-		System.out.println(this.listeCase.size());
-		
+		this.listeCase.removeAll(listeCase);		
 	}
 }

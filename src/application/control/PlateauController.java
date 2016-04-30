@@ -67,7 +67,10 @@ public class PlateauController implements Initializable {
 		}
 		return tot;
 	}
-
+	/*
+	 * Méthode appelée par le Serveur à la fin du tour d'un joueur
+	 * Permet au client d'acheter des actions
+	 */
 	public void setChoixAchatAction(Game game) {
 		//MAJ BOUTONS ACTIONS CHOISIES
 		Platform.runLater(() -> gridPaneAction.getChildren().clear());
@@ -131,6 +134,7 @@ public class PlateauController implements Initializable {
 				Platform.runLater(() -> gridPaneAction.add(b, i, 0));
 
 			}
+			j++;
 
 		}
 
@@ -301,7 +305,9 @@ public class PlateauController implements Initializable {
 		letsplay.setOpacity(1);
 		letsplay.setDisable(!b);
 	}
-
+	/*
+	 * Mise a jour du tableau 
+	 */
 	private void setDataTableView(Game g) {
 		dataTableView.clear();
 		HashMap<String, ClientInfo> infoClient = g.getTableau().getInfoParClient();

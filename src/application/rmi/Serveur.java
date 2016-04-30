@@ -114,7 +114,7 @@ public class Serveur extends UnicastRemoteObject implements ServeurInterface {
 			distribution();
 		}
 	}
-
+	
 	@Override
 	public void creationChaineServeur(TypeChaine c) throws RemoteException {
 		getGame().creationChaine(action.getListeDeCaseAModifier(), c, playerTurn);

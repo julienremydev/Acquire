@@ -92,7 +92,11 @@ public class TableauDeBord implements Serializable{
 			achatActionJoueur(actionAAcheter.get(key), nomJoueur, key);
 		}
 	}
-
+	/**
+	 * Retourne vrai si le joueur peut acheter au moins une action
+	 * @param pseudo
+	 * @return
+	 */
 	public boolean actionAvailableForPlayer(String pseudo){
 		if (infoParClient.containsKey(pseudo)){
 			int cash = infoParClient.get(pseudo).getCash();
@@ -104,7 +108,12 @@ public class TableauDeBord implements Serializable{
 		}
 		return false;
 	}
-
+	/**
+	 * Retourne vrai si le joueur peut acheter une action
+	 * @param pseudo
+	 * @param idChaine
+	 * @return
+	 */
 	public boolean actionAvailableForPlayer(String pseudo, int idChaine){
 		if (infoParClient.containsKey(pseudo)){
 			int cash = infoParClient.get(pseudo).getCash();
@@ -267,7 +276,9 @@ public class TableauDeBord implements Serializable{
 
 		return res;
 	}
-
+	/**
+	 * Met a jour le status des joueurs pour chaque types de chaine
+	 */
 	public void updateActionnaire() {
 		ArrayList<TypeChaine> chaineList = new ArrayList<TypeChaine>();
 		for (Chaine c : listeChaine) {

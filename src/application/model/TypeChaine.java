@@ -86,9 +86,6 @@ public enum TypeChaine {
 		return prixAction(tc, nb)*5;
 	}
 	
-	/*
-	 * getter and setter
-	 */
 	public int getNumero(){
 		return this.numero;
 	}

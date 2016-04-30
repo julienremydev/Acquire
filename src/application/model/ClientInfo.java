@@ -98,7 +98,9 @@ public class ClientInfo implements Serializable{
 			this.net+=this.getPrime(c,listeChaine.get(c.getNumero()-2).tailleChaine());
 		}
 	}
-
+	/*
+	 * Permet de récupérer les primes par rapport aux actions (majoritaire / secondaire)
+	 */
 	public int getPrime(TypeChaine c, int nombreHotel) {
 		int action = TypeChaine.prixAction(c, nombreHotel);
 		action*=actionParChaine.get(c);

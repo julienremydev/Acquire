@@ -53,7 +53,7 @@ public class PlateauController implements Initializable {
 	private Button letsplay;
 	@FXML
 	private TableView<ClientInfo> tableauDeBord;
-	
+
 	/**
 	 * Liste d'objet du tableau de bard
 	 */
@@ -70,88 +70,88 @@ public class PlateauController implements Initializable {
 
 	public void setChoixAchatAction(Game game) {
 		//MAJ BOUTONS ACTIONS CHOISIES
-				Platform.runLater(() -> gridPaneAction.getChildren().clear());
-				
-				Collection<TypeChaine> keys = liste_actions.keySet();
-				int index = 0;
-				for (TypeChaine key : keys) {
-					for ( int i = 0 ; i< liste_actions.get(key) ; i++ ){
-						
-						index += 1 ;
-						int indexLocal = index;
-						Button buttonAction = new Button(key.toString().substring(0, 1)+"\n"+TypeChaine.prixAction(key, Globals.nbActionTotal-game.getListeChaine().get(key.getNumero()-2).getNbActionRestante()));
-						buttonAction.setStyle(key.getCouleurChaine());
-						buttonAction.setPrefWidth(300);
-						buttonAction.setPrefHeight(300);
-						
-						buttonAction.setOnAction((e) -> {
-							try {
-								//buttonAction.setOpacity(0);
-								int nbactions = liste_actions.get(key);
-								if ( nbactions > 1 ){
-									liste_actions.put(key, liste_actions.get(key) - 1);
-								}else{
-									liste_actions.remove(key);
-								}
-								setChoixAchatAction(game);
-							} catch (Exception exc) {
-								// TODO Auto-generated catch block
-								exc.printStackTrace();
-							}
-						});
-						Platform.runLater(() -> gridPaneAction.add(buttonAction, indexLocal -1, 1));
-					}
-				}
-				//MAJ BOUTONS ACTIONS DISPOS
-				int j = 0;
-				for (Chaine c : game.getListeChaine()){
-					if (game.getTableau().actionAvailableForPlayer(client.getPseudo(), c.getNomChaine().getNumero())) {
-						int i = j;
-						Button b = new Button(c.getNomChaine().toString().substring(0, 1)+"\n"+TypeChaine.prixAction(c.getNomChaine(), Globals.nbActionTotal-c.getNbActionRestante()));
-						
-						b.setStyle(c.getNomChaine().getCouleurChaine());
-						b.setPrefWidth(300);
-						b.setPrefHeight(300);
-						
-							b.setOnAction((event) -> {
-								try {
-									if ( totalesActionsJoueurs() < 3 ){
-										if ( liste_actions.containsKey(c.getNomChaine()))
-											liste_actions.put(c.getNomChaine(), 1 + liste_actions.get(c.getNomChaine()) );
-										else
-											liste_actions.put(c.getNomChaine(), 1);
-										
-										setChoixAchatAction(game);
-									}
-								} catch (Exception e) {
-									// TODO Auto-generated catch block
-									e.printStackTrace();
-								}
-							});
-							Platform.runLater(() -> gridPaneAction.add(b, i, 0));
-					}
-					j++;
-				}
-				
-				
-				
-				Button buyIT =new Button("Acheter");
-				buyIT.setPrefWidth(300);
-				buyIT.setPrefHeight(300);
-				buyIT.setOnAction((event) -> {
+		Platform.runLater(() -> gridPaneAction.getChildren().clear());
+
+		Collection<TypeChaine> keys = liste_actions.keySet();
+		int index = 0;
+		for (TypeChaine key : keys) {
+			for ( int i = 0 ; i< liste_actions.get(key) ; i++ ){
+
+				index += 1 ;
+				int indexLocal = index;
+				Button buttonAction = new Button(key.toString().substring(0, 1)+"\n"+TypeChaine.prixAction(key, Globals.nbActionTotal-game.getListeChaine().get(key.getNumero()-2).getNbActionRestante()));
+				buttonAction.setStyle(key.getCouleurChaine());
+				buttonAction.setPrefWidth(300);
+				buttonAction.setPrefHeight(300);
+
+				buttonAction.setOnAction((e) -> {
 					try {
-						client.buyAction (liste_actions);
-						liste_actions.clear();
-						gridPaneAction.getChildren().clear();
+						//buttonAction.setOpacity(0);
+						int nbactions = liste_actions.get(key);
+						if ( nbactions > 1 ){
+							liste_actions.put(key, liste_actions.get(key) - 1);
+						}else{
+							liste_actions.remove(key);
+						}
+						setChoixAchatAction(game);
+					} catch (Exception exc) {
+						// TODO Auto-generated catch block
+						exc.printStackTrace();
+					}
+				});
+				Platform.runLater(() -> gridPaneAction.add(buttonAction, indexLocal -1, 1));
+			}
+		}
+		//MAJ BOUTONS ACTIONS DISPOS
+		int j = 0;
+		for (Chaine c : game.getListeChaine()){
+			if (game.getTableau().actionAvailableForPlayer(client.getPseudo(), c.getNomChaine().getNumero())) {
+				int i = j;
+				Button b = new Button(c.getNomChaine().toString().substring(0, 1)+"\n"+TypeChaine.prixAction(c.getNomChaine(), Globals.nbActionTotal-c.getNbActionRestante()));
+
+				b.setStyle(c.getNomChaine().getCouleurChaine());
+				b.setPrefWidth(300);
+				b.setPrefHeight(300);
+
+				b.setOnAction((event) -> {
+					try {
+						if ( totalesActionsJoueurs() < 3 ){
+							if ( liste_actions.containsKey(c.getNomChaine()))
+								liste_actions.put(c.getNomChaine(), 1 + liste_actions.get(c.getNomChaine()) );
+							else
+								liste_actions.put(c.getNomChaine(), 1);
+
+							setChoixAchatAction(game);
+						}
 					} catch (Exception e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
 				});
-				Platform.runLater(() -> gridPaneAction.add(buyIT, 5, 1));
+				Platform.runLater(() -> gridPaneAction.add(b, i, 0));
+			}
+			j++;
+		}
+
+
+
+		Button buyIT =new Button("Acheter");
+		buyIT.setPrefWidth(300);
+		buyIT.setPrefHeight(300);
+		buyIT.setOnAction((event) -> {
+			try {
+				client.buyAction (liste_actions);
+				liste_actions.clear();
+				gridPaneAction.getChildren().clear();
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		});
+		Platform.runLater(() -> gridPaneAction.add(buyIT, 5, 1));
 	}
-	
-	
+
+
 	/**
 	 * Methode permettant d'afficher les choix possibles pour la creation dune
 	 * chaine
@@ -304,9 +304,14 @@ public class PlateauController implements Initializable {
 		dataTableView.clear();
 		HashMap<String, ClientInfo> infoClient = g.getTableau().getInfoParClient();
 		Collection<ClientInfo> values = infoClient.values();
-		for (ClientInfo ci : values) {
-			dataTableView.add(ci);
-		}
+		Platform.runLater(new Runnable() {
+			@Override
+			public void run() {
+				for (ClientInfo ci : values) {
+					dataTableView.add(ci);
+				}
+			}
+		});
 		tableauDeBord.setItems(dataTableView);
 	}
 

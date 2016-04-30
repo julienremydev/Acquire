@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Set;
 
 import application.globale.Globals;
@@ -127,6 +128,7 @@ public class TableauDeBord implements Serializable{
 
 		joueur.getActionParChaine().put(tc, res + joueur.getActionParChaine().get(tc));
 		joueur.updateCash(-res * TypeChaine.prixAction(tc, listeChaine.get(indexChaine).tailleChaine()));
+		this.updateActionnaire();
 		return res;
 	}
 
@@ -145,6 +147,7 @@ public class TableauDeBord implements Serializable{
 		joueur.getActionParChaine().put(tc, (int)joueur.getActionParChaine().get(tc) - res);
 		this.listeChaine.get(indexChaine).setNbActionRestante(this.listeChaine.get(indexChaine).getNbActionRestante() + res);
 		joueur.updateCash(res * TypeChaine.prixAction(tc, listeChaine.get(indexChaine).tailleChaine()));
+		this.updateActionnaire();
 		return res;
 	}
 
@@ -212,11 +215,6 @@ public class TableauDeBord implements Serializable{
 				res = nb;
 				this.listeChaine.get(indexChaine).setNbActionRestante(this.listeChaine.get(indexChaine).getNbActionRestante()-nb);
 			}
-
-			if(res != 0){
-				joueur.getActionParChaine().put(tc, res + joueur.getActionParChaine().get(tc));
-				joueur.setEtat(tc.getNumero(), "A,0");
-			}
 		}
 		return res;
 	}
@@ -270,42 +268,70 @@ public class TableauDeBord implements Serializable{
 		return res;
 	}
 
-	public void updateActionnaire(Set<TypeChaine> liste_chaine) {
+	public void updateActionnaire() {
+		ArrayList<TypeChaine> chaineList = new ArrayList<TypeChaine>();
+		for (Chaine c : listeChaine) {
+			chaineList.add(c.getTypeChaine());
+		}
 		int nbActionMax=0;
 		int nbActionMax2=0;
-		ArrayList<ClientInfo>liste_clients_major=new ArrayList<ClientInfo>();
-		ArrayList<ClientInfo>liste_clients_second=new ArrayList<ClientInfo>();
+		Set<ClientInfo>liste_clients_major=new HashSet<ClientInfo>();
+		Set<ClientInfo>liste_clients_second=new HashSet<ClientInfo>();
 		HashMap<ClientInfo, Integer>  liste_sort = new HashMap<ClientInfo, Integer>();
-		for (TypeChaine tc : liste_chaine) {
+		for (TypeChaine tc : chaineList) {
 			for (ClientInfo c : infoParClient.values()) {
 				liste_sort.put(c,c.getActionParChaine().get(tc));
 			}
 			ArrayList<ClientInfo> clients = Globals.sortByValueAction(liste_sort);
 			int iterator=0;
+			int iterator2=0;;
 			int nbMajor=0;
-			while (iterator<=clients.size()) {
-				nbActionMax = liste_sort.get(clients.get(iterator));
-				if (nbActionMax==liste_sort.get(clients.get(iterator))) {
+			while (iterator<=clients.size()-1) {
+				if (iterator==0) {
+					nbActionMax = liste_sort.get(clients.get(iterator));
+				}
+				if (nbActionMax == liste_sort.get(clients.get(iterator))&&liste_sort.get(clients.get(iterator))!=0) {
+					nbActionMax = liste_sort.get(clients.get(iterator));
 					liste_clients_major.add(clients.get(iterator));
 					nbMajor++;
 				}
 				else if (nbMajor==1) {
-					nbActionMax2=liste_sort.get(clients.get(iterator));
-					if (nbActionMax2>0&&nbActionMax2==liste_sort.get(clients.get(iterator))) {
+					if (iterator==0) {
+						nbActionMax = liste_sort.get(clients.get(iterator));
+					}
+					if (iterator2==0) {
+						nbActionMax2=liste_sort.get(clients.get(iterator));
+					}
+					if (nbActionMax2>0&&nbActionMax2==liste_sort.get(clients.get(iterator))&&nbActionMax!=0) {
+						nbActionMax2=liste_sort.get(clients.get(iterator));
 						liste_clients_second.add(clients.get(iterator));
 					}
+					iterator2++;
 				}
 				iterator++;
 			}
 			for (ClientInfo c : liste_clients_major) {
-				if (nbActionMax2==0) {
+				if (liste_clients_second.isEmpty()&&nbMajor==1) {
 					c.setEtat(tc.getNumero(), "M+,0");
 				}
-				c.setEtat(tc.getNumero(), "M,"+liste_clients_major.size());
+				else {
+					c.setEtat(tc.getNumero(), "M,"+liste_clients_major.size());
+				}
 			}
-			for (ClientInfo c : liste_clients_major) {
+			for (ClientInfo c : liste_clients_second) {
 				c.setEtat(tc.getNumero(), "S,"+liste_clients_second.size());
 			}
+			for (ClientInfo c : infoParClient.values()) {
+				c.updateNet(listeChaine);
+			}
+			nbActionMax=0;
+			nbActionMax2=0;
+			liste_clients_major.clear();
+			liste_clients_second.clear();
+			clients.clear();
+			nbMajor=0;
+			iterator=0;
+			iterator2=0;
 		}
 	}
 }

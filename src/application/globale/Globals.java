@@ -1,6 +1,8 @@
 package application.globale;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -65,12 +67,34 @@ public class Globals {
 	 */
 	public static ArrayList<ClientInfo> 
 	sortByValueAction( HashMap<ClientInfo, Integer> map ) {
+		ArrayList<ClientInfo> list = new ArrayList<ClientInfo>();
+		for (ClientInfo c : map.keySet()) {
+			if (map.get(c)==0) {
+				list.add(c);
+			}
+		}
+		for (ClientInfo c : list) {
+			map.remove(c);
+		}
 		ArrayList<ClientInfo> liste_clients = new ArrayList<ClientInfo>();
 		Stream<Map.Entry<ClientInfo, Integer>> st = map.entrySet().stream();
-
 		st.sorted( Map.Entry.comparingByValue() )
-		.forEachOrdered( e -> liste_clients.add(e.getKey()) );
-
+		.forEachOrdered(e -> liste_clients.add(e.getKey()) );
+		Collections.reverse(liste_clients);
+		
 		return liste_clients;
+	}
+	
+	public static int getResultat(int param) {
+		int modulo = param%100;
+		if (modulo==0) {
+			return param;
+		}
+		if (modulo<50) {
+			return ((param/100)-1)*100;
+		}
+		else {
+			return ((param/100)+1)*100;
+		}
 	}
 }

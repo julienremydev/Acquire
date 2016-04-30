@@ -8,6 +8,7 @@ import java.util.Random;
 import application.globale.Globals;
 
 public class ClientInfo implements Serializable{
+	
 	private static final long serialVersionUID = -4425247831910575515L;
 
 	private String pseudo;
@@ -89,29 +90,31 @@ public class ClientInfo implements Serializable{
 	/**
 	 * methode permettant de calculer le montant net du joueur
 	 */
-	public void updateNet(){
+	public void updateNet(ArrayList<Chaine> listeChaine){
 		this.net=this.cash;
 		for (TypeChaine c : this.actionParChaine.keySet()) {
-			this.net+=this.getPrime(c);
+			this.net+=this.getPrime(c,listeChaine.get(c.getNumero()-2).tailleChaine());
 		}
 	}
 
-	public int getPrime(TypeChaine c) {
+	public int getPrime(TypeChaine c, int nombreHotel) {
+		int action = TypeChaine.prixAction(c, nombreHotel);
+		action*=actionParChaine.get(c);
 		String etat = etatParChaine.get(c);
-		int nbActions = actionParChaine.get(c);
 		String[] tabEtat = etat.split(",");
 		int nbJoueursAction = Integer.parseInt(tabEtat[1]);
 		switch (tabEtat[0]) {
 		case "0" :
 		return 0;
 		case "A" :
-			return TypeChaine.prixAction(c, nbActions);
+			return action;
 		case "S" :
-			return (TypeChaine.primeActionnaireSecondaire(c, nbActions)/nbJoueursAction)%100;
+			return action+(Globals.getResultat(TypeChaine.primeActionnaireSecondaire(c, nombreHotel)/nbJoueursAction));
 		case "M" :
-			return (TypeChaine.primeActionnairePrincipal(c, nbActions)/nbJoueursAction)%100;
+			return action+(Globals.getResultat(TypeChaine.primeActionnairePrincipal(c, nombreHotel)/nbJoueursAction));
 		case "M+" :
-			return (TypeChaine.primeActionnairePrincipal(c, nbActions)+TypeChaine.primeActionnairePrincipal(c, nbActions))%100;
+			int ret = action+(Globals.getResultat(TypeChaine.primeActionnairePrincipal(c, nombreHotel)+TypeChaine.primeActionnaireSecondaire(c, nombreHotel)+TypeChaine.prixAction(c, nombreHotel)));
+			return action+(Globals.getResultat(TypeChaine.primeActionnairePrincipal(c, nombreHotel)+TypeChaine.primeActionnaireSecondaire(c, nombreHotel)+TypeChaine.prixAction(c, nombreHotel)));
 		default :
 			return -1;
 		} 
@@ -214,6 +217,10 @@ public class ClientInfo implements Serializable{
 
 	public void setEtat(int nb, String etat) {
 		this.etatParChaine.replace(TypeChaine.getTypeChaine(nb), etat);
+	}
+	
+	public String toString() {
+		return this.pseudo;
 	}
 
 }

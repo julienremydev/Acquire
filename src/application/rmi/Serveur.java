@@ -111,14 +111,14 @@ public class Serveur extends UnicastRemoteObject implements ServeurInterface {
 			}else{
 				nextTurnAction();
 			}
-			
+			this.game.getTableau().updateActionnaire();
 			distribution();
 		}
 	}
 
 	@Override
 	public void creationChaineServeur(TypeChaine c) throws RemoteException {
-		getGame().creationChaine(action.getListeDeCaseAModifier(), c);
+		getGame().creationChaine(action.getListeDeCaseAModifier(), c, playerTurn);
 		distribution();
 		
 		sendEndTurnAction ();
@@ -127,7 +127,6 @@ public class Serveur extends UnicastRemoteObject implements ServeurInterface {
 	@Override
 	public void achatAction(String nomJoueur, HashMap<TypeChaine, Integer> actionAAcheter) throws RemoteException{
 		getGame().getTableau().achatActions(nomJoueur, actionAAcheter);
-		getGame().getTableau().updateActionnaire(actionAAcheter.keySet());
 		distribution();
 		
 		nextTurn(playerTurn);

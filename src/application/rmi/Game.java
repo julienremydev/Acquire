@@ -51,11 +51,12 @@ public class Game implements Serializable{
 	 * @param listeHotels
 	 * @param nomChaine
 	 */
-	public void creationChaine(ArrayList<Case> listeHotels, TypeChaine nomChaine){
+	public void creationChaine(ArrayList<Case> listeHotels, TypeChaine nomChaine, String pseudo){
 		// Changement des états des hotels pour qu'ils appartiennent à la même chaine
 		for(Case hotelToChaine : listeHotels){
 			getListeChaine().get(nomChaine.getNumero()-2).addCase(getPlateau().getCase(hotelToChaine.getNom()));
 		}
+		getTableau().getClientInfo(pseudo).getActionParChaine().put(nomChaine, 1+ getTableau().getClientInfo(pseudo).getActionParChaine().get(nomChaine));
 	}
 	public Plateau getPlateau() {
 		return this.plateau;

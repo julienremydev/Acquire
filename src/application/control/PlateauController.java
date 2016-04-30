@@ -79,7 +79,7 @@ public class PlateauController implements Initializable {
 
 				index += 1 ;
 				int indexLocal = index;
-				Button buttonAction = new Button(key.toString().substring(0, 1)+"\n"+TypeChaine.prixAction(key, Globals.nbActionTotal-game.getListeChaine().get(key.getNumero()-2).getNbActionRestante()));
+				Button buttonAction = new Button(key.toString().substring(0, 1)+"\n"+TypeChaine.prixAction(key, game.getListeChaine().get(key.getNumero()-2).tailleChaine()));
 				buttonAction.setStyle(key.getCouleurChaine());
 				buttonAction.setPrefWidth(300);
 				buttonAction.setPrefHeight(300);
@@ -107,7 +107,7 @@ public class PlateauController implements Initializable {
 		for (Chaine c : game.getListeChaine()){
 			if (game.getTableau().actionAvailableForPlayer(client.getPseudo(), c.getNomChaine().getNumero())) {
 				int i = j;
-				Button b = new Button(c.getNomChaine().toString().substring(0, 1)+"\n"+TypeChaine.prixAction(c.getNomChaine(), Globals.nbActionTotal-c.getNbActionRestante()));
+				Button b = new Button(c.getNomChaine().toString().substring(0, 1)+"\n"+TypeChaine.prixAction(c.getNomChaine(), game.getListeChaine().get(c.getNomChaine().getNumero()-2).tailleChaine()));
 
 				b.setStyle(c.getNomChaine().getCouleurChaine());
 				b.setPrefWidth(300);
@@ -129,9 +129,11 @@ public class PlateauController implements Initializable {
 					}
 				});
 				Platform.runLater(() -> gridPaneAction.add(b, i, 0));
+
 			}
-			j++;
+
 		}
+
 
 
 

@@ -113,8 +113,7 @@ public class ClientInfo implements Serializable{
 		case "M" :
 			return action+(Globals.getResultat(TypeChaine.primeActionnairePrincipal(c, nombreHotel)/nbJoueursAction));
 		case "M+" :
-			int ret = action+(Globals.getResultat(TypeChaine.primeActionnairePrincipal(c, nombreHotel)+TypeChaine.primeActionnaireSecondaire(c, nombreHotel)+TypeChaine.prixAction(c, nombreHotel)));
-			return action+(Globals.getResultat(TypeChaine.primeActionnairePrincipal(c, nombreHotel)+TypeChaine.primeActionnaireSecondaire(c, nombreHotel)+TypeChaine.prixAction(c, nombreHotel)));
+			return action+(Globals.getResultat(TypeChaine.primeActionnairePrincipal(c, nombreHotel)+TypeChaine.primeActionnaireSecondaire(c, nombreHotel)));
 		default :
 			return -1;
 		} 

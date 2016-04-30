@@ -111,7 +111,6 @@ public class Serveur extends UnicastRemoteObject implements ServeurInterface {
 			}else{
 				nextTurnAction();
 			}
-			this.game.getTableau().updateActionnaire();
 			distribution();
 		}
 	}
@@ -295,6 +294,7 @@ public class Serveur extends UnicastRemoteObject implements ServeurInterface {
 	 */
 	@Override
 	public void distribution() throws RemoteException {
+		this.game.getTableau().updateActionnaire();
 
 		// MODIFICATION DU GAME ICI
 		// APPEL DE LA FONCTION

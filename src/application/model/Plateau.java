@@ -9,7 +9,14 @@ import java.util.HashSet;
 import java.util.Random;
 import java.util.Set;
 
+import application.globale.Globals;
+
 public class Plateau implements Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -2050984407135436647L;
 
 	private HashMap<String, Case> plateauMap;
 
@@ -178,24 +185,21 @@ public class Plateau implements Serializable {
 		 * Présence d'un ou plusieurs hotêls autour de la case Pas de chaînes
 		 * dans ce cas création d'un object Action de type 0 (hotels)
 		 */
-		if (askColor && !askChain)
-		{
+		if (askColor && !askChain){
 			Set<Case> setCasesAModifier = new HashSet<Case>();
 			//tabCasesAModifier.add(caseModifiee);
 			// on vérifie pour chaque cases si elle n'a pas une autre cases pareille
-			ArrayList tabCasesAModifier = new ArrayList();
+			ArrayList<Case> tabCasesAModifier = new ArrayList<Case> ();
 			tabCasesAModifier= addRecurse(setCasesAModifier,caseModifiee);
 			tabCasesAModifier.add(caseModifiee);
-			Action action = new Action(tabCasesAModifier,0);
+			return new Action(tabCasesAModifier, Globals.choixActionCreationChaine);
 			//Vérifier s'il y a des cases autour des cases autour ...
-			return action;
 		}
 		/**
 		 * Présence d'une ou plusieures chaînes autour de la case Pas d'hôtels
 		 * dans ce cas
 		 */
-		if (askChain && !askColor) // juste une ou plusieurs chaines, pas d'hotel
-		{
+		if (askChain && !askColor){ // juste une ou plusieurs chaines, pas d'hotel
 			// tableau des cases non null donc dans ce cas des cases avec chaines.
 			ArrayList<Case> tab = caseModifiee.tabAdjascent();
 			/**
@@ -213,8 +217,7 @@ public class Plateau implements Serializable {
 			 * Tableau taille de >2, donc plusieures cases avec une chaine
 			 */
 
-			if (tab.size() >= 2)
-			{
+			if (tab.size() >= 2){
 				int nbCases = tab.size();
 				boolean sameColor = caseModifiee.sameColorsArround(tab, nbCases);				
 				/**
@@ -225,25 +228,24 @@ public class Plateau implements Serializable {
 				if (sameColor)
 					listeChaine.get(tab.get(0).getEtat()-2).addCase(caseModifiee);
 				// Couleur différents
-				else
-				{
+				else{
 					// On vérifie la taille des chianes pour savoir si elle sont différentes. 
 					ArrayList<Chaine> chaineDifferente = listeChaineDifferentes(tab, listeChaine);
 					Chaine grandeChaine = sameSizeChaine(chaineDifferente);
 					// il n'y a pas de chaine plus grande qu'une autre
-					if(grandeChaine == null)
-					{
+					if(grandeChaine == null){
 						// faire une action car il faut demander quelle chaine l'utilisateur veut choisir
-						Action action = new Action(1,chaineDifferente);
+						return new Action(Globals.choixActionFusionSameSizeChaine,chaineDifferente);
 					}
-					else
-					{
+					else{
 						chaineDifferente.remove(grandeChaine);
 						for(Chaine c : chaineDifferente)
 						{
 							listeChaine.get(grandeChaine.getTypeChaine().getNumero()-2).modifChain(c);
 						}
 						listeChaine.get(grandeChaine.getTypeChaine().getNumero()-2).addCase(caseModifiee);
+						return new Action(Globals.choixActionFusionEchangeAchatVente,chaineDifferente);
+						//TODO a mettre dans action la liste des chaines absorbees + un nouvel attribut la chaine absorbante
 					}
 
 
@@ -271,6 +273,7 @@ public class Plateau implements Serializable {
 
 
 	}
+	
 	/**
 	 * Methode récursive qui ajout les cases hotels adjascentes au hotels dans la liste
 	 * La liste de retour contiendra donc toutes les cases hotels adjascentes uniques
@@ -298,7 +301,7 @@ public class Plateau implements Serializable {
 				}
 			}
 		}
-		ArrayList casesDone1 = new ArrayList(listRecurse) ;
+		ArrayList<Case> casesDone1 = new ArrayList<Case> (listRecurse) ;
 
 		return casesDone1;
 

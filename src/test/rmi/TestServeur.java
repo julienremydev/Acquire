@@ -38,7 +38,7 @@ public class TestServeur {
 		 */
 		assertEquals(serveur.erreurRegister("toto1", false), null);
 		serveur.getListe_clients().put("toto1", new Client());
-		serveur.setChef("toto1");
+		serveur.getGame().setChef("toto1");
 		assertEquals(serveur.erreurRegister("toto1", false), Globals.erreurPseudoUtilise);
 
 		assertEquals(serveur.erreurRegister("toto2", false), null);
@@ -88,13 +88,13 @@ public class TestServeur {
 		assertEquals(serveur.erreurRegister("toto1", false), null);
 		serveur.getListe_clients().put("toto1", new Client());
 		serveur.getGame().getTableau().ajouterClient(new ClientInfo("toto1"));
-		serveur.setChef("toto1");
+		serveur.getGame().setChef("toto1");
 
 		assertEquals(serveur.erreurRegister("toto2", false), null);
 		serveur.getListe_clients().put("toto2", new Client());
 		serveur.getGame().getTableau().ajouterClient(new ClientInfo("toto2")); 
 
-		serveur.setPartiecommencee(true);
+		serveur.getGame().setPartiecommencee(true);
 
 		assertEquals(serveur.erreurRegister("toto3", false), Globals.erreurForbiddenPlayer);
 		assertEquals(serveur.erreurRegister("toto1", false), Globals.erreurPseudoUtilise);
@@ -110,7 +110,7 @@ public class TestServeur {
 	}
 
 	@Test
-	public void testSetTurn(){
+	public void testSetTurn() throws RemoteException{
 		ArrayList<String> hmTest = new ArrayList<>();
 		hmTest.add("Yodaii");
 		hmTest.add("Neo");
@@ -122,7 +122,7 @@ public class TestServeur {
 		hmATrie.put("Neo", "C6");
 
 		serveur.setTurn(hmATrie);
-		assertEquals(hmTest, serveur.getOrdre_joueur());
+		assertEquals(hmTest, serveur.getGame().getOrdre_joueur());
 	}
 
 	@Test

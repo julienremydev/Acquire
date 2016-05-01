@@ -1,10 +1,11 @@
 package application.control;
 
+import java.io.File;
 import java.net.URL;
 import java.rmi.RemoteException;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.ResourceBundle;
 
 import application.globale.Globals;
@@ -20,15 +21,20 @@ import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Text;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 
 public class PlateauController implements Initializable {
 
@@ -37,20 +43,52 @@ public class PlateauController implements Initializable {
 	 */
 	private Client client;
 
-	private HashMap<TypeChaine, Integer> liste_actions = new HashMap<TypeChaine, Integer> ();
+	private HashMap<TypeChaine, Integer> liste_actions = new HashMap<TypeChaine, Integer>();
 	/**
 	 * element plateau
 	 */
 	@FXML
+	private Button saveGame;
+	@FXML
+	private Label notificationTour;
+	@FXML
 	private GridPane grid;
 	@FXML
 	private GridPane gridPaneAction;
+	@FXML
+	private GridPane gridKEEP;
+	@FXML
+	private Label labelKEEP;
+	@FXML
+	private Button maxKEEP;
+	@FXML
+	private GridPane gridTRADE;
+	@FXML
+	private Label labelTRADE;
+	@FXML
+	private Button maxTRADE;
+	@FXML
+	private Button moreTRADE;
+	@FXML
+	private Button lessTRADE;
+	@FXML
+	private GridPane gridSELL;
+	@FXML
+	private Label labelSELL;
+	@FXML
+	private Button maxSELL;
+	@FXML
+	private Button moreSELL;
+	@FXML
+	private Button lessSELL;
 	@FXML
 	private TextArea tchat;
 	@FXML
 	private TextField input;
 	@FXML
 	private Button letsplay;
+	@FXML
+	private Button buttonOK;
 	@FXML
 	private TableView<ClientInfo> tableauDeBord;
 
@@ -59,7 +97,10 @@ public class PlateauController implements Initializable {
 	 */
 	ObservableList<ClientInfo> dataTableView;
 
-	private int totalesActionsJoueurs (){
+	/*
+	 * Méthode qui calcul le nombre d'actions que le joueur a choisi
+	 */
+	private int totalesActionsJoueurs() {
 		int tot = 0;
 		Collection<TypeChaine> keys = liste_actions.keySet();
 		for (TypeChaine key : keys) {
@@ -67,33 +108,74 @@ public class PlateauController implements Initializable {
 		}
 		return tot;
 	}
+
 	/*
-	 * Méthode appelée par le Serveur à la fin du tour d'un joueur
-	 * Permet au client d'acheter des actions
+	 * Fusion de chaîne -> le joueur doit choisir les actions qu'il souhaite acheter/vendre/échanger
+	 */
+	public void setChoixFusionEchangeAchatVente(Game g) {
+		Platform.runLater(new Runnable() {
+			public void run() {
+				gridPaneAction.getChildren().clear();
+				gridPaneAction.add(gridKEEP,0,0,2,2);
+				gridPaneAction.add(gridTRADE,2,0,2,2);
+				gridPaneAction.add(gridKEEP,4,0,2,2);
+			}
+			});
+		
+		
+	}
+	/*
+	 * Méthode appelée par le Serveur 
+	 * quand le joueur a cliqué sur une Case adjacente à plusieurs chaînes de mêmes tailles
+	 * -> Le joueur doit choisir la chaîne absorbante.
+	 */
+	public void setChoixFusionSameSizeChaine(Game g) {
+		Platform.runLater(() -> gridPaneAction.getChildren().clear());
+		int j = 0;
+		for (Chaine c : g.getAction().getListeDeChaineAProposer()) {
+
+			int i = j;
+			Button b = setStyleButton (c.getNomChaine(), c.getNomChaine().toString().substring(0, 1));
+
+			b.setOnAction((event) -> {
+				try {
+					client.sendChoixCouleurFusionSameChaine ();
+					gridPaneAction.getChildren().clear();
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			});
+			Platform.runLater(() -> gridPaneAction.add(b, i, 0));
+			j++;
+		}
+		
+	}
+
+	/*
+	 * Méthode appelée par le Serveur à la fin du tour d'un joueur Permet au
+	 * client d'acheter des actions
 	 */
 	public void setChoixAchatAction(Game game) {
-		//MAJ BOUTONS ACTIONS CHOISIES
+		// MAJ BOUTONS ACTIONS CHOISIES
 		Platform.runLater(() -> gridPaneAction.getChildren().clear());
 
 		Collection<TypeChaine> keys = liste_actions.keySet();
 		int index = 0;
 		for (TypeChaine key : keys) {
-			for ( int i = 0 ; i< liste_actions.get(key) ; i++ ){
+			for (int i = 0; i < liste_actions.get(key); i++) {
 
-				index += 1 ;
+				index += 1;
 				int indexLocal = index;
-				Button buttonAction = new Button(key.toString().substring(0, 1)+"\n"+TypeChaine.prixAction(key, game.getListeChaine().get(key.getNumero()-2).tailleChaine()));
-				buttonAction.setStyle(key.getCouleurChaine());
-				buttonAction.setPrefWidth(300);
-				buttonAction.setPrefHeight(300);
-
+				Button buttonAction = setStyleButton (key, key.toString().substring(0, 1) + "\n"
+						+ TypeChaine.prixAction(key, game.getListeChaine().get(key.getNumero() - 2).tailleChaine()));
 				buttonAction.setOnAction((e) -> {
 					try {
-						//buttonAction.setOpacity(0);
+						// buttonAction.setOpacity(0);
 						int nbactions = liste_actions.get(key);
-						if ( nbactions > 1 ){
+						if (nbactions > 1) {
 							liste_actions.put(key, liste_actions.get(key) - 1);
-						}else{
+						} else {
 							liste_actions.remove(key);
 						}
 						setChoixAchatAction(game);
@@ -102,25 +184,22 @@ public class PlateauController implements Initializable {
 						exc.printStackTrace();
 					}
 				});
-				Platform.runLater(() -> gridPaneAction.add(buttonAction, indexLocal -1, 1));
+				Platform.runLater(() -> gridPaneAction.add(buttonAction, indexLocal - 1, 1));
 			}
 		}
-		//MAJ BOUTONS ACTIONS DISPOS
+		// MAJ BOUTONS ACTIONS DISPOS
 		int j = 0;
-		for (Chaine c : game.getListeChaine()){
+		for (Chaine c : game.getListeChaine()) {
 			if (game.getTableau().actionAvailableForPlayer(client.getPseudo(), c.getNomChaine().getNumero())) {
 				int i = j;
-				Button b = new Button(c.getNomChaine().toString().substring(0, 1)+"\n"+TypeChaine.prixAction(c.getNomChaine(), game.getListeChaine().get(c.getNomChaine().getNumero()-2).tailleChaine()));
-
-				b.setStyle(c.getNomChaine().getCouleurChaine());
-				b.setPrefWidth(300);
-				b.setPrefHeight(300);
+				Button b = setStyleButton ( c.getNomChaine(), c.getNomChaine().toString().substring(0, 1) + "\n" + TypeChaine.prixAction(
+						c.getNomChaine(), game.getListeChaine().get(c.getNomChaine().getNumero() - 2).tailleChaine()));
 
 				b.setOnAction((event) -> {
 					try {
-						if ( totalesActionsJoueurs() < 3 ){
-							if ( liste_actions.containsKey(c.getNomChaine()))
-								liste_actions.put(c.getNomChaine(), 1 + liste_actions.get(c.getNomChaine()) );
+						if (totalesActionsJoueurs() < 3) {
+							if (liste_actions.containsKey(c.getNomChaine()))
+								liste_actions.put(c.getNomChaine(), 1 + liste_actions.get(c.getNomChaine()));
 							else
 								liste_actions.put(c.getNomChaine(), 1);
 
@@ -138,15 +217,10 @@ public class PlateauController implements Initializable {
 
 		}
 
-
-
-
-		Button buyIT =new Button("Acheter");
-		buyIT.setPrefWidth(300);
-		buyIT.setPrefHeight(300);
-		buyIT.setOnAction((event) -> {
+		buttonOK.setOpacity(1);
+		buttonOK.setOnAction((event) -> {
 			try {
-				client.buyAction (liste_actions);
+				client.buyAction(liste_actions);
 				liste_actions.clear();
 				gridPaneAction.getChildren().clear();
 			} catch (Exception e) {
@@ -154,31 +228,36 @@ public class PlateauController implements Initializable {
 				e.printStackTrace();
 			}
 		});
-		Platform.runLater(() -> gridPaneAction.add(buyIT, 5, 1));
+		Platform.runLater(() -> gridPaneAction.add(buttonOK, 6, 1));
 	}
 
-
+	private Button setStyleButton ( TypeChaine tc, String text){
+		Button b = new Button();
+		
+		b.getStyleClass().remove(0, 1);
+		b.getStyleClass().add(tc.toString());
+		b.getStyleClass().add("style_commun");
+		b.setText(text);
+		b.setStyle(tc.getCouleurChaine());
+		
+		return b;
+	}
 	/**
 	 * Methode permettant d'afficher les choix possibles pour la creation dune
 	 * chaine
 	 * 
-	 * @param a
 	 * @param g
 	 */
-	public void setChoixCreationChaine(Action a, Game g) {
+	public void setChoixCreationChaine(Game g) {
 		int j = 0;
 		for (Chaine c : g.getListeChaine()) {
 			if (c.chaineDisponible()) {
 				int i = j;
-				Button b = new Button(c.getNomChaine().toString().substring(0, 1));
-
-				// TODO définir le layout des boutons parce que c'est moche
-				b.setStyle(c.getNomChaine().getCouleurChaine());
-				b.setPrefWidth(300);
-				b.setPrefHeight(300);
+				Button b = setStyleButton ( c.getNomChaine(), c.getNomChaine().toString().substring(0,1));
+				
 				b.setOnAction((event) -> {
 					try {
-						client.pickColor(a, c.getNomChaine());
+						client.pickColor(g.getAction(), c.getNomChaine());
 						gridPaneAction.getChildren().clear();
 					} catch (Exception e1) {
 						// TODO Auto-generated catch block
@@ -239,6 +318,8 @@ public class PlateauController implements Initializable {
 	 *            : game
 	 */
 	public void setGame(Game g) {
+
+		
 		setDataTableView(g);
 
 		// recuperation de l'ensemble des cases du plateau (graphique)
@@ -255,7 +336,15 @@ public class PlateauController implements Initializable {
 				Platform.runLater(new Runnable() {
 					public void run() {
 
-						//si le joueur possède la case dans sa main
+						if ( client.getPseudo().equals(g.getPlayerTurn())){
+							notificationTour.setText("A votre tour de jouer");
+							notificationTour.setTextFill(Color.GREEN);
+						}else{
+							notificationTour.setText("Au tour de " + g.getPlayerTurn());
+							notificationTour.setTextFill(Color.DARKGREY);
+						}
+						
+						// si le joueur possède la case dans sa main
 						if (g.getTableau().getInfoParClient().get(client.getPseudo()).getMain().contains(b.getText())) {
 							b.setStyle(Globals.colorCasePlayer);
 							b.setDisable(false);
@@ -272,7 +361,7 @@ public class PlateauController implements Initializable {
 								b.setStyle(Globals.colorCaseHotel);
 								b.setTextFill(Color.WHITE);
 							} else {
-								b.setStyle(g.getListeChaine().get(c.getEtat()-2).getNomChaine().getCouleurChaine());
+								b.setStyle(g.getListeChaine().get(c.getEtat() - 2).getNomChaine().getCouleurChaine());
 							}
 						}
 
@@ -296,17 +385,27 @@ public class PlateauController implements Initializable {
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		tchat.setEditable(false);
-		letsplay.setOpacity(0);
-		letsplay.setDisable(true);
+		Platform.runLater(() -> gridPaneAction.getChildren().clear());
 		dataTableView = FXCollections.observableArrayList();
+		saveGame.setOnAction(new EventHandler<ActionEvent>() {
+			public void handle(ActionEvent e) {
+				try {
+					client.sauvegardePartie();
+				} catch (RemoteException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			}
+		});
 	}
 
 	public void setBEnable(boolean b) {
-		letsplay.setOpacity(1);
+		Platform.runLater(() -> gridPaneAction.add(letsplay, 2, 1,3,1));
 		letsplay.setDisable(!b);
 	}
+
 	/*
-	 * Mise a jour du tableau 
+	 * Mise a jour du tableau
 	 */
 	private void setDataTableView(Game g) {
 		dataTableView.clear();
@@ -343,5 +442,17 @@ public class PlateauController implements Initializable {
 	public void setOn() {
 		grid.setMouseTransparent(false);
 	}
+
+	
+	/*
+	 * 
+	 * Enregistrement du GAME au format JSON sur la machine du client
+	 */
+	public void saveTheGame(Game game) {
+		if ( game == null )
+			System.out.println("la partie n'a pas commencé");
+		
+	}
+
 
 }

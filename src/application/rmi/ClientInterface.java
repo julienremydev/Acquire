@@ -18,11 +18,13 @@ public interface ClientInterface extends Remote{
 
 	void setBEnable(boolean b) throws RemoteException;
 	
-	void receiveAction(Action a, Game g) throws RemoteException;
+	void receiveAction(Game g) throws RemoteException;
 
 	void turn() throws RemoteException;
 
 	void receiveBuyAction(Game game) throws RemoteException;
+
+	void receiveGameForSave(Game game) throws RemoteException;
 	
 	
 }

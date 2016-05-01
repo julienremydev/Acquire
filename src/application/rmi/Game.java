@@ -1,8 +1,11 @@
 package application.rmi;
 
 import java.io.Serializable;
+import java.rmi.RemoteException;
 import java.util.ArrayList;
+import java.util.HashMap;
 
+import application.model.Action;
 import application.model.Case;
 import application.model.Chaine;
 import application.model.Plateau;
@@ -16,6 +19,22 @@ public class Game implements Serializable{
 	private Plateau plateau;
 	
 	private TableauDeBord tableauDeBord;
+	
+	private String playerTurn;
+	
+	private Action action;
+	
+	private ArrayList<String> ordre_joueur;
+	
+	private ArrayList<String> ordre_joueur_action;
+	
+	private StringBuffer tchat;
+	
+	private String chef;
+
+	private boolean partiecommencee;
+
+	private boolean partiechargee;
 
 	/**
 	 * Constructeur permettant l'initialisation de la liste de chaîne accessible par plateau et tableauDeBord
@@ -34,6 +53,12 @@ public class Game implements Serializable{
 		
 		this.plateau=new Plateau();
 		this.tableauDeBord = new TableauDeBord();
+		setOrdre_joueur(new ArrayList<String>());
+		setOrdre_joueur_action(new ArrayList<String>());
+		setTchat(new StringBuffer("[Serveur] Serveur lancé.\n"));
+		setPartiecommencee(false);
+		setPartiechargee(false);
+		
 		
 		getListeChaine().add(sackson);
 		getListeChaine().add(zeta);
@@ -44,6 +69,40 @@ public class Game implements Serializable{
 		getListeChaine().add(quantum);
 		
 		
+	}
+	
+	/**
+	 * Methode de calcul du prochain tour
+	 * @throws RemoteException 
+	 */
+	//TODO TESTS
+	String whoseTurn (String pseudo) throws RemoteException {
+		int currentIndice = getOrdre_joueur().indexOf(pseudo);
+		if (getOrdre_joueur().size()==currentIndice+1) 
+			return getOrdre_joueur().get(0);
+		else
+			return getOrdre_joueur().get(currentIndice+1);
+	}
+	
+	
+	/**
+	 * Méthode qui détermine l'ordre des joueurs qui doivent réaliser un choix 
+	 * sur les actions qu'il détiennent d'une chaîne absorbée
+	 * @throws RemoteException 
+	 */
+	//TODO TESTS
+	void setOrdreFusion() throws RemoteException{
+		getOrdre_joueur_action().add(getPlayerTurn());
+		String player = whoseTurn(getPlayerTurn());
+		HashMap<TypeChaine,Integer> liste_actions_player = new HashMap<TypeChaine,Integer> ();
+		for ( int i = 0 ; i < getOrdre_joueur().size() -1 ; i++){
+			liste_actions_player = getTableau().getInfoParClient().get(player).getActionParChaine();
+			if ( liste_actions_player.get(getAction().getListeChainesAbsorbees().get(0).getNomChaine()) > 0){
+				getOrdre_joueur_action().add(player);
+			}
+			player = whoseTurn(player);
+		}
+		getAction().getListeChainesAbsorbees().remove(0);
 	}
 	
 	/**
@@ -68,6 +127,69 @@ public class Game implements Serializable{
 	
 	public ArrayList<Chaine> getListeChaine(){
 		return tableauDeBord.getListeChaine();
+	}
+
+	public String getPlayerTurn() {
+		return playerTurn;
+	}
+
+	public void setPlayerTurn(String playerTurn) {
+		this.playerTurn = playerTurn;
+	}
+
+	public Action getAction() {
+		return action;
+	}
+
+	public void setAction(Action action) {
+		this.action = action;
+	}
+	public ArrayList<String> getOrdre_joueur() {
+		return ordre_joueur;
+	}
+
+	public void setOrdre_joueur(ArrayList<String> ordre_joueur) {
+		this.ordre_joueur = ordre_joueur;
+	}
+
+	public ArrayList<String> getOrdre_joueur_action() {
+		return ordre_joueur_action;
+	}
+
+	public void setOrdre_joueur_action(ArrayList<String> ordre_joueur_action) {
+		this.ordre_joueur_action = ordre_joueur_action;
+	}
+
+	public StringBuffer getTchat() {
+		return tchat;
+	}
+
+	public void setTchat(StringBuffer tchat) {
+		this.tchat = tchat;
+	}
+
+	public boolean isPartiechargee() {
+		return partiechargee;
+	}
+
+	public void setPartiechargee(boolean partiechargee) {
+		this.partiechargee = partiechargee;
+	}
+
+	public boolean isPartiecommencee() {
+		return partiecommencee;
+	}
+
+	public void setPartiecommencee(boolean partiecommencee) {
+		this.partiecommencee = partiecommencee;
+	}
+
+	public String getChef() {
+		return chef;
+	}
+
+	public void setChef(String chef) {
+		this.chef = chef;
 	}
 
 }

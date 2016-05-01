@@ -181,7 +181,7 @@ public class TestPlateau {
 		assertFalse(retourne.contains(plateauTest.getPlateauMap().get("A12")));
 	}
 
-	//La methode test si les cases noirs sont generer correctement
+	//La methode teste si les cases noires sont generées correctement
 	@Test
 	public void TestinitialiseMainCaseNoir() {
 		int j = 0;
@@ -218,10 +218,10 @@ public class TestPlateau {
 		assertTrue(j == 1);
 
 	}
-	// Test dans le cas ou les chaines n'on pas de taille différentes
+	// Test dans le cas ou les chaines n'ont pas de taille différentes
 	@Test
 	public void testlisteChaineDifferentesEgales(){
-		// on jour sur la case 8, il faudra donc passer en parametre de la fonction les cases adjascentes non null
+		// on joue sur la case 8, il faudra donc passer en parametre de la fonction les cases adjascentes non null
 		listeChaine.get(0).addCase(plateauTest.getPlateauMap().get("E9"));
 		listeChaine.get(0).addCase(plateauTest.getPlateauMap().get("E10"));
 		
@@ -242,10 +242,10 @@ public class TestPlateau {
 		
 		assertEquals (1,tailleTest);		
 	}
-	// Test dans le cas ou les chaines n'on pas de taille différentes
+	// Test dans le cas ou les chaines n'ont pas de taille différentes
 	@Test
 	public void testlisteChaineDifferentesNonEgales(){
-		// on jour sur la case 8, il faudra donc passer en parametre de la fonction les cases adjascentes non null
+		// on joue sur la case 8, il faudra donc passer en parametre de la fonction les cases adjascentes non null
 		listeChaine.get(0).addCase(plateauTest.getPlateauMap().get("E9"));
 		listeChaine.get(0).addCase(plateauTest.getPlateauMap().get("E10"));
 		

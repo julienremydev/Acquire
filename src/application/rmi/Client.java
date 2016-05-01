@@ -5,6 +5,7 @@ import java.rmi.server.UnicastRemoteObject;
 import java.util.HashMap;
 
 import application.control.PlateauController;
+import application.globale.Globals;
 import application.model.Action;
 import application.model.TypeChaine;
 import application.view.ClientView;
@@ -47,8 +48,13 @@ public class Client extends UnicastRemoteObject implements ClientInterface {
 	 * La méthode receiveAction est appelée par le serveur
 	 * Permet au joueur de connaitre les actions possibles (fusion ou creation chaine)
 	 */
-	public void receiveAction(Action a, Game g) throws RemoteException{
-		plateauController.setChoixCreationChaine(a,g);
+	public void receiveAction(Game g) throws RemoteException{
+		if ( g.getAction().getChoix() == Globals.choixActionCreationChaine )
+			plateauController.setChoixCreationChaine(g);
+		else if ( g.getAction().getChoix() == Globals.choixActionFusionSameSizeChaine )
+			plateauController.setChoixFusionSameSizeChaine(g);
+		else if ( g.getAction().getChoix() == Globals.choixActionFusionEchangeAchatVente )
+			plateauController.setChoixFusionEchangeAchatVente(g);
 	}
 	public void receiveBuyAction(Game game) throws RemoteException {
 		plateauController.setChoixAchatAction(game);
@@ -82,6 +88,10 @@ public class Client extends UnicastRemoteObject implements ClientInterface {
 		this.serveur.achatAction(getPseudo(), actionAAcheter);
 	}
 	
+	public void sendChoixCouleurFusionSameChaine () throws RemoteException{
+		this.serveur.choixCouleurFusion ();
+	}
+	
 	public String getPseudo() {
 		return pseudo;
 	}
@@ -109,5 +119,12 @@ public class Client extends UnicastRemoteObject implements ClientInterface {
 
 	public void nextTurn() throws RemoteException {
 		serveur.nextTurn(pseudo);
+	}
+
+	public void sauvegardePartie() throws RemoteException{
+		serveur.clientSaveGame(getPseudo());
+	}
+	public void receiveGameForSave(Game game) throws RemoteException{
+		this.plateauController.saveTheGame ( game );
 	}
 }

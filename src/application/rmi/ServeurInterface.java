@@ -28,4 +28,8 @@ public interface ServeurInterface extends Remote{
 	void nextTurn(String pseudo) throws RemoteException;
 
 	void achatAction(String nomJoueur, HashMap<TypeChaine, Integer> actionAAcheter) throws RemoteException;
+
+	void choixCouleurFusion() throws RemoteException;
+
+	void clientSaveGame(String pseudo) throws RemoteException;
 }

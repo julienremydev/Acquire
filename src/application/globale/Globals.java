@@ -45,6 +45,9 @@ public class Globals {
 	public final static int choixActionCreationChaine = 0;
 	public final static int choixActionFusionSameSizeChaine = 1;
 	public final static int choixActionFusionEchangeAchatVente = 2;
+	public final static String hashMapKEEP = "KEEP";
+	public final static String hashMapTRADE = "TRADE";
+	public final static String hashMapSELL = "SELL";
 	
 	
 	/**

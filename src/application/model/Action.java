@@ -7,6 +7,11 @@ import application.globale.Globals;
 
 public class Action implements Serializable{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1987155349689841351L;
+
 	private int choix; // les choix sont dans la classe Globals
 	
 	private int couleur;
@@ -16,6 +21,8 @@ public class Action implements Serializable{
 	private ArrayList<Chaine> listeDeChaineAProposer;
 	
 	private ArrayList<Chaine> listeChainesAbsorbees;
+	
+	private Chaine chaineAbsorbante;
 	
 	public int getChoix() {
 		return choix;
@@ -78,6 +85,14 @@ public class Action implements Serializable{
 
 	public void setListeChainesAbsorbees(ArrayList<Chaine> listeChainesAbsorbees) {
 		this.listeChainesAbsorbees = listeChainesAbsorbees;
+	}
+
+	public Chaine getChaineAbsorbante() {
+		return chaineAbsorbante;
+	}
+
+	public void setChaineAbsorbante(Chaine chaineAbsorbante) {
+		this.chaineAbsorbante = chaineAbsorbante;
 	}
 	
 

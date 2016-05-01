@@ -368,7 +368,7 @@ public class Serveur extends UnicastRemoteObject implements ServeurInterface {
 	 */
 	public void nextTurn(String pseudo)  throws RemoteException {
 		game.setPlayerTurn(getGame().whoseTurn(pseudo));
-		if ( liste_clients.contains(game.getPlayerTurn())){
+		if ( liste_clients.containsKey(game.getPlayerTurn())){
 			liste_clients.get(game.getPlayerTurn()).turn();
 		}
 	}

@@ -7,6 +7,7 @@ import java.rmi.Naming;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.server.UnicastRemoteObject;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Enumeration;
 import java.util.HashMap;
@@ -15,6 +16,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import application.globale.Globals;
+import application.model.Case;
+import application.model.Chaine;
 import application.model.ClientInfo;
 import application.model.TypeChaine;
 
@@ -132,10 +135,10 @@ public class Serveur extends UnicastRemoteObject implements ServeurInterface {
 		distribution();
 	}
 	
-	public void choixCouleurFusion() throws RemoteException {
-		//TODO APPELR METHODE DE FUSION QUI ENVOIE ACTION AVEC CHOIX = 2
-		getGame().getAction().setChoix(2);
-		getGame().getAction().setListeChainesAbsorbees(getGame().getAction().getListeDeChaineAProposer());
+	public void choixCouleurFusion(ArrayList<Chaine> listeChainePlateau, ArrayList<Chaine> listeChaineAModif, Chaine c, Case case1) throws RemoteException {
+		
+		
+		getGame().getPlateau().fusionChaines(listeChainePlateau, listeChaineAModif, c, case1);
 		nextTurnAction();
 		
 		distribution();

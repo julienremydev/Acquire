@@ -225,7 +225,7 @@ public class PlateauController implements Initializable {
 
 			b.setOnAction((event) -> {
 				try {
-					client.sendChoixCouleurFusionSameChaine ();
+					client.sendChoixCouleurFusionSameChaine (g.getAction().getListeDeChainePlateau(),g.getAction().getListeDeChaineAProposer(),c,g.getAction().getCaseModifiee());
 					gridPaneAction.getChildren().clear();
 				} catch (Exception e) {
 					// TODO Auto-generated catch block

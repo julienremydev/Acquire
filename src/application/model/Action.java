@@ -16,6 +16,10 @@ public class Action implements Serializable{
 	
 	private int couleur;
 	
+	private ArrayList<Chaine> listeDeChainePlateau;
+	
+	private Case caseModifiee;
+	
 	private ArrayList<Case> listeDeCaseAModifier;
 	
 	private ArrayList<Chaine> listeDeChaineAProposer;
@@ -40,7 +44,7 @@ public class Action implements Serializable{
 		this.couleur = couleur;
 	}
 	/**
-	 * Constructeur, prend en parametre la liste des cases à modifier ainsi que le type du choix à effectuer
+	 * Action de création de chaine à partir d'une liste d'hotel
 	 * @param listeDeCase
 	 * @param type
 	 */
@@ -50,17 +54,33 @@ public class Action implements Serializable{
 	}
 	
 	/**
-	 * Constructeur, prend en parametre la liste des cases à modifier ainsi que le type du choix à effectuer
-	 * @param listeDeCase
+	 * Action de fusion de chaine, avec une chaine plus grande
 	 * @param type
+	 * @param listeDeChaine
+	 * @param chaineFusion
 	 */
-	public Action(int type,ArrayList<Chaine> listeDeChaine) {
-		this.choix = type;
-		if ( choix == Globals.choixActionFusionEchangeAchatVente)
-			this.setListeChainesAbsorbees(listeDeChaine);
-		else
-			this.setListeDeChaineAProposer(listeDeChaine);
+	public Action(int type,ArrayList<Chaine> listeDeChaine, Chaine chaineFusion) {
 		
+		this.setChoix(type);
+		this.setChaineAbsorbante(chaineFusion);
+		this.setListeChainesAbsorbees(listeDeChaine);
+	
+	}
+	
+	/**
+	 * Action de fusion de chaine avec choix couleur utilisateur
+	 * @param type
+	 * @param listePlateau
+	 * @param listeDeChaineAProposer
+	 * @param caseModif
+	 */
+	public Action (int type,ArrayList<Chaine> listePlateau, ArrayList<Chaine> listeDeChaineAProposer, Case caseModif)
+	{
+		this.setChoix(type);
+		this.setListeDeChainePlateau(listePlateau);
+		this.setListeDeChaineAProposer(listeDeChaineAProposer);
+		this.setCaseModifiee(caseModif);
+				
 	}
 
 	public ArrayList<Case> getListeDeCaseAModifier() {
@@ -94,7 +114,22 @@ public class Action implements Serializable{
 	public void setChaineAbsorbante(Chaine chaineAbsorbante) {
 		this.chaineAbsorbante = chaineAbsorbante;
 	}
-	
+
+	public ArrayList<Chaine> getListeDeChainePlateau() {
+		return listeDeChainePlateau;
+	}
+
+	public void setListeDeChainePlateau(ArrayList<Chaine> listeDeChainePlateau) {
+		this.listeDeChainePlateau = listeDeChainePlateau;
+	}
+
+	public Case getCaseModifiee() {
+		return caseModifiee;
+	}
+
+	public void setCaseModifiee(Case caseModifiee) {
+		this.caseModifiee = caseModifiee;
+	}
 
 
 }

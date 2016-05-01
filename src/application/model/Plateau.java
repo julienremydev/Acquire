@@ -232,20 +232,19 @@ public class Plateau implements Serializable {
 					// On vérifie la taille des chianes pour savoir si elle sont différentes. 
 					ArrayList<Chaine> chaineDifferente = listeChaineDifferentes(tab, listeChaine);
 					Chaine grandeChaine = sameSizeChaine(chaineDifferente);
-					// il n'y a pas de chaine plus grande qu'une autre
+					
 					if(grandeChaine == null){
-						// faire une action car il faut demander quelle chaine l'utilisateur veut choisir
-						return new Action(Globals.choixActionFusionSameSizeChaine,chaineDifferente);
+						// il n'y a pas de chaine plus grande qu'une autre
+						return new Action(Globals.choixActionFusionSameSizeChaine,listeChaine, chaineDifferente,caseModifiee);
 					}
 					else{
-						chaineDifferente.remove(grandeChaine);
-						for(Chaine c : chaineDifferente)
-						{
-							listeChaine.get(grandeChaine.getTypeChaine().getNumero()-2).modifChain(c);
-						}
-						listeChaine.get(grandeChaine.getTypeChaine().getNumero()-2).addCase(caseModifiee);
-						return new Action(Globals.choixActionFusionEchangeAchatVente,chaineDifferente);
-						//TODO a mettre dans action la liste des chaines absorbees + un nouvel attribut la chaine absorbante
+						ArrayList<Chaine> listeChaineDifferenteAvantModif = chaineDifferente;
+						Chaine chaineAbsorbanteAvantFusion = grandeChaine;
+						fusionChaines(listeChaine,chaineDifferente,grandeChaine,caseModifiee);
+						
+						
+						
+						return new Action(Globals.choixActionFusionEchangeAchatVente,listeChaineDifferenteAvantModif,chaineAbsorbanteAvantFusion);
 					}
 
 
@@ -403,6 +402,16 @@ public class Plateau implements Serializable {
 			return tabChaineTailleDiff.get(0);
 
 		}
+	}
+	
+	public void fusionChaines(ArrayList<Chaine> listeChaineTotale,ArrayList<Chaine> listeChaineAbsorbee, Chaine chaineAbsorbante, Case caseAAjouter)
+	{
+		listeChaineAbsorbee.remove(chaineAbsorbante);
+		for(Chaine c : listeChaineAbsorbee)
+		{
+			listeChaineTotale.get(chaineAbsorbante.getTypeChaine().getNumero()-2).modifChain(c);
+		}
+		listeChaineTotale.get(chaineAbsorbante.getTypeChaine().getNumero()-2).addCase(caseAAjouter);
 	}
 
 

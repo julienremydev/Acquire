@@ -2,11 +2,14 @@ package application.rmi;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import application.control.PlateauController;
 import application.globale.Globals;
 import application.model.Action;
+import application.model.Case;
+import application.model.Chaine;
 import application.model.TypeChaine;
 import application.view.ClientView;
 
@@ -88,8 +91,8 @@ public class Client extends UnicastRemoteObject implements ClientInterface {
 		this.serveur.achatAction(getPseudo(), actionAAcheter);
 	}
 	
-	public void sendChoixCouleurFusionSameChaine () throws RemoteException{
-		this.serveur.choixCouleurFusion ();
+	public void sendChoixCouleurFusionSameChaine (ArrayList<Chaine> listeChainePlateau, ArrayList<Chaine> listeChaineAModif, Chaine ChaineAbs, Case case1) throws RemoteException{
+		this.serveur.choixCouleurFusion (listeChainePlateau,listeChaineAModif,ChaineAbs,case1);
 	}
 	
 	public String getPseudo() {

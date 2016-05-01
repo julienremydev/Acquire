@@ -243,7 +243,7 @@ public class Plateau implements Serializable {
 						fusionChaines(listeChaine,chaineDifferente,grandeChaine,caseModifiee);
 						
 						
-						
+						//TODO listeChaineDifferenteAvantModif est null
 						return new Action(Globals.choixActionFusionEchangeAchatVente,listeChaineDifferenteAvantModif,chaineAbsorbanteAvantFusion);
 					}
 

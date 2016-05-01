@@ -130,4 +130,8 @@ public class Client extends UnicastRemoteObject implements ClientInterface {
 	public void receiveGameForSave(Game game) throws RemoteException{
 		this.plateauController.saveTheGame ( game );
 	}
+
+	public void choiceFusionAction(HashMap<String, Integer> actions_fusions) throws RemoteException{
+		serveur.choiceFusionAction(actions_fusions);
+	}
 }

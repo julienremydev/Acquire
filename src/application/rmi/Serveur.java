@@ -16,6 +16,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import application.globale.Globals;
+import application.model.Action;
 import application.model.Case;
 import application.model.Chaine;
 import application.model.ClientInfo;
@@ -135,10 +136,15 @@ public class Serveur extends UnicastRemoteObject implements ServeurInterface {
 		distribution();
 	}
 	
+	public void choiceFusionAction(HashMap<String, Integer> actions_fusions) throws RemoteException{
+		//TODO ACTUALISATION ACTIONS CLIENTS
+		nextTurnAction();
+		
+		distribution();
+	}
 	public void choixCouleurFusion(ArrayList<Chaine> listeChainePlateau, ArrayList<Chaine> listeChaineAModif, Chaine c, Case case1) throws RemoteException {
-		
-		
 		getGame().getPlateau().fusionChaines(listeChainePlateau, listeChaineAModif, c, case1);
+	//TODO new ACTION CHOIX =	choixActionFusionEchangeAchatVente //getGame().setAction(new Action());
 		nextTurnAction();
 		
 		distribution();

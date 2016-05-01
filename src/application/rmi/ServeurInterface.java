@@ -35,4 +35,6 @@ public interface ServeurInterface extends Remote{
 	void choixCouleurFusion(ArrayList<Chaine> arrayList, ArrayList<Chaine> listeChaineAModif, Chaine c, Case case1) throws RemoteException;
 
 	void clientSaveGame(String pseudo) throws RemoteException;
+
+	void choiceFusionAction(HashMap<String, Integer> actions_fusions) throws RemoteException;
 }

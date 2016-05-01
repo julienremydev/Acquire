@@ -56,8 +56,7 @@ public class TestPlateauController {
 	public void test() {
 		ArrayList<Chaine> al = new ArrayList<Chaine> ();
 		al.add(new Chaine(TypeChaine.AMERICA));
-		Action action = new Action(Globals.choixActionFusionEchangeAchatVente, al);
-		action.setChaineAbsorbante(new Chaine(TypeChaine.FUSION));
+		Action action = new Action(Globals.choixActionFusionEchangeAchatVente, al,new Chaine(TypeChaine.FUSION));
 		game.setAction(action);
 		HashMap<String, Integer> actions_fusions_loc = new HashMap<String, Integer>();
 		

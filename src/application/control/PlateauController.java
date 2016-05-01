@@ -44,7 +44,7 @@ public class PlateauController implements Initializable {
 	private Client client;
 
 	private HashMap<TypeChaine, Integer> liste_actions = new HashMap<TypeChaine, Integer>();
-	
+
 	private HashMap<String, Integer> actions_fusions = new HashMap<String, Integer>();
 	/**
 	 * element plateau
@@ -111,96 +111,102 @@ public class PlateauController implements Initializable {
 		return tot;
 	}
 
-	public HashMap<String, Integer> onEventActionFusion (String choix, Game g, String pseudo){
+	public HashMap<String, Integer> onEventActionFusion(String choix, Game g, String pseudo) {
 		HashMap<String, Integer> actions_fusions_loc = new HashMap<String, Integer>();
-		//int actionCAbsorbante = g.getTableau().getClientInfo(client.getPseudo()).getActionParChaine().get(g.getAction().getChaineAbsorbante().getNomChaine());
+		// int actionCAbsorbante =
+		// g.getTableau().getClientInfo(client.getPseudo()).getActionParChaine().get(g.getAction().getChaineAbsorbante().getNomChaine());
 
-		int actionCAbsorbee = g.getTableau().getClientInfo(pseudo).getActionParChaine().get(g.getAction().getListeChainesAbsorbees().get(0).getNomChaine());
-		
-		int actionRestanteCAbsorbante = g.getListeChaine().get(g.getAction().getChaineAbsorbante().getNomChaine().getNumero()-2).getNbActionRestante();
-		if ( choix.equals("maxKEEP")){
+		int actionCAbsorbee = g.getTableau().getClientInfo(pseudo).getActionParChaine()
+				.get(g.getAction().getListeChainesAbsorbees().get(0).getNomChaine());
+
+		int actionRestanteCAbsorbante = g.getListeChaine()
+				.get(g.getAction().getChaineAbsorbante().getNomChaine().getNumero() - 2).getNbActionRestante();
+		if (choix.equals("maxKEEP")) {
 			actions_fusions_loc.put(Globals.hashMapKEEP, actionCAbsorbee);
 			actions_fusions_loc.put(Globals.hashMapTRADE, 0);
 			actions_fusions_loc.put(Globals.hashMapSELL, 0);
-		}else if ( choix.equals("maxTRADE")){
-			if ( actionRestanteCAbsorbante > actionCAbsorbee/2){
-				int modulo = actionCAbsorbee%2;
-				actionCAbsorbee-=modulo;
-				
-				actions_fusions_loc.put(Globals.hashMapTRADE, actionCAbsorbee/2);
-				if ( actions_fusions.get(Globals.hashMapSELL) > actions_fusions.get(Globals.hashMapKEEP)){
+		} else if (choix.equals("maxTRADE")) {
+			if (actionRestanteCAbsorbante > actionCAbsorbee / 2) {
+				int modulo = actionCAbsorbee % 2;
+				actionCAbsorbee -= modulo;
+
+				actions_fusions_loc.put(Globals.hashMapTRADE, actionCAbsorbee / 2);
+				if (actions_fusions.get(Globals.hashMapSELL) > actions_fusions.get(Globals.hashMapKEEP)) {
 					actions_fusions_loc.put(Globals.hashMapSELL, modulo);
 					actions_fusions_loc.put(Globals.hashMapKEEP, 0);
-				}else{
+				} else {
 					actions_fusions_loc.put(Globals.hashMapSELL, 0);
 					actions_fusions_loc.put(Globals.hashMapKEEP, modulo);
 				}
-			}else{
+			} else {
 				actions_fusions_loc.put(Globals.hashMapTRADE, actionRestanteCAbsorbante);
-				actionCAbsorbee-= actionRestanteCAbsorbante*2;
-				
-				if ( actions_fusions.get(Globals.hashMapSELL) > actions_fusions.get(Globals.hashMapSELL)){
+				actionCAbsorbee -= actionRestanteCAbsorbante * 2;
+
+				if (actions_fusions.get(Globals.hashMapSELL) > actions_fusions.get(Globals.hashMapSELL)) {
 					actions_fusions_loc.put(Globals.hashMapSELL, actionCAbsorbee);
 					actions_fusions_loc.put(Globals.hashMapKEEP, 0);
-				}else{
+				} else {
 					actions_fusions_loc.put(Globals.hashMapSELL, 0);
 					actions_fusions_loc.put(Globals.hashMapKEEP, actionCAbsorbee);
 				}
 			}
-		}else if ( choix.equals("moreTRADE")){
-			if ( actions_fusions.get(Globals.hashMapSELL) + actions_fusions.get(Globals.hashMapKEEP) >= 2){
-				if (actionRestanteCAbsorbante>=actions_fusions.get(Globals.hashMapSELL)+1){
-					if (actions_fusions.get(Globals.hashMapKEEP) >=2){
-						actions_fusions_loc.put(Globals.hashMapTRADE, actions_fusions.get(Globals.hashMapTRADE)+1);
-						actions_fusions_loc.put(Globals.hashMapKEEP,actions_fusions.get(Globals.hashMapKEEP)-2);
-						actions_fusions_loc.put(Globals.hashMapSELL,actions_fusions.get(Globals.hashMapSELL));
-					}else if (actions_fusions.get(Globals.hashMapKEEP) == 1 ){
-						actions_fusions_loc.put(Globals.hashMapTRADE, actions_fusions.get(Globals.hashMapSELL)+1);
-						actions_fusions_loc.put(Globals.hashMapKEEP,actions_fusions.get(Globals.hashMapKEEP)-1);
-						actions_fusions_loc.put(Globals.hashMapSELL,actions_fusions.get(Globals.hashMapSELL)-1);
-					}else{
-						actions_fusions_loc.put(Globals.hashMapTRADE, actions_fusions.get(Globals.hashMapTRADE)+1);
-						actions_fusions_loc.put(Globals.hashMapSELL,actions_fusions.get(Globals.hashMapSELL)-2);
-						actions_fusions_loc.put(Globals.hashMapKEEP,actions_fusions.get(Globals.hashMapKEEP));
+		} else if (choix.equals("moreTRADE")) {
+			if (actions_fusions.get(Globals.hashMapSELL) + actions_fusions.get(Globals.hashMapKEEP) >= 2) {
+				if (actionRestanteCAbsorbante >= actions_fusions.get(Globals.hashMapSELL) + 1) {
+					if (actions_fusions.get(Globals.hashMapKEEP) >= 2) {
+						actions_fusions_loc.put(Globals.hashMapTRADE, actions_fusions.get(Globals.hashMapTRADE) + 1);
+						actions_fusions_loc.put(Globals.hashMapKEEP, actions_fusions.get(Globals.hashMapKEEP) - 2);
+						actions_fusions_loc.put(Globals.hashMapSELL, actions_fusions.get(Globals.hashMapSELL));
+					} else if (actions_fusions.get(Globals.hashMapKEEP) == 1) {
+						actions_fusions_loc.put(Globals.hashMapTRADE, actions_fusions.get(Globals.hashMapSELL) + 1);
+						actions_fusions_loc.put(Globals.hashMapKEEP, actions_fusions.get(Globals.hashMapKEEP) - 1);
+						actions_fusions_loc.put(Globals.hashMapSELL, actions_fusions.get(Globals.hashMapSELL) - 1);
+					} else {
+						actions_fusions_loc.put(Globals.hashMapTRADE, actions_fusions.get(Globals.hashMapTRADE) + 1);
+						actions_fusions_loc.put(Globals.hashMapSELL, actions_fusions.get(Globals.hashMapSELL) - 2);
+						actions_fusions_loc.put(Globals.hashMapKEEP, actions_fusions.get(Globals.hashMapKEEP));
 					}
-				}else{
+				} else {
 					return actions_fusions;
 				}
-			}else{
+			} else {
 				return actions_fusions;
 			}
-		}else if ( choix.equals("lessTRADE")){
-			
-		}else if ( choix.equals("maxSELL")){
-			
-		}else if ( choix.equals("moreSELL")){
-			
-		}else if ( choix.equals("lessSELL")){
-			
+		} else if (choix.equals("lessTRADE")) {
+
+		} else if (choix.equals("maxSELL")) {
+
+		} else if (choix.equals("moreSELL")) {
+
+		} else if (choix.equals("lessSELL")) {
+
 		}
 		return actions_fusions_loc;
 	}
-	
-	public void initializeMapAction (Game g, String pseudo){
-		actions_fusions.put(Globals.hashMapKEEP, g.getTableau().getClientInfo(pseudo).getActionParChaine().get(g.getAction().getListeChainesAbsorbees().get(0).getNomChaine()));
+
+	public void initializeMapAction(Game g, String pseudo) {
+		actions_fusions.put(Globals.hashMapKEEP, g.getTableau().getClientInfo(pseudo).getActionParChaine()
+				.get(g.getAction().getListeChainesAbsorbees().get(0).getNomChaine()));
 		actions_fusions.put(Globals.hashMapTRADE, 0);
 		actions_fusions.put(Globals.hashMapSELL, 0);
 
 	}
+
 	/*
-	 * Fusion de chaîne -> le joueur doit choisir les actions qu'il souhaite acheter/vendre/échanger
+	 * Fusion de chaîne -> le joueur doit choisir les actions qu'il souhaite
+	 * acheter/vendre/échanger
 	 */
 	public void setChoixFusionEchangeAchatVente(Game g) {
-		initializeMapAction (g,client.getPseudo());
+		initializeMapAction(g, client.getPseudo());
 		Platform.runLater(new Runnable() {
 			public void run() {
 				gridPaneAction.getChildren().clear();
-				gridPaneAction.add(gridKEEP,0,0,2,2);
-				gridPaneAction.add(gridTRADE,2,0,2,2);
-				gridPaneAction.add(gridSELL,4,0,2,2);
+				gridPaneAction.add(gridKEEP, 0, 0, 2, 2);
+				gridPaneAction.add(gridTRADE, 2, 0, 2, 2);
+				gridPaneAction.add(gridSELL, 4, 0, 2, 2);
 				maxKEEP.setOnAction(new EventHandler<ActionEvent>() {
 					public void handle(ActionEvent e) {
-						actions_fusions =  onEventActionFusion ("maxKEEP", g, client.getPseudo());
+						actions_fusions = onEventActionFusion("maxKEEP", g, client.getPseudo());
 						labelKEEP.setText(actions_fusions.get(Globals.hashMapKEEP).toString());
 						labelTRADE.setText(actions_fusions.get(Globals.hashMapTRADE).toString());
 						labelSELL.setText(actions_fusions.get(Globals.hashMapSELL).toString());
@@ -208,21 +214,34 @@ public class PlateauController implements Initializable {
 				});
 				moreTRADE.setOnAction(new EventHandler<ActionEvent>() {
 					public void handle(ActionEvent e) {
-						actions_fusions =  onEventActionFusion ("moreTRADE", g, client.getPseudo());
+						actions_fusions = onEventActionFusion("moreTRADE", g, client.getPseudo());
 						labelKEEP.setText(actions_fusions.get(Globals.hashMapKEEP).toString());
 						labelTRADE.setText(actions_fusions.get(Globals.hashMapTRADE).toString());
 						labelSELL.setText(actions_fusions.get(Globals.hashMapSELL).toString());
 					}
 				});
+
+				buttonOK.setOpacity(1);
+				buttonOK.setOnAction((event) -> {
+					try {
+						client.choiceFusionAction(actions_fusions);
+						actions_fusions.clear();
+						gridPaneAction.getChildren().clear();
+					} catch (Exception e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				});
+				gridPaneAction.add(buttonOK, 6, 1);
 			}
-			});
-		
-		
+		});
+
 	}
+
 	/*
-	 * Méthode appelée par le Serveur 
-	 * quand le joueur a cliqué sur une Case adjacente à plusieurs chaînes de mêmes tailles
-	 * -> Le joueur doit choisir la chaîne absorbante.
+	 * Méthode appelée par le Serveur quand le joueur a cliqué sur une Case
+	 * adjacente à plusieurs chaînes de mêmes tailles -> Le joueur doit choisir
+	 * la chaîne absorbante.
 	 */
 	public void setChoixFusionSameSizeChaine(Game g) {
 		Platform.runLater(() -> gridPaneAction.getChildren().clear());
@@ -230,11 +249,12 @@ public class PlateauController implements Initializable {
 		for (Chaine c : g.getAction().getListeDeChaineAProposer()) {
 
 			int i = j;
-			Button b = setStyleButton (c.getNomChaine(), c.getNomChaine().toString().substring(0, 1));
+			Button b = setStyleButton(c.getNomChaine(), c.getNomChaine().toString().substring(0, 1));
 
 			b.setOnAction((event) -> {
 				try {
-					client.sendChoixCouleurFusionSameChaine (g.getAction().getListeDeChainePlateau(),g.getAction().getListeDeChaineAProposer(),c,g.getAction().getCaseModifiee());
+					client.sendChoixCouleurFusionSameChaine(g.getAction().getListeDeChainePlateau(),
+							g.getAction().getListeDeChaineAProposer(), c, g.getAction().getCaseModifiee());
 					gridPaneAction.getChildren().clear();
 				} catch (Exception e) {
 					// TODO Auto-generated catch block
@@ -244,7 +264,7 @@ public class PlateauController implements Initializable {
 			Platform.runLater(() -> gridPaneAction.add(b, i, 0));
 			j++;
 		}
-		
+
 	}
 
 	/*
@@ -262,7 +282,7 @@ public class PlateauController implements Initializable {
 
 				index += 1;
 				int indexLocal = index;
-				Button buttonAction = setStyleButton (key, key.toString().substring(0, 1) + "\n"
+				Button buttonAction = setStyleButton(key, key.toString().substring(0, 1) + "\n"
 						+ TypeChaine.prixAction(key, game.getListeChaine().get(key.getNumero() - 2).tailleChaine()));
 				buttonAction.setOnAction((e) -> {
 					try {
@@ -287,8 +307,9 @@ public class PlateauController implements Initializable {
 		for (Chaine c : game.getListeChaine()) {
 			if (game.getTableau().actionAvailableForPlayer(client.getPseudo(), c.getNomChaine().getNumero())) {
 				int i = j;
-				Button b = setStyleButton ( c.getNomChaine(), c.getNomChaine().toString().substring(0, 1) + "\n" + TypeChaine.prixAction(
-						c.getNomChaine(), game.getListeChaine().get(c.getNomChaine().getNumero() - 2).tailleChaine()));
+				Button b = setStyleButton(c.getNomChaine(),
+						c.getNomChaine().toString().substring(0, 1) + "\n" + TypeChaine.prixAction(c.getNomChaine(),
+								game.getListeChaine().get(c.getNomChaine().getNumero() - 2).tailleChaine()));
 
 				b.setOnAction((event) -> {
 					try {
@@ -326,17 +347,18 @@ public class PlateauController implements Initializable {
 		Platform.runLater(() -> gridPaneAction.add(buttonOK, 6, 1));
 	}
 
-	private Button setStyleButton ( TypeChaine tc, String text){
+	private Button setStyleButton(TypeChaine tc, String text) {
 		Button b = new Button();
-		
+
 		b.getStyleClass().remove(0, 1);
 		b.getStyleClass().add(tc.toString());
 		b.getStyleClass().add("style_commun");
 		b.setText(text);
 		b.setStyle(tc.getCouleurChaine());
-		
+
 		return b;
 	}
+
 	/**
 	 * Methode permettant d'afficher les choix possibles pour la creation dune
 	 * chaine
@@ -348,8 +370,8 @@ public class PlateauController implements Initializable {
 		for (Chaine c : g.getListeChaine()) {
 			if (c.chaineDisponible()) {
 				int i = j;
-				Button b = setStyleButton ( c.getNomChaine(), c.getNomChaine().toString().substring(0,1));
-				
+				Button b = setStyleButton(c.getNomChaine(), c.getNomChaine().toString().substring(0, 1));
+
 				b.setOnAction((event) -> {
 					try {
 						client.pickColor(g.getAction(), c.getNomChaine());
@@ -414,7 +436,6 @@ public class PlateauController implements Initializable {
 	 */
 	public void setGame(Game g) {
 
-		
 		setDataTableView(g);
 
 		// recuperation de l'ensemble des cases du plateau (graphique)
@@ -431,14 +452,14 @@ public class PlateauController implements Initializable {
 				Platform.runLater(new Runnable() {
 					public void run() {
 
-						if ( client.getPseudo().equals(g.getPlayerTurn())){
+						if (client.getPseudo().equals(g.getPlayerTurn())) {
 							notificationTour.setText("A votre tour de jouer");
 							notificationTour.setTextFill(Color.GREEN);
-						}else{
+						} else {
 							notificationTour.setText("Au tour de " + g.getPlayerTurn());
 							notificationTour.setTextFill(Color.DARKGREY);
 						}
-						
+
 						// si le joueur possède la case dans sa main
 						if (g.getTableau().getInfoParClient().get(client.getPseudo()).getMain().contains(b.getText())) {
 							b.setStyle(Globals.colorCasePlayer);
@@ -495,11 +516,11 @@ public class PlateauController implements Initializable {
 	}
 
 	public void setBEnable(boolean b) {
-		if ( b )
-			Platform.runLater(() -> gridPaneAction.add(letsplay, 2, 1,3,1));
+		if (b)
+			Platform.runLater(() -> gridPaneAction.add(letsplay, 2, 1, 3, 1));
 		else
 			Platform.runLater(() -> gridPaneAction.getChildren().clear());
-		
+
 		letsplay.setDisable(!b);
 	}
 
@@ -542,16 +563,14 @@ public class PlateauController implements Initializable {
 		grid.setMouseTransparent(false);
 	}
 
-	
 	/*
 	 * 
 	 * Enregistrement du GAME au format JSON sur la machine du client
 	 */
 	public void saveTheGame(Game game) {
-		if ( game == null )
+		if (game == null)
 			System.out.println("la partie n'a pas commencé");
-		
-	}
 
+	}
 
 }

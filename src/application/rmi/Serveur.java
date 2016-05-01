@@ -222,13 +222,18 @@ public class Serveur extends UnicastRemoteObject implements ServeurInterface {
 			}
 
 			distributionTchat("Serveur", "Le joueur " + p + " est entré dans la partie.");
+			if ( (game.isPartiechargee() || game.isPartiechargee()) && game.getPlayerTurn().equals(p)){
+				liste_clients.get(p).turn();
+				//TODO le client ne peut pas jouer lors de sa reconnexion
+			}
+			
 		}
 
 		Logger.getLogger("Client").log(Level.INFO, "Nouveau client enregistré dans le serveur.");
 		if ( getGame().isPartiechargee() || getGame().isPartiecommencee()){
 			distribution();
 		}
-		if (liste_clients.size() > 1 && !getGame().isPartiechargee() && !getGame().isPartiecommencee())
+		if (liste_clients.size() == Globals.nombre_joueurs_min && !getGame().isPartiechargee() && !getGame().isPartiecommencee())
 			setBEnable(true);
 
 		return null;
@@ -296,9 +301,12 @@ public class Serveur extends UnicastRemoteObject implements ServeurInterface {
 			if (p.equals(getGame().getChef()) && !getGame().isPartiecommencee()) {
 				distributionTchat("Serveur", "En attente de la reconnexion du joueur " + p + " pour lancer la partie.");
 			}
+			if ( !game.isPartiechargee() && !game.isPartiecommencee() && !p.equals(game.getChef()) && game.getTableau().getInfoParClient().containsKey(p) ){
+				game.getTableau().getInfoParClient().remove(p); 
+			}
 			Logger.getLogger("Client").log(Level.INFO, "Le joueur " + p + " s'est déconnecté du serveur.");
 
-			if (liste_clients.size() < 2 && !getGame().isPartiechargee() && !getGame().isPartiecommencee())
+			if (liste_clients.size() < Globals.nombre_joueurs_min && !getGame().isPartiechargee() && !getGame().isPartiecommencee())
 				setBEnable(false);
 			if (liste_clients.size() == 0)
 				getGame().setChef(null);
@@ -360,7 +368,9 @@ public class Serveur extends UnicastRemoteObject implements ServeurInterface {
 	 */
 	public void nextTurn(String pseudo)  throws RemoteException {
 		game.setPlayerTurn(getGame().whoseTurn(pseudo));
-		liste_clients.get(game.getPlayerTurn()).turn();
+		if ( liste_clients.contains(game.getPlayerTurn())){
+			liste_clients.get(game.getPlayerTurn()).turn();
+		}
 	}
 
 }

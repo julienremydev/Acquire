@@ -400,7 +400,11 @@ public class PlateauController implements Initializable {
 	}
 
 	public void setBEnable(boolean b) {
-		Platform.runLater(() -> gridPaneAction.add(letsplay, 2, 1,3,1));
+		if ( b )
+			Platform.runLater(() -> gridPaneAction.add(letsplay, 2, 1,3,1));
+		else
+			Platform.runLater(() -> gridPaneAction.getChildren().clear());
+		
 		letsplay.setDisable(!b);
 	}
 
@@ -424,7 +428,7 @@ public class PlateauController implements Initializable {
 
 	public void lancement() throws RemoteException {
 		client.getServeur().setLancement();
-		letsplay.setOpacity(0);
+		Platform.runLater(() -> gridPaneAction.getChildren().clear());
 	}
 
 	/**

@@ -40,6 +40,7 @@ public class Globals {
 	 * Constantes -> Variables du Game 
 	 */
 	public final static int nombre_joueurs_max = 6;
+	public final static int nombre_joueurs_min = 2;
 	public final static int nbActionTotal = 25;
 	public final static int choixActionCreationChaine = 0;
 	public final static int choixActionFusionSameSizeChaine = 1;

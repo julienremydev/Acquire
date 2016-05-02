@@ -536,31 +536,31 @@
             	<cellValueFactory><PropertyValueFactory property="pseudo" />
         		</cellValueFactory>
         	</TableColumn>
-            <TableColumn prefWidth="30.0" style="-fx-alignment: center;" text="S">
+            <TableColumn prefWidth="30.0" style="-fx-alignment: center; -fx-background-color: #CC3333;" text="S">
                 <cellValueFactory><PropertyValueFactory property="actionSackson" />
         		</cellValueFactory>
         	</TableColumn>
-            <TableColumn prefWidth="30.0" style="-fx-alignment: center;" text="Z">
+            <TableColumn prefWidth="30.0" style="-fx-alignment: center; -fx-background-color: #FFCC33;" text="Z">
                 <cellValueFactory><PropertyValueFactory property="actionZeta" />
         		</cellValueFactory>
         	</TableColumn>
-            <TableColumn prefWidth="30.0" style="-fx-alignment: center;" text="H">
+            <TableColumn prefWidth="30.0" style="-fx-alignment: center; -fx-background-color: #FF6600;" text="H">
                 <cellValueFactory><PropertyValueFactory property="actionHydra" />
         		</cellValueFactory>
         	</TableColumn>
-            <TableColumn prefWidth="30.0" style="-fx-alignment: center;" text="F">
+            <TableColumn prefWidth="30.0" style="-fx-alignment: center; -fx-background-color: #336633;" text="F">
                 <cellValueFactory><PropertyValueFactory property="actionFusion" />
         		</cellValueFactory>
         	</TableColumn>
-            <TableColumn prefWidth="30.0" style="-fx-alignment: center;" text="A">
+            <TableColumn prefWidth="30.0" style="-fx-alignment: center; -fx-background-color: #333399;" text="A">
                 <cellValueFactory><PropertyValueFactory property="actionAmerica" />
         		</cellValueFactory>
         	</TableColumn>
-            <TableColumn prefWidth="30.0" style="-fx-alignment: center;" text="P">
+            <TableColumn prefWidth="30.0" style="-fx-alignment: center; -fx-background-color: #996699;" text="P">
                 <cellValueFactory><PropertyValueFactory property="actionPhoenix" />
         		</cellValueFactory>
         	</TableColumn>
-            <TableColumn prefWidth="30.0" style="-fx-alignment: center;" text="Q"> 
+            <TableColumn prefWidth="30.0" style="-fx-alignment: center; -fx-background-color: #669999;" text="Q"> 
            		<cellValueFactory><PropertyValueFactory property="actionQuantum" />
         		</cellValueFactory>
         	</TableColumn>
@@ -707,7 +707,7 @@
                   <Insets top="2.0" />
                </padding>
             </Label>
-            <Button fx:id="buttonEND" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="25.0" prefWidth="49.0" text="END" GridPane.columnIndex="1" onAction="#isOver"/>
+            <Button fx:id="buttonEND" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#isOver" prefHeight="25.0" prefWidth="49.0" text="END" GridPane.columnIndex="1" />
          </children>
       </GridPane>
    </children>

@@ -52,6 +52,7 @@ public class Client extends UnicastRemoteObject implements ClientInterface {
 	 * Permet au joueur de connaitre les actions possibles (fusion ou creation chaine)
 	 */
 	public void receiveAction(Game g) throws RemoteException{
+		System.out.println("plusieursFoisDeMerde");
 		if ( g.getAction().getChoix() == Globals.choixActionCreationChaine )
 			plateauController.setChoixCreationChaine(g);
 		else if ( g.getAction().getChoix() == Globals.choixActionFusionSameSizeChaine )

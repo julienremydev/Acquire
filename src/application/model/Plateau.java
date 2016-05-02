@@ -242,6 +242,7 @@ public class Plateau implements Serializable {
 						Chaine chaineAbsorbanteAvantFusion = grandeChaine;
 						fusionChaines(listeChaine,chaineDifferente,grandeChaine,caseModifiee);
 						
+						System.out.println(listeChaineDifferenteAvantModif.size());
 						
 						//TODO listeChaineDifferenteAvantModif est null
 						return new Action(Globals.choixActionFusionEchangeAchatVente,listeChaineDifferenteAvantModif,chaineAbsorbanteAvantFusion);

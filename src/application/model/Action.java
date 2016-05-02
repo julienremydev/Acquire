@@ -26,6 +26,8 @@ public class Action implements Serializable{
 	
 	private ArrayList<Chaine> listeChainesAbsorbees;
 	
+	private ArrayList<Case> listeCaseAbsorbees;
+	
 	private Chaine chaineAbsorbante;
 	
 	public int getChoix() {

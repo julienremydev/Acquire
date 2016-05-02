@@ -3,6 +3,7 @@ package application.control;
 import java.io.File;
 import java.net.URL;
 import java.rmi.RemoteException;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
@@ -253,8 +254,12 @@ public class PlateauController implements Initializable {
 
 			b.setOnAction((event) -> {
 				try {
+					g.getAction().getListeDeChaineAProposer().remove(c);
+					ArrayList<Chaine> nouvelleListeAModifier = g.getAction().getListeDeChaineAProposer();
+					g.getAction().setListeChainesAbsorbees(nouvelleListeAModifier);
 					client.sendChoixCouleurFusionSameChaine(g.getAction().getListeDeChainePlateau(),
-							g.getAction().getListeDeChaineAProposer(), c, g.getAction().getCaseModifiee());
+							g.getAction().getListeChainesAbsorbees(), c, g.getAction().getCaseModifiee());
+					
 					gridPaneAction.getChildren().clear();
 				} catch (Exception e) {
 					// TODO Auto-generated catch block

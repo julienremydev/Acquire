@@ -146,6 +146,9 @@ public class Serveur extends UnicastRemoteObject implements ServeurInterface {
 		distribution();
 	}
 	public void choixCouleurFusion(ArrayList<Chaine> listeChainePlateau, ArrayList<Chaine> listeChaineAModif, Chaine c, Case case1) throws RemoteException {
+		listeChaineAModif.add(c);
+		getGame().setAction(new Action(Globals.choixActionFusionEchangeAchatVente,listeChaineAModif,c));
+		listeChaineAModif.remove(c);
 		getGame().getPlateau().fusionChaines(listeChainePlateau, listeChaineAModif, c, case1);
 		//TODO new ACTION CHOIX =	choixActionFusionEchangeAchatVente //getGame().setAction(new Action());
 		nextTurnAction();

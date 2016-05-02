@@ -138,6 +138,9 @@ public class Serveur extends UnicastRemoteObject implements ServeurInterface {
 	
 	public void choiceFusionAction(HashMap<String, Integer> actions_fusions) throws RemoteException{
 		//TODO ACTUALISATION ACTIONS CLIENTS
+		if ( getGame().getOrdre_joueur_action().size()==0)
+			 getGame().getAction().getListeChainesAbsorbees().remove(0);
+		
 		nextTurnAction();
 		
 		distribution();
@@ -174,9 +177,10 @@ public class Serveur extends UnicastRemoteObject implements ServeurInterface {
 			}
 		}
 		//envoie de l'action au joueur concerné
-		liste_clients.get(getGame().getOrdre_joueur_action().get(0)).receiveAction( getGame() );
-		getGame().getOrdre_joueur_action().remove(0);
-		
+		if (getGame().getOrdre_joueur_action().size() > 0){
+			liste_clients.get(getGame().getOrdre_joueur_action().get(0)).receiveAction( getGame() );
+			getGame().getOrdre_joueur_action().remove(0);
+		}
 	}
 	
 	/**

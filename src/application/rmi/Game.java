@@ -92,17 +92,15 @@ public class Game implements Serializable{
 	 */
 	//TODO TESTS
 	void setOrdreFusion() throws RemoteException{
-		getOrdre_joueur_action().add(getPlayerTurn());
-		String player = whoseTurn(getPlayerTurn());
+		String player = getPlayerTurn();
 		HashMap<TypeChaine,Integer> liste_actions_player = new HashMap<TypeChaine,Integer> ();
-		for ( int i = 0 ; i < getOrdre_joueur().size() -1 ; i++){
+		for ( int i = 0 ; i < getOrdre_joueur().size() ; i++){
 			liste_actions_player = getTableau().getInfoParClient().get(player).getActionParChaine();
 			if ( liste_actions_player.get(getAction().getListeChainesAbsorbees().get(0).getNomChaine()) > 0){
 				getOrdre_joueur_action().add(player);
 			}
 			player = whoseTurn(player);
 		}
-		getAction().getListeChainesAbsorbees().remove(0);
 	}
 	
 	/**

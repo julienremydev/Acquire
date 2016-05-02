@@ -193,6 +193,11 @@ public class PlateauController implements Initializable {
 
 	}
 
+	private void setLabelsActions (){
+		labelKEEP.setText(actions_fusions.get(Globals.hashMapKEEP).toString());
+		labelTRADE.setText(actions_fusions.get(Globals.hashMapTRADE).toString());
+		labelSELL.setText(actions_fusions.get(Globals.hashMapSELL).toString());
+	}
 	/*
 	 * Fusion de chaîne -> le joueur doit choisir les actions qu'il souhaite
 	 * acheter/vendre/échanger
@@ -202,23 +207,20 @@ public class PlateauController implements Initializable {
 		Platform.runLater(new Runnable() {
 			public void run() {
 				gridPaneAction.getChildren().clear();
+				setLabelsActions ();
 				gridPaneAction.add(gridKEEP, 0, 0, 2, 2);
 				gridPaneAction.add(gridTRADE, 2, 0, 2, 2);
 				gridPaneAction.add(gridSELL, 4, 0, 2, 2);
 				maxKEEP.setOnAction(new EventHandler<ActionEvent>() {
 					public void handle(ActionEvent e) {
 						actions_fusions = onEventActionFusion("maxKEEP", g, client.getPseudo());
-						labelKEEP.setText(actions_fusions.get(Globals.hashMapKEEP).toString());
-						labelTRADE.setText(actions_fusions.get(Globals.hashMapTRADE).toString());
-						labelSELL.setText(actions_fusions.get(Globals.hashMapSELL).toString());
+						setLabelsActions ();
 					}
 				});
 				moreTRADE.setOnAction(new EventHandler<ActionEvent>() {
 					public void handle(ActionEvent e) {
 						actions_fusions = onEventActionFusion("moreTRADE", g, client.getPseudo());
-						labelKEEP.setText(actions_fusions.get(Globals.hashMapKEEP).toString());
-						labelTRADE.setText(actions_fusions.get(Globals.hashMapTRADE).toString());
-						labelSELL.setText(actions_fusions.get(Globals.hashMapSELL).toString());
+						setLabelsActions ();
 					}
 				});
 

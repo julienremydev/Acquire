@@ -2,8 +2,8 @@ package application.model;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
+import java.util.HashSet;
+import java.util.Set;
 
 public class Case implements Serializable {
 
@@ -124,7 +124,7 @@ public class Case implements Serializable {
 			tab.add(this.getWest());
 		return tab;
 	}
-
+	
 	/**
 	 * Retourne vrai si les cases adjacentes (tableau) à notre cases sont de la
 	 * même couleur (donc même chaîne, donc même etat)

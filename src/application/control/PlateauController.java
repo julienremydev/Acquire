@@ -47,6 +47,8 @@ public class PlateauController implements Initializable {
 	private HashMap<TypeChaine, Integer> liste_actions = new HashMap<TypeChaine, Integer>();
 
 	private HashMap<String, Integer> actions_fusions = new HashMap<String, Integer>();
+
+	private boolean endGame;
 	/**
 	 * element plateau
 	 */
@@ -263,7 +265,7 @@ public class PlateauController implements Initializable {
 					g.getAction().setListeChainesAbsorbees(nouvelleListeAModifier);
 					client.sendChoixCouleurFusionSameChaine(g.getAction().getListeDeChainePlateau(),
 							g.getAction().getListeChainesAbsorbees(), c, g.getAction().getCaseModifiee());
-					
+
 					gridPaneAction.getChildren().clear();
 				} catch (Exception e) {
 					// TODO Auto-generated catch block
@@ -412,6 +414,9 @@ public class PlateauController implements Initializable {
 		// on envoie via le rmi la case clique
 		client.sendCase(text);
 		this.setOff();
+		if (this.endGame) {
+			buttonEND.setDisable(false);
+		}
 		/*
 		 * 
 		 */
@@ -444,8 +449,11 @@ public class PlateauController implements Initializable {
 	 *            : game
 	 */
 	public void setGame(Game g) {
-
-		setDataTableView(g);
+		//fin du jeu
+		if (g.isOver()) {
+			endGame=true;
+		}
+		setDataTableView(g);	
 
 		// recuperation de l'ensemble des cases du plateau (graphique)
 		ObservableList<Node> childrens = grid.getChildren();
@@ -511,6 +519,7 @@ public class PlateauController implements Initializable {
 	public void initialize(URL location, ResourceBundle resources) {
 		tchat.setEditable(false);
 		buttonEND.setDisable(true);
+		endGame=false;
 		Platform.runLater(() -> gridPaneAction.getChildren().clear());
 		dataTableView = FXCollections.observableArrayList();
 		saveGame.setOnAction(new EventHandler<ActionEvent>() {
@@ -583,4 +592,12 @@ public class PlateauController implements Initializable {
 
 	}
 
+	public void isOver() { 
+		try {
+			client.isOver();
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 }

@@ -1,10 +1,11 @@
 package test.rmi;
 
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -12,7 +13,6 @@ import org.junit.Test;
 import application.model.Case;
 import application.model.Chaine;
 import application.model.ClientInfo;
-import application.model.Plateau;
 import application.model.TypeChaine;
 import application.rmi.Game;
 
@@ -36,7 +36,7 @@ public class TestGame {
 	 */
 	@Test
 	public void TestcreationChaine() {
-		ArrayList<Case> list = new ArrayList<Case>();
+		Set<Case> list = new HashSet<Case>();
 		list.add(game.getPlateau().getPlateauMap().get("A10"));
 		list.add(game.getPlateau().getPlateauMap().get("A11"));
 		list.add(game.getPlateau().getPlateauMap().get("A12"));
@@ -55,5 +55,22 @@ public class TestGame {
 		assertTrue(game.getPlateau().getPlateauMap().get("C12").getEtat() == TypeChaine.AMERICA.getNumero());
 		int nbAction = game.getTableau().getInfoParClient().get("Yodaii").getActionParChaine().get(TypeChaine.AMERICA);
 		assertEquals(1, nbAction);
+	}
+	
+	@Test
+	public void isOver() {
+		assertFalse(game.isOver());
+		for (int i = 0; i<= 50; i++) {
+			game.getTableau().getListeChaine().get(0).addCase(new Case());
+		}
+		assertTrue(game.isOver());
+		game.getTableau().getListeChaine().get(0).getListeCase().clear();
+		assertFalse(game.isOver());
+		for (int j = 0; j<= 6; j++) {
+			for (int i = 0; i<= 12; i++) {
+				game.getTableau().getListeChaine().get(j).addCase(new Case());
+			}
+		}
+		assertTrue(game.isOver());
 	}
 }

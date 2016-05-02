@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Set;
 
 import application.model.Action;
 import application.model.Case;
@@ -108,7 +109,7 @@ public class Game implements Serializable{
 	 * @param listeHotels
 	 * @param nomChaine
 	 */
-	public void creationChaine(ArrayList<Case> listeHotels, TypeChaine nomChaine, String pseudo){
+	public void creationChaine(Set<Case> listeHotels, TypeChaine nomChaine, String pseudo){
 		// Changement des états des hotels pour qu'ils appartiennent à la même chaine
 		for(Case hotelToChaine : listeHotels){
 			getListeChaine().get(nomChaine.getNumero()-2).addCase(getPlateau().getCase(hotelToChaine.getNom()));
@@ -188,6 +189,25 @@ public class Game implements Serializable{
 
 	public void setChef(String chef) {
 		this.chef = chef;
+	}
+	
+	public boolean isOver() {
+		boolean over=false;
+		int iterator = 0;
+		ArrayList<Chaine> listChaine = getTableau().getListeChaine();
+		while(!over && iterator < listChaine.size()) {
+			if (!listChaine.get(iterator).isSup10()) {
+				over=true;
+			}
+			if (listChaine.get(iterator).isSup41()) {
+				return true;
+			}
+			iterator++;
+		}
+		if (!over) {
+			return true;
+		}
+		return false;
 	}
 
 }

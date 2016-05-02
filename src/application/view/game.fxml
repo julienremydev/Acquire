@@ -707,7 +707,7 @@
                   <Insets top="2.0" />
                </padding>
             </Label>
-            <Button fx:id="buttonEND" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="25.0" prefWidth="49.0" text="END" GridPane.columnIndex="1" />
+            <Button fx:id="buttonEND" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="25.0" prefWidth="49.0" text="END" GridPane.columnIndex="1" onAction="#isOver"/>
          </children>
       </GridPane>
    </children>

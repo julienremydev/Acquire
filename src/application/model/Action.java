@@ -2,8 +2,7 @@ package application.model;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-
-import application.globale.Globals;
+import java.util.Set;
 
 public class Action implements Serializable{
 
@@ -20,7 +19,7 @@ public class Action implements Serializable{
 	
 	private Case caseModifiee;
 	
-	private ArrayList<Case> listeDeCaseAModifier;
+	private Set<Case> listeDeCaseAModifier;
 	
 	private ArrayList<Chaine> listeDeChaineAProposer;
 	
@@ -50,7 +49,7 @@ public class Action implements Serializable{
 	 * @param listeDeCase
 	 * @param type
 	 */
-	public Action(ArrayList<Case> listeDeCase, int type) {
+	public Action(Set<Case> listeDeCase, int type) {
 		this.choix = type;
 		this.setListeDeCaseAModifier(listeDeCase);
 	}
@@ -85,11 +84,11 @@ public class Action implements Serializable{
 				
 	}
 
-	public ArrayList<Case> getListeDeCaseAModifier() {
+	public Set<Case> getListeDeCaseAModifier() {
 		return listeDeCaseAModifier;
 	}
 
-	public void setListeDeCaseAModifier(ArrayList<Case> listeDeCaseAModifier) {
+	public void setListeDeCaseAModifier(Set<Case> listeDeCaseAModifier) {
 		this.listeDeCaseAModifier = listeDeCaseAModifier;
 	}
 

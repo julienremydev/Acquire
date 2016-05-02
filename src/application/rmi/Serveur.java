@@ -36,7 +36,7 @@ public class Serveur extends UnicastRemoteObject implements ServeurInterface {
 		setListe_clients(new Hashtable<String, ClientInterface>());
 		game = new Game();
 	}
-	
+
 	/**
 	 * Le client veut sauvegarder la partie
 	 * On lui envoie le Game
@@ -94,9 +94,9 @@ public class Serveur extends UnicastRemoteObject implements ServeurInterface {
 		if (getGame().isPartiecommencee()) {
 			Logger.getLogger("Serveur").log(Level.INFO, text);
 			getGame().setAction(game.getPlateau().updateCase(text, game.getListeChaine()));
-			
-			
-			
+
+
+
 			piocheCaseFinTour(text,pseudo);
 			if (getGame().getAction() == null) {
 				sendEndTurnAction();
@@ -106,24 +106,24 @@ public class Serveur extends UnicastRemoteObject implements ServeurInterface {
 			distribution();
 		}
 	}
-	
+
 	@Override
 	public void creationChaineServeur(TypeChaine c) throws RemoteException {
 		getGame().creationChaine(getGame().getAction().getListeDeCaseAModifier(), c, getGame().getPlayerTurn());
 		sendEndTurnAction ();
-		
+
 		distribution();
 	}
-	
+
 	@Override
 	public void achatAction(String nomJoueur, HashMap<TypeChaine, Integer> actionAAcheter) throws RemoteException{
 		getGame().getTableau().achatActions(nomJoueur, actionAAcheter);
 		nextTurn(getGame().getPlayerTurn());
-		
+
 		String actionJoueurNotif;
 		if ( actionAAcheter.size() > 0 ){
 			actionJoueurNotif = "Le joueur " + nomJoueur + " a acheté :"; 
-			
+
 			Collection<TypeChaine> keys = actionAAcheter.keySet();
 			for (TypeChaine key : keys) {
 				actionJoueurNotif+= "\n -"+actionAAcheter.get(key) + " " + key.toString();
@@ -135,21 +135,21 @@ public class Serveur extends UnicastRemoteObject implements ServeurInterface {
 		distributionTchat("Serveur", actionJoueurNotif);
 		distribution();
 	}
-	
+
 	public void choiceFusionAction(HashMap<String, Integer> actions_fusions) throws RemoteException{
 		//TODO ACTUALISATION ACTIONS CLIENTS
 		if ( getGame().getOrdre_joueur_action().size()==0)
-			 getGame().getAction().getListeChainesAbsorbees().remove(0);
-		
+			getGame().getAction().getListeChainesAbsorbees().remove(0);
+
 		nextTurnAction();
-		
+
 		distribution();
 	}
 	public void choixCouleurFusion(ArrayList<Chaine> listeChainePlateau, ArrayList<Chaine> listeChaineAModif, Chaine c, Case case1) throws RemoteException {
 		getGame().getPlateau().fusionChaines(listeChainePlateau, listeChaineAModif, c, case1);
-	//TODO new ACTION CHOIX =	choixActionFusionEchangeAchatVente //getGame().setAction(new Action());
+		//TODO new ACTION CHOIX =	choixActionFusionEchangeAchatVente //getGame().setAction(new Action());
 		nextTurnAction();
-		
+
 		distribution();
 	}
 	private void sendEndTurnAction () throws RemoteException{
@@ -182,7 +182,7 @@ public class Serveur extends UnicastRemoteObject implements ServeurInterface {
 			getGame().getOrdre_joueur_action().remove(0);
 		}
 	}
-	
+
 	/**
 	 * methode qui permet au joueur de piocher une case à la fin de son tour
 	 * @param text
@@ -191,14 +191,14 @@ public class Serveur extends UnicastRemoteObject implements ServeurInterface {
 	public void piocheCaseFinTour(String text, String pseudo){
 		//Pioche d'une case a la fin du tour
 		if (game.getTableau().getInfoParClient().get(pseudo).getMain().contains(text)) {
-            int indice = game.getTableau().getInfoParClient().get(pseudo).getMain().indexOf(text);
-            game.getTableau().getInfoParClient().get(pseudo).getMain().remove(indice);
-            game.getTableau().getInfoParClient().get(pseudo).ajouteMain1fois(game.getPlateau());
-        }
-        else {
-            // TODO throw case pas dans la main exception
-            System.out.println("Case cliqué non dans la main du joueur : "+text);
-        }
+			int indice = game.getTableau().getInfoParClient().get(pseudo).getMain().indexOf(text);
+			game.getTableau().getInfoParClient().get(pseudo).getMain().remove(indice);
+			game.getTableau().getInfoParClient().get(pseudo).ajouteMain1fois(game.getPlateau());
+		}
+		else {
+			// TODO throw case pas dans la main exception
+			System.out.println("Case cliqué non dans la main du joueur : "+text);
+		}
 	}
 	/*
 	 * Cette méthode est appelée lors de la connexion d'un client. Le client est
@@ -239,7 +239,7 @@ public class Serveur extends UnicastRemoteObject implements ServeurInterface {
 				liste_clients.get(p).turn();
 				//TODO le client ne peut pas jouer lors de sa reconnexion
 			}
-			
+
 		}
 
 		Logger.getLogger("Client").log(Level.INFO, "Nouveau client enregistré dans le serveur.");
@@ -259,14 +259,14 @@ public class Serveur extends UnicastRemoteObject implements ServeurInterface {
 
 		// initialisation des cases noirs pour chaque joueur
 		//game.getPlateau().initialiseMainCaseNoir(game.getTableau().getInfoParClient().size());
-		
+
 		//INITIALISATION de lA MAIN
 		initalisationMain();
 
 		/*
 		 * DISTRIBUTION de la main , du tableau des scores et du game
 		 */
-		
+
 		game.setPlayerTurn(getGame().getOrdre_joueur().get(0));
 		liste_clients.get(getGame().getPlayerTurn()).turn();
 		distribution();
@@ -281,12 +281,15 @@ public class Serveur extends UnicastRemoteObject implements ServeurInterface {
 		HashMap<String,String> listeCasesNoires = new HashMap<String,String>();
 		while (enumKeys.hasMoreElements()) {
 			String key = enumKeys.nextElement();
+			for (int i = 0; i<30;i++) {
+				listeCasesNoires.put(key,game.getPlateau().initialiseMainCaseNoir());
+			}
 			game.getTableau().getInfoParClient().get(key).initialiseMain(game.getPlateau());
-			listeCasesNoires.put(key,game.getPlateau().initialiseMainCaseNoir());
+
 		}
 		setTurn(listeCasesNoires);
-		
-		
+
+
 	}
 
 	/**
@@ -384,6 +387,10 @@ public class Serveur extends UnicastRemoteObject implements ServeurInterface {
 		if ( liste_clients.containsKey(game.getPlayerTurn())){
 			liste_clients.get(game.getPlayerTurn()).turn();
 		}
+	}
+
+	public void isOver() throws RemoteException{
+		//TODO
 	}
 
 }

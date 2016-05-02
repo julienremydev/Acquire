@@ -103,4 +103,12 @@ public class Chaine implements Serializable{
 	private void removeAll() {
 		this.listeCase.removeAll(listeCase);		
 	}
+
+	public boolean isSup10() {
+		return (this.tailleChaine()>10);
+	}
+
+	public boolean isSup41() {
+		return (this.tailleChaine()>=41);
+	}
 }

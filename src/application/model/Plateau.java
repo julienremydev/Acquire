@@ -190,9 +190,9 @@ public class Plateau implements Serializable {
 			//tabCasesAModifier.add(caseModifiee);
 			// on vérifie pour chaque cases si elle n'a pas une autre cases pareille
 			ArrayList<Case> tabCasesAModifier = new ArrayList<Case> ();
-			tabCasesAModifier= addRecurse(setCasesAModifier,caseModifiee);
+			setCasesAModifier.addAll(addRecurse(setCasesAModifier,caseModifiee));
 			tabCasesAModifier.add(caseModifiee);
-			return new Action(tabCasesAModifier, Globals.choixActionCreationChaine);
+			return new Action(setCasesAModifier, Globals.choixActionCreationChaine);
 			//Vérifier s'il y a des cases autour des cases autour ...
 		}
 		/**
@@ -277,8 +277,8 @@ public class Plateau implements Serializable {
 	 * La liste de retour contiendra donc toutes les cases hotels adjascentes uniques
 	 * @return
 	 */
-	public ArrayList<Case> addRecurse (Set<Case> casesDone, Case c) {
-		Set<Case> listRecurse = new HashSet();
+	public Set<Case> addRecurse (Set<Case> casesDone, Case c) {
+		Set<Case> listRecurse = new HashSet<Case>();
 		casesDone.add(c);
 		if (c.surroundedByHotels()) {
 			ArrayList<Case> listHotels = c.tabAdjascent();
@@ -292,16 +292,16 @@ public class Plateau implements Serializable {
 			}
 			else {
 				for (Case caseToDo : listRecurse) {
-					ArrayList<Case> returnedList = addRecurse(casesDone, caseToDo);
+					Set<Case> returnedList = addRecurse(casesDone, caseToDo);
 					if (returnedList!=null) {
 						casesDone.addAll(returnedList);
 					}
 				}
 			}
 		}
-		ArrayList<Case> casesDone1 = new ArrayList<Case> (listRecurse) ;
+		//ArrayList<Case> casesDone1 = new ArrayList<Case> (listRecurse) ;
 
-		return casesDone1;
+		return casesDone;
 
 	}
 

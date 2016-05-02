@@ -146,15 +146,11 @@ public class Serveur extends UnicastRemoteObject implements ServeurInterface {
 		distribution();
 	}
 	public void choixCouleurFusion(ArrayList<Chaine> listeChainePlateau, ArrayList<Chaine> listeChaineAModif, Chaine c, Case case1) throws RemoteException {
-		ArrayList<Chaine> liste= game.getListeChaine();
 		ArrayList<Chaine> listeChaineDifferenteAvantModif = listeChaineAModif;
 		Chaine chaineAbsorbanteAvantFusion = c;
-		System.out.println("avantFusion");
-		getGame().getPlateau().fusionChaines(game.getListeChaine(), listeChaineAModif, c, case1);
-		System.out.println("aprèsFusion");
-
+		this.getGame().setListeChaine(getGame().getPlateau().fusionChaines(game.getListeChaine(), listeChaineAModif, c, case1));
+		
 		getGame().setAction(new Action(Globals.choixActionFusionEchangeAchatVente,listeChaineDifferenteAvantModif,chaineAbsorbanteAvantFusion));
-
 
 		nextTurnAction();
 
@@ -289,7 +285,7 @@ public class Serveur extends UnicastRemoteObject implements ServeurInterface {
 		HashMap<String,String> listeCasesNoires = new HashMap<String,String>();
 		while (enumKeys.hasMoreElements()) {
 			String key = enumKeys.nextElement();
-			for (int i = 0; i<5;i++) {
+			for (int i = 0; i<30;i++) {
 				listeCasesNoires.put(key,game.getPlateau().initialiseMainCaseNoir());
 			}
 			game.getTableau().getInfoParClient().get(key).initialiseMain(game.getPlateau());
@@ -344,19 +340,17 @@ public class Serveur extends UnicastRemoteObject implements ServeurInterface {
 	@Override
 	public void distribution() throws RemoteException {
 		this.game.getPlateau().CasesGrises(game.getListeChaine());
-		
+
 		this.game.getTableau().updateActionnaire();
 
 		// MODIFICATION DU GAME ICI
 		// APPEL DE LA FONCTION
 
 		// On envoie le game actualisé à chaque client.
-		for (Chaine ch : this.game.getListeChaine())
-			System.out.println(ch.getListeCase());
 		Enumeration<ClientInterface> e = liste_clients.elements();
 		while (e.hasMoreElements())
 			e.nextElement().receive(game);
-		
+
 	}
 
 
@@ -408,10 +402,10 @@ public class Serveur extends UnicastRemoteObject implements ServeurInterface {
 		for (ClientInfo client : clients) {
 			classement.put(client.getPseudo(),client.getNet());
 		}
-		classement = Globals.getClassement(classement);
+		ArrayList<String> winner = Globals.getClassement(classement);
 		Enumeration<ClientInterface> e = liste_clients.elements();
 		while (e.hasMoreElements())
-			e.nextElement().receiveClassement(classement);
+			e.nextElement().receiveClassement(winner);
 	}
 
 }

@@ -49,14 +49,14 @@ public class Globals {
 	public final static String hashMapTRADE = "TRADE";
 	public final static String hashMapSELL = "SELL";
 	
-	public static HashMap<String, Integer> 
+	public static ArrayList<String>
 	getClassement( HashMap<String, Integer> map ) {
-		HashMap<String, Integer> result = new LinkedHashMap<>();
+		ArrayList<String> result = new ArrayList<String>();
 		Stream<Map.Entry<String, Integer>> st = map.entrySet().stream();
 
 		st.sorted( Map.Entry.comparingByValue() )
-		.forEachOrdered( e -> result.put(e.getKey(), e.getValue()) );
-
+		.forEachOrdered( e -> result.add(e.getKey()));
+		Collections.reverse(result);
 		return result;
 	}
 	

@@ -91,13 +91,14 @@ public class Chaine implements Serializable{
 	/*
 	 * Ajout les cases de la chaine passée en parametre à la chaine actuelle, puis supprime de la chaine en parametre
 	 */
-	public void modifChain(Chaine c) {
+	public ArrayList<Case> modifChain(Chaine c) {
 		ArrayList<Case> listeChangement = c.getListeCase();
 		for (Case caseChaine : listeChangement)
 		{
 			this.addCase(caseChaine);
 		}
 		c.removeAll();
+		return this.getListeCase();
 	}
 
 	private void removeAll() {
@@ -109,6 +110,7 @@ public class Chaine implements Serializable{
 	}
 
 	public boolean isSup41() {
+		System.out.println("hey : "+this.tailleChaine());
 		return (this.tailleChaine()>=41);
 	}
 }

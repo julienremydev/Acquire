@@ -16,21 +16,21 @@ import application.model.TypeChaine;
 public class Game implements Serializable{
 
 	private static final long serialVersionUID = 1964688809311788179L;
-	
+
 	private Plateau plateau;
-	
+
 	private TableauDeBord tableauDeBord;
-	
+
 	private String playerTurn;
-	
+
 	private Action action;
-	
+
 	private ArrayList<String> ordre_joueur;
-	
+
 	private ArrayList<String> ordre_joueur_action;
-	
+
 	private StringBuffer tchat;
-	
+
 	private String chef;
 
 	private boolean partiecommencee;
@@ -43,7 +43,7 @@ public class Game implements Serializable{
 	 */
 	public Game(){
 		super();
-		
+
 		Chaine sackson = new Chaine (TypeChaine.SACKSON);
 		Chaine zeta = new Chaine (TypeChaine.ZETA);
 		Chaine hydra = new Chaine (TypeChaine.HYDRA);
@@ -51,7 +51,7 @@ public class Game implements Serializable{
 		Chaine america = new Chaine (TypeChaine.AMERICA);
 		Chaine phoenix = new Chaine (TypeChaine.PHOENIX);
 		Chaine quantum= new Chaine (TypeChaine.QUANTUM);
-		
+
 		this.plateau=new Plateau();
 		this.tableauDeBord = new TableauDeBord();
 		setOrdre_joueur(new ArrayList<String>());
@@ -59,8 +59,8 @@ public class Game implements Serializable{
 		setTchat(new StringBuffer("[Serveur] Serveur lancé.\n"));
 		setPartiecommencee(false);
 		setPartiechargee(false);
-		
-		
+
+
 		getListeChaine().add(sackson);
 		getListeChaine().add(zeta);
 		getListeChaine().add(hydra);
@@ -68,10 +68,10 @@ public class Game implements Serializable{
 		getListeChaine().add(america);
 		getListeChaine().add(phoenix);
 		getListeChaine().add(quantum);
-		
-		
+
+
 	}
-	
+
 	/**
 	 * Methode de calcul du prochain tour
 	 * @throws RemoteException 
@@ -84,8 +84,8 @@ public class Game implements Serializable{
 		else
 			return getOrdre_joueur().get(currentIndice+1);
 	}
-	
-	
+
+
 	/**
 	 * Méthode qui détermine l'ordre des joueurs qui doivent réaliser un choix 
 	 * sur les actions qu'il détiennent d'une chaîne absorbée
@@ -103,7 +103,7 @@ public class Game implements Serializable{
 			player = whoseTurn(player);
 		}
 	}
-	
+
 	/**
 	 * Creation d'une nouvelle chaine, Changement de l'etat des hotels en chaîne, ajout de la chaine, à la liste de chaîne.
 	 * @param listeHotels
@@ -119,13 +119,17 @@ public class Game implements Serializable{
 	public Plateau getPlateau() {
 		return this.plateau;
 	}
-	
+
 	public TableauDeBord getTableau() {
 		return this.tableauDeBord;
 	}
-	
+
 	public ArrayList<Chaine> getListeChaine(){
 		return tableauDeBord.getListeChaine();
+	}
+
+	public void setListeChaine(ArrayList<Chaine> list){
+		tableauDeBord.setListeChaine(list);
 	}
 
 	public String getPlayerTurn() {
@@ -190,22 +194,20 @@ public class Game implements Serializable{
 	public void setChef(String chef) {
 		this.chef = chef;
 	}
-	
+
 	public boolean isOver() {
-		boolean over=false;
 		int iterator = 0;
+		int nbChaineSup10=0;
 		ArrayList<Chaine> listChaine = getTableau().getListeChaine();
-		while(!over && iterator < listChaine.size()) {
-			if (!listChaine.get(iterator).isSup10()) {
-				over=true;
+		while(nbChaineSup10<7 && iterator < listChaine.size()) {
+			if (listChaine.get(iterator).isSup10()) {
+				nbChaineSup10++;
 			}
+			System.out.println("wow : "+listChaine.get(iterator).tailleChaine());
 			if (listChaine.get(iterator).isSup41()) {
 				return true;
 			}
 			iterator++;
-		}
-		if (!over) {
-			return true;
 		}
 		return false;
 	}

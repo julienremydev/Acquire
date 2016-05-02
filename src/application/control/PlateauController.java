@@ -260,8 +260,8 @@ public class PlateauController implements Initializable {
 
 			b.setOnAction((event) -> {
 				try {
-//					ArrayList<Chaine> nouvelleListeAModifier = g.getAction().getListeDeChaineAProposer();
-//					g.getAction().setListeChainesAbsorbees(nouvelleListeAModifier);
+					//					ArrayList<Chaine> nouvelleListeAModifier = g.getAction().getListeDeChaineAProposer();
+					//					g.getAction().setListeChainesAbsorbees(nouvelleListeAModifier);
 					client.sendChoixCouleurFusionSameChaine(g.getListeChaine(),
 							g.getAction().getListeDeChaineAProposer(), c, g.getAction().getCaseModifiee());
 
@@ -600,7 +600,13 @@ public class PlateauController implements Initializable {
 		}
 	}
 
-	public void endingGame(HashMap<String, Integer> map) {
-		//TODO afficher le classement
+	public void endingGame(ArrayList<String> winner) {
+		Platform.runLater(new Runnable() {
+			@Override
+			public void run() {
+				notificationTour.setText(winner.get(0) +" a gagné !");	
+			}
+		});
+
 	}
 }

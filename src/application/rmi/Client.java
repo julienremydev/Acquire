@@ -139,7 +139,7 @@ public class Client extends UnicastRemoteObject implements ClientInterface {
 		serveur.isOver();
 	}
 	
-	public void receiveClassement(HashMap<String,Integer> map) throws RemoteException{
-		plateauController.endingGame(map);
+	public void receiveClassement(ArrayList<String> winner) throws RemoteException{
+		plateauController.endingGame(winner);
 	}
 }

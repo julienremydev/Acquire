@@ -149,8 +149,7 @@ public class Serveur extends UnicastRemoteObject implements ServeurInterface {
 		ArrayList<Chaine> listeChaineDifferenteAvantModif = listeChaineAModif;
 		Chaine chaineAbsorbanteAvantFusion = c;
 		System.out.println("avantFusion");
-		getGame().getPlateau().fusionChaines(this.game.getListeChaine(), listeChaineAModif, c, case1);
-		System.out.println("aprèsFusion");
+		getGame().getPlateau().fusionChaines(game.getListeChaine(), listeChaineAModif, c, case1);
 		
 		getGame().setAction(new Action(Globals.choixActionFusionEchangeAchatVente,listeChaineDifferenteAvantModif,chaineAbsorbanteAvantFusion));
 		
@@ -348,9 +347,12 @@ public class Serveur extends UnicastRemoteObject implements ServeurInterface {
 		// APPEL DE LA FONCTION
 
 		// On envoie le game actualisé à chaque client.
+		for (Chaine ch : this.game.getListeChaine())
+			System.out.println(ch.getListeCase());
 		Enumeration<ClientInterface> e = liste_clients.elements();
 		while (e.hasMoreElements())
 			e.nextElement().receive(game);
+		
 	}
 
 

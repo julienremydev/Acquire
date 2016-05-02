@@ -406,16 +406,17 @@ public class Plateau implements Serializable {
 	
 	public void fusionChaines(ArrayList<Chaine> listeChaineTotale,ArrayList<Chaine> listeChaineAbsorbee, Chaine chaineAbsorbante, Case caseAAjouter)
 	{
-		System.out.println("dans fusion");
-		System.out.println(listeChaineAbsorbee);
+		
 		listeChaineAbsorbee.remove(chaineAbsorbante);
-		System.out.println(listeChaineAbsorbee);
+
 		for(Chaine c : listeChaineAbsorbee)
 		{
 			listeChaineTotale.get(chaineAbsorbante.getTypeChaine().getNumero()-2).modifChain(c);
+			listeChaineTotale.get(c.getTypeChaine().getNumero()-2).getListeCase().clear();
+			
+			
 		}
 		listeChaineTotale.get(chaineAbsorbante.getTypeChaine().getNumero()-2).addCase(caseAAjouter);
-		System.out.println(listeChaineTotale);
 	}
 
 

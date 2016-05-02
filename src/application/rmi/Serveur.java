@@ -339,6 +339,7 @@ public class Serveur extends UnicastRemoteObject implements ServeurInterface {
 	 */
 	@Override
 	public void distribution() throws RemoteException {
+		this.game.getPlateau().checkinCases(game.getListeChaine(),game.getTableau().getInfoParClient());
 		this.game.getPlateau().CasesGrises(game.getListeChaine());
 
 		this.game.getTableau().updateActionnaire();

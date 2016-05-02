@@ -2,6 +2,7 @@ package application.model;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -461,5 +462,35 @@ public class Plateau implements Serializable {
 		}
 	}
 
+	public void uitiemechaine(ArrayList<Chaine> listChaines, Collection<ClientInfo> collection) {
+		boolean isOkay=false;
+		for (Chaine c : listChaines) {
+			if (c.tailleChaine()==0) {
+				isOkay=true;
+			}
+		}
+		if (!isOkay) {
+			for (ClientInfo c : collection) {
+				for (String cas : c.getMain()) {
+					Case cas2 = this.getCase(cas);
+					if (cas2.surroundedByHotels()&&!cas2.surroundedByChains()) {
+						cas2.setEtat(-1);
+					}
+				}
+			}
+		}
+		else {
+			for (ClientInfo c : collection) {
+				for (String cas : c.getMain()) {
+					Case cas2 = this.getCase(cas);
+					cas2.setEtat(0);
+				}
+			}
+		}
+	}
 
+	public void checkinCases(ArrayList<Chaine> listeChaine, HashMap<String, ClientInfo> infoParClient) {
+		this.CasesGrises(listeChaine);
+		this.uitiemechaine(listeChaine,infoParClient.values());
+	}
 }

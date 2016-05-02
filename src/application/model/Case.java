@@ -12,7 +12,7 @@ public class Case implements Serializable {
 	private Case south;
 	private Case east;
 	private Case west;
-	// -1 injouable ; 0 vide ; 1 hotel ; 2-8 chaine
+	//-2 pas de creation de chaine possible -1 injouable ; 0 vide ; 1 hotel ; 2-8 chaine
 	private int etat;
 	private String nom;
 

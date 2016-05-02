@@ -51,6 +51,8 @@ public class PlateauController implements Initializable {
 	 * element plateau
 	 */
 	@FXML
+	private Button buttonEND;
+	@FXML
 	private Button saveGame;
 	@FXML
 	private Label notificationTour;
@@ -508,6 +510,7 @@ public class PlateauController implements Initializable {
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		tchat.setEditable(false);
+		buttonEND.setDisable(true);
 		Platform.runLater(() -> gridPaneAction.getChildren().clear());
 		dataTableView = FXCollections.observableArrayList();
 		saveGame.setOnAction(new EventHandler<ActionEvent>() {

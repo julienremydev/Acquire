@@ -146,11 +146,15 @@ public class Serveur extends UnicastRemoteObject implements ServeurInterface {
 		distribution();
 	}
 	public void choixCouleurFusion(ArrayList<Chaine> listeChainePlateau, ArrayList<Chaine> listeChaineAModif, Chaine c, Case case1) throws RemoteException {
-		listeChaineAModif.add(c);
-		getGame().setAction(new Action(Globals.choixActionFusionEchangeAchatVente,listeChaineAModif,c));
-		listeChaineAModif.remove(c);
-		getGame().getPlateau().fusionChaines(listeChainePlateau, listeChaineAModif, c, case1);
-		//TODO new ACTION CHOIX =	choixActionFusionEchangeAchatVente //getGame().setAction(new Action());
+		ArrayList<Chaine> listeChaineDifferenteAvantModif = listeChaineAModif;
+		Chaine chaineAbsorbanteAvantFusion = c;
+		System.out.println("avantFusion");
+		getGame().getPlateau().fusionChaines(this.game.getListeChaine(), listeChaineAModif, c, case1);
+		System.out.println("aprèsFusion");
+		
+		getGame().setAction(new Action(Globals.choixActionFusionEchangeAchatVente,listeChaineDifferenteAvantModif,chaineAbsorbanteAvantFusion));
+		
+		
 		nextTurnAction();
 
 		distribution();
@@ -284,7 +288,7 @@ public class Serveur extends UnicastRemoteObject implements ServeurInterface {
 		HashMap<String,String> listeCasesNoires = new HashMap<String,String>();
 		while (enumKeys.hasMoreElements()) {
 			String key = enumKeys.nextElement();
-			for (int i = 0; i<30;i++) {
+			for (int i = 0; i<5;i++) {
 				listeCasesNoires.put(key,game.getPlateau().initialiseMainCaseNoir());
 			}
 			game.getTableau().getInfoParClient().get(key).initialiseMain(game.getPlateau());

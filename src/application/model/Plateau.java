@@ -235,6 +235,7 @@ public class Plateau implements Serializable {
 					
 					if(grandeChaine == null){
 						// il n'y a pas de chaine plus grande qu'une autre
+						
 						return new Action(Globals.choixActionFusionSameSizeChaine,listeChaine, chaineDifferente,caseModifiee);
 					}
 					else{
@@ -405,12 +406,16 @@ public class Plateau implements Serializable {
 	
 	public void fusionChaines(ArrayList<Chaine> listeChaineTotale,ArrayList<Chaine> listeChaineAbsorbee, Chaine chaineAbsorbante, Case caseAAjouter)
 	{
+		System.out.println("dans fusion");
+		System.out.println(listeChaineAbsorbee);
 		listeChaineAbsorbee.remove(chaineAbsorbante);
+		System.out.println(listeChaineAbsorbee);
 		for(Chaine c : listeChaineAbsorbee)
 		{
 			listeChaineTotale.get(chaineAbsorbante.getTypeChaine().getNumero()-2).modifChain(c);
 		}
 		listeChaineTotale.get(chaineAbsorbante.getTypeChaine().getNumero()-2).addCase(caseAAjouter);
+		System.out.println(listeChaineTotale);
 	}
 
 

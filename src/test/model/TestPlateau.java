@@ -324,6 +324,27 @@ public class TestPlateau {
 		assertEquals(0,variableTest2);
 		assertEquals(0,variableTest3);
 	}
+	@Test
+	public void testupdateCaseChaineSameSize(){
+		// création de 3 Chaines avec des taille différentes
+		// l'une d'elle aura une taille plus grande et les autres devrons donc fusionner avec celle-ci
+		// Ajout de 2 cases à la chaine 1
+		listeChaine.get(0).addCase(plateauTest.getPlateauMap().get("E9"));
+		listeChaine.get(0).addCase(plateauTest.getPlateauMap().get("E10"));
+		
+		// Ajout de 3 cases à la chaine 2
+		listeChaine.get(1).addCase(plateauTest.getPlateauMap().get("C8"));
+		listeChaine.get(1).addCase(plateauTest.getPlateauMap().get("D8"));
+		
+		
+		
+		// on applique la fonction update case
+		// on doit donc se retrouver avec toutes les cases dans la chaine la plus grande
+		
+		plateauTest.updateCase("E8", listeChaine);
+		
+	}
+	
 	
 	
 	

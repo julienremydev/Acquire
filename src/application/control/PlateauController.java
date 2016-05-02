@@ -260,11 +260,10 @@ public class PlateauController implements Initializable {
 
 			b.setOnAction((event) -> {
 				try {
-					g.getAction().getListeDeChaineAProposer().remove(c);
-					ArrayList<Chaine> nouvelleListeAModifier = g.getAction().getListeDeChaineAProposer();
-					g.getAction().setListeChainesAbsorbees(nouvelleListeAModifier);
-					client.sendChoixCouleurFusionSameChaine(g.getAction().getListeDeChainePlateau(),
-							g.getAction().getListeChainesAbsorbees(), c, g.getAction().getCaseModifiee());
+//					ArrayList<Chaine> nouvelleListeAModifier = g.getAction().getListeDeChaineAProposer();
+//					g.getAction().setListeChainesAbsorbees(nouvelleListeAModifier);
+					client.sendChoixCouleurFusionSameChaine(g.getListeChaine(),
+							g.getAction().getListeDeChaineAProposer(), c, g.getAction().getCaseModifiee());
 
 					gridPaneAction.getChildren().clear();
 				} catch (Exception e) {

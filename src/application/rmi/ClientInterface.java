@@ -26,5 +26,6 @@ public interface ClientInterface extends Remote{
 
 	void receiveGameForSave(Game game) throws RemoteException;
 	
+	void receiveClassement (HashMap<String,Integer> map) throws RemoteException;
 	
 }

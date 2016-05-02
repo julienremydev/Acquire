@@ -49,6 +49,16 @@ public class Globals {
 	public final static String hashMapTRADE = "TRADE";
 	public final static String hashMapSELL = "SELL";
 	
+	public static HashMap<String, Integer> 
+	getClassement( HashMap<String, Integer> map ) {
+		HashMap<String, Integer> result = new LinkedHashMap<>();
+		Stream<Map.Entry<String, Integer>> st = map.entrySet().stream();
+
+		st.sorted( Map.Entry.comparingByValue() )
+		.forEachOrdered( e -> result.put(e.getKey(), e.getValue()) );
+
+		return result;
+	}
 	
 	/**
 	 * Methode de tri d'une map (utilisé pour l'ordre des joueurs selon la pioche)

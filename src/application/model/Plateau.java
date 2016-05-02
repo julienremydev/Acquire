@@ -9,6 +9,8 @@ import java.util.HashSet;
 import java.util.Random;
 import java.util.Set;
 
+import javax.swing.text.StyledEditorKit.ForegroundAction;
+
 import application.globale.Globals;
 
 public class Plateau implements Serializable {
@@ -417,6 +419,39 @@ public class Plateau implements Serializable {
 			
 		}
 		listeChaineTotale.get(chaineAbsorbante.getTypeChaine().getNumero()-2).addCase(caseAAjouter);
+	}
+
+	/**
+	 * Mise a jour des cases grises (case entouré par deux chaines sup à 11
+	 * @param listChaines
+	 */
+	public void CasesGrises(ArrayList<Chaine> listChaines) {
+		// TODO verification
+		ArrayList<String> casesToRemove = new ArrayList<String>();
+		for (String c : casesDisponible) {
+			Case cas = plateauMap.get(c);
+			int nbChaineSup11=0;
+			if (cas.surroundedByChains()) {
+				System.out.println(cas);
+				ArrayList<Case> listCases = cas.tabAdjascent();
+				for (Case cas2 : listCases) {
+					System.out.println("etat : "+cas2.getEtat());
+					if (listChaines.get(cas2.getEtat()-2).tailleChaine()>=11) {
+						System.out.println("ok");
+						nbChaineSup11++;
+					}
+				}
+				System.out.println("nb : "+nbChaineSup11);
+				if (nbChaineSup11>=2) {
+					cas.setEtat(-1);
+					casesToRemove.add(c);
+				}
+			}
+			nbChaineSup11=0;
+		}
+		for (String cas : casesToRemove) {
+			casesDisponible.remove(cas);
+		}
 	}
 
 

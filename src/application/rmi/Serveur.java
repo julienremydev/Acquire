@@ -146,14 +146,16 @@ public class Serveur extends UnicastRemoteObject implements ServeurInterface {
 		distribution();
 	}
 	public void choixCouleurFusion(ArrayList<Chaine> listeChainePlateau, ArrayList<Chaine> listeChaineAModif, Chaine c, Case case1) throws RemoteException {
+		ArrayList<Chaine> liste= game.getListeChaine();
 		ArrayList<Chaine> listeChaineDifferenteAvantModif = listeChaineAModif;
 		Chaine chaineAbsorbanteAvantFusion = c;
 		System.out.println("avantFusion");
 		getGame().getPlateau().fusionChaines(game.getListeChaine(), listeChaineAModif, c, case1);
-		
+		System.out.println("aprèsFusion");
+
 		getGame().setAction(new Action(Globals.choixActionFusionEchangeAchatVente,listeChaineDifferenteAvantModif,chaineAbsorbanteAvantFusion));
-		
-		
+
+
 		nextTurnAction();
 
 		distribution();
@@ -341,6 +343,8 @@ public class Serveur extends UnicastRemoteObject implements ServeurInterface {
 	 */
 	@Override
 	public void distribution() throws RemoteException {
+		this.game.getPlateau().CasesGrises(game.getListeChaine());
+		
 		this.game.getTableau().updateActionnaire();
 
 		// MODIFICATION DU GAME ICI
@@ -399,7 +403,15 @@ public class Serveur extends UnicastRemoteObject implements ServeurInterface {
 	}
 
 	public void isOver() throws RemoteException{
-		//TODO
+		Collection <ClientInfo> clients = this.getGame().getTableau().getInfoParClient().values();
+		HashMap<String,Integer> classement = new HashMap<String,Integer>();
+		for (ClientInfo client : clients) {
+			classement.put(client.getPseudo(),client.getNet());
+		}
+		classement = Globals.getClassement(classement);
+		Enumeration<ClientInterface> e = liste_clients.elements();
+		while (e.hasMoreElements())
+			e.nextElement().receiveClassement(classement);
 	}
 
 }

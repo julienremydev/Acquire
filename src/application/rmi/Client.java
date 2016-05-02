@@ -138,4 +138,8 @@ public class Client extends UnicastRemoteObject implements ClientInterface {
 	public void isOver() throws RemoteException{
 		serveur.isOver();
 	}
+	
+	public void receiveClassement(HashMap<String,Integer> map) throws RemoteException{
+		plateauController.endingGame(map);
+	}
 }

@@ -599,4 +599,8 @@ public class PlateauController implements Initializable {
 			e.printStackTrace();
 		}
 	}
+
+	public void endingGame(HashMap<String, Integer> map) {
+		//TODO afficher le classement
+	}
 }

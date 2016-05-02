@@ -1,6 +1,10 @@
 package test.model;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -23,8 +27,6 @@ public class TestPlateau {
 	@Before
 	public void initPlateau() {
 		plateauTest = new Plateau();
-		
-		
 		listeChaine.add(sackson);
 		listeChaine.add(zeta);
 		listeChaine.add(hydra);
@@ -147,13 +149,13 @@ public class TestPlateau {
 	@Test
 	public void testaddRecurseCoin() {
 		Set<Case> retourne = new HashSet<Case>();
-		
+
 		plateauTest.getPlateauMap().get("A10").setEtat(1);
 		plateauTest.getPlateauMap().get("A11").setEtat(1);
 		plateauTest.getPlateauMap().get("B11").setEtat(1);
 		plateauTest.getPlateauMap().get("B12").setEtat(1);
 		plateauTest.getPlateauMap().get("C12").setEtat(1);
-		
+
 		plateauTest.addRecurse(retourne, plateauTest.getPlateauMap().get("A12"));
 
 		assertTrue(retourne.contains(plateauTest.getPlateauMap().get("A10")));
@@ -166,12 +168,12 @@ public class TestPlateau {
 	@Test
 	public void testaddRecurseMultiple() {
 		Set<Case> retourne = new HashSet<Case>();
-		
+
 		plateauTest.getPlateauMap().get("C8").setEtat(1);
 		plateauTest.getPlateauMap().get("C9").setEtat(1);
 		plateauTest.getPlateauMap().get("C11").setEtat(1);
 		plateauTest.getPlateauMap().get("C12").setEtat(1);
-		
+
 		plateauTest.addRecurse(retourne, plateauTest.getPlateauMap().get("C10"));
 
 		assertTrue(retourne.contains(plateauTest.getPlateauMap().get("C8")));
@@ -226,22 +228,22 @@ public class TestPlateau {
 		// on joue sur la case 8, il faudra donc passer en parametre de la fonction les cases adjascentes non null
 		listeChaine.get(0).addCase(plateauTest.getPlateauMap().get("E9"));
 		listeChaine.get(0).addCase(plateauTest.getPlateauMap().get("E10"));
-		
+
 		listeChaine.get(0).addCase(plateauTest.getPlateauMap().get("C8"));
 		listeChaine.get(0).addCase(plateauTest.getPlateauMap().get("D8"));
-		
-		
+
+
 		listeChaine.get(0).addCase(plateauTest.getPlateauMap().get("E6"));
 		listeChaine.get(0).addCase(plateauTest.getPlateauMap().get("E7"));
-		
+
 		ArrayList<Case> tabCaseAdj = new ArrayList<>();
 		tabCaseAdj.add(plateauTest.getPlateauMap().get("E7"));
 		tabCaseAdj.add(plateauTest.getPlateauMap().get("E9"));
 		tabCaseAdj.add(plateauTest.getPlateauMap().get("D8"));
-		
+
 		ArrayList<Chaine> listeTest = plateauTest.listeChaineDifferentes(tabCaseAdj, listeChaine);
 		int tailleTest = listeTest.size();
-		
+
 		assertEquals (1,tailleTest);		
 	}
 	// Test dans le cas ou les chaines n'ont pas de taille différentes
@@ -250,46 +252,46 @@ public class TestPlateau {
 		// on joue sur la case 8, il faudra donc passer en parametre de la fonction les cases adjascentes non null
 		listeChaine.get(0).addCase(plateauTest.getPlateauMap().get("E9"));
 		listeChaine.get(0).addCase(plateauTest.getPlateauMap().get("E10"));
-		
+
 		listeChaine.get(1).addCase(plateauTest.getPlateauMap().get("C8"));
 		listeChaine.get(1).addCase(plateauTest.getPlateauMap().get("D8"));
-		
-		
+
+
 		listeChaine.get(2).addCase(plateauTest.getPlateauMap().get("E6"));
 		listeChaine.get(2).addCase(plateauTest.getPlateauMap().get("E7"));
-		
+
 		ArrayList<Case> tabCaseAdj = new ArrayList<>();
 		tabCaseAdj.add(plateauTest.getPlateauMap().get("E7"));
 		tabCaseAdj.add(plateauTest.getPlateauMap().get("E9"));
 		tabCaseAdj.add(plateauTest.getPlateauMap().get("D8"));
-		
+
 		ArrayList<Chaine> listeTest = plateauTest.listeChaineDifferentes(tabCaseAdj, listeChaine);
 		int tailleTest = listeTest.size();
-		
+
 		assertEquals (3,tailleTest);		
 	}
 	@Test
 	public void testsameSizeChaine(){
 		listeChaine.get(0).addCase(plateauTest.getPlateauMap().get("E9"));
 		listeChaine.get(0).addCase(plateauTest.getPlateauMap().get("E10"));
-		
+
 		listeChaine.get(1).addCase(plateauTest.getPlateauMap().get("B8"));
 		listeChaine.get(1).addCase(plateauTest.getPlateauMap().get("C8"));
-		
-		
+
+
 		listeChaine.get(2).addCase(plateauTest.getPlateauMap().get("E6"));
 		listeChaine.get(2).addCase(plateauTest.getPlateauMap().get("E7"));
-		
+
 		// aucune chaine n'est plus grande, la fonction retourne donc null
 		assertNull(plateauTest.sameSizeChaine(listeChaine));
-		
+
 		listeChaine.get(1).addCase(plateauTest.getPlateauMap().get("D8"));
-		
+
 		listeChaine.get(2).addCase(plateauTest.getPlateauMap().get("F6"));
 		listeChaine.get(2).addCase(plateauTest.getPlateauMap().get("F7"));
 		// La derniere chaine est plus grande que les autres, doit donc retourner cette chaine
 		assertEquals(listeChaine.get(2),plateauTest.sameSizeChaine(listeChaine));
-		
+
 	}
 	// test updateCase pour changement de couleur de chaines
 
@@ -303,7 +305,7 @@ public class TestPlateau {
 		// Ajout de 2 cases à la chaine 1
 		listeChaine.get(0).addCase(plateauTest.getPlateauMap().get("E9"));
 		listeChaine.get(0).addCase(plateauTest.getPlateauMap().get("E10"));
-		
+
 		// Ajout de 3 cases à la chaine 2
 		listeChaine.get(1).addCase(plateauTest.getPlateauMap().get("B8"));
 		listeChaine.get(1).addCase(plateauTest.getPlateauMap().get("C8"));
@@ -313,7 +315,7 @@ public class TestPlateau {
 		listeChaine.get(2).addCase(plateauTest.getPlateauMap().get("E7"));
 		listeChaine.get(2).addCase(plateauTest.getPlateauMap().get("F6"));
 		listeChaine.get(2).addCase(plateauTest.getPlateauMap().get("F7"));
-		
+
 		// on applique la fonction update case
 		// on doit donc se retrouver avec toutes les cases dans la chaine la plus grande
 		plateauTest.updateCase("E8", listeChaine);
@@ -331,21 +333,56 @@ public class TestPlateau {
 		// Ajout de 2 cases à la chaine 1
 		listeChaine.get(0).addCase(plateauTest.getPlateauMap().get("E9"));
 		listeChaine.get(0).addCase(plateauTest.getPlateauMap().get("E10"));
-		
+
 		// Ajout de 3 cases à la chaine 2
 		listeChaine.get(1).addCase(plateauTest.getPlateauMap().get("C8"));
 		listeChaine.get(1).addCase(plateauTest.getPlateauMap().get("D8"));
-		
-		
-		
+
+
+
 		// on applique la fonction update case
 		// on doit donc se retrouver avec toutes les cases dans la chaine la plus grande
-		
+
 		plateauTest.updateCase("E8", listeChaine);
-		
+
 	}
-	
-	
-	
-	
+
+	@Test
+	public void CasesGrises() {
+
+		Case c1 = plateauTest.getCase("C1");
+		Case c3 = plateauTest.getCase("C3");
+
+		listeChaine.get(0).addCase(c1);
+		listeChaine.get(0).addCase(new Case());
+		listeChaine.get(0).addCase(new Case());
+		listeChaine.get(0).addCase(new Case());
+		listeChaine.get(0).addCase(new Case());
+		listeChaine.get(0).addCase(new Case());
+		listeChaine.get(0).addCase(new Case());
+		listeChaine.get(0).addCase(new Case());
+		listeChaine.get(0).addCase(new Case());
+		listeChaine.get(0).addCase(new Case());
+		listeChaine.get(0).addCase(new Case());
+		listeChaine.get(0).addCase(new Case());
+		//liste2
+		listeChaine.get(1).addCase(c3);
+		listeChaine.get(1).addCase(new Case());
+		listeChaine.get(1).addCase(new Case());
+		listeChaine.get(1).addCase(new Case());
+		listeChaine.get(1).addCase(new Case());
+		listeChaine.get(1).addCase(new Case());
+		listeChaine.get(1).addCase(new Case());
+		listeChaine.get(1).addCase(new Case());
+		listeChaine.get(1).addCase(new Case());
+		listeChaine.get(1).addCase(new Case());
+		listeChaine.get(1).addCase(new Case());
+		plateauTest.CasesGrises(listeChaine);
+		assertEquals(1,-plateauTest.getCase("C2").getEtat());
+		assertFalse(plateauTest.getCasesDisponible().contains("C2"));
+	}
+
+
+
+
 }

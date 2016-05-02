@@ -29,7 +29,7 @@ public class Client extends UnicastRemoteObject implements ClientInterface {
 	public static void main(String[] args) throws Exception {
 		System.setProperty("java.security.policy","file:./security.policy");
 		System.setSecurityManager(new SecurityManager());
-		System.setProperty("java.rmi.server.hostname", "127.0.0.1");
+		//System.setProperty("java.rmi.server.hostname", "192.168.1.66");
 		System.setProperty("java.rmi.server.codebase","file:./bin/");
 		ClientView view = new ClientView();
 		view.lancer();

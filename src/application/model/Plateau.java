@@ -239,7 +239,10 @@ public class Plateau implements Serializable {
 				else{
 					// On vérifie la taille des chianes pour savoir si elle sont différentes. 
 					ArrayList<Chaine> chaineDifferente = listeChaineDifferentes(tab, listeChaine);
-					ArrayList<Chaine> listeGrandeChaine = sameSizeChaine(chaineDifferente);
+					System.out.println("chaineDifferente = " + chaineDifferente);
+					
+					ArrayList<Chaine> listeGrandeChaine = new ArrayList<>();
+					listeGrandeChaine = sameSizeChaine(chaineDifferente);
 					
 					Set<Case> setCasesAModifier = new HashSet<Case>();
 					ArrayList<Case> tabCasesAModifier = new ArrayList<Case> ();
@@ -281,20 +284,29 @@ public class Plateau implements Serializable {
 			ArrayList<Chaine> chaineDifferente = listeChaineDifferentes(tab, listeChaine);
 			// Création de la liste d'hotels à ajouter dans la chaine
 			Set<Case> setCasesAModifier = new HashSet<Case>();
-			ArrayList<Case> tabCasesAModifier = new ArrayList<Case> ();
+			
 			setCasesAModifier.addAll(addRecurse(setCasesAModifier,caseModifiee));
-			tabCasesAModifier.add(caseModifiee);
+			ArrayList<Case> tabCasesAModifier = new ArrayList<Case> (setCasesAModifier);
+
+			
 
 			// la on a la liste d'hotel absorbe et la liste de chaines differentes
 			// arraylist des chaines les plus grandes( si une seule, rien faire , si plusieurs , proposition à l'utilisateur
-			ArrayList<Chaine> listeGrandesChaines = sameSizeChaine(chaineDifferente);
-			System.out.println(listeGrandesChaines);
+						
+			ArrayList<Chaine> listeGrandesChaines = new ArrayList<>();
+			
+			if(chaineDifferente.size()==1)
+				listeGrandesChaines=chaineDifferente;
+			else
+				listeGrandesChaines = sameSizeChaine(chaineDifferente);
+			
+			
+			
 			if(listeGrandesChaines == null){
 				// il n'y a pas de chaine plus grande qu'une autre
 				return new Action(Globals.choixActionFusionSameSizeChaine,listeChaine, chaineDifferente,tabCasesAModifier);
 			}
 			else{
-				
 				if(listeGrandesChaines.size()==1)
 				{
 					ArrayList<Chaine> listeChaineDifferenteAvantModif = chaineDifferente;
@@ -348,8 +360,7 @@ public class Plateau implements Serializable {
 				}
 			}
 		}
-		//ArrayList<Case> casesDone1 = new ArrayList<Case> (listRecurse) ;
-
+		
 		return casesDone;
 
 	}
@@ -468,7 +479,6 @@ public class Plateau implements Serializable {
 	 */
 	public ArrayList<Chaine> fusionChaines(ArrayList<Chaine> listeChaineTotale,ArrayList<Chaine> listeChaineAbsorbee, Chaine chaineAbsorbante, ArrayList<Case> listeCaseAbsorbee)
 	{
-
 		listeChaineAbsorbee.remove(chaineAbsorbante);
 
 		for(Chaine c : listeChaineAbsorbee)

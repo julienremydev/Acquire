@@ -91,8 +91,8 @@ public class Client extends UnicastRemoteObject implements ClientInterface {
 		this.serveur.achatAction(getPseudo(), actionAAcheter);
 	}
 	
-	public void sendChoixCouleurFusionSameChaine (ArrayList<Chaine> listeChainePlateau, ArrayList<Chaine> listeChaineAModif, Chaine ChaineAbs, Case case1) throws RemoteException{
-		this.serveur.choixCouleurFusion (listeChainePlateau,listeChaineAModif,ChaineAbs,case1);
+	public void sendChoixCouleurFusionSameChaine (ArrayList<Chaine> listeChainePlateau, ArrayList<Chaine> listeChaineAModif, Chaine ChaineAbs, ArrayList<Case> arrayList) throws RemoteException{
+		this.serveur.choixCouleurFusion (listeChainePlateau,listeChaineAModif,ChaineAbs,arrayList);
 	}
 	
 	public String getPseudo() {

@@ -137,6 +137,28 @@ public class Case implements Serializable {
 	}
 	
 	/**
+	 * Retourne un tableau des cases adjascentes non nulles
+	 * 
+	 * @param cN
+	 * @param cS
+	 * @param cE
+	 * @param cW
+	 * @return
+	 */
+	public ArrayList<Case> hotelAdjascent() {
+		ArrayList<Case> tab = new ArrayList<Case>();
+		if (this.getNorth() != null  && this.getNorth().getEtat() == 1)
+			tab.add(this.getNorth());
+		if (this.getSouth() != null  && this.getSouth().getEtat() == 1)
+			tab.add(this.getSouth());
+		if (this.getEast() != null  && this.getEast().getEtat() == 1)
+			tab.add(this.getEast());
+		if (this.getWest() != null  && this.getWest().getEtat() == 1)
+			tab.add(this.getWest());
+		return tab;
+	}
+	
+	/**
 	 * Retourne vrai si les cases adjacentes (tableau) à notre cases sont de la
 	 * même couleur (donc même chaîne, donc même etat)
 	 * 

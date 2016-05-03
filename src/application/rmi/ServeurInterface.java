@@ -32,7 +32,7 @@ public interface ServeurInterface extends Remote{
 
 	void achatAction(String nomJoueur, HashMap<TypeChaine, Integer> actionAAcheter) throws RemoteException;
 
-	void choixCouleurFusion(ArrayList<Chaine> arrayList, ArrayList<Chaine> listeChaineAModif, Chaine c, Case case1) throws RemoteException;
+	void choixCouleurFusion(ArrayList<Chaine> arrayList, ArrayList<Chaine> listeChaineAModif, Chaine c, ArrayList<Case> arrayList2) throws RemoteException;
 
 	void clientSaveGame(String pseudo) throws RemoteException;
 

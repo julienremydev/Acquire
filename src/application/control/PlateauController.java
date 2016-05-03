@@ -269,7 +269,7 @@ public class PlateauController implements Initializable {
 					//					ArrayList<Chaine> nouvelleListeAModifier = g.getAction().getListeDeChaineAProposer();
 					//					g.getAction().setListeChainesAbsorbees(nouvelleListeAModifier);
 					client.sendChoixCouleurFusionSameChaine(g.getListeChaine(),
-							g.getAction().getListeDeChaineAProposer(), c, g.getAction().getCaseModifiee());
+							g.getAction().getListeDeChaineAProposer(), c, g.getAction().getListeCaseAbsorbees());
 
 					gridPaneAction.getChildren().clear();
 				} catch (Exception e) {

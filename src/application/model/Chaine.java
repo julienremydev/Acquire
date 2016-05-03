@@ -124,7 +124,6 @@ public class Chaine implements Serializable{
 
 	@JsonIgnore
 	public boolean isSup41() {
-		System.out.println("hey : "+this.tailleChaine());
 		return (this.tailleChaine()>=41);
 	}
 }

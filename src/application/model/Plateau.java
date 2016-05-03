@@ -32,7 +32,7 @@ public class Plateau implements Serializable {
 
 	private Case[][] plateauTab;
 
-	
+
 	@JsonCreator
 	public Plateau() {
 		plateauMap = new HashMap<String, Case>();
@@ -178,6 +178,7 @@ public class Plateau implements Serializable {
 		boolean simpleCase = caseModifiee.surroundedByNothing();
 		boolean askColor = caseModifiee.surroundedByHotels();
 		boolean askChain = caseModifiee.surroundedByChains();
+		
 
 		/**
 		 * Cas simple, aucune case initialisée autour, la case deviens donc un
@@ -238,19 +239,27 @@ public class Plateau implements Serializable {
 				else{
 					// On vérifie la taille des chianes pour savoir si elle sont différentes. 
 					ArrayList<Chaine> chaineDifferente = listeChaineDifferentes(tab, listeChaine);
-					Chaine grandeChaine = sameSizeChaine(chaineDifferente);
-
-					if(grandeChaine == null){
+					ArrayList<Chaine> listeGrandeChaine = sameSizeChaine(chaineDifferente);
+					
+					Set<Case> setCasesAModifier = new HashSet<Case>();
+					ArrayList<Case> tabCasesAModifier = new ArrayList<Case> ();
+					setCasesAModifier.addAll(addRecurse(setCasesAModifier,caseModifiee));
+					tabCasesAModifier.add(caseModifiee);
+					
+					if(listeGrandeChaine == null){
 						// il n'y a pas de chaine plus grande qu'une autre
 
-						return new Action(Globals.choixActionFusionSameSizeChaine,listeChaine, chaineDifferente,caseModifiee);
+						return new Action(Globals.choixActionFusionSameSizeChaine,listeChaine, chaineDifferente,tabCasesAModifier);
 					}
 					else{
 						ArrayList<Chaine> listeChaineDifferenteAvantModif = chaineDifferente;
-						Chaine chaineAbsorbanteAvantFusion = grandeChaine;
-						fusionChaines(listeChaine,chaineDifferente,grandeChaine,caseModifiee);
+						Chaine chaineAbsorbanteAvantFusion = listeGrandeChaine.get(0);
+						Chaine grandeChaineAction = listeGrandeChaine.get(0);
+						ArrayList<Case> listeCaseAbsorbee1 = new ArrayList<Case>();
+						listeCaseAbsorbee1.add(caseModifiee);
+						fusionChaines(listeChaine,chaineDifferente,grandeChaineAction,tabCasesAModifier);
 
-						//TODO listeChaineDifferenteAvantModif est null
+						
 						return new Action(Globals.choixActionFusionEchangeAchatVente,listeChaineDifferenteAvantModif,chaineAbsorbanteAvantFusion);
 					}
 
@@ -260,21 +269,53 @@ public class Plateau implements Serializable {
 			return null;
 		}
 
-		//		/**
-		//		 * Présense d'un ou plusieurs hotêls avec une ou plusieures chaînes
-		//		 */
-		//
-		//		if (askChain && askColor) {
-		//			// Ici on a au mooins une chain et au moins 1 hotel
-		//			// chercher ou on a la chaine et récupérer son etat pour avoir la
-		//			// couleur
-		//			// chercher les hotels ou autres chaines
-		//			// regarder la taille des chaines pour savoir la quelle est la plus
-		//			// grande
-		//			// si taille == user.askColorForChains
-		//			// si taille != on prend etat de la plus grande chaine
-		//			this.setEtat(3);
-		//		}
+
+		if (askChain && askColor) {
+			ArrayList<Case> tab = caseModifiee.tabAdjascent();
+			
+			/*
+			 * Le tableau de cases adjascente à forcément une taille supérieur a 1 car on a au moins une chaine et un hotel
+			 */
+			
+			// On vérifie la taille des chianes pour savoir si elle sont différentes. 
+			ArrayList<Chaine> chaineDifferente = listeChaineDifferentes(tab, listeChaine);
+			// Création de la liste d'hotels à ajouter dans la chaine
+			Set<Case> setCasesAModifier = new HashSet<Case>();
+			ArrayList<Case> tabCasesAModifier = new ArrayList<Case> ();
+			setCasesAModifier.addAll(addRecurse(setCasesAModifier,caseModifiee));
+			tabCasesAModifier.add(caseModifiee);
+
+			// la on a la liste d'hotel absorbe et la liste de chaines differentes
+			// arraylist des chaines les plus grandes( si une seule, rien faire , si plusieurs , proposition à l'utilisateur
+			ArrayList<Chaine> listeGrandesChaines = sameSizeChaine(chaineDifferente);
+			System.out.println(listeGrandesChaines);
+			if(listeGrandesChaines == null){
+				// il n'y a pas de chaine plus grande qu'une autre
+				return new Action(Globals.choixActionFusionSameSizeChaine,listeChaine, chaineDifferente,tabCasesAModifier);
+			}
+			else{
+				
+				if(listeGrandesChaines.size()==1)
+				{
+					ArrayList<Chaine> listeChaineDifferenteAvantModif = chaineDifferente;
+					Chaine chaineAbsorbanteAvantFusion = listeGrandesChaines.get(0);
+					
+					Chaine chaineAbsorbantePourFusion = listeGrandesChaines.get(0);
+					
+					
+					fusionChaines(listeChaine,chaineDifferente,chaineAbsorbantePourFusion,tabCasesAModifier);
+
+				
+					return new Action(Globals.choixActionFusionEchangeAchatVente,listeChaineDifferenteAvantModif,chaineAbsorbanteAvantFusion);
+				}
+				else
+				{
+					return new Action(Globals.choixActionFusionSameSizeChaine,listeChaine, chaineDifferente,tabCasesAModifier);
+				}
+			
+			}
+
+		}
 		return null;
 
 
@@ -289,7 +330,7 @@ public class Plateau implements Serializable {
 		Set<Case> listRecurse = new HashSet<Case>();
 		casesDone.add(c);
 		if (c.surroundedByHotels()) {
-			ArrayList<Case> listHotels = c.tabAdjascent();
+			ArrayList<Case> listHotels = c.hotelAdjascent();
 			for (Case hotel : listHotels) {
 				if (!casesDone.contains(hotel)) {
 					listRecurse.add(hotel);
@@ -367,7 +408,16 @@ public class Plateau implements Serializable {
 	{
 		ArrayList<Chaine> tabReturn = new ArrayList<>();
 		ArrayList<Integer> tabTest = new ArrayList<>();
-		for(Case caseTest : tab)
+		ArrayList<Case> casesChaineIterate = new ArrayList<>();
+		// Boucle qui ne prend que les cases du tab adjascent ou on a des chaines
+		for(Case caseChaine : tab)
+		{
+			if(caseChaine.getEtat()>=2)
+				casesChaineIterate.add(caseChaine);
+				
+		}
+		// ensuite on regarde dans cette liste de cases appartenant à des chaines, celles qui ont des chaines différentes
+		for(Case caseTest : casesChaineIterate)
 		{
 			if(! tabTest.contains(caseTest.getEtat()))
 			{
@@ -382,36 +432,41 @@ public class Plateau implements Serializable {
 	 * Fonction qui regarde si les chaines sont de même taille. Si c'est le cas retourne null. Sinon retourne la plus grande chaine
 	 * @return
 	 */
-	public Chaine sameSizeChaine(ArrayList<Chaine> chaineDifferentes){
-		ArrayList<Integer> tabTest = new ArrayList<>();
-		ArrayList<Chaine> tabChaineTailleDiff = new ArrayList<>();
-		for(Chaine ch : chaineDifferentes)
-		{
-			if(! tabTest.contains(ch.tailleChaine()))
-			{
-				tabTest.add(ch.tailleChaine());
-				tabChaineTailleDiff.add(ch);
+	public ArrayList<Chaine> sameSizeChaine(ArrayList<Chaine> chaineDifferentes){
+		ArrayList<Chaine> returnGrandesChaines = new ArrayList<>();
+		ArrayList<Chaine> triCroissantTaille = chaineDifferentes;
+		Collections.sort(triCroissantTaille,new Comparator<Chaine>(){
+			@Override
+			public int compare(Chaine c1, Chaine c2){
+				return c2.tailleChaine().compareTo(c1.tailleChaine());
 			}
+		});
+		int taillePremiereChaine = triCroissantTaille.get(0).tailleChaine();
+		for(Chaine ch : triCroissantTaille)
+		{
+			if(ch.tailleChaine()==taillePremiereChaine)
+				returnGrandesChaines.add(ch);
+
 		}
-		if(tabTest.size() == 1)
+		System.out.println(chaineDifferentes.size());
+		System.out.println(returnGrandesChaines.size());
+		if(chaineDifferentes.size() == returnGrandesChaines.size())
 		{
 			return null;
 		}
 		else
-		{
+			return returnGrandesChaines;
 
-			Collections.sort(tabChaineTailleDiff,new Comparator<Chaine>(){
-				@Override
-				public int compare(Chaine c1, Chaine c2){
-					return c2.tailleChaine().compareTo(c1.tailleChaine());
-				}
-			});
-			return tabChaineTailleDiff.get(0);
-
-		}
 	}
-
-	public ArrayList<Chaine> fusionChaines(ArrayList<Chaine> listeChaineTotale,ArrayList<Chaine> listeChaineAbsorbee, Chaine chaineAbsorbante, Case caseAAjouter)
+	/**
+	 * Prend en parametre la liste de chaine du plateau, afin d'ajouter la liste de chaine Absorbée à la chaine absorbante, avec la case cliquée
+	 * @param listeChaineTotale
+	 * @param listeChaineAbsorbee
+	 * @param chaineAbsorbante
+	 * @param listeCaseAbsorbee
+	 * @return
+	 */
+	public ArrayList<Chaine> fusionChaines(ArrayList<Chaine> listeChaineTotale,ArrayList<Chaine> listeChaineAbsorbee, Chaine chaineAbsorbante, ArrayList<Case> listeCaseAbsorbee)
 	{
 
 		listeChaineAbsorbee.remove(chaineAbsorbante);
@@ -424,7 +479,13 @@ public class Plateau implements Serializable {
 
 
 		}
-		listeChaineTotale.get(chaineAbsorbante.getTypeChaine().getNumero()-2).addCase(caseAAjouter);
+		// Au lieu d'ajouter une case, faire une boucle d'ajout de la liste de case Hotels
+		for(Case c : listeCaseAbsorbee)
+		{
+			listeChaineTotale.get(chaineAbsorbante.getTypeChaine().getNumero()-2).addCase(c);
+		}
+		
+		// On refais une boucle de changement d'état des cases
 		for (Case cas : listeChaineTotale.get(chaineAbsorbante.getTypeChaine().getNumero()-2).getListeCase()) {
 			this.getCase(cas.getNom()).setEtat(cas.getEtat());
 		}
@@ -465,6 +526,7 @@ public class Plateau implements Serializable {
 			casesDisponible.remove(cas);
 		}
 	}
+
 
 	public void uitiemechaine(ArrayList<Chaine> listChaines, Collection<ClientInfo> collection) {
 		boolean isOkay=false;

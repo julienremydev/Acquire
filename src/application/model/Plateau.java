@@ -521,7 +521,9 @@ public class Plateau implements Serializable {
 				}
 			}
 			nbChaineSup11=0;
+			etats.clear();
 		}
+		
 		for (String cas : casesToRemove) {
 			casesDisponible.remove(cas);
 		}

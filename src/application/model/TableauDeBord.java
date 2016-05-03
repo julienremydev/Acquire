@@ -104,7 +104,7 @@ public class TableauDeBord implements Serializable{
 		if (infoParClient.containsKey(pseudo)){
 			int cash = infoParClient.get(pseudo).getCash();
 			for(Chaine chaine : listeChaine){
-				if ( !chaine.chaineDisponible() && chaine.getNbActionRestante() > 0 && TypeChaine.prixAction(chaine.getTypeChaine(), chaine.getListeCase().size()) < cash){
+				if ( !chaine.chaineDisponible() && chaine.getNbActionRestante() > 0 && TypeChaine.prixAction(chaine.getTypeChaine(), chaine.getListeCase().size()) <= cash){
 					return true;
 				}
 			}
@@ -117,10 +117,10 @@ public class TableauDeBord implements Serializable{
 	 * @param idChaine
 	 * @return
 	 */
-	public boolean actionAvailableForPlayer(String pseudo, int idChaine){
+	public boolean actionAvailableForPlayer(String pseudo, int idChaine, int argentDepense){
 		if (infoParClient.containsKey(pseudo)){
 			int cash = infoParClient.get(pseudo).getCash();
-			if ( !getChaineById(idChaine).chaineDisponible() && getChaineById(idChaine).getNbActionRestante() > 0 && TypeChaine.prixAction(getChaineById(idChaine).getTypeChaine(),getChaineById(idChaine).getListeCase().size()) < cash)
+			if ( !getChaineById(idChaine).chaineDisponible() && getChaineById(idChaine).getNbActionRestante() > 0 && TypeChaine.prixAction(getChaineById(idChaine).getTypeChaine(),getChaineById(idChaine).getListeCase().size()) <= cash-argentDepense)
 				return true;
 		}
 		return false;

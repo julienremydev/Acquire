@@ -1,10 +1,15 @@
 package application.model;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class CaseLeft extends Case {
 
-	public CaseLeft(String n){
-		super(n);
+	@JsonCreator
+	public CaseLeft(@JsonProperty("nom")String nom) {
+		super(nom);
 	}
+	
 	
 	
 	/**

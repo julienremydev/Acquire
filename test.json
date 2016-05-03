@@ -1,0 +1,559 @@
+{
+  "plateau" : {
+    "plateauMap" : {
+      "I1" : {
+        "nom" : "I1",
+        "etat" : 0
+      },
+      "I2" : {
+        "nom" : "I2",
+        "etat" : 0
+      },
+      "I3" : {
+        "nom" : "I3",
+        "etat" : 0
+      },
+      "I4" : {
+        "nom" : "I4",
+        "etat" : 0
+      },
+      "I5" : {
+        "nom" : "I5",
+        "etat" : 0
+      },
+      "I6" : {
+        "nom" : "I6",
+        "etat" : 0
+      },
+      "I7" : {
+        "nom" : "I7",
+        "etat" : 0
+      },
+      "I8" : {
+        "nom" : "I8",
+        "etat" : 0
+      },
+      "A1" : {
+        "nom" : "A1",
+        "etat" : 0
+      },
+      "I9" : {
+        "nom" : "I9",
+        "etat" : 0
+      },
+      "A2" : {
+        "nom" : "A2",
+        "etat" : 0
+      },
+      "A3" : {
+        "nom" : "A3",
+        "etat" : 0
+      },
+      "A4" : {
+        "nom" : "A4",
+        "etat" : 0
+      },
+      "A5" : {
+        "nom" : "A5",
+        "etat" : 0
+      },
+      "A6" : {
+        "nom" : "A6",
+        "etat" : 0
+      },
+      "A7" : {
+        "nom" : "A7",
+        "etat" : 0
+      },
+      "A8" : {
+        "nom" : "A8",
+        "etat" : 0
+      },
+      "A9" : {
+        "nom" : "A9",
+        "etat" : 0
+      },
+      "A10" : {
+        "nom" : "A10",
+        "etat" : 0
+      },
+      "A11" : {
+        "nom" : "A11",
+        "etat" : 0
+      },
+      "A12" : {
+        "nom" : "A12",
+        "etat" : 0
+      },
+      "E11" : {
+        "nom" : "E11",
+        "etat" : 0
+      },
+      "E10" : {
+        "nom" : "E10",
+        "etat" : 0
+      },
+      "E12" : {
+        "nom" : "E12",
+        "etat" : 0
+      },
+      "I11" : {
+        "nom" : "I11",
+        "etat" : 0
+      },
+      "I10" : {
+        "nom" : "I10",
+        "etat" : 0
+      },
+      "I12" : {
+        "nom" : "I12",
+        "etat" : 0
+      },
+      "B1" : {
+        "nom" : "B1",
+        "etat" : 0
+      },
+      "B2" : {
+        "nom" : "B2",
+        "etat" : 0
+      },
+      "B3" : {
+        "nom" : "B3",
+        "etat" : 0
+      },
+      "B4" : {
+        "nom" : "B4",
+        "etat" : 0
+      },
+      "B5" : {
+        "nom" : "B5",
+        "etat" : 0
+      },
+      "B6" : {
+        "nom" : "B6",
+        "etat" : 0
+      },
+      "B7" : {
+        "nom" : "B7",
+        "etat" : 0
+      },
+      "B8" : {
+        "nom" : "B8",
+        "etat" : 0
+      },
+      "B9" : {
+        "nom" : "B9",
+        "etat" : 0
+      },
+      "C1" : {
+        "nom" : "C1",
+        "etat" : 0
+      },
+      "C2" : {
+        "nom" : "C2",
+        "etat" : 0
+      },
+      "C3" : {
+        "nom" : "C3",
+        "etat" : 0
+      },
+      "C4" : {
+        "nom" : "C4",
+        "etat" : 0
+      },
+      "C5" : {
+        "nom" : "C5",
+        "etat" : 0
+      },
+      "C6" : {
+        "nom" : "C6",
+        "etat" : 0
+      },
+      "C7" : {
+        "nom" : "C7",
+        "etat" : 0
+      },
+      "C8" : {
+        "nom" : "C8",
+        "etat" : 0
+      },
+      "C9" : {
+        "nom" : "C9",
+        "etat" : 0
+      },
+      "D10" : {
+        "nom" : "D10",
+        "etat" : 0
+      },
+      "D12" : {
+        "nom" : "D12",
+        "etat" : 0
+      },
+      "D11" : {
+        "nom" : "D11",
+        "etat" : 0
+      },
+      "H10" : {
+        "nom" : "H10",
+        "etat" : 0
+      },
+      "H12" : {
+        "nom" : "H12",
+        "etat" : 0
+      },
+      "H11" : {
+        "nom" : "H11",
+        "etat" : 0
+      },
+      "D1" : {
+        "nom" : "D1",
+        "etat" : 0
+      },
+      "D2" : {
+        "nom" : "D2",
+        "etat" : 0
+      },
+      "D3" : {
+        "nom" : "D3",
+        "etat" : 0
+      },
+      "D4" : {
+        "nom" : "D4",
+        "etat" : 0
+      },
+      "D5" : {
+        "nom" : "D5",
+        "etat" : 0
+      },
+      "D6" : {
+        "nom" : "D6",
+        "etat" : 0
+      },
+      "D7" : {
+        "nom" : "D7",
+        "etat" : 0
+      },
+      "D8" : {
+        "nom" : "D8",
+        "etat" : 0
+      },
+      "D9" : {
+        "nom" : "D9",
+        "etat" : 0
+      },
+      "E1" : {
+        "nom" : "E1",
+        "etat" : 0
+      },
+      "E2" : {
+        "nom" : "E2",
+        "etat" : 0
+      },
+      "E3" : {
+        "nom" : "E3",
+        "etat" : 0
+      },
+      "E4" : {
+        "nom" : "E4",
+        "etat" : 0
+      },
+      "E5" : {
+        "nom" : "E5",
+        "etat" : 0
+      },
+      "E6" : {
+        "nom" : "E6",
+        "etat" : 0
+      },
+      "E7" : {
+        "nom" : "E7",
+        "etat" : 0
+      },
+      "E8" : {
+        "nom" : "E8",
+        "etat" : 0
+      },
+      "E9" : {
+        "nom" : "E9",
+        "etat" : 0
+      },
+      "C11" : {
+        "nom" : "C11",
+        "etat" : 0
+      },
+      "C10" : {
+        "nom" : "C10",
+        "etat" : 0
+      },
+      "C12" : {
+        "nom" : "C12",
+        "etat" : 0
+      },
+      "G11" : {
+        "nom" : "G11",
+        "etat" : 0
+      },
+      "G10" : {
+        "nom" : "G10",
+        "etat" : 0
+      },
+      "G12" : {
+        "nom" : "G12",
+        "etat" : 0
+      },
+      "F1" : {
+        "nom" : "F1",
+        "etat" : 0
+      },
+      "F2" : {
+        "nom" : "F2",
+        "etat" : 0
+      },
+      "F3" : {
+        "nom" : "F3",
+        "etat" : 0
+      },
+      "F4" : {
+        "nom" : "F4",
+        "etat" : 0
+      },
+      "F5" : {
+        "nom" : "F5",
+        "etat" : 0
+      },
+      "F6" : {
+        "nom" : "F6",
+        "etat" : 0
+      },
+      "F7" : {
+        "nom" : "F7",
+        "etat" : 0
+      },
+      "F8" : {
+        "nom" : "F8",
+        "etat" : 0
+      },
+      "F9" : {
+        "nom" : "F9",
+        "etat" : 0
+      },
+      "G1" : {
+        "nom" : "G1",
+        "etat" : 0
+      },
+      "G2" : {
+        "nom" : "G2",
+        "etat" : 0
+      },
+      "G3" : {
+        "nom" : "G3",
+        "etat" : 0
+      },
+      "G4" : {
+        "nom" : "G4",
+        "etat" : 0
+      },
+      "G5" : {
+        "nom" : "G5",
+        "etat" : 0
+      },
+      "G6" : {
+        "nom" : "G6",
+        "etat" : 0
+      },
+      "G7" : {
+        "nom" : "G7",
+        "etat" : 0
+      },
+      "G8" : {
+        "nom" : "G8",
+        "etat" : 0
+      },
+      "G9" : {
+        "nom" : "G9",
+        "etat" : 0
+      },
+      "B10" : {
+        "nom" : "B10",
+        "etat" : 0
+      },
+      "B11" : {
+        "nom" : "B11",
+        "etat" : 0
+      },
+      "B12" : {
+        "nom" : "B12",
+        "etat" : 0
+      },
+      "F10" : {
+        "nom" : "F10",
+        "etat" : 0
+      },
+      "F12" : {
+        "nom" : "F12",
+        "etat" : 0
+      },
+      "F11" : {
+        "nom" : "F11",
+        "etat" : 0
+      },
+      "H1" : {
+        "nom" : "H1",
+        "etat" : 0
+      },
+      "H2" : {
+        "nom" : "H2",
+        "etat" : 0
+      },
+      "H3" : {
+        "nom" : "H3",
+        "etat" : 0
+      },
+      "H4" : {
+        "nom" : "H4",
+        "etat" : 0
+      },
+      "H5" : {
+        "nom" : "H5",
+        "etat" : 0
+      },
+      "H6" : {
+        "nom" : "H6",
+        "etat" : 0
+      },
+      "H7" : {
+        "nom" : "H7",
+        "etat" : 0
+      },
+      "H8" : {
+        "nom" : "H8",
+        "etat" : 0
+      },
+      "H9" : {
+        "nom" : "H9",
+        "etat" : 0
+      }
+    },
+    "casesDisponible" : [ "A1", "A2", "A3", "A4", "A5", "A6", "A7", "A8", "A9", "A10", "A11", "A12", "B1", "B2", "B3", "B4", "B5", "B6", "B7", "B8", "B9", "B10", "B11", "B12", "C1", "C2", "C3", "C4", "C5", "C6", "C7", "C8", "C9", "C10", "C11", "C12", "D1", "D2", "D3", "D4", "D5", "D6", "D7", "D8", "D9", "D10", "D11", "D12", "E1", "E2", "E3", "E4", "E5", "E6", "E7", "E8", "E9", "E10", "E11", "E12", "F1", "F2", "F3", "F4", "F5", "F6", "F7", "F8", "F9", "F10", "F11", "F12", "G1", "G2", "G3", "G4", "G5", "G6", "G7", "G8", "G9", "G10", "G11", "G12", "H1", "H2", "H3", "H4", "H5", "H6", "H7", "H8", "H9", "H10", "H11", "H12", "I1", "I2", "I3", "I4", "I5", "I6", "I7", "I8", "I9", "I10", "I11", "I12" ],
+    "plateauTab" : null
+  },
+  "tableauDeBord" : {
+    "infoParClient" : { },
+    "listeChaine" : [ {
+      "typeChaine" : "SACKSON",
+      "listeCase" : [ ],
+      "nbActionRestante" : 25,
+      "actionParClient" : { }
+    }, {
+      "typeChaine" : "ZETA",
+      "listeCase" : [ ],
+      "nbActionRestante" : 25,
+      "actionParClient" : { }
+    }, {
+      "typeChaine" : "HYDRA",
+      "listeCase" : [ ],
+      "nbActionRestante" : 25,
+      "actionParClient" : { }
+    }, {
+      "typeChaine" : "FUSION",
+      "listeCase" : [ ],
+      "nbActionRestante" : 25,
+      "actionParClient" : { }
+    }, {
+      "typeChaine" : "AMERICA",
+      "listeCase" : [ ],
+      "nbActionRestante" : 25,
+      "actionParClient" : { }
+    }, {
+      "typeChaine" : "PHOENIX",
+      "listeCase" : [ ],
+      "nbActionRestante" : 25,
+      "actionParClient" : { }
+    }, {
+      "typeChaine" : "QUANTUM",
+      "listeCase" : [ ],
+      "nbActionRestante" : 25,
+      "actionParClient" : { }
+    } ],
+    "listeTypeChaine" : [ {
+      "typeChaine" : "SACKSON",
+      "listeCase" : [ ],
+      "nbActionRestante" : 25,
+      "actionParClient" : { }
+    }, {
+      "typeChaine" : "ZETA",
+      "listeCase" : [ ],
+      "nbActionRestante" : 25,
+      "actionParClient" : { }
+    }, {
+      "typeChaine" : "HYDRA",
+      "listeCase" : [ ],
+      "nbActionRestante" : 25,
+      "actionParClient" : { }
+    }, {
+      "typeChaine" : "FUSION",
+      "listeCase" : [ ],
+      "nbActionRestante" : 25,
+      "actionParClient" : { }
+    }, {
+      "typeChaine" : "AMERICA",
+      "listeCase" : [ ],
+      "nbActionRestante" : 25,
+      "actionParClient" : { }
+    }, {
+      "typeChaine" : "PHOENIX",
+      "listeCase" : [ ],
+      "nbActionRestante" : 25,
+      "actionParClient" : { }
+    }, {
+      "typeChaine" : "QUANTUM",
+      "listeCase" : [ ],
+      "nbActionRestante" : 25,
+      "actionParClient" : { }
+    } ]
+  },
+  "playerTurn" : null,
+  "action" : null,
+  "ordre_joueur" : [ ],
+  "ordre_joueur_action" : [ ],
+  "tchat" : "[Serveur] Serveur lancé.\n",
+  "chef" : null,
+  "listeChaine" : [ {
+    "typeChaine" : "SACKSON",
+    "listeCase" : [ ],
+    "nbActionRestante" : 25,
+    "actionParClient" : { }
+  }, {
+    "typeChaine" : "ZETA",
+    "listeCase" : [ ],
+    "nbActionRestante" : 25,
+    "actionParClient" : { }
+  }, {
+    "typeChaine" : "HYDRA",
+    "listeCase" : [ ],
+    "nbActionRestante" : 25,
+    "actionParClient" : { }
+  }, {
+    "typeChaine" : "FUSION",
+    "listeCase" : [ ],
+    "nbActionRestante" : 25,
+    "actionParClient" : { }
+  }, {
+    "typeChaine" : "AMERICA",
+    "listeCase" : [ ],
+    "nbActionRestante" : 25,
+    "actionParClient" : { }
+  }, {
+    "typeChaine" : "PHOENIX",
+    "listeCase" : [ ],
+    "nbActionRestante" : 25,
+    "actionParClient" : { }
+  }, {
+    "typeChaine" : "QUANTUM",
+    "listeCase" : [ ],
+    "nbActionRestante" : 25,
+    "actionParClient" : { }
+  } ],
+  "partiecommencee" : false,
+  "partiechargee" : false
+}

@@ -12,6 +12,8 @@ import java.util.Set;
 
 import javax.swing.text.StyledEditorKit.ForegroundAction;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+
 import application.globale.Globals;
 
 public class Plateau implements Serializable {
@@ -30,6 +32,8 @@ public class Plateau implements Serializable {
 
 	private Case[][] plateauTab;
 
+	
+	@JsonCreator
 	public Plateau() {
 		plateauMap = new HashMap<String, Case>();
 		initCasesPlateau();
@@ -492,5 +496,29 @@ public class Plateau implements Serializable {
 	public void checkinCases(ArrayList<Chaine> listeChaine, HashMap<String, ClientInfo> infoParClient) {
 		this.CasesGrises(listeChaine);
 		this.uitiemechaine(listeChaine,infoParClient.values());
+	}
+
+	public static String[] getLigne() {
+		return ligne;
+	}
+
+	public static void setLigne(String[] ligne) {
+		Plateau.ligne = ligne;
+	}
+
+	public static String[] getColonne() {
+		return colonne;
+	}
+
+	public static void setColonne(String[] colonne) {
+		Plateau.colonne = colonne;
+	}
+
+	public Case[][] getPlateauTab() {
+		return plateauTab;
+	}
+
+	public void setPlateauTab(Case[][] plateauTab) {
+		this.plateauTab = plateauTab;
 	}
 }

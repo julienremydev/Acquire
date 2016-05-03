@@ -7,6 +7,8 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+
 import application.globale.Globals;
 
 public class TableauDeBord implements Serializable{
@@ -21,6 +23,7 @@ public class TableauDeBord implements Serializable{
 	 * Constructeur Tableau de bord
 	 */
 
+	@JsonCreator
 	public TableauDeBord() {
 		this.infoParClient = new HashMap<String,ClientInfo>();
 		this.listeChaine= new ArrayList<Chaine>();
@@ -74,7 +77,7 @@ public class TableauDeBord implements Serializable{
 	 */
 	public Chaine getChaineById(int id){
 		for(Chaine c:listeChaine){
-			if(c.getNomChaine().getNumero()==id){
+			if(c.getTypeChaine().getNumero()==id){
 				return c;
 			}
 		}
@@ -101,7 +104,7 @@ public class TableauDeBord implements Serializable{
 		if (infoParClient.containsKey(pseudo)){
 			int cash = infoParClient.get(pseudo).getCash();
 			for(Chaine chaine : listeChaine){
-				if ( !chaine.chaineDisponible() && chaine.getNbActionRestante() > 0 && TypeChaine.prixAction(chaine.getNomChaine(), chaine.getListeCase().size()) < cash){
+				if ( !chaine.chaineDisponible() && chaine.getNbActionRestante() > 0 && TypeChaine.prixAction(chaine.getTypeChaine(), chaine.getListeCase().size()) < cash){
 					return true;
 				}
 			}
@@ -117,7 +120,7 @@ public class TableauDeBord implements Serializable{
 	public boolean actionAvailableForPlayer(String pseudo, int idChaine){
 		if (infoParClient.containsKey(pseudo)){
 			int cash = infoParClient.get(pseudo).getCash();
-			if ( !getChaineById(idChaine).chaineDisponible() && getChaineById(idChaine).getNbActionRestante() > 0 && TypeChaine.prixAction(getChaineById(idChaine).getNomChaine(),getChaineById(idChaine).getListeCase().size()) < cash)
+			if ( !getChaineById(idChaine).chaineDisponible() && getChaineById(idChaine).getNbActionRestante() > 0 && TypeChaine.prixAction(getChaineById(idChaine).getTypeChaine(),getChaineById(idChaine).getListeCase().size()) < cash)
 				return true;
 		}
 		return false;
@@ -169,7 +172,7 @@ public class TableauDeBord implements Serializable{
 		int res = -1;
 
 		for(int i=0; i<listeChaine.size(); i++){
-			if (listeChaine.get(i).getNomChaine().equals(tc)){
+			if (listeChaine.get(i).getTypeChaine().equals(tc)){
 				res = i;
 			}
 		}

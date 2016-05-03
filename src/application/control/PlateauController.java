@@ -1,6 +1,7 @@
 package application.control;
 
 import java.io.File;
+import java.io.IOException;
 import java.net.URL;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
@@ -8,6 +9,11 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.ResourceBundle;
+
+import com.fasterxml.jackson.core.JsonGenerationException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 
 import application.globale.Globals;
 import application.model.Action;
@@ -121,11 +127,11 @@ public class PlateauController implements Initializable {
 		// int actionCAbsorbante =
 		// g.getTableau().getClientInfo(client.getPseudo()).getActionParChaine().get(g.getAction().getChaineAbsorbante().getNomChaine());
 
-		int actionCAbsorbee = g.getTableau().getClientInfo(pseudo).getActionParChaine()
-				.get(g.getAction().getListeChainesAbsorbees().get(0).getNomChaine());
+		int actionCAbsorbee = g.getTableauDeBord().getClientInfo(pseudo).getActionParChaine()
+				.get(g.getAction().getListeChainesAbsorbees().get(0).getTypeChaine());
 
 		int actionRestanteCAbsorbante = g.getListeChaine()
-				.get(g.getAction().getChaineAbsorbante().getNomChaine().getNumero() - 2).getNbActionRestante();
+				.get(g.getAction().getChaineAbsorbante().getTypeChaine().getNumero() - 2).getNbActionRestante();
 		if (choix.equals("maxKEEP")) {
 			actions_fusions_loc.put(Globals.hashMapKEEP, actionCAbsorbee);
 			actions_fusions_loc.put(Globals.hashMapTRADE, 0);
@@ -190,8 +196,8 @@ public class PlateauController implements Initializable {
 	}
 
 	public void initializeMapAction(Game g, String pseudo) {
-		actions_fusions.put(Globals.hashMapKEEP, g.getTableau().getClientInfo(pseudo).getActionParChaine()
-				.get(g.getAction().getListeChainesAbsorbees().get(0).getNomChaine()));
+		actions_fusions.put(Globals.hashMapKEEP, g.getTableauDeBord().getClientInfo(pseudo).getActionParChaine()
+				.get(g.getAction().getListeChainesAbsorbees().get(0).getTypeChaine()));
 		actions_fusions.put(Globals.hashMapTRADE, 0);
 		actions_fusions.put(Globals.hashMapSELL, 0);
 
@@ -256,7 +262,7 @@ public class PlateauController implements Initializable {
 		for (Chaine c : g.getAction().getListeDeChaineAProposer()) {
 
 			int i = j;
-			Button b = setStyleButton(c.getNomChaine(), c.getNomChaine().toString().substring(0, 1));
+			Button b = setStyleButton(c.getTypeChaine(), c.getTypeChaine().toString().substring(0, 1));
 
 			b.setOnAction((event) -> {
 				try {
@@ -315,19 +321,19 @@ public class PlateauController implements Initializable {
 		// MAJ BOUTONS ACTIONS DISPOS
 		int j = 0;
 		for (Chaine c : game.getListeChaine()) {
-			if (game.getTableau().actionAvailableForPlayer(client.getPseudo(), c.getNomChaine().getNumero())) {
+			if (game.getTableauDeBord().actionAvailableForPlayer(client.getPseudo(), c.getTypeChaine().getNumero())) {
 				int i = j;
-				Button b = setStyleButton(c.getNomChaine(),
-						c.getNomChaine().toString().substring(0, 1) + "\n" + TypeChaine.prixAction(c.getNomChaine(),
-								game.getListeChaine().get(c.getNomChaine().getNumero() - 2).tailleChaine()));
+				Button b = setStyleButton(c.getTypeChaine(),
+						c.getTypeChaine().toString().substring(0, 1) + "\n" + TypeChaine.prixAction(c.getTypeChaine(),
+								game.getListeChaine().get(c.getTypeChaine().getNumero() - 2).tailleChaine()));
 
 				b.setOnAction((event) -> {
 					try {
 						if (totalesActionsJoueurs() < 3) {
-							if (liste_actions.containsKey(c.getNomChaine()))
-								liste_actions.put(c.getNomChaine(), 1 + liste_actions.get(c.getNomChaine()));
+							if (liste_actions.containsKey(c.getTypeChaine()))
+								liste_actions.put(c.getTypeChaine(), 1 + liste_actions.get(c.getTypeChaine()));
 							else
-								liste_actions.put(c.getNomChaine(), 1);
+								liste_actions.put(c.getTypeChaine(), 1);
 
 							setChoixAchatAction(game);
 						}
@@ -380,11 +386,11 @@ public class PlateauController implements Initializable {
 		for (Chaine c : g.getListeChaine()) {
 			if (c.chaineDisponible()) {
 				int i = j;
-				Button b = setStyleButton(c.getNomChaine(), c.getNomChaine().toString().substring(0, 1));
+				Button b = setStyleButton(c.getTypeChaine(), c.getTypeChaine().toString().substring(0, 1));
 
 				b.setOnAction((event) -> {
 					try {
-						client.pickColor(g.getAction(), c.getNomChaine());
+						client.pickColor(g.getAction(), c.getTypeChaine());
 						gridPaneAction.getChildren().clear();
 					} catch (Exception e1) {
 						// TODO Auto-generated catch block
@@ -477,7 +483,7 @@ public class PlateauController implements Initializable {
 						}
 
 						// si le joueur possède la case dans sa main
-						if (g.getTableau().getInfoParClient().get(client.getPseudo()).getMain().contains(b.getText())) {
+						if (g.getTableauDeBord().getInfoParClient().get(client.getPseudo()).getMain().contains(b.getText())) {
 							b.setStyle(Globals.colorCasePlayer);
 							b.setDisable(false);
 						} else {
@@ -493,7 +499,7 @@ public class PlateauController implements Initializable {
 								b.setStyle(Globals.colorCaseHotel);
 								b.setTextFill(Color.WHITE);
 							} else {
-								b.setStyle(g.getListeChaine().get(c.getEtat() - 2).getNomChaine().getCouleurChaine());
+								b.setStyle(g.getListeChaine().get(c.getEtat() - 2).getTypeChaine().getCouleurChaine());
 							}
 						}
 
@@ -547,7 +553,7 @@ public class PlateauController implements Initializable {
 	 */
 	private void setDataTableView(Game g) {
 		dataTableView.clear();
-		HashMap<String, ClientInfo> infoClient = g.getTableau().getInfoParClient();
+		HashMap<String, ClientInfo> infoClient = g.getTableauDeBord().getInfoParClient();
 		Collection<ClientInfo> values = infoClient.values();
 		Platform.runLater(new Runnable() {
 			@Override
@@ -580,14 +586,46 @@ public class PlateauController implements Initializable {
 	public void setOn() {
 		grid.setMouseTransparent(false);
 	}
+	
+	
+	/**
+	 * methode permets de sauvgarder l'objet Game courant sous formatJSON via Jackson
+	 * @param g
+	 * @param adr
+	 * @throws JsonGenerationException
+	 * @throws JsonMappingException
+	 * @throws IOException
+	 */
+	public static void sauvgarderGame(Game g, String adr)
+			throws JsonGenerationException, JsonMappingException, IOException {
+
+		ObjectMapper mapper = new ObjectMapper();
+		File nf = new File(adr);
+		mapper.enable(SerializationFeature.INDENT_OUTPUT);
+		mapper.writeValue(nf, g);
+
+		// Convert object to JSON string
+		String jsonInString = mapper.writeValueAsString(g);
+
+		// Convert object to JSON string and pretty print
+
+	}
 
 	/*
 	 * 
 	 * Enregistrement du GAME au format JSON sur la machine du client
 	 */
-	public void saveTheGame(Game game) {
-		if (game == null)
+	public void saveTheGame(Game g) throws RemoteException {
+		if (g != null) {
+			try {
+				sauvgarderGame(g, "AcquireGame.json");
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		} else {
 			System.out.println("la partie n'a pas commencé");
+		}
 
 	}
 

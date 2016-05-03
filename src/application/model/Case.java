@@ -5,12 +5,21 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class Case implements Serializable {
 
 	private static final long serialVersionUID = -7478757850540161294L;
+	
+	@JsonBackReference("case-north")
 	private Case north;
+	@JsonBackReference("case-south")
 	private Case south;
+	@JsonBackReference("case-east")
 	private Case east;
+	@JsonBackReference("case-west")
 	private Case west;
 	//-2 pas de creation de chaine possible -1 injouable ; 0 vide ; 1 hotel ; 2-8 chaine
 	private int etat;
@@ -24,13 +33,15 @@ public class Case implements Serializable {
 		return this.nom;
 	}
 
+	@JsonCreator
 	public Case(){
 		this.etat=0;
 	}
 
-	public Case(String n) {
+	@JsonCreator
+	public Case(@JsonProperty("nom")String nom) {
 		this.etat = 0;
-		this.nom = n;
+		this.nom = nom;
 		this.north = null;
 		this.south = null;
 		this.east = null;

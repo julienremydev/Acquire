@@ -4,6 +4,9 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class Action implements Serializable{
 
 	/**
@@ -44,14 +47,22 @@ public class Action implements Serializable{
 	public void setCouleur(int couleur) {
 		this.couleur = couleur;
 	}
+	
+	@JsonCreator
+	public Action(){
+		super();
+	}
+	
 	/**
 	 * Action de création de chaine à partir d'une liste d'hotel
 	 * @param listeDeCase
 	 * @param type
 	 */
-	public Action(Set<Case> listeDeCase, int type) {
-		this.choix = type;
-		this.setListeDeCaseAModifier(listeDeCase);
+	
+	//@JsonCreator
+	public Action(Set<Case> listeDeCaseAModifier, int choix) {
+		this.choix = choix;
+		this.setListeDeCaseAModifier(listeDeCaseAModifier);
 	}
 	
 	/**
@@ -60,11 +71,13 @@ public class Action implements Serializable{
 	 * @param listeDeChaine
 	 * @param chaineFusion
 	 */
-	public Action(int type,ArrayList<Chaine> listeDeChaine, Chaine chaineFusion) {
+	
+	@JsonCreator
+	public Action(@JsonProperty("choix")int choix,@JsonProperty("listeChainesAbsorbees")ArrayList<Chaine> listeChainesAbsorbees, @JsonProperty("chaineAbsorbante")Chaine chaineAbsorbante) {
 		
-		this.setChoix(type);
-		this.setChaineAbsorbante(chaineFusion);
-		this.setListeChainesAbsorbees(listeDeChaine);
+		this.setChoix(choix);
+		this.setChaineAbsorbante(chaineAbsorbante);
+		this.setListeChainesAbsorbees(listeChainesAbsorbees);
 	
 	}
 	
@@ -75,12 +88,13 @@ public class Action implements Serializable{
 	 * @param listeDeChaineAProposer
 	 * @param caseModif
 	 */
-	public Action (int type,ArrayList<Chaine> listePlateau, ArrayList<Chaine> listeDeChaineAProposer, Case caseModif)
+	//@JsonCreator
+	public Action (int choix, ArrayList<Chaine> listeDeChainePlateau,ArrayList<Chaine> listeDeChaineAProposer, Case caseModifiee)
 	{
-		this.setChoix(type);
-		this.setListeDeChainePlateau(listePlateau);
+		this.setChoix(choix);
+		this.setListeDeChainePlateau(listeDeChainePlateau);
 		this.setListeDeChaineAProposer(listeDeChaineAProposer);
-		this.setCaseModifiee(caseModif);
+		this.setCaseModifiee(caseModifiee);
 				
 	}
 
@@ -100,6 +114,7 @@ public class Action implements Serializable{
 		this.listeDeChaineAProposer = listeDeChaineAProposer;
 	}
 
+	@JsonProperty
 	public ArrayList<Chaine> getListeChainesAbsorbees() {
 		return listeChainesAbsorbees;
 	}

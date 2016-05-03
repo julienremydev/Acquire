@@ -87,12 +87,12 @@ public class TestServeur {
 
 		assertEquals(serveur.erreurRegister("toto1", false), null);
 		serveur.getListe_clients().put("toto1", new Client());
-		serveur.getGame().getTableau().ajouterClient(new ClientInfo("toto1"));
+		serveur.getGame().getTableauDeBord().ajouterClient(new ClientInfo("toto1"));
 		serveur.getGame().setChef("toto1");
 
 		assertEquals(serveur.erreurRegister("toto2", false), null);
 		serveur.getListe_clients().put("toto2", new Client());
-		serveur.getGame().getTableau().ajouterClient(new ClientInfo("toto2")); 
+		serveur.getGame().getTableauDeBord().ajouterClient(new ClientInfo("toto2")); 
 
 		serveur.getGame().setPartiecommencee(true);
 
@@ -135,7 +135,7 @@ public class TestServeur {
 		c.getMain().add("E1");
 		c.getMain().add("F1");
 
-		serveur.getGame().getTableau().getInfoParClient().put("Yodaii", c);
+		serveur.getGame().getTableauDeBord().getInfoParClient().put("Yodaii", c);
 		serveur.piocheCaseFinTour("A1", "Yodaii");
 		assertFalse(c.getMain().get(0) == "A1");
 		assertEquals(6, c.getMain().size());

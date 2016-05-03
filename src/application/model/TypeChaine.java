@@ -2,6 +2,9 @@ package application.model;
 
 import java.util.HashMap;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import javafx.scene.paint.Color;
 
 public enum TypeChaine {
@@ -18,16 +21,23 @@ public enum TypeChaine {
 	private int numero;
 	private static int[] nbHotel = {2,3,4,5,10,20,30,40};
 	
+	
+	@JsonCreator 
+	private TypeChaine() {
+	}
+	
 	/**
 	 * Constructeur de l enum TypeChaine 
 	 * @param cat 
 	 * @param c
 	 * @param n
 	 */
-	private TypeChaine(int cat, String c, int n){
-		this.catChaine = cat;
-		this.couleurChaine=c;
-		this.numero = n;
+	
+	@JsonCreator
+	private TypeChaine(@JsonProperty("catChaine") int catChaine, @JsonProperty("couleurChaine")String couleurChaine, @JsonProperty("numero")int numero){
+		this.catChaine = catChaine;
+		this.couleurChaine=couleurChaine;
+		this.numero = numero;
 	}
 	
 	/**
@@ -92,6 +102,30 @@ public enum TypeChaine {
 
 	public String getCouleurChaine() {
 		return couleurChaine;
+	}
+
+	public int getCatChaine() {
+		return catChaine;
+	}
+
+	public void setCatChaine(int catChaine) {
+		this.catChaine = catChaine;
+	}
+
+	public void setCouleurChaine(String couleurChaine) {
+		this.couleurChaine = couleurChaine;
+	}
+
+	public void setNumero(int numero) {
+		this.numero = numero;
+	}
+
+	public static int[] getNbHotel() {
+		return nbHotel;
+	}
+
+	public static void setNbHotel(int[] nbHotel) {
+		TypeChaine.nbHotel = nbHotel;
 	}
 
 }

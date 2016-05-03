@@ -49,7 +49,7 @@ public class TestPlateauController {
 		toto.setActionParChaine(actionParChaine);
 		
 		hm.put(toto.getPseudo(), toto);
-		game.getTableau().setInfoParClient(hm);
+		game.getTableauDeBord().setInfoParClient(hm);
 	}
 
 	@Test

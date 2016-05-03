@@ -6,6 +6,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import application.model.Action;
 import application.model.Case;
 import application.model.Chaine;
@@ -33,14 +37,18 @@ public class Game implements Serializable{
 
 	private String chef;
 
+	@JsonProperty
 	private boolean partiecommencee;
 
+	@JsonProperty
 	private boolean partiechargee;
 
 	/**
 	 * Constructeur permettant l'initialisation de la liste de chaîne accessible par plateau et tableauDeBord
 	 * Initialisation du plateau et du TableauDeBord
 	 */
+	
+	@JsonCreator
 	public Game(){
 		super();
 
@@ -96,8 +104,8 @@ public class Game implements Serializable{
 		String player = getPlayerTurn();
 		HashMap<TypeChaine,Integer> liste_actions_player = new HashMap<TypeChaine,Integer> ();
 		for ( int i = 0 ; i < getOrdre_joueur().size() ; i++){
-			liste_actions_player = getTableau().getInfoParClient().get(player).getActionParChaine();
-			if ( liste_actions_player.get(getAction().getListeChainesAbsorbees().get(0).getNomChaine()) > 0){
+			liste_actions_player = getTableauDeBord().getInfoParClient().get(player).getActionParChaine();
+			if ( liste_actions_player.get(getAction().getListeChainesAbsorbees().get(0).getTypeChaine()) > 0){
 				getOrdre_joueur_action().add(player);
 			}
 			player = whoseTurn(player);
@@ -114,13 +122,13 @@ public class Game implements Serializable{
 		for(Case hotelToChaine : listeHotels){
 			getListeChaine().get(nomChaine.getNumero()-2).addCase(getPlateau().getCase(hotelToChaine.getNom()));
 		}
-		getTableau().getClientInfo(pseudo).getActionParChaine().put(nomChaine, 1+ getTableau().getClientInfo(pseudo).getActionParChaine().get(nomChaine));
+		getTableauDeBord().getClientInfo(pseudo).getActionParChaine().put(nomChaine, 1+ getTableauDeBord().getClientInfo(pseudo).getActionParChaine().get(nomChaine));
 	}
 	public Plateau getPlateau() {
 		return this.plateau;
 	}
 
-	public TableauDeBord getTableau() {
+	public TableauDeBord getTableauDeBord() {
 		return this.tableauDeBord;
 	}
 
@@ -142,6 +150,14 @@ public class Game implements Serializable{
 
 	public Action getAction() {
 		return action;
+	}
+
+	public void setPlateau(Plateau plateau) {
+		this.plateau = plateau;
+	}
+
+	public void setTableauDeBord(TableauDeBord tableauDeBord) {
+		this.tableauDeBord = tableauDeBord;
 	}
 
 	public void setAction(Action action) {
@@ -171,6 +187,8 @@ public class Game implements Serializable{
 		this.tchat = tchat;
 	}
 
+
+	@JsonProperty("partiechargee")
 	public boolean isPartiechargee() {
 		return partiechargee;
 	}
@@ -179,6 +197,7 @@ public class Game implements Serializable{
 		this.partiechargee = partiechargee;
 	}
 
+	@JsonProperty("partiecommencee")
 	public boolean isPartiecommencee() {
 		return partiecommencee;
 	}
@@ -195,10 +214,11 @@ public class Game implements Serializable{
 		this.chef = chef;
 	}
 
+	@JsonIgnore
 	public boolean isOver() {
 		int iterator = 0;
 		int nbChaineSup10=0;
-		ArrayList<Chaine> listChaine = getTableau().getListeChaine();
+		ArrayList<Chaine> listChaine = getTableauDeBord().getListeChaine();
 		while(nbChaineSup10<7 && iterator < listChaine.size()) {
 			if (listChaine.get(iterator).isSup10()) {
 				nbChaineSup10++;

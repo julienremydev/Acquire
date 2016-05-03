@@ -4,13 +4,15 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import application.globale.Globals;
 import javafx.scene.paint.Color;
 
 public class Chaine implements Serializable{
-	public TypeChaine getTypeChaine() {
-		return typeChaine;
-	}
+	
 	/**
 	 * 
 	 */
@@ -20,12 +22,19 @@ public class Chaine implements Serializable{
 	private int nbActionRestante;
 	private HashMap<String, Integer> actionParClient;
 	
+	
+	@JsonCreator
+	public Chaine(){
+	}
+	
 	/**
 	 * Constructeur permettant de definir le type des chaines d hotels
 	 * initialisation des autres attributs a leur valeur par defaut
 	 * @param tc 
 	 */
-	public Chaine(TypeChaine tc){
+	
+	@JsonCreator
+	public Chaine(@JsonProperty("tc")TypeChaine tc){
 		this.typeChaine = tc;
 		this.nbActionRestante = Globals.nbActionTotal;
 		this.listeCase = new ArrayList<Case>();
@@ -54,12 +63,16 @@ public class Chaine implements Serializable{
 	/*
 	 * Liste des Getters et Setters des tous les attributs
 	 */
-	public TypeChaine getNomChaine() {
+
+	public boolean chaineDisponible(){
+		return listeCase.isEmpty();
+	}
+	public TypeChaine getTypeChaine() {
 		return typeChaine;
 	}
 
-	public void setTypeChaine(TypeChaine tc) {
-		this.typeChaine = tc;
+	public void setTypeChaine(TypeChaine typeChaine) {
+		this.typeChaine = typeChaine;
 	}
 
 	public ArrayList<Case> getListeCase() {
@@ -85,9 +98,7 @@ public class Chaine implements Serializable{
 	public void setActionParClient(HashMap<String, Integer> actionParClient) {
 		this.actionParClient = actionParClient;
 	}
-	public boolean chaineDisponible(){
-		return listeCase.isEmpty();
-	}
+
 	/*
 	 * Ajout les cases de la chaine passée en parametre à la chaine actuelle, puis supprime de la chaine en parametre
 	 */
@@ -105,10 +116,13 @@ public class Chaine implements Serializable{
 		this.listeCase.removeAll(listeCase);		
 	}
 
+	
+	@JsonIgnore
 	public boolean isSup10() {
 		return (this.tailleChaine()>10);
 	}
 
+	@JsonIgnore
 	public boolean isSup41() {
 		System.out.println("hey : "+this.tailleChaine());
 		return (this.tailleChaine()>=41);

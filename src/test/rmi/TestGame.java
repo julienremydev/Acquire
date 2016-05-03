@@ -44,7 +44,7 @@ public class TestGame {
 		list.add(game.getPlateau().getPlateauMap().get("B11"));
 		list.add(game.getPlateau().getPlateauMap().get("C12"));
 		
-		game.getTableau().ajouterClient(new ClientInfo("Yodaii"));
+		game.getTableauDeBord().ajouterClient(new ClientInfo("Yodaii"));
 		game.creationChaine(list, TypeChaine.AMERICA, "Yodaii");
 
 		assertTrue(game.getPlateau().getPlateauMap().get("A10").getEtat() ==  TypeChaine.AMERICA.getNumero());
@@ -53,7 +53,7 @@ public class TestGame {
 		assertTrue(game.getPlateau().getPlateauMap().get("B11").getEtat() == TypeChaine.AMERICA.getNumero());
 		assertTrue(game.getPlateau().getPlateauMap().get("B12").getEtat() == TypeChaine.AMERICA.getNumero());
 		assertTrue(game.getPlateau().getPlateauMap().get("C12").getEtat() == TypeChaine.AMERICA.getNumero());
-		int nbAction = game.getTableau().getInfoParClient().get("Yodaii").getActionParChaine().get(TypeChaine.AMERICA);
+		int nbAction = game.getTableauDeBord().getInfoParClient().get("Yodaii").getActionParChaine().get(TypeChaine.AMERICA);
 		assertEquals(1, nbAction);
 	}
 	
@@ -61,14 +61,14 @@ public class TestGame {
 	public void isOver() {
 		assertFalse(game.isOver());
 		for (int i = 0; i<= 50; i++) {
-			game.getTableau().getListeChaine().get(0).addCase(new Case());
+			game.getTableauDeBord().getListeChaine().get(0).addCase(new Case());
 		}
 		assertTrue(game.isOver());
-		game.getTableau().getListeChaine().get(0).getListeCase().clear();
+		game.getTableauDeBord().getListeChaine().get(0).getListeCase().clear();
 		assertFalse(game.isOver());
 		for (int j = 0; j<= 6; j++) {
 			for (int i = 0; i<= 12; i++) {
-				game.getTableau().getListeChaine().get(j).addCase(new Case());
+				game.getTableauDeBord().getListeChaine().get(j).addCase(new Case());
 			}
 		}
 		assertTrue(game.isOver());

@@ -154,9 +154,12 @@ public class ConnexionController implements Initializable {
 		String verifErreurJSON = verification_JSON(checkBoxJSON.isSelected(), fileJSON);
 		if (verifErreur != null) {
 			erreur.setText(verifErreur);
-		} else if (verifErreurJSON != null) {
+			/**
+			 * TODO : Verification JSON a faire
+			 */
+		} /** else if (verifErreurJSON != null) {
 			erreur.setText(verifErreurJSON);
-		} else {
+		} else { **/
 			try {
 
 				ServeurInterface serveur = connexion(ip1.getText().trim(), ip2.getText().trim(), ip3.getText().trim(),
@@ -188,7 +191,7 @@ public class ConnexionController implements Initializable {
 			}
 		}
 
-	}
+	/**}
 
 	/*
 	 * Méthode qui vérifie la syntaxe et le format du fichier JSON

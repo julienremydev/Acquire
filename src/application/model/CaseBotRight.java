@@ -1,9 +1,13 @@
 package application.model;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class CaseBotRight extends Case {
 
-	public CaseBotRight(String n){
-		super(n);
+	@JsonCreator
+	public CaseBotRight(@JsonProperty("nom")String nom) {
+		super(nom);
 	}
 	
 	

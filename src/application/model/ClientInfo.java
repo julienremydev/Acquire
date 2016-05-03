@@ -5,6 +5,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import application.globale.Globals;
 
 public class ClientInfo implements Serializable{
@@ -40,13 +43,20 @@ public class ClientInfo implements Serializable{
 	private Integer actionQuantum;
 	private Integer actionZeta;
 	//
+	
+	@JsonCreator
+	public ClientInfo(){
+		super();
+	}
 
 	/**
 	 * Constructeur de la classe client info qui initialise les donnees d un client
 	 * @param n : nom du pseudo du client
 	 */
-	public ClientInfo(String n){
-		this.pseudo = n;
+	
+	@JsonCreator
+	public ClientInfo(@JsonProperty("pseudo")String pseudo){
+		this.pseudo = pseudo;
 		this.net = 6000;
 		this.cash = 6000;
 		this.main=new ArrayList<String>();
@@ -170,20 +180,31 @@ public class ClientInfo implements Serializable{
 		return etatParChaine;
 	}
 
-	public int getNet() {
-		return net;
+	public void setMain(ArrayList<String> main) {
+		this.main = main;
 	}
 
-	public void setNet(int net) {
+	public void setNet(Integer net) {
 		this.net = net;
 	}
 
-	public int getCash() {
-		return cash;
+	public void setCash(Integer cash) {
+		this.cash = cash;
 	}
 
-	public void setCash(int cash) {
-		this.cash = cash;
+	public void setEtatParChaine(HashMap<TypeChaine, String> etatParChaine) {
+		this.etatParChaine = etatParChaine;
+	}
+
+
+	public Integer getNet() {
+		return net;
+	}
+
+
+
+	public Integer getCash() {
+		return cash;
 	}
 
 	public HashMap<TypeChaine, Integer> getActionParChaine() {
@@ -194,32 +215,61 @@ public class ClientInfo implements Serializable{
 		this.actionParChaine = actionParChaine;
 	}
 
+
 	public Integer getActionSackson() {
-		return this.actionParChaine.get(TypeChaine.SACKSON);
+		return actionSackson;
 	}
 
-	public Integer getActionHydra() {
-		return this.actionParChaine.get(TypeChaine.HYDRA);
+	public void setActionSackson(Integer actionSackson) {
+		this.actionSackson = actionSackson;
 	}
 
 	public Integer getActionAmerica() {
-		return this.actionParChaine.get(TypeChaine.AMERICA);
+		return actionAmerica;
+	}
+
+	public void setActionAmerica(Integer actionAmerica) {
+		this.actionAmerica = actionAmerica;
 	}
 
 	public Integer getActionFusion() {
-		return this.actionParChaine.get(TypeChaine.FUSION);
+		return actionFusion;
+	}
+
+	public void setActionFusion(Integer actionFusion) {
+		this.actionFusion = actionFusion;
 	}
 
 	public Integer getActionPhoenix() {
-		return this.actionParChaine.get(TypeChaine.PHOENIX);
+		return actionPhoenix;
+	}
+
+	public void setActionPhoenix(Integer actionPhoenix) {
+		this.actionPhoenix = actionPhoenix;
+	}
+
+	public Integer getActionHydra() {
+		return actionHydra;
+	}
+
+	public void setActionHydra(Integer actionHydra) {
+		this.actionHydra = actionHydra;
 	}
 
 	public Integer getActionQuantum() {
-		return this.actionParChaine.get(TypeChaine.QUANTUM);
+		return actionQuantum;
+	}
+
+	public void setActionQuantum(Integer actionQuantum) {
+		this.actionQuantum = actionQuantum;
 	}
 
 	public Integer getActionZeta() {
-		return this.actionParChaine.get(TypeChaine.ZETA);
+		return actionZeta;
+	}
+
+	public void setActionZeta(Integer actionZeta) {
+		this.actionZeta = actionZeta;
 	}
 
 	public ArrayList<String> getMain(){

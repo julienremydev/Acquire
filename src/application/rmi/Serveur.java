@@ -1,5 +1,7 @@
 package application.rmi;
 
+import java.io.File;
+import java.io.IOException;
 import java.net.InetAddress;
 import java.net.MalformedURLException;
 import java.net.UnknownHostException;
@@ -14,6 +16,10 @@ import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import application.globale.Globals;
 import application.model.Action;
@@ -68,7 +74,7 @@ public class Serveur extends UnicastRemoteObject implements ServeurInterface {
 			return Globals.erreurPseudoUtilise;
 
 		//La partie est commencée ou chargée : on vérifie les correpondances entre les pseudos
-		else if ((getGame().isPartiechargee() || getGame().isPartiecommencee()) && !game.getTableau().getInfoParClient().containsKey(p))
+		else if ((getGame().isPartiechargee() || getGame().isPartiecommencee()) && !game.getTableauDeBord().getInfoParClient().containsKey(p))
 			return Globals.erreurForbiddenPlayer;
 
 		// Il manque le chef de la partie et il reste une place, on ne connecte
@@ -117,7 +123,7 @@ public class Serveur extends UnicastRemoteObject implements ServeurInterface {
 
 	@Override
 	public void achatAction(String nomJoueur, HashMap<TypeChaine, Integer> actionAAcheter) throws RemoteException{
-		getGame().getTableau().achatActions(nomJoueur, actionAAcheter);
+		getGame().getTableauDeBord().achatActions(nomJoueur, actionAAcheter);
 		nextTurn(getGame().getPlayerTurn());
 
 		String actionJoueurNotif;
@@ -157,7 +163,7 @@ public class Serveur extends UnicastRemoteObject implements ServeurInterface {
 		distribution();
 	}
 	private void sendEndTurnAction () throws RemoteException{
-		if (!getGame().getTableau().actionAvailableForPlayer(getGame().getPlayerTurn())){
+		if (!getGame().getTableauDeBord().actionAvailableForPlayer(getGame().getPlayerTurn())){
 			nextTurn(getGame().getPlayerTurn());
 		}else{
 			liste_clients.get(getGame().getPlayerTurn()).receiveBuyAction(getGame());
@@ -194,10 +200,10 @@ public class Serveur extends UnicastRemoteObject implements ServeurInterface {
 	 */
 	public void piocheCaseFinTour(String text, String pseudo){
 		//Pioche d'une case a la fin du tour
-		if (game.getTableau().getInfoParClient().get(pseudo).getMain().contains(text)) {
-			int indice = game.getTableau().getInfoParClient().get(pseudo).getMain().indexOf(text);
-			game.getTableau().getInfoParClient().get(pseudo).getMain().remove(indice);
-			game.getTableau().getInfoParClient().get(pseudo).ajouteMain1fois(game.getPlateau());
+		if (game.getTableauDeBord().getInfoParClient().get(pseudo).getMain().contains(text)) {
+			int indice = game.getTableauDeBord().getInfoParClient().get(pseudo).getMain().indexOf(text);
+			game.getTableauDeBord().getInfoParClient().get(pseudo).getMain().remove(indice);
+			game.getTableauDeBord().getInfoParClient().get(pseudo).ajouteMain1fois(game.getPlateau());
 		}
 		else {
 			// TODO throw case pas dans la main exception
@@ -213,9 +219,10 @@ public class Serveur extends UnicastRemoteObject implements ServeurInterface {
 	public synchronized String register(ClientInterface client, String p, boolean loadJSON) throws Exception {
 
 		String erreur = erreurRegister(p, loadJSON);
+		
 		if (erreur != null)
 			return erreur;
-
+		
 
 		// Le premier joueur qui se connecte est le chef de la partie, seul lui peut la lancer.
 		if (liste_clients.size() == 0 && getGame().getChef() == null)
@@ -225,6 +232,10 @@ public class Serveur extends UnicastRemoteObject implements ServeurInterface {
 
 		//Chargement du fichier JSON : MAJ du GAME+ClientInfo
 		if ( loadJSON ){
+			Game g = chargerGame("AcquireGame.json");
+			System.out.println(g.getListeChaine().toString());
+
+			
 			/*
 			 * TODO :Chargement du fichier JSON : MAJ du GAME+ClientInfo
 			 * 
@@ -234,8 +245,8 @@ public class Serveur extends UnicastRemoteObject implements ServeurInterface {
 			distributionTchat("Serveur", "Le joueur " + p + " a chargé une partie.");
 		}else{
 			//ajout du joueur dans le tableau de bord si il se connecte pour la première fois
-			if ( !game.getTableau().getInfoParClient().containsKey(p) ){
-				game.getTableau().ajouterClient(new ClientInfo(p)); 
+			if ( !game.getTableauDeBord().getInfoParClient().containsKey(p) ){
+				game.getTableauDeBord().ajouterClient(new ClientInfo(p)); 
 			}
 
 			distributionTchat("Serveur", "Le joueur " + p + " est entré dans la partie.");
@@ -288,7 +299,7 @@ public class Serveur extends UnicastRemoteObject implements ServeurInterface {
 			for (int i = 0; i<30;i++) {
 				listeCasesNoires.put(key,game.getPlateau().initialiseMainCaseNoir());
 			}
-			game.getTableau().getInfoParClient().get(key).initialiseMain(game.getPlateau());
+			game.getTableauDeBord().getInfoParClient().get(key).initialiseMain(game.getPlateau());
 
 		}
 		setTurn(listeCasesNoires);
@@ -321,8 +332,8 @@ public class Serveur extends UnicastRemoteObject implements ServeurInterface {
 			if (p.equals(getGame().getChef()) && !getGame().isPartiecommencee()) {
 				distributionTchat("Serveur", "En attente de la reconnexion du joueur " + p + " pour lancer la partie.");
 			}
-			if ( !game.isPartiechargee() && !game.isPartiecommencee() && !p.equals(game.getChef()) && game.getTableau().getInfoParClient().containsKey(p) ){
-				game.getTableau().getInfoParClient().remove(p); 
+			if ( !game.isPartiechargee() && !game.isPartiecommencee() && !p.equals(game.getChef()) && game.getTableauDeBord().getInfoParClient().containsKey(p) ){
+				game.getTableauDeBord().getInfoParClient().remove(p); 
 			}
 			Logger.getLogger("Client").log(Level.INFO, "Le joueur " + p + " s'est déconnecté du serveur.");
 
@@ -339,10 +350,10 @@ public class Serveur extends UnicastRemoteObject implements ServeurInterface {
 	 */
 	@Override
 	public void distribution() throws RemoteException {
-		this.game.getPlateau().checkinCases(game.getListeChaine(),game.getTableau().getInfoParClient());
+		this.game.getPlateau().checkinCases(game.getListeChaine(),game.getTableauDeBord().getInfoParClient());
 		this.game.getPlateau().CasesGrises(game.getListeChaine());
 
-		this.game.getTableau().updateActionnaire();
+		this.game.getTableauDeBord().updateActionnaire();
 
 		// MODIFICATION DU GAME ICI
 		// APPEL DE LA FONCTION
@@ -398,7 +409,7 @@ public class Serveur extends UnicastRemoteObject implements ServeurInterface {
 	}
 
 	public void isOver() throws RemoteException{
-		Collection <ClientInfo> clients = this.getGame().getTableau().getInfoParClient().values();
+		Collection <ClientInfo> clients = this.getGame().getTableauDeBord().getInfoParClient().values();
 		HashMap<String,Integer> classement = new HashMap<String,Integer>();
 		for (ClientInfo client : clients) {
 			classement.put(client.getPseudo(),client.getNet());
@@ -407,6 +418,26 @@ public class Serveur extends UnicastRemoteObject implements ServeurInterface {
 		Enumeration<ClientInterface> e = liste_clients.elements();
 		while (e.hasMoreElements())
 			e.nextElement().receiveClassement(winner);
+	}
+	
+	/**
+	 * methode permets de charger l'objet game recuperé en JSON 
+	 * @param adr
+	 * @return
+	 * @throws JsonParseException
+	 * @throws JsonMappingException
+	 * @throws IOException
+	 */
+	public static Game chargerGame(String adr) throws JsonParseException, JsonMappingException, IOException {
+
+		ObjectMapper mapper = new ObjectMapper();
+
+		// JSON from file to Object
+		Game g = mapper.readValue(new File(adr), Game.class);
+
+		// JSON from String to Object
+		System.out.println(g.toString());
+		return g;
 	}
 
 }

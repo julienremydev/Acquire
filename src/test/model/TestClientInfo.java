@@ -29,12 +29,12 @@ public class TestClientInfo {
 		 */
 		// cas normal cash - montant > 0, cash depart = 6000
 		int montantApplique = clientTest.updateCash(-1000);
-		assertEquals(5000, clientTest.getCash());
+		assertEquals(new Integer(5000), clientTest.getCash());
 		assertEquals(-1000, montantApplique);
 		
 		// cas cash - montant < 0, cash depart = 5000
 		montantApplique = clientTest.updateCash(-6000);
-		assertEquals(0, clientTest.getCash());
+		assertEquals(new Integer(0), clientTest.getCash());
 		assertEquals(-5000, montantApplique);
 		
 		
@@ -43,7 +43,7 @@ public class TestClientInfo {
 		 */
 		// cash depart = 0
 		montantApplique = clientTest.updateCash(6000);
-		assertEquals(6000, clientTest.getCash());
+		assertEquals(new Integer(6000), clientTest.getCash());
 		assertEquals(6000, montantApplique);
 	}
 	

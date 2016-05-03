@@ -43,7 +43,7 @@ public class Client extends UnicastRemoteObject implements ClientInterface {
 		plateauController.setGame(g);
 	}
 	
-	public void receiveTchat(String s) {
+	public void receiveTchat(ArrayList<String> s) {
 		plateauController.setChat(s);
 	}
 	

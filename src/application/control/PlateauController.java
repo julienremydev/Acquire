@@ -36,12 +36,17 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.ScrollPane.ScrollBarPolicy;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
+import javafx.scene.text.TextFlow;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
@@ -97,13 +102,15 @@ public class PlateauController implements Initializable {
 	@FXML
 	private Button lessSELL;
 	@FXML
-	private TextArea tchat;
+	private TextFlow tchat;
 	@FXML
 	private TextField input;
 	@FXML
 	private Button letsplay;
 	@FXML
 	private Button buttonOK;
+	@FXML
+	private ScrollPane scroll;
 	@FXML
 	private TableView<ClientInfo> tableauDeBord;
 
@@ -524,18 +531,56 @@ public class PlateauController implements Initializable {
 	}
 
 	public void envoyerTchat() throws RemoteException {
-		if (input.getText().trim().length() > 0)
+		if (input.getText().trim().length() > 0){
 			client.getServeur().distributionTchat(client.getPseudo(), input.getText().trim());
+			Platform.runLater(() -> input.clear());
+		}
 	}
 
-	public void setChat(String s) {
-		Platform.runLater(() -> tchat.setText(s));
-		Platform.runLater(() -> tchat.setScrollTop(tchat.getHeight()));
+	private void customiseChat(ArrayList<String> talk){
+		int i = 0;
+		while (i < talk.size()){
+			if (talk.get(i).length()> 8 && talk.get(i).substring(0,9).equals("[Serveur]")){
+				Text tbold = new Text ();
+				tbold.setFill(Color.RED);
+				tbold.setFont(Font.font(java.awt.Font.SERIF, FontWeight.BOLD, 15));
+				tbold.setText(talk.get(i));
+				Text t = new Text ();
+				t.setFont(Font.font(java.awt.Font.SERIF, 13));
+				t.setText(talk.get(i+1)+"\n");
+				
+				
+				tchat.getChildren().addAll(tbold,t);
+				i+=2;
+			}else{
+				Text tbold = new Text ();
+				tbold.setFill(Color.LIGHTSEAGREEN);
+				tbold.setFont(Font.font(java.awt.Font.SERIF, FontWeight.BOLD, 13));
+				tbold.setText(talk.get(i));
+				Text t = new Text ();
+				t.setFont(Font.font(java.awt.Font.SERIF, 13));
+				t.setText(talk.get(i+1)+"\n");
+				
+				
+				tchat.getChildren().addAll(tbold,t);
+				i+=2;
+			}
+		}
+	}
+	public void setChat(ArrayList<String> s) {
+		Platform.runLater(new Runnable() {
+			public void run() {
+				tchat.getChildren().clear();
+				customiseChat(s);
+				scroll.setVvalue(1);
+			}
+		});
 	}
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		tchat.setEditable(false);
+		scroll.setContent(tchat);
+
 		buttonEND.setDisable(true);
 		endGame=false;
 		Platform.runLater(() -> gridPaneAction.getChildren().clear());

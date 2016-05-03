@@ -33,7 +33,7 @@ public class Game implements Serializable{
 
 	private ArrayList<String> ordre_joueur_action;
 
-	private StringBuffer tchat;
+	private ArrayList<String> tchat;
 
 	private String chef;
 
@@ -64,7 +64,9 @@ public class Game implements Serializable{
 		this.tableauDeBord = new TableauDeBord();
 		setOrdre_joueur(new ArrayList<String>());
 		setOrdre_joueur_action(new ArrayList<String>());
-		setTchat(new StringBuffer("[Serveur] Serveur lancé.\n"));
+		setTchat(new ArrayList<String>());
+		tchat.add("[Serveur]");
+		tchat.add("Serveur lancé.");
 		setPartiecommencee(false);
 		setPartiechargee(false);
 
@@ -179,11 +181,11 @@ public class Game implements Serializable{
 		this.ordre_joueur_action = ordre_joueur_action;
 	}
 
-	public StringBuffer getTchat() {
+	public ArrayList<String> getTchat() {
 		return tchat;
 	}
 
-	public void setTchat(StringBuffer tchat) {
+	public void setTchat(ArrayList<String> tchat) {
 		this.tchat = tchat;
 	}
 
@@ -223,7 +225,6 @@ public class Game implements Serializable{
 			if (listChaine.get(iterator).isSup10()) {
 				nbChaineSup10++;
 			}
-			System.out.println("wow : "+listChaine.get(iterator).tailleChaine());
 			if (listChaine.get(iterator).isSup41()) {
 				return true;
 			}

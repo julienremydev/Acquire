@@ -368,11 +368,12 @@ public class Serveur extends UnicastRemoteObject implements ServeurInterface {
 
 	@Override
 	public void distributionTchat(String pseudo, String s) throws RemoteException {
-		getGame().getTchat().append("[" + pseudo + "] " + s + "\n");
+		getGame().getTchat().add("[" + pseudo + "]");
+		getGame().getTchat().add(s);
 		// On envoie le tchat actualisé à chaque client.
 		Enumeration<ClientInterface> e = liste_clients.elements();
 		while (e.hasMoreElements())
-			e.nextElement().receiveTchat(getGame().getTchat().toString());
+			e.nextElement().receiveTchat(getGame().getTchat());
 	}
 
 	public static void main(String args[]) throws RemoteException, MalformedURLException, UnknownHostException {

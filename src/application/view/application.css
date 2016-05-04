@@ -23,14 +23,11 @@
 	-fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.4) , 5, 0.0 , 0 , 1 );
 }
 #gridTRADE {
-	-fx-border-color: #2e8b57;
-    -fx-border-width: 1px;
+
 }
 #gridSELL {
-	-fx-border-color: #2e8b57;
-    -fx-border-width: 1px;
+
 }
 #gridKEEP {
-	-fx-border-color: #2e8b57;
-    -fx-border-width: 1px;
+
 }

@@ -228,6 +228,10 @@ public class PlateauController implements Initializable {
 				
 				gridPaneAction.getChildren().clear();
 				setLabelsActions ();
+
+				gridKEEP.setStyle(g.getAction().getListeChainesAbsorbees().get(0).getTypeChaine().getCouleurChaine());
+				gridTRADE.setStyle(g.getAction().getChaineAbsorbante().getTypeChaine().getCouleurChaine());
+				
 				gridPaneAction.add(gridKEEP, 0, 0, 2, 2);
 				gridPaneAction.add(gridTRADE, 2, 0, 2, 2);
 				gridPaneAction.add(gridSELL, 4, 0, 2, 2);

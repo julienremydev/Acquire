@@ -155,7 +155,7 @@ public class Serveur extends UnicastRemoteObject implements ServeurInterface {
 		ArrayList<Chaine> listeChaineDifferenteAvantModif = listeChaineAModif;
 		Chaine chaineAbsorbanteAvantFusion = c;
 		this.getGame().setListeChaine(getGame().getPlateau().fusionChaines(game.getListeChaine(), listeChaineAModif, c, listeCaseAbsorbee));
-		
+
 		getGame().setAction(new Action(Globals.choixActionFusionEchangeAchatVente,listeChaineDifferenteAvantModif,chaineAbsorbanteAvantFusion));
 
 		nextTurnAction();
@@ -219,10 +219,10 @@ public class Serveur extends UnicastRemoteObject implements ServeurInterface {
 	public synchronized String register(ClientInterface client, String p, boolean loadJSON) throws Exception {
 
 		String erreur = erreurRegister(p, loadJSON);
-		
+
 		if (erreur != null)
 			return erreur;
-		
+
 
 		// Le premier joueur qui se connecte est le chef de la partie, seul lui peut la lancer.
 		if (liste_clients.size() == 0 && getGame().getChef() == null)
@@ -233,9 +233,8 @@ public class Serveur extends UnicastRemoteObject implements ServeurInterface {
 		//Chargement du fichier JSON : MAJ du GAME+ClientInfo
 		if ( loadJSON ){
 			Game g = chargerGame("AcquireGame.json");
-			System.out.println(g.getListeChaine().toString());
 
-			
+
 			/*
 			 * TODO :Chargement du fichier JSON : MAJ du GAME+ClientInfo
 			 * 
@@ -350,9 +349,15 @@ public class Serveur extends UnicastRemoteObject implements ServeurInterface {
 	 */
 	@Override
 	public void distribution() throws RemoteException {
-		this.game.getPlateau().checkinCases(game.getListeChaine(),game.getTableauDeBord().getInfoParClient());
-		this.game.getPlateau().CasesGrises(game.getListeChaine());
-
+		this.game.getPlateau().setPlateauMap(this.game.getPlateau().checkinCases(this.game.getListeChaine(),this.game.getTableauDeBord().getInfoParClient()));
+		for (ClientInfo c : this.game.getTableauDeBord().getInfoParClient().values()) {
+			for (String s : c.getMain()) {
+				if (this.game.getPlateau().getCase(s).getEtat()==-1) {
+					c.getMain().remove(c.getMain().indexOf(s));
+					c.ajouteMain1fois(this.game.getPlateau());
+				}
+			}
+		}
 		this.game.getTableauDeBord().updateActionnaire();
 
 		// MODIFICATION DU GAME ICI
@@ -361,7 +366,7 @@ public class Serveur extends UnicastRemoteObject implements ServeurInterface {
 		// On envoie le game actualisé à chaque client.
 		Enumeration<ClientInterface> e = liste_clients.elements();
 		while (e.hasMoreElements())
-			e.nextElement().receive(game);
+			e.nextElement().receive(this.game);
 
 	}
 
@@ -420,7 +425,7 @@ public class Serveur extends UnicastRemoteObject implements ServeurInterface {
 		while (e.hasMoreElements())
 			e.nextElement().receiveClassement(winner);
 	}
-	
+
 	/**
 	 * methode permets de charger l'objet game recuperé en JSON 
 	 * @param adr
@@ -437,7 +442,6 @@ public class Serveur extends UnicastRemoteObject implements ServeurInterface {
 		Game g = mapper.readValue(new File(adr), Game.class);
 
 		// JSON from String to Object
-		System.out.println(g.toString());
 		return g;
 	}
 

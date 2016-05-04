@@ -239,7 +239,6 @@ public class Plateau implements Serializable {
 				else{
 					// On vérifie la taille des chianes pour savoir si elle sont différentes. 
 					ArrayList<Chaine> chaineDifferente = listeChaineDifferentes(tab, listeChaine);
-					System.out.println("chaineDifferente = " + chaineDifferente);
 					
 					ArrayList<Chaine> listeGrandeChaine = new ArrayList<>();
 					listeGrandeChaine = sameSizeChaine(chaineDifferente);
@@ -459,8 +458,6 @@ public class Plateau implements Serializable {
 				returnGrandesChaines.add(ch);
 
 		}
-		System.out.println(chaineDifferentes.size());
-		System.out.println(returnGrandesChaines.size());
 		if(chaineDifferentes.size() == returnGrandesChaines.size())
 		{
 			return null;
@@ -505,12 +502,17 @@ public class Plateau implements Serializable {
 	/**
 	 * Mise a jour des cases grises (case entouré par deux chaines sup à 11
 	 * @param listChaines
+	 * @return 
 	 */
-	public void CasesGrises(ArrayList<Chaine> listChaines) {
+	public HashMap<String, Case> CasesGrises(ArrayList<Chaine> listChaines) {
 		// TODO verification
 		ArrayList<String> casesToRemove = new ArrayList<String>();
 		ArrayList<Integer> etats = new ArrayList<Integer>();
-		for (String c : casesDisponible) {
+		ArrayList<String> casesToCheck = new ArrayList<String>();
+		for (Case c : plateauMap.values()) {
+			casesToCheck.add(c.getNom());
+		}
+		for (String c : casesToCheck) {
 			Case cas = plateauMap.get(c);
 			int nbChaineSup11=0;
 			if (cas.surroundedByChains()) {
@@ -526,7 +528,7 @@ public class Plateau implements Serializable {
 					}
 				}
 				if (nbChaineSup11>=2) {
-					cas.setEtat(-1);
+					plateauMap.get(c).setEtat(-1);
 					casesToRemove.add(c);
 				}
 			}
@@ -537,10 +539,11 @@ public class Plateau implements Serializable {
 		for (String cas : casesToRemove) {
 			casesDisponible.remove(cas);
 		}
+		return plateauMap;
 	}
 
 
-	public void uitiemechaine(ArrayList<Chaine> listChaines, Collection<ClientInfo> collection) {
+	public void uitiemechaine(ArrayList<Chaine> listChaines, Collection<ClientInfo> listeClient) {
 		boolean isOkay=false;
 		for (Chaine c : listChaines) {
 			if (c.tailleChaine()==0) {
@@ -548,7 +551,7 @@ public class Plateau implements Serializable {
 			}
 		}
 		if (!isOkay) {
-			for (ClientInfo c : collection) {
+			for (ClientInfo c : listeClient) {
 				for (String cas : c.getMain()) {
 					Case cas2 = this.getCase(cas);
 					if (cas2.surroundedByHotels()&&!cas2.surroundedByChains()) {
@@ -558,7 +561,7 @@ public class Plateau implements Serializable {
 			}
 		}
 		else {
-			for (ClientInfo c : collection) {
+			for (ClientInfo c : listeClient) {
 				for (String cas : c.getMain()) {
 					Case cas2 = this.getCase(cas);
 					cas2.setEtat(0);
@@ -567,9 +570,9 @@ public class Plateau implements Serializable {
 		}
 	}
 
-	public void checkinCases(ArrayList<Chaine> listeChaine, HashMap<String, ClientInfo> infoParClient) {
-		this.CasesGrises(listeChaine);
+	public HashMap<String, Case> checkinCases(ArrayList<Chaine> listeChaine, HashMap<String, ClientInfo> infoParClient) {
 		this.uitiemechaine(listeChaine,infoParClient.values());
+		return this.plateauMap=this.CasesGrises(listeChaine);
 	}
 
 	public static String[] getLigne() {

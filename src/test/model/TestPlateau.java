@@ -352,7 +352,6 @@ public class TestPlateau {
 
 		Case c1 = plateauTest.getCase("C1");
 		Case c3 = plateauTest.getCase("C3");
-
 		listeChaine.get(0).addCase(c1);
 		listeChaine.get(0).addCase(new Case());
 		listeChaine.get(0).addCase(new Case());

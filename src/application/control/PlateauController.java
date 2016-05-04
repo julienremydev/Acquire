@@ -515,6 +515,8 @@ public class PlateauController implements Initializable {
 							//b.setStyle(Globals.colorCasePlayer);
 							b.setId("caseDisponible");
 							b.setStyle("-fx-text-fill: red");
+							b.setStyle(Globals.colorCasePlayer);
+							b.setTextFill(Color.RED);
 							b.setDisable(false);
 						} else {
 							// verification de l'etat de la case et maj

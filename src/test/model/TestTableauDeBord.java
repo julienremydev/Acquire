@@ -1,8 +1,6 @@
 package test.model;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -231,7 +229,6 @@ public class TestTableauDeBord {
 		HashMap<String, Integer> hmTest = new HashMap<>();
 		hmTest.put("SELL", 2);
 		hmTest.put("TRADE", 4);
-		hmTest.put("SELL", 2);
 		
 		tableauTest.traiteAction(hmTest, ch1, ch2, "Yodaii");
 		
@@ -281,5 +278,49 @@ public class TestTableauDeBord {
 		assertEquals("A,0", etat);
 		assertEquals("M,2", etat2);
 		assertEquals("M,2", etat3);
+	}
+	
+	@Test
+	public void testActionAvailableForPlayer(){
+		ch1.getListeCase().add(new Case("A1"));
+		ch1.getListeCase().add(new Case("A2"));
+		
+		// cas normal action disponible et cash ok
+		assertTrue(tableauTest.actionAvailableForPlayer("Yodaii"));
+		
+		// cas pas d actions disponibles
+		tableauTest.achatActionJoueur(25, "Yodaii", ch1.getTypeChaine());
+		assertFalse(tableauTest.actionAvailableForPlayer("Yodaii"));
+		
+		// cas pas de cash et pas d action disponible
+		c1.setCash(0);
+		assertFalse(tableauTest.actionAvailableForPlayer("Yodaii"));
+		
+		// cas cash pas disponible
+		tableauTest.vendActionJoueur(25, "Yodaii", ch1.getTypeChaine());
+		c1.setCash(0);
+		assertFalse(tableauTest.actionAvailableForPlayer("Yodaii"));
+	}
+	
+	@Test
+	public void testActionAvailableForPlayer2(){
+		ch1.getListeCase().add(new Case("A1"));
+		ch1.getListeCase().add(new Case("A2"));
+		
+		// cas normal action disponible et cash ok
+		assertTrue(tableauTest.actionAvailableForPlayer("Yodaii", 6, 2000));
+		
+		// cas pas d actions disponibles
+		tableauTest.achatActionJoueur(25, "Yodaii", ch1.getTypeChaine());
+		assertFalse(tableauTest.actionAvailableForPlayer("Yodaii", 6, 2000));
+				
+		// cas pas de cash et pas d action disponible
+		c1.setCash(0);
+		assertFalse(tableauTest.actionAvailableForPlayer("Yodaii", 6, 2000));
+				
+		// cas cash pas disponible
+		tableauTest.vendActionJoueur(25, "Yodaii", ch1.getTypeChaine());
+		c1.setCash(0);
+		assertFalse(tableauTest.actionAvailableForPlayer("Yodaii", 6, 2000));
 	}
 }

@@ -36,6 +36,8 @@ public class Game implements Serializable{
 	private ArrayList<String> tchat;
 
 	private String chef;
+	
+	private boolean partieDeuxJoueurs;
 
 	@JsonProperty
 	private boolean partiecommencee;
@@ -69,6 +71,7 @@ public class Game implements Serializable{
 		tchat.add("Serveur lancé.");
 		setPartiecommencee(false);
 		setPartiechargee(false);
+		setPartieDeuxJoueurs(false);
 
 
 		getListeChaine().add(sackson);
@@ -241,6 +244,14 @@ public class Game implements Serializable{
 	public void getPrime() {
 		this.tableauDeBord.getPrime(action);
 		
+	}
+
+	public boolean isPartieDeuxJoueurs() {
+		return partieDeuxJoueurs;
+	}
+
+	public void setPartieDeuxJoueurs(boolean partieDeuxJoueurs) {
+		this.partieDeuxJoueurs = partieDeuxJoueurs;
 	}
 
 }

@@ -107,11 +107,33 @@ public class Serveur extends UnicastRemoteObject implements ServeurInterface {
 			if (getGame().getAction() == null) {
 				sendEndTurnAction();
 			}else{
-				getGame().getPrime();
-				nextTurnAction();
+				if ( getGame().getAction().getChoix() == Globals.choixActionFusionEchangeAchatVente && getGame().isPartieDeuxJoueurs() ){
+					setPiocheBanque();
+					getGame().getPrime();
+					nextTurnAction();
+					getGame().getTableauDeBord().getInfoParClient().remove("Serveur");
+					
+				}else{
+					getGame().getPrime();
+					nextTurnAction();
+				}
 			}
 			distribution();
 		}
+	}
+
+	private void setPiocheBanque() throws RemoteException {
+		String caseNoire = getGame().getPlateau().initialiseMainCaseNoir();
+		int nb_actions_banque = Integer.parseInt(caseNoire.substring(1, caseNoire.length()));
+		ClientInfo ci = new ClientInfo("Serveur");
+		for (Chaine c : getGame().getAction().getListeChainesAbsorbees()) {
+			ci.getActionParChaine().replace(c.getTypeChaine(), nb_actions_banque);
+		}
+		HashMap<String, ClientInfo> hm = getGame().getTableauDeBord().getInfoParClient();
+		hm.put(ci.getPseudo(), ci);
+		getGame().getTableauDeBord().setInfoParClient(hm);
+		getGame().getTableauDeBord().updateActionnaire();
+		distributionTchat("Serveur", "La banque pioche la case:" + caseNoire + ". Elle possède "+nb_actions_banque+ " actions.");
 	}
 
 	@Override
@@ -274,6 +296,9 @@ public class Serveur extends UnicastRemoteObject implements ServeurInterface {
 	@Override
 	public void setLancement() throws RemoteException {
 		getGame().setPartiecommencee(true);
+		if ( liste_clients.size() == 2 )
+			getGame().setPartieDeuxJoueurs(true);
+		
 		distributionTchat("Serveur", "Le joueur " + getGame().getChef() + " a démarré la partie.");
 
 		// initialisation des cases noirs pour chaque joueur
@@ -300,6 +325,7 @@ public class Serveur extends UnicastRemoteObject implements ServeurInterface {
 		HashMap<String,String> listeCasesNoires = new HashMap<String,String>();
 		while (enumKeys.hasMoreElements()) {
 			String key = enumKeys.nextElement();
+			for (int i = 0;i<20 ; i++)
 			listeCasesNoires.put(key,game.getPlateau().initialiseMainCaseNoir());
 			game.getTableauDeBord().getInfoParClient().get(key).initialiseMain(game.getPlateau());
 

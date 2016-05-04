@@ -217,7 +217,7 @@ public class ClientInfo implements Serializable{
 
 
 	public Integer getActionSackson() {
-		return actionSackson;
+		return actionParChaine.get(TypeChaine.SACKSON);
 	}
 
 	public void setActionSackson(Integer actionSackson) {
@@ -225,7 +225,7 @@ public class ClientInfo implements Serializable{
 	}
 
 	public Integer getActionAmerica() {
-		return actionAmerica;
+		return actionParChaine.get(TypeChaine.AMERICA);
 	}
 
 	public void setActionAmerica(Integer actionAmerica) {
@@ -233,7 +233,7 @@ public class ClientInfo implements Serializable{
 	}
 
 	public Integer getActionFusion() {
-		return actionFusion;
+		return actionParChaine.get(TypeChaine.FUSION);
 	}
 
 	public void setActionFusion(Integer actionFusion) {
@@ -241,7 +241,7 @@ public class ClientInfo implements Serializable{
 	}
 
 	public Integer getActionPhoenix() {
-		return actionPhoenix;
+		return actionParChaine.get(TypeChaine.PHOENIX);
 	}
 
 	public void setActionPhoenix(Integer actionPhoenix) {
@@ -249,7 +249,7 @@ public class ClientInfo implements Serializable{
 	}
 
 	public Integer getActionHydra() {
-		return actionHydra;
+		return actionParChaine.get(TypeChaine.HYDRA);
 	}
 
 	public void setActionHydra(Integer actionHydra) {
@@ -257,7 +257,7 @@ public class ClientInfo implements Serializable{
 	}
 
 	public Integer getActionQuantum() {
-		return actionQuantum;
+		return actionParChaine.get(TypeChaine.QUANTUM);
 	}
 
 	public void setActionQuantum(Integer actionQuantum) {
@@ -265,7 +265,7 @@ public class ClientInfo implements Serializable{
 	}
 
 	public Integer getActionZeta() {
-		return actionZeta;
+		return actionParChaine.get(TypeChaine.ZETA);
 	}
 
 	public void setActionZeta(Integer actionZeta) {

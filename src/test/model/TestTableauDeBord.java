@@ -67,7 +67,6 @@ public class TestTableauDeBord {
 	}
 
 	@Test
-	
 	public void testAchatActionJoueur() {
 		ch1.getListeCase().add(new Case("A1"));
 		ch1.getListeCase().add(new Case("B1"));
@@ -118,7 +117,6 @@ public class TestTableauDeBord {
 	}
 
 	@Test
-	
 	public void testVendActionJoueur(){
 		ch1.getListeCase().add(new Case("A1"));
 		ch1.getListeCase().add(new Case("B1"));
@@ -175,7 +173,6 @@ public class TestTableauDeBord {
 
 
 	@Test
-	
 	public void testEchangeAction(){
 		tableauTest.achatActionJoueur(10, "Yodaii", ch1.getTypeChaine());
 
@@ -216,7 +213,6 @@ public class TestTableauDeBord {
 	}
 	
 	@Test
-	
 	public void testAchatActions(){
 		HashMap<TypeChaine, Integer> hm= new HashMap<>();
 		hm.put(ch1.getTypeChaine(), 2);
@@ -225,6 +221,22 @@ public class TestTableauDeBord {
 		tableauTest.achatActions("Yodaii", hm);
 		assertEquals(2, c1.getActionParChaine().get(ch1.getTypeChaine()).intValue());
 		assertEquals(3, c1.getActionParChaine().get(ch2.getTypeChaine()).intValue());
+	}
+	
+	@Test
+	public void testTraiteAction(){
+		tableauTest.achatActionJoueur(10, "Yodaii", ch1.getTypeChaine());
+		tableauTest.achatActionJoueur(10, "Yodaii", ch2.getTypeChaine());
+		
+		HashMap<String, Integer> hmTest = new HashMap<>();
+		hmTest.put("SELL", 2);
+		hmTest.put("TRADE", 4);
+		hmTest.put("SELL", 2);
+		
+		tableauTest.traiteAction(hmTest, ch1, ch2, "Yodaii");
+		
+		assertEquals(4, (int)c1.getActionParChaine().get(ch1.getTypeChaine()));
+		assertEquals(12, (int)c1.getActionParChaine().get(ch2.getTypeChaine()));
 	}
 	
 	@Test

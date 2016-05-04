@@ -279,6 +279,25 @@ public class TableauDeBord implements Serializable{
 
 		return res;
 	}
+	
+	/**
+	 * methode qui permet de vendre ou d echanger les actions d un joueur des chaines passees en parametre
+	 * @param hm
+	 * @param chaineVendAction
+	 * @param chaineAchatAction
+	 * @param nomJoueur
+	 */
+	public void traiteAction(HashMap<String, Integer> hm, Chaine chaineVendAction, Chaine chaineAchatAction, String nomJoueur){
+		Collection<String> keys = hm.keySet();
+		for (String key : keys) {
+			if(key.equals("SELL")){
+				vendActionJoueur(hm.get(key), nomJoueur, chaineVendAction.getTypeChaine());
+			}else if(key.equals("TRADE")){
+				echangeAction(hm.get(key), chaineVendAction.getTypeChaine(), chaineAchatAction.getTypeChaine(), nomJoueur);
+			}
+		}
+	}
+	
 	/**
 	 * Met a jour le status des joueurs pour chaque types de chaine
 	 */

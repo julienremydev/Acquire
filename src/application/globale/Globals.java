@@ -31,7 +31,7 @@ public class Globals {
 	/*
 	 * Constantes -> Couleurs des boutons du plateau
 	 */
-	public final static String colorCasePlayer = "-fx-background-color: #FFDE5E;";
+	public final static String colorCasePlayer = "-fx-background-color: #DBDBDBD;";
 	public final static String colorCaseGrey = "-fx-background-color: #C1BAB2;";
 	public final static String colorCaseEmpty = "-fx-background-color: #FFFFFF;";
 	public final static String colorCaseHotel = "-fx-background-color: #000000;";

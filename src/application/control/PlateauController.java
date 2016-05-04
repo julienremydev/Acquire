@@ -508,7 +508,9 @@ public class PlateauController implements Initializable {
 
 						// si le joueur possède la case dans sa main
 						if (c.getEtat()!= -1 && g.getTableauDeBord().getInfoParClient().get(client.getPseudo()).getMain().contains(b.getText())) {
-							b.setStyle(Globals.colorCasePlayer);
+							//b.setStyle(Globals.colorCasePlayer);
+							b.setId("caseDisponible");
+							b.setStyle("-fx-text-fill: red");
 							b.setDisable(false);
 						} else {
 							// verification de l'etat de la case et maj

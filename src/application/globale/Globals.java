@@ -35,6 +35,8 @@ public class Globals {
 	public final static String colorCaseGrey = "-fx-background-color: #C1BAB2;";
 	public final static String colorCaseEmpty = "-fx-background-color: #FFFFFF;";
 	public final static String colorCaseHotel = "-fx-background-color: #000000;";
+	public final static String colorCaseFullChaine = "-fx-background-color: #565656;";
+	
 	
 	/*
 	 * Constantes -> Variables du Game 

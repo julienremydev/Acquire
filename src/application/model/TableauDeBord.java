@@ -15,9 +15,8 @@ public class TableauDeBord implements Serializable{
 	private static final long serialVersionUID = -3628602150383225255L;
 
 	private HashMap<String,ClientInfo> infoParClient;
-
-
 	private ArrayList<Chaine> listeChaine;
+	private ArrayList<InfoChaine> infosChaine;
 
 	/**
 	 * Constructeur Tableau de bord
@@ -27,7 +26,16 @@ public class TableauDeBord implements Serializable{
 	public TableauDeBord() {
 		this.infoParClient = new HashMap<String,ClientInfo>();
 		this.listeChaine= new ArrayList<Chaine>();
+		this.infosChaine= new ArrayList<InfoChaine>();
+		this.infosChaine.add(new InfoChaine("Taille"));
+		this.infosChaine.add(new InfoChaine("Actions"));
 
+	}
+	public ArrayList<InfoChaine> getInfosChaine() {
+		return infosChaine;
+	}
+	public void setInfosChaine(ArrayList<InfoChaine> infosChaine) {
+		this.infosChaine = infosChaine;
 	}
 	/**
 	 * Retourne la liste des clients
@@ -140,6 +148,10 @@ public class TableauDeBord implements Serializable{
 
 		joueur.getActionParChaine().put(tc, res + joueur.getActionParChaine().get(tc));
 		joueur.updateCash(-res * TypeChaine.prixAction(tc, listeChaine.get(indexChaine).tailleChaine()));
+
+		// ajout des infos dans InfoChaine
+		infosChaine.get(1).getInfos().put(listeChaine.get(indexChaine).getTypeChaine(), listeChaine.get(indexChaine).getNbActionRestante());
+
 		this.updateActionnaire();
 		return res;
 	}
@@ -159,6 +171,10 @@ public class TableauDeBord implements Serializable{
 		joueur.getActionParChaine().put(tc, (int)joueur.getActionParChaine().get(tc) - res);
 		this.listeChaine.get(indexChaine).setNbActionRestante(this.listeChaine.get(indexChaine).getNbActionRestante() + res);
 		joueur.updateCash(res * TypeChaine.prixAction(tc, listeChaine.get(indexChaine).tailleChaine()));
+
+		// ajout des infos dans InfoChaine
+		infosChaine.get(1).getInfos().put(listeChaine.get(indexChaine).getTypeChaine(), listeChaine.get(indexChaine).getNbActionRestante());
+
 		this.updateActionnaire();
 		return res;
 	}
@@ -277,9 +293,13 @@ public class TableauDeBord implements Serializable{
 		joueur.getActionParChaine().put(chaineAchatAction, res + joueur.getActionParChaine().get(chaineAchatAction));
 		joueur.updateCash(-res * TypeChaine.prixAction(chaineAchatAction, listeChaine.get(indexChaineAchatAction).tailleChaine()));
 
+		// ajout des infos dans InfoChaine
+		infosChaine.get(1).getInfos().put(listeChaine.get(indexChaineAchatAction).getTypeChaine(), listeChaine.get(indexChaineAchatAction).getNbActionRestante());
+		infosChaine.get(1).getInfos().put(listeChaine.get(indexChaineVendAction).getTypeChaine(), listeChaine.get(indexChaineVendAction).getNbActionRestante());
+		
 		return res;
 	}
-	
+
 	/**
 	 * methode qui permet de vendre ou d echanger les actions d un joueur des chaines passees en parametre
 	 * @param hm
@@ -297,7 +317,7 @@ public class TableauDeBord implements Serializable{
 			}
 		}
 	}
-	
+
 	/**
 	 * Met a jour le status des joueurs pour chaque types de chaine
 	 */

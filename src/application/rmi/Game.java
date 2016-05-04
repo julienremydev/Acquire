@@ -10,6 +10,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import application.globale.Globals;
 import application.model.Action;
 import application.model.Case;
 import application.model.Chaine;
@@ -125,6 +126,7 @@ public class Game implements Serializable{
 			getListeChaine().get(nomChaine.getNumero()-2).addCase(getPlateau().getCase(hotelToChaine.getNom()));
 		}
 		getTableauDeBord().getClientInfo(pseudo).getActionParChaine().put(nomChaine, 1+ getTableauDeBord().getClientInfo(pseudo).getActionParChaine().get(nomChaine));
+		getTableauDeBord().getInfosChaine().get(1).getInfos().put(nomChaine, 24);
 	}
 	public Plateau getPlateau() {
 		return this.plateau;

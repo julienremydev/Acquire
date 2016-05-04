@@ -250,10 +250,10 @@ public class PlateauController implements Initializable {
 				buttonOK.setOpacity(1);
 				buttonOK.setOnAction((event) -> {
 					try {
-						client.choiceFusionAction(getActions_fusions());
+						client.choiceFusionAction(getActions_fusions(), g.getAction().getListeChainesAbsorbees().get(0), g.getAction().getChaineAbsorbante());
 						getActions_fusions().clear();
 						gridPaneAction.getChildren().clear();
-					} catch (Exception e) {
+						} catch (Exception e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}

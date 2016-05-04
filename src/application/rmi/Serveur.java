@@ -142,8 +142,9 @@ public class Serveur extends UnicastRemoteObject implements ServeurInterface {
 		distribution();
 	}
 
-	public void choiceFusionAction(HashMap<String, Integer> actions_fusions) throws RemoteException{
-		//TODO ACTUALISATION ACTIONS CLIENTS
+	public void choiceFusionAction(HashMap<String, Integer> actions_fusions, Chaine chaineAbsorbee, Chaine chaineAbsorbante, String pseudo) throws RemoteException{
+		System.out.println("ok");
+		getGame().getTableauDeBord().traiteAction(actions_fusions, chaineAbsorbee, chaineAbsorbante, pseudo);
 		if ( getGame().getOrdre_joueur_action().size()==0)
 			getGame().getAction().getListeChainesAbsorbees().remove(0);
 
@@ -151,6 +152,7 @@ public class Serveur extends UnicastRemoteObject implements ServeurInterface {
 
 		distribution();
 	}
+
 	public void choixCouleurFusion(ArrayList<Chaine> listeChainePlateau, ArrayList<Chaine> listeChaineAModif, Chaine c, ArrayList<Case> listeCaseAbsorbee) throws RemoteException {
 		ArrayList<Chaine> listeChaineDifferenteAvantModif = listeChaineAModif;
 		Chaine chaineAbsorbanteAvantFusion = c;
@@ -444,5 +446,6 @@ public class Serveur extends UnicastRemoteObject implements ServeurInterface {
 		// JSON from String to Object
 		return g;
 	}
+
 
 }

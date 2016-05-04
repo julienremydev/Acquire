@@ -290,9 +290,9 @@ public class TableauDeBord implements Serializable{
 	public void traiteAction(HashMap<String, Integer> hm, Chaine chaineVendAction, Chaine chaineAchatAction, String nomJoueur){
 		Collection<String> keys = hm.keySet();
 		for (String key : keys) {
-			if(key.equals("SELL")){
+			if(key.equals(Globals.hashMapSELL)){
 				vendActionJoueur(hm.get(key), nomJoueur, chaineVendAction.getTypeChaine());
-			}else if(key.equals("TRADE")){
+			}else if(key.equals(Globals.hashMapTRADE)){
 				echangeAction(hm.get(key), chaineVendAction.getTypeChaine(), chaineAchatAction.getTypeChaine(), nomJoueur);
 			}
 		}

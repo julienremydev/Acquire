@@ -125,13 +125,13 @@ public class Case implements Serializable {
 	 */
 	public ArrayList<Case> tabAdjascent() {
 		ArrayList<Case> tab = new ArrayList<Case>();
-		if (this.getNorth() != null && this.getNorth().getEtat() != 0)
+		if (this.getNorth() != null && this.getNorth().getEtat() >=1)
 			tab.add(this.getNorth());
-		if (this.getSouth() != null && this.getSouth().getEtat() != 0)
+		if (this.getSouth() != null && this.getSouth().getEtat() >=1)
 			tab.add(this.getSouth());
-		if (this.getEast() != null && this.getEast().getEtat() != 0)
+		if (this.getEast() != null && this.getEast().getEtat() >=1)
 			tab.add(this.getEast());
-		if (this.getWest() != null && this.getWest().getEtat() != 0)
+		if (this.getWest() != null && this.getWest().getEtat() >=1)
 			tab.add(this.getWest());
 		return tab;
 	}

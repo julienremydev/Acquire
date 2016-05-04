@@ -7,6 +7,7 @@ import static org.junit.Assert.assertTrue;
 import java.util.ArrayList;
 
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 import application.model.Case;
@@ -37,7 +38,7 @@ public class TestCase {
 
 	@Before
 	public void initCase(){
-		caseTest = new Case();
+		caseTest = new Case("test");
 		caseTestBot = new CaseBot("bot");
 		caseTestTop = new CaseTop("top");
 		caseTestRight = new CaseRight("right");
@@ -47,19 +48,19 @@ public class TestCase {
 		caseTestTopLeft = new CaseTopLeft("topLeft");
 		caseTestTopRight = new CaseTopRight("topRight");
 		
-		north = new Case();
-		south = new Case();
-		east = new Case();
-		west = new Case();
+		north = new Case("north");
+		south = new Case("south");
+		east = new Case("east");
+		west = new Case("west");
+
 		caseTest.setNorth(north);
 		caseTest.setSouth(south);
 		caseTest.setEast(east);
 		caseTest.setWest(west);
 		
 		caseTestBotLeft.setNorth(north);
-		caseTestBotLeft.setSouth(south);
 		caseTestBotLeft.setEast(east);
-		caseTestBotLeft.setWest(west);
+		
 	}
 
 	@Test
@@ -146,7 +147,8 @@ public class TestCase {
 		assertTrue(caseTestBotLeft.surroundedByChains());
 	}
 
-
+	// Test sur le tab adjascent dans le cas ou la case est au milieu donc 4 cases autour, ou certaines sont injouables ou vide, et ou la case
+	// est une case particuliere donc dans un coins ou un coté
 	@Test
 	public void testTabAdjacent(){
 		
@@ -166,33 +168,67 @@ public class TestCase {
 		assertEquals(test, caseTest.tabAdjascent());
 		
 		ArrayList<Case> particulier = new ArrayList<Case>();
-		particulier.add(east);
 		particulier.add(north);
+		particulier.add(east);
+		
 		east.setEtat(0);
 		north.setEtat(0);
-		assertNotEquals(test, caseTestBotLeft.tabAdjascent());
+
+		assertNotEquals(particulier, caseTestBotLeft.tabAdjascent());
 		
 		east.setEtat(5);
 		north.setEtat(8);
-		assertEquals(test, caseTestBotLeft.tabAdjascent());
+		assertEquals(particulier, caseTestBotLeft.tabAdjascent());
+		
+		// tabAdjascent ne doit récupérer que les cases Hotels ou Chaines.
+		// -1 étant une case grise donc injouable et 0 étant une case vide
+		ArrayList<Case> testValeurDifferentes = new ArrayList<Case>();
+		testValeurDifferentes.add(north);
+		testValeurDifferentes.add(west);
+		east.setEtat(-1);
+		south.setEtat(0);
+		assertEquals(testValeurDifferentes, caseTest.tabAdjascent());
+		
+		
+		
+		
+	}
+	
+	@Test
+	public void hotelAdjascent(){
+		ArrayList<Case> test = new ArrayList<Case>();
+		
+		
+		assertEquals(test, caseTest.hotelAdjascent());
+
+		north.setEtat(1);
+		south.setEtat(2);
+		east.setEtat(0);
+		west.setEtat(-1);
+		// Seul north est un hotel donc hotel adjascent ne doit retourner qu'un chaine de taille 1 avec seulement la case à l'etat 1
+		test.add(north);
+		assertEquals(test, caseTest.hotelAdjascent());
 		
 		
 	}
 	
 	@Test
 	public void setNeighbours(){
+		// cas simple
 		caseTest.setNeighbours(north, south, east, west);
 		assertEquals(north,caseTest.getNorth());
 		assertEquals(south,caseTest.getSouth());
 		assertEquals(east,caseTest.getEast());
 		assertEquals(west,caseTest.getWest());
 		
+		// on passe une case particuliere 
 		CaseBotRight caseTestBR = new CaseBotRight("test");
 		caseTest.setNeighbours(null, south, caseTestBR, west);
 		assertEquals(null,caseTest.getNorth());
 		assertEquals(south,caseTest.getSouth());
 		assertEquals(caseTestBR,caseTest.getEast());
 		assertEquals(west,caseTest.getWest());
+		
 		
 		
 	}

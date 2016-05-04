@@ -239,6 +239,7 @@ public class Plateau implements Serializable {
 				else{
 					// On vérifie la taille des chianes pour savoir si elle sont différentes. 
 					ArrayList<Chaine> chaineDifferente = listeChaineDifferentes(tab, listeChaine);
+
 					
 					ArrayList<Chaine> listeGrandeChaine = new ArrayList<>();
 					listeGrandeChaine = sameSizeChaine(chaineDifferente);
@@ -250,7 +251,6 @@ public class Plateau implements Serializable {
 					
 					if(listeGrandeChaine == null){
 						// il n'y a pas de chaine plus grande qu'une autre
-
 						return new Action(Globals.choixActionFusionSameSizeChaine,listeChaine, chaineDifferente,tabCasesAModifier);
 					}
 					else{

@@ -554,7 +554,7 @@
             	<cellValueFactory><PropertyValueFactory property="pseudo" />
         		</cellValueFactory>
         	</TableColumn>
-            <TableColumn fx:id="S" prefWidth="30.0" style="-fx-alignment: center;" text="S">
+            <TableColumn fx:id="S" prefWidth="30.0" style="-fx-alignment: center; fx-background-color: #CC3333;" text="S">
                 <cellValueFactory><PropertyValueFactory property="actionSackson" />
         		</cellValueFactory>
         	</TableColumn>

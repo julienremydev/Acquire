@@ -293,7 +293,7 @@ public class TableauDeBord implements Serializable{
 			if(key.equals(Globals.hashMapSELL)){
 				vendActionJoueur(hm.get(key), nomJoueur, chaineVendAction.getTypeChaine());
 			}else if(key.equals(Globals.hashMapTRADE)){
-				echangeAction(hm.get(key), chaineVendAction.getTypeChaine(), chaineAchatAction.getTypeChaine(), nomJoueur);
+				echangeAction(hm.get(key)*2, chaineVendAction.getTypeChaine(), chaineAchatAction.getTypeChaine(), nomJoueur);
 			}
 		}
 	}

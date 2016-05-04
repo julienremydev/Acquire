@@ -204,14 +204,13 @@ public class Serveur extends UnicastRemoteObject implements ServeurInterface {
 	 */
 	public void piocheCaseFinTour(String text, String pseudo){
 		//Pioche d'une case a la fin du tour
-		if (game.getTableauDeBord().getInfoParClient().get(pseudo).getMain().contains(text)) {
+		if (game.getTableauDeBord().getInfoParClient().get(pseudo).getMain().contains(text) && !game.getPlateau().getCasesDisponible().isEmpty()) {
 			int indice = game.getTableauDeBord().getInfoParClient().get(pseudo).getMain().indexOf(text);
 			game.getTableauDeBord().getInfoParClient().get(pseudo).getMain().remove(indice);
 			game.getTableauDeBord().getInfoParClient().get(pseudo).ajouteMain1fois(game.getPlateau());
 		}
 		else {
-			// TODO throw case pas dans la main exception
-			System.out.println("Case cliqué non dans la main du joueur : "+text);
+			System.out.println("FIN DU JEU BATARD");
 		}
 	}
 	/*
@@ -299,9 +298,7 @@ public class Serveur extends UnicastRemoteObject implements ServeurInterface {
 		HashMap<String,String> listeCasesNoires = new HashMap<String,String>();
 		while (enumKeys.hasMoreElements()) {
 			String key = enumKeys.nextElement();
-			for (int i = 0; i<20;i++) {
-				listeCasesNoires.put(key,game.getPlateau().initialiseMainCaseNoir());
-			}
+			listeCasesNoires.put(key,game.getPlateau().initialiseMainCaseNoir());
 			game.getTableauDeBord().getInfoParClient().get(key).initialiseMain(game.getPlateau());
 
 		}

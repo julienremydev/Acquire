@@ -352,11 +352,16 @@ public class Serveur extends UnicastRemoteObject implements ServeurInterface {
 	public void distribution() throws RemoteException {
 		this.game.getPlateau().setPlateauMap(this.game.getPlateau().checkinCases(this.game.getListeChaine(),this.game.getTableauDeBord().getInfoParClient()));
 		for (ClientInfo c : this.game.getTableauDeBord().getInfoParClient().values()) {
+			ArrayList<String> CasesToRemove = new ArrayList<String>();
 			for (String s : c.getMain()) {
 				if (this.game.getPlateau().getCase(s).getEtat()==-1) {
-					c.getMain().remove(c.getMain().indexOf(s));
-					c.ajouteMain1fois(this.game.getPlateau());
+					CasesToRemove.add(s);
+					
 				}
+			}
+			for (String s : CasesToRemove) {
+				c.getMain().remove(s);
+				c.ajouteMain1fois(this.game.getPlateau());
 			}
 		}
 		this.game.getTableauDeBord().updateActionnaire();

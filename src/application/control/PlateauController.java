@@ -513,6 +513,7 @@ public class PlateauController implements Initializable {
 						}
 						if (c.getEtat()!= -1 && g.getTableauDeBord().getInfoParClient().get(client.getPseudo()).getMain().contains(b.getText())) {
 							b.setStyle(Globals.colorCasePlayer);
+							b.setTextFill(Color.RED);
 							b.setDisable(false);
 						} else {
 							// verification de l'etat de la case et maj

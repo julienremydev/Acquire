@@ -270,10 +270,14 @@ public class Serveur extends UnicastRemoteObject implements ServeurInterface {
 			//ajout du joueur dans le tableau de bord si il se connecte pour la première fois
 			if ( !game.getTableauDeBord().getInfoParClient().containsKey(p) ){
 				game.getTableauDeBord().ajouterClient(new ClientInfo(p));
+				//if (getGame().getPlayerTurn()!=null) {
+			}
+			if (getGame().isPartiecommencee()) {
 				if (getGame().getPlayerTurn().equals(p)) {
-					liste_clients.get(game.getPlayerTurn()).turn();
+					liste_clients.get(p).turn();
 				}
 			}
+
 
 			distributionTchat("Serveur", "Le joueur " + p + " est entré dans la partie.");
 			if ( (game.isPartiechargee() || game.isPartiechargee()) && game.getPlayerTurn().equals(p)){
@@ -384,7 +388,7 @@ public class Serveur extends UnicastRemoteObject implements ServeurInterface {
 			for (String s : c.getMain()) {
 				if (this.game.getPlateau().getCase(s).getEtat()==-1) {
 					CasesToRemove.add(s);
-					
+
 				}
 			}
 			for (String s : CasesToRemove) {

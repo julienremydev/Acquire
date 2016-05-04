@@ -543,7 +543,7 @@ public class Plateau implements Serializable {
 	}
 
 
-	public void uitiemechaine(ArrayList<Chaine> listChaines, Collection<ClientInfo> listeClient) {
+	public void fullChaine(ArrayList<Chaine> listChaines, Collection<ClientInfo> listeClient) {
 		boolean isOkay=false;
 		for (Chaine c : listChaines) {
 			if (c.tailleChaine()==0) {
@@ -555,7 +555,7 @@ public class Plateau implements Serializable {
 				for (String cas : c.getMain()) {
 					Case cas2 = this.getCase(cas);
 					if (cas2.surroundedByHotels()&&!cas2.surroundedByChains()) {
-						cas2.setEtat(-1);
+						cas2.setEtat(-2);
 					}
 				}
 			}
@@ -571,7 +571,7 @@ public class Plateau implements Serializable {
 	}
 
 	public HashMap<String, Case> checkinCases(ArrayList<Chaine> listeChaine, HashMap<String, ClientInfo> infoParClient) {
-		this.uitiemechaine(listeChaine,infoParClient.values());
+		this.fullChaine(listeChaine,infoParClient.values());
 		return this.plateauMap=this.CasesGrises(listeChaine);
 	}
 

@@ -507,6 +507,10 @@ public class PlateauController implements Initializable {
 						}
 
 						// si le joueur possède la case dans sa main
+						if (c.getEtat()!=-2) {
+							b.setStyle(Globals.colorCaseGrey);
+							b.setDisable(true);
+						}
 						if (c.getEtat()!= -1 && g.getTableauDeBord().getInfoParClient().get(client.getPseudo()).getMain().contains(b.getText())) {
 							b.setStyle(Globals.colorCasePlayer);
 							b.setDisable(false);

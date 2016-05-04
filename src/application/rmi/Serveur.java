@@ -144,7 +144,6 @@ public class Serveur extends UnicastRemoteObject implements ServeurInterface {
 	}
 
 	public void choiceFusionAction(HashMap<String, Integer> actions_fusions, Chaine chaineAbsorbee, Chaine chaineAbsorbante, String pseudo) throws RemoteException{
-		System.out.println("ok");
 		getGame().getTableauDeBord().traiteAction(actions_fusions, chaineAbsorbee, chaineAbsorbante, pseudo);
 		if ( getGame().getOrdre_joueur_action().size()==0)
 			getGame().getAction().getListeChainesAbsorbees().remove(0);
@@ -248,7 +247,10 @@ public class Serveur extends UnicastRemoteObject implements ServeurInterface {
 		}else{
 			//ajout du joueur dans le tableau de bord si il se connecte pour la première fois
 			if ( !game.getTableauDeBord().getInfoParClient().containsKey(p) ){
-				game.getTableauDeBord().ajouterClient(new ClientInfo(p)); 
+				game.getTableauDeBord().ajouterClient(new ClientInfo(p));
+				if (getGame().getPlayerTurn().equals(p)) {
+					liste_clients.get(game.getPlayerTurn()).turn();
+				}
 			}
 
 			distributionTchat("Serveur", "Le joueur " + p + " est entré dans la partie.");

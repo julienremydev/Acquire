@@ -73,8 +73,6 @@ public class Case implements Serializable {
 		this.east = E;
 		this.west = W;
 	}
-
-
 	/**
 	 * Permet de savoir si les cases autour de la notre sont vides
 	 * 
@@ -87,7 +85,6 @@ public class Case implements Serializable {
 		else
 			return false;
 	}
-
 	/**
 	 * Retourne true si on à au moins un hotel autour
 	 * 
@@ -100,7 +97,6 @@ public class Case implements Serializable {
 		else
 			return false;
 	}
-
 	/**
 	 * Retourne true si on à au moins une une chaine autour
 	 * 
@@ -113,7 +109,6 @@ public class Case implements Serializable {
 		else
 			return false;
 	}
-
 	/**
 	 * Retourne un tableau des cases adjascentes non nulles
 	 * 
@@ -135,7 +130,6 @@ public class Case implements Serializable {
 			tab.add(this.getWest());
 		return tab;
 	}
-	
 	/**
 	 * Retourne un tableau des cases adjascentes non nulles
 	 * 
@@ -157,17 +151,15 @@ public class Case implements Serializable {
 			tab.add(this.getWest());
 		return tab;
 	}
-	
 	/**
 	 * Retourne vrai si les cases adjacentes (tableau) à notre cases sont de la
 	 * même couleur (donc même chaîne, donc même etat)
-	 * 
 	 * @param tab
 	 * @param taille
 	 * @return
 	 */
-	public boolean sameColorsArround(ArrayList<Case> tab, int taille) {
-		switch (taille) {
+	public boolean sameColorsArround(ArrayList<Case> tab) {
+		switch (tab.size()) {
 		case 2:
 			if (tab.get(0).getEtat() == tab.get(1).getEtat())
 				return true;
@@ -188,7 +180,6 @@ public class Case implements Serializable {
 			return true;
 		}
 	}
-
 	/**
 	 * Comparaison de cases en fonction de leur noms
 	 * 
@@ -206,13 +197,10 @@ public class Case implements Serializable {
 		}
 		else
 			return false;
-		
 	}
-
 	public String toString() {
 		return this.nom;
 	}
-
 	/*
 	 * Getters et setters des cases adjascents 
 	 */

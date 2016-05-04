@@ -37,6 +37,8 @@ public class Game implements Serializable{
 	private ArrayList<String> tchat;
 
 	private String chef;
+	
+	private boolean partieDeuxJoueurs;
 
 	@JsonProperty
 	private boolean partiecommencee;
@@ -70,6 +72,7 @@ public class Game implements Serializable{
 		tchat.add("Serveur lancé.");
 		setPartiecommencee(false);
 		setPartiechargee(false);
+		setPartieDeuxJoueurs(false);
 
 
 		getListeChaine().add(sackson);
@@ -127,6 +130,7 @@ public class Game implements Serializable{
 		}
 		getTableauDeBord().getClientInfo(pseudo).getActionParChaine().put(nomChaine, 1+ getTableauDeBord().getClientInfo(pseudo).getActionParChaine().get(nomChaine));
 		getTableauDeBord().getInfosChaine().get(1).getInfos().put(nomChaine, 24);
+		getTableauDeBord().getListeChaine().get(nomChaine.getNumero()-2).setNbActionRestante(getTableauDeBord().getListeChaine().get(nomChaine.getNumero()-2).getNbActionRestante());
 	}
 	public Plateau getPlateau() {
 		return this.plateau;
@@ -242,6 +246,14 @@ public class Game implements Serializable{
 	public void getPrime() {
 		this.tableauDeBord.getPrime(action);
 		
+	}
+
+	public boolean isPartieDeuxJoueurs() {
+		return partieDeuxJoueurs;
+	}
+
+	public void setPartieDeuxJoueurs(boolean partieDeuxJoueurs) {
+		this.partieDeuxJoueurs = partieDeuxJoueurs;
 	}
 
 }

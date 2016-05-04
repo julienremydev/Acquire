@@ -26,6 +26,7 @@ import application.model.Action;
 import application.model.Case;
 import application.model.Chaine;
 import application.model.ClientInfo;
+import application.model.Plateau;
 import application.model.TypeChaine;
 
 public class Serveur extends UnicastRemoteObject implements ServeurInterface {
@@ -280,8 +281,11 @@ public class Serveur extends UnicastRemoteObject implements ServeurInterface {
 
 		//Chargement du fichier JSON : MAJ du GAME+ClientInfo
 		if ( loadJSON ){
-			Game g = chargerGame("AcquireGame.json");
 
+			this.game= chargerGame("AcquireGame.json");
+			System.out.println(this.game.toString());
+			this.game.setPlateau(Plateau.plateauRegeneration(chargerGame("AcquireGame.json").getPlateau()));
+			this.game.getPlateau().affichePlateau();
 
 			/*
 			 * TODO :Chargement du fichier JSON : MAJ du GAME+ClientInfo
@@ -289,6 +293,7 @@ public class Serveur extends UnicastRemoteObject implements ServeurInterface {
 			 */
 			getGame().setPartiechargee(true);
 			getGame().setPartiecommencee(true);
+			liste_clients.get(p).turn();
 			distributionTchat("Serveur", "Le joueur " + p + " a chargé une partie.");
 		}else{
 			//ajout du joueur dans le tableau de bord si il se connecte pour la première fois
@@ -313,6 +318,7 @@ public class Serveur extends UnicastRemoteObject implements ServeurInterface {
 
 		Logger.getLogger("Client").log(Level.INFO, "Nouveau client enregistré dans le serveur.");
 		if ( getGame().isPartiechargee() || getGame().isPartiecommencee()){
+System.out.println("dist");
 			distribution();
 		}
 		if (liste_clients.size() == Globals.nombre_joueurs_min && !getGame().isPartiechargee() && !getGame().isPartiecommencee())
@@ -418,6 +424,8 @@ public class Serveur extends UnicastRemoteObject implements ServeurInterface {
 				c.ajouteMain1fois(this.game.getPlateau());
 			}
 		}
+
+		
 		this.game.getTableauDeBord().updateActionnaire();
 
 		// MODIFICATION DU GAME ICI
@@ -504,10 +512,8 @@ public class Serveur extends UnicastRemoteObject implements ServeurInterface {
 	public static Game chargerGame(String adr) throws JsonParseException, JsonMappingException, IOException {
 
 		ObjectMapper mapper = new ObjectMapper();
-
 		// JSON from file to Object
 		Game g = mapper.readValue(new File(adr), Game.class);
-
 		// JSON from String to Object
 		return g;
 	}

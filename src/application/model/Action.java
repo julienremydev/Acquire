@@ -59,7 +59,7 @@ public class Action implements Serializable{
 	 * @param type
 	 */
 	
-	@JsonCreator
+	//@JsonCreator
 	public Action(Set<Case> listeDeCaseAModifier, int choix) {
 		this.choix = choix;
 		this.setListeDeCaseAModifier(listeDeCaseAModifier);
@@ -91,6 +91,7 @@ public class Action implements Serializable{
 	
 	//@JsonCreator
 	public Action (int choix, ArrayList<Chaine> listeDeChainePlateau,ArrayList<Chaine> listeDeChaineAProposer,ArrayList<Chaine> chaineAbsorbee, ArrayList<Case> listeCaseHotelAbsorbe)
+
 	{
 		this.setChoix(choix);
 		this.setListeDeChainePlateau(listeDeChainePlateau);

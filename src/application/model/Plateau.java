@@ -13,6 +13,7 @@ import java.util.Set;
 import com.fasterxml.jackson.annotation.JsonCreator;
 
 import application.globale.Globals;
+import application.rmi.Game;
 
 public class Plateau implements Serializable {
 
@@ -596,4 +597,18 @@ public class Plateau implements Serializable {
 	public void setPlateauTab(Case[][] plateauTab) {
 		this.plateauTab = plateauTab;
 	}
+	
+	
+	public static Plateau plateauRegeneration(Plateau p){
+		Plateau np=new Plateau();
+		for (int x = 0; x <= ligne.length - 1; x++) {
+			for (int i = 0; i <= colonne.length - 1; i++) {
+				System.out.println(ligne[x]+colonne[i]);
+				np.getCase(ligne[x]+colonne[i]).setEtat(p.getCase(ligne[x]+colonne[i]).getEtat());
+			}
+		}
+		return np;
+
+	}
+	
 }

@@ -107,6 +107,7 @@ public class Serveur extends UnicastRemoteObject implements ServeurInterface {
 			if (getGame().getAction() == null) {
 				sendEndTurnAction();
 			}else{
+				getGame().getPrime();
 				nextTurnAction();
 			}
 			distribution();
@@ -157,14 +158,15 @@ public class Serveur extends UnicastRemoteObject implements ServeurInterface {
 		ArrayList<Chaine> listeChaineDifferenteAvantModif = listeChaineAModif;
 		Chaine chaineAbsorbanteAvantFusion = c;
 		this.getGame().setListeChaine(getGame().getPlateau().fusionChaines(game.getListeChaine(), listeChaineAModif, c, listeCaseAbsorbee));
-
-		getGame().setAction(new Action(Globals.choixActionFusionEchangeAchatVente,listeChaineDifferenteAvantModif,chaineAbsorbanteAvantFusion));
+		Action action = new Action(Globals.choixActionFusionEchangeAchatVente,listeChaineDifferenteAvantModif,chaineAbsorbanteAvantFusion);
+		getGame().setAction(action);
+		getGame().getPrime();
 
 		nextTurnAction();
 
 		distribution();
 	}
-	private void sendEndTurnAction () throws RemoteException{
+	private void sendEndTurnAction() throws RemoteException{
 		if (!getGame().getTableauDeBord().actionAvailableForPlayer(getGame().getPlayerTurn())){
 			nextTurn(getGame().getPlayerTurn());
 		}else{

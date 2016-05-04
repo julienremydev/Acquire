@@ -237,4 +237,9 @@ public class Game implements Serializable{
 		return false;
 	}
 
+	public void getPrime() {
+		this.tableauDeBord.getPrime(action);
+		
+	}
+
 }

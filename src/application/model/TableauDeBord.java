@@ -376,4 +376,13 @@ public class TableauDeBord implements Serializable{
 			iterator2=0;
 		}
 	}
+	public void getPrime(Action action) {
+		if (action.getChoix()==2) {
+			for (Chaine chaine : action.getListeChainesAbsorbees()) {
+				for (ClientInfo client : infoParClient.values()) {
+					client.setCash(client.getCash()+client.getPrime(chaine.getTypeChaine(),listeChaine.get(chaine.getTypeChaine().getNumero()-2).tailleChaine()));
+				}
+			}
+		}
+	}
 }

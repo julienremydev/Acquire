@@ -283,8 +283,9 @@ public class Plateau implements Serializable {
 					return new Action(Globals.choixActionFusionSameSizeChaine,listeChaine,listeGrandeChaine, chaineDifferente,tabCasesAModifier);
 				}
 				else{
-					if(listeChaine.size()==1)
+					if(listeGrandeChaine.size()==1)
 					{
+						System.out.println("grandeChaine");
 						ArrayList<Chaine> listeChaineDifferenteAvantModif = chaineDifferente;
 						Chaine chaineAbsorbanteAvantFusion = listeGrandeChaine.get(0);
 						Chaine grandeChaineAction = listeGrandeChaine.get(0);
@@ -295,6 +296,7 @@ public class Plateau implements Serializable {
 					}
 					else
 					{
+						System.out.println("plusieures grandesChaines");
 						return new Action(Globals.choixActionFusionSameSizeChaine,listeChaine,listeGrandeChaine, chaineDifferente,tabCasesAModifier);
 					}
 

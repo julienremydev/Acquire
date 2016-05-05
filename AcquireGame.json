@@ -27,15 +27,15 @@
       },
       "I7" : {
         "nom" : "I7",
-        "etat" : -2
+        "etat" : 0
       },
       "I8" : {
         "nom" : "I8",
-        "etat" : 1
+        "etat" : 0
       },
       "A1" : {
         "nom" : "A1",
-        "etat" : 3
+        "etat" : 0
       },
       "I9" : {
         "nom" : "I9",
@@ -43,27 +43,36 @@
       },
       "A2" : {
         "nom" : "A2",
-        "etat" : 3
+        "etat" : 0
       },
       "A3" : {
         "nom" : "A3",
-        "etat" : 3
+        "etat" : 0
       },
       "A4" : {
         "nom" : "A4",
+<<<<<<< HEAD
         "etat" : 3
       },
       "A5" : {
         "nom" : "A5",
 <<<<<<< HEAD
         "etat" : 2
+=======
+        "etat" : 1
+      },
+      "A5" : {
+        "nom" : "A5",
+        "etat" : 0
+>>>>>>> 108e15f... fix[InoChaine] save and open game
       },
       "A6" : {
         "nom" : "A6",
-        "etat" : 2
+        "etat" : 0
       },
       "A7" : {
         "nom" : "A7",
+<<<<<<< HEAD
         "etat" : 2
 =======
         "etat" : 3
@@ -76,6 +85,9 @@
         "nom" : "A7",
         "etat" : 3
 >>>>>>> b21332e52a68f009ba0d81fbb80d35f951bf5d53
+=======
+        "etat" : 1
+>>>>>>> 108e15f... fix[InoChaine] save and open game
       },
       "A8" : {
         "nom" : "A8",
@@ -84,15 +96,19 @@
       "A9" : {
         "nom" : "A9",
 <<<<<<< HEAD
+<<<<<<< HEAD
         "etat" : -2
+=======
+        "etat" : 8
+>>>>>>> 108e15f... fix[InoChaine] save and open game
       },
       "A10" : {
         "nom" : "A10",
-        "etat" : 1
+        "etat" : 8
       },
       "A11" : {
         "nom" : "A11",
-        "etat" : -2
+        "etat" : 0
       },
       "A12" : {
         "nom" : "A12",
@@ -123,16 +139,20 @@
       },
       "E10" : {
         "nom" : "E10",
-        "etat" : 0
+        "etat" : 4
       },
       "E12" : {
         "nom" : "E12",
 <<<<<<< HEAD
+<<<<<<< HEAD
         "etat" : 1
+=======
+        "etat" : 0
+>>>>>>> 108e15f... fix[InoChaine] save and open game
       },
       "I11" : {
         "nom" : "I11",
-        "etat" : 8
+        "etat" : 0
       },
       "I10" : {
         "nom" : "I10",
@@ -155,19 +175,19 @@
       },
       "B1" : {
         "nom" : "B1",
-        "etat" : 3
+        "etat" : 0
       },
       "B2" : {
         "nom" : "B2",
-        "etat" : 3
+        "etat" : 0
       },
       "B3" : {
         "nom" : "B3",
-        "etat" : 3
+        "etat" : 0
       },
       "B4" : {
         "nom" : "B4",
-        "etat" : 3
+        "etat" : 0
       },
       "B5" : {
         "nom" : "B5",
@@ -176,10 +196,14 @@
       "B6" : {
         "nom" : "B6",
 <<<<<<< HEAD
+<<<<<<< HEAD
         "etat" : 2
 =======
         "etat" : 3
 >>>>>>> b21332e52a68f009ba0d81fbb80d35f951bf5d53
+=======
+        "etat" : 1
+>>>>>>> 108e15f... fix[InoChaine] save and open game
       },
       "B7" : {
         "nom" : "B7",
@@ -199,7 +223,7 @@
       },
       "C2" : {
         "nom" : "C2",
-        "etat" : 3
+        "etat" : 0
       },
       "C3" : {
         "nom" : "C3",
@@ -211,7 +235,7 @@
       },
       "C5" : {
         "nom" : "C5",
-        "etat" : 0
+        "etat" : 1
       },
       "C6" : {
         "nom" : "C6",
@@ -219,7 +243,7 @@
       },
       "C7" : {
         "nom" : "C7",
-        "etat" : 0
+        "etat" : 1
       },
       "C8" : {
         "nom" : "C8",
@@ -231,7 +255,7 @@
       },
       "D10" : {
         "nom" : "D10",
-        "etat" : 7
+        "etat" : 0
       },
       "D12" : {
         "nom" : "D12",
@@ -239,7 +263,7 @@
       },
       "D11" : {
         "nom" : "D11",
-        "etat" : 7
+        "etat" : 1
       },
       "H10" : {
         "nom" : "H10",
@@ -248,11 +272,15 @@
       "H12" : {
         "nom" : "H12",
 <<<<<<< HEAD
+<<<<<<< HEAD
         "etat" : 8
+=======
+        "etat" : 1
+>>>>>>> 108e15f... fix[InoChaine] save and open game
       },
       "H11" : {
         "nom" : "H11",
-        "etat" : 8
+        "etat" : 0
       },
       "D1" : {
         "nom" : "D1",
@@ -271,7 +299,7 @@
       },
       "D2" : {
         "nom" : "D2",
-        "etat" : 3
+        "etat" : 0
       },
       "D3" : {
         "nom" : "D3",
@@ -283,31 +311,31 @@
       },
       "D5" : {
         "nom" : "D5",
-        "etat" : 6
+        "etat" : 0
       },
       "D6" : {
         "nom" : "D6",
-        "etat" : 6
+        "etat" : 0
       },
       "D7" : {
         "nom" : "D7",
-        "etat" : 6
+        "etat" : 0
       },
       "D8" : {
         "nom" : "D8",
-        "etat" : 0
+        "etat" : 4
       },
       "D9" : {
         "nom" : "D9",
-        "etat" : 7
+        "etat" : 0
       },
       "E1" : {
         "nom" : "E1",
-        "etat" : 3
+        "etat" : 0
       },
       "E2" : {
         "nom" : "E2",
-        "etat" : 3
+        "etat" : 0
       },
       "E3" : {
         "nom" : "E3",
@@ -323,11 +351,11 @@
       },
       "E5" : {
         "nom" : "E5",
-        "etat" : 0
+        "etat" : 1
       },
       "E6" : {
         "nom" : "E6",
-        "etat" : 6
+        "etat" : 0
       },
       "E7" : {
         "nom" : "E7",
@@ -335,11 +363,11 @@
       },
       "E8" : {
         "nom" : "E8",
-        "etat" : 1
+        "etat" : 4
       },
       "E9" : {
         "nom" : "E9",
-        "etat" : 0
+        "etat" : 4
       },
       "C11" : {
         "nom" : "C11",
@@ -347,7 +375,7 @@
       },
       "C10" : {
         "nom" : "C10",
-        "etat" : 7
+        "etat" : 1
       },
       "C12" : {
         "nom" : "C12",
@@ -356,6 +384,7 @@
       },
       "G11" : {
         "nom" : "G11",
+<<<<<<< HEAD
         "etat" : 8
 =======
         "etat" : 7
@@ -364,10 +393,13 @@
         "nom" : "G11",
         "etat" : 7
 >>>>>>> b21332e52a68f009ba0d81fbb80d35f951bf5d53
+=======
+        "etat" : 0
+>>>>>>> 108e15f... fix[InoChaine] save and open game
       },
       "G10" : {
         "nom" : "G10",
-        "etat" : 0
+        "etat" : 4
       },
       "G12" : {
         "nom" : "G12",
@@ -383,7 +415,7 @@
       },
       "F2" : {
         "nom" : "F2",
-        "etat" : 3
+        "etat" : 0
       },
       "F3" : {
         "nom" : "F3",
@@ -391,11 +423,11 @@
       },
       "F4" : {
         "nom" : "F4",
-        "etat" : 5
+        "etat" : 0
       },
       "F5" : {
         "nom" : "F5",
-        "etat" : 5
+        "etat" : 0
       },
       "F6" : {
         "nom" : "F6",
@@ -403,7 +435,7 @@
       },
       "F7" : {
         "nom" : "F7",
-        "etat" : 4
+        "etat" : 1
       },
       "F8" : {
         "nom" : "F8",
@@ -431,15 +463,15 @@
       },
       "G5" : {
         "nom" : "G5",
-        "etat" : 5
+        "etat" : 0
       },
       "G6" : {
         "nom" : "G6",
-        "etat" : 0
+        "etat" : 5
       },
       "G7" : {
         "nom" : "G7",
-        "etat" : 4
+        "etat" : 0
       },
       "G8" : {
         "nom" : "G8",
@@ -456,14 +488,18 @@
       "B11" : {
         "nom" : "B11",
 <<<<<<< HEAD
+<<<<<<< HEAD
         "etat" : 1
 =======
         "etat" : 7
 >>>>>>> b21332e52a68f009ba0d81fbb80d35f951bf5d53
+=======
+        "etat" : 7
+>>>>>>> 108e15f... fix[InoChaine] save and open game
       },
       "B12" : {
         "nom" : "B12",
-        "etat" : 0
+        "etat" : 7
       },
       "F10" : {
         "nom" : "F10",
@@ -472,10 +508,14 @@
       "F12" : {
         "nom" : "F12",
 <<<<<<< HEAD
+<<<<<<< HEAD
         "etat" : -2
 =======
         "etat" : 7
 >>>>>>> b21332e52a68f009ba0d81fbb80d35f951bf5d53
+=======
+        "etat" : 0
+>>>>>>> 108e15f... fix[InoChaine] save and open game
       },
       "F11" : {
         "nom" : "F11",
@@ -503,7 +543,7 @@
       },
       "H5" : {
         "nom" : "H5",
-        "etat" : 5
+        "etat" : 0
       },
       "H6" : {
         "nom" : "H6",
@@ -515,7 +555,7 @@
       },
       "H8" : {
         "nom" : "H8",
-        "etat" : 0
+        "etat" : 4
       },
       "H9" : {
         "nom" : "H9",
@@ -523,137 +563,88 @@
       }
     },
 <<<<<<< HEAD
+<<<<<<< HEAD
     "casesDisponible" : [ "A8", "A12", "B5", "B7", "B8", "B10", "B12", "C1", "C3", "C4", "C5", "C6", "C8", "C9", "D1", "D4", "D8", "D12", "E4", "E7", "E9", "E10", "F1", "F3", "F6", "F8", "F10", "F11", "G1", "G4", "H1", "H7", "I1", "I2", "I3", "I5", "I9", "I10", "I12" ],
 =======
     "casesDisponible" : [ "B12", "C6", "D4", "E9", "F6", "F8", "I2", "I5", "I12" ],
 >>>>>>> b21332e52a68f009ba0d81fbb80d35f951bf5d53
+=======
+    "casesDisponible" : [ "A2", "A3", "A8", "A11", "A12", "B1", "B2", "B3", "B5", "B7", "B8", "B9", "B10", "C1", "C2", "C3", "C4", "C6", "C8", "C9", "C11", "C12", "D1", "D3", "D4", "D5", "D6", "D7", "D9", "D10", "D12", "E1", "E2", "E3", "E4", "E6", "E7", "E11", "E12", "F1", "F3", "F4", "F5", "F6", "F8", "F9", "F11", "F12", "G1", "G4", "G5", "G7", "G11", "H1", "H2", "H4", "H5", "H7", "H10", "H11", "I3", "I4", "I6", "I7", "I8", "I9", "I10", "I12" ],
+>>>>>>> 108e15f... fix[InoChaine] save and open game
     "plateauTab" : null
   },
   "tableauDeBord" : {
     "infoParClient" : {
+<<<<<<< HEAD
       "BAT" : {
         "pseudo" : "BAT",
 <<<<<<< HEAD
         "main" : [ "C7", "E3", "D3", "A9", "H4", "A4" ],
         "net" : 34200,
         "cash" : 3700,
+=======
+      "ersagun" : {
+        "pseudo" : "ersagun",
+        "main" : [ "G12", "D2", "H3", "I5", "A1", "A6" ],
+        "net" : 25700,
+        "cash" : 5700,
+>>>>>>> 108e15f... fix[InoChaine] save and open game
         "actionParChaine" : {
+          "QUANTUM" : 0,
+          "HYDRA" : 3,
           "AMERICA" : 1,
-          "SACKSON" : 4,
-          "ZETA" : 2,
-          "QUANTUM" : 4,
-          "HYDRA" : 3,
-          "FUSION" : 1,
-          "PHOENIX" : 1
-        },
-        "etatParChaine" : {
-          "AMERICA" : "S,2",
-          "SACKSON" : "S,1",
-          "ZETA" : "S,2",
-          "QUANTUM" : "M,1",
-          "HYDRA" : "M,2",
-          "FUSION" : "S,1",
-          "PHOENIX" : "M,3"
-        },
-        "actionSackson" : 4,
-        "actionAmerica" : 1,
-        "actionFusion" : 1,
-        "actionPhoenix" : 1,
-        "actionHydra" : 3,
-        "actionQuantum" : 4,
-        "actionZeta" : 2
-      },
-      "ersagunn" : {
-        "pseudo" : "ersagunn",
-        "main" : [ "H3", "G6", "I6", "C12", "H10", "A11" ],
-        "net" : 30400,
-        "cash" : 0,
-        "actionParChaine" : {
-          "AMERICA" : 0,
-          "SACKSON" : 5,
-          "ZETA" : 6,
-          "QUANTUM" : 3,
-          "HYDRA" : 3,
+          "ZETA" : 0,
+          "PHOENIX" : 2,
           "FUSION" : 0,
-          "PHOENIX" : 1
+          "SACKSON" : 0
         },
         "etatParChaine" : {
-          "AMERICA" : "0,0",
-          "SACKSON" : "M,1",
-          "ZETA" : "M,1",
-          "QUANTUM" : "S,2",
-          "HYDRA" : "M,2",
+          "QUANTUM" : "0,0",
+          "HYDRA" : "M+,0",
+          "AMERICA" : "M,2",
+          "ZETA" : "0,0",
+          "PHOENIX" : "M,1",
           "FUSION" : "0,0",
-          "PHOENIX" : "M,3"
-        },
-        "actionSackson" : 5,
-        "actionAmerica" : 0,
-        "actionFusion" : 0,
-        "actionPhoenix" : 1,
-        "actionHydra" : 3,
-        "actionQuantum" : 3,
-        "actionZeta" : 6
-      },
-      "NEo" : {
-        "pseudo" : "NEo",
-        "main" : [ "G12", "B9", "E5", "I4", "H2", "F9" ],
-        "net" : 28200,
-        "cash" : 3200,
-        "actionParChaine" : {
-          "AMERICA" : 3,
-          "SACKSON" : 0,
-          "ZETA" : 2,
-          "QUANTUM" : 3,
-          "HYDRA" : 2,
-          "FUSION" : 2,
-          "PHOENIX" : 1
-        },
-        "etatParChaine" : {
-          "AMERICA" : "M,1",
-          "SACKSON" : "0,0",
-          "ZETA" : "S,2",
-          "QUANTUM" : "S,2",
-          "HYDRA" : "A,0",
-          "FUSION" : "M,1",
-          "PHOENIX" : "M,3"
+          "SACKSON" : "0,0"
         },
         "actionSackson" : 0,
-        "actionAmerica" : 3,
-        "actionFusion" : 2,
-        "actionPhoenix" : 1,
-        "actionHydra" : 2,
-        "actionQuantum" : 3,
-        "actionZeta" : 2
+        "actionAmerica" : 1,
+        "actionFusion" : 0,
+        "actionPhoenix" : 2,
+        "actionHydra" : 3,
+        "actionQuantum" : 0,
+        "actionZeta" : 0
       },
-      "JACK" : {
-        "pseudo" : "JACK",
-        "main" : [ "C11", "H8", "E11", "G10", "I7", "F12" ],
-        "net" : 7400,
-        "cash" : 5600,
+      "alii" : {
+        "pseudo" : "alii",
+        "main" : [ "I2", "F2", "I1", "B4", "A5", "I11" ],
+        "net" : 26100,
+        "cash" : 6400,
         "actionParChaine" : {
-          "AMERICA" : 1,
-          "SACKSON" : 0,
-          "ZETA" : 0,
           "QUANTUM" : 1,
           "HYDRA" : 0,
-          "FUSION" : 0,
-          "PHOENIX" : 0
+          "AMERICA" : 1,
+          "ZETA" : 1,
+          "PHOENIX" : 1,
+          "FUSION" : 2,
+          "SACKSON" : 0
         },
         "etatParChaine" : {
-          "AMERICA" : "S,2",
-          "SACKSON" : "0,0",
-          "ZETA" : "0,0",
-          "QUANTUM" : "0,0",
+          "QUANTUM" : "M+,0",
           "HYDRA" : "0,0",
-          "FUSION" : "0,0",
-          "PHOENIX" : "0,0"
+          "AMERICA" : "M,2",
+          "ZETA" : "M+,0",
+          "PHOENIX" : "S,1",
+          "FUSION" : "M+,0",
+          "SACKSON" : "0,0"
         },
         "actionSackson" : 0,
         "actionAmerica" : 1,
-        "actionFusion" : 0,
-        "actionPhoenix" : 0,
+        "actionFusion" : 2,
+        "actionPhoenix" : 1,
         "actionHydra" : 0,
         "actionQuantum" : 1,
+<<<<<<< HEAD
 =======
         "main" : [ "H4", "B7", "C9", "I9", "C5", "F3" ],
         "net" : 44600,
@@ -777,10 +768,14 @@
         "actionQuantum" : 0,
 >>>>>>> b21332e52a68f009ba0d81fbb80d35f951bf5d53
         "actionZeta" : 0
+=======
+        "actionZeta" : 1
+>>>>>>> 108e15f... fix[InoChaine] save and open game
       }
     },
     "listeChaine" : [ {
       "typeChaine" : "SACKSON",
+<<<<<<< HEAD
 <<<<<<< HEAD
       "listeCase" : [ {
         "nom" : "B6",
@@ -800,10 +795,15 @@
       "listeCase" : [ ],
       "nbActionRestante" : 18,
 >>>>>>> b21332e52a68f009ba0d81fbb80d35f951bf5d53
+=======
+      "listeCase" : [ ],
+      "nbActionRestante" : 25,
+>>>>>>> 108e15f... fix[InoChaine] save and open game
       "actionParClient" : { }
     }, {
       "typeChaine" : "ZETA",
       "listeCase" : [ {
+<<<<<<< HEAD
         "nom" : "B2",
         "etat" : 3
       }, {
@@ -823,74 +823,65 @@
 <<<<<<< HEAD
         "etat" : 3
       }, {
+=======
+>>>>>>> 108e15f... fix[InoChaine] save and open game
         "nom" : "G2",
-        "etat" : 3
-      }, {
-        "nom" : "F2",
         "etat" : 3
       }, {
         "nom" : "G3",
         "etat" : 3
-      }, {
-        "nom" : "E1",
-        "etat" : 3
-      }, {
-        "nom" : "E2",
-        "etat" : 3
-      }, {
-        "nom" : "D2",
-        "etat" : 3
-      }, {
-        "nom" : "C2",
-        "etat" : 3
-      }, {
-        "nom" : "A1",
-        "etat" : 3
       } ],
-      "nbActionRestante" : 15,
+      "nbActionRestante" : 24,
       "actionParClient" : { }
     }, {
       "typeChaine" : "HYDRA",
       "listeCase" : [ {
+        "nom" : "F10",
+        "etat" : 4
+      }, {
+        "nom" : "E10",
+        "etat" : 4
+      }, {
+        "nom" : "E8",
+        "etat" : 4
+      }, {
+        "nom" : "E9",
+        "etat" : 4
+      }, {
+        "nom" : "D8",
+        "etat" : 4
+      }, {
+        "nom" : "G10",
+        "etat" : 4
+      }, {
         "nom" : "G8",
         "etat" : 4
       }, {
-        "nom" : "G9",
-        "etat" : 4
-      }, {
-        "nom" : "G7",
-        "etat" : 4
-      }, {
-        "nom" : "F7",
+        "nom" : "H8",
         "etat" : 4
       }, {
         "nom" : "H9",
         "etat" : 4
-      } ],
-      "nbActionRestante" : 17,
-      "actionParClient" : { }
-    }, {
-      "typeChaine" : "FUSION",
-      "listeCase" : [ {
-        "nom" : "G5",
-        "etat" : 5
       }, {
-        "nom" : "F4",
-        "etat" : 5
-      }, {
-        "nom" : "F5",
-        "etat" : 5
-      }, {
-        "nom" : "H6",
-        "etat" : 5
-      }, {
-        "nom" : "H5",
-        "etat" : 5
+        "nom" : "G9",
+        "etat" : 4
       } ],
       "nbActionRestante" : 22,
       "actionParClient" : { }
     }, {
+      "typeChaine" : "FUSION",
+      "listeCase" : [ {
+        "nom" : "H6",
+        "etat" : 5
+      }, {
+        "nom" : "G6",
+        "etat" : 5
+      } ],
+      "nbActionRestante" : 23,
+      "actionParClient" : { }
+    }, {
       "typeChaine" : "AMERICA",
+<<<<<<< HEAD
       "listeCase" : [ {
         "nom" : "D6",
         "etat" : 6
@@ -939,52 +930,44 @@
         "etat" : 6
       } ],
       "nbActionRestante" : 20,
+=======
+      "listeCase" : [ ],
+      "nbActionRestante" : 23,
+>>>>>>> 108e15f... fix[InoChaine] save and open game
       "actionParClient" : { }
     }, {
       "typeChaine" : "PHOENIX",
       "listeCase" : [ {
-        "nom" : "D9",
+        "nom" : "B12",
         "etat" : 7
       }, {
-        "nom" : "C10",
-        "etat" : 7
-      }, {
-        "nom" : "D10",
-        "etat" : 7
-      }, {
-        "nom" : "D11",
+        "nom" : "B11",
         "etat" : 7
       } ],
-      "nbActionRestante" : 21,
+      "nbActionRestante" : 22,
       "actionParClient" : { }
     }, {
       "typeChaine" : "QUANTUM",
       "listeCase" : [ {
-        "nom" : "H11",
+        "nom" : "A10",
         "etat" : 8
       }, {
-        "nom" : "G11",
-        "etat" : 8
-      }, {
-        "nom" : "H12",
-        "etat" : 8
-      }, {
-        "nom" : "I11",
+        "nom" : "A9",
         "etat" : 8
       } ],
-      "nbActionRestante" : 14,
+      "nbActionRestante" : 24,
       "actionParClient" : { }
     } ],
     "infosChaine" : [ {
       "nom" : "Taille",
       "infos" : {
-        "AMERICA" : 0,
-        "SACKSON" : 0,
-        "ZETA" : 0,
         "QUANTUM" : 0,
         "HYDRA" : 0,
+        "AMERICA" : 0,
+        "ZETA" : 0,
+        "PHOENIX" : 0,
         "FUSION" : 0,
-        "PHOENIX" : 0
+        "SACKSON" : 0
       },
       "infoSackson" : 0,
       "infoFusion" : 0,
@@ -996,93 +979,45 @@
     }, {
       "nom" : "Actions",
       "infos" : {
-        "AMERICA" : 20,
-        "SACKSON" : 16,
-        "ZETA" : 15,
-        "QUANTUM" : 14,
-        "HYDRA" : 17,
-        "FUSION" : 22,
-        "PHOENIX" : 24
+        "QUANTUM" : 24,
+        "HYDRA" : 22,
+        "AMERICA" : 23,
+        "ZETA" : 24,
+        "PHOENIX" : 22,
+        "FUSION" : 23,
+        "SACKSON" : 0
       },
-      "infoSackson" : 16,
-      "infoFusion" : 22,
-      "infoHydra" : 17,
-      "infoQuantum" : 14,
-      "infoPhoenix" : 24,
-      "infoAmerica" : 20,
-      "infoZeta" : 15
+      "infoSackson" : 0,
+      "infoFusion" : 23,
+      "infoHydra" : 22,
+      "infoQuantum" : 24,
+      "infoPhoenix" : 22,
+      "infoAmerica" : 23,
+      "infoZeta" : 24
     } ],
     "listeTypeChaine" : [ {
       "typeChaine" : "SACKSON",
-      "listeCase" : [ {
-        "nom" : "B6",
-        "etat" : 2
-      }, {
-        "nom" : "A5",
-        "etat" : 2
-      }, {
-        "nom" : "A7",
-        "etat" : 2
-      }, {
-        "nom" : "A6",
-        "etat" : 2
-      } ],
-      "nbActionRestante" : 16,
+      "listeCase" : [ ],
+      "nbActionRestante" : 25,
       "actionParClient" : { }
     }, {
       "typeChaine" : "ZETA",
       "listeCase" : [ {
-        "nom" : "B2",
-        "etat" : 3
-      }, {
-        "nom" : "A3",
-        "etat" : 3
-      }, {
-        "nom" : "B3",
-        "etat" : 3
-      }, {
-        "nom" : "B1",
-        "etat" : 3
-      }, {
-        "nom" : "A2",
-        "etat" : 3
-      }, {
-        "nom" : "B4",
-        "etat" : 3
-      }, {
         "nom" : "G2",
-        "etat" : 3
-      }, {
-        "nom" : "F2",
         "etat" : 3
       }, {
         "nom" : "G3",
         "etat" : 3
-      }, {
-        "nom" : "E1",
-        "etat" : 3
-      }, {
-        "nom" : "E2",
-        "etat" : 3
-      }, {
-        "nom" : "D2",
-        "etat" : 3
-      }, {
-        "nom" : "C2",
-        "etat" : 3
-      }, {
-        "nom" : "A1",
-        "etat" : 3
       } ],
-      "nbActionRestante" : 15,
+      "nbActionRestante" : 24,
       "actionParClient" : { }
     }, {
       "typeChaine" : "HYDRA",
       "listeCase" : [ {
-        "nom" : "G8",
+        "nom" : "F10",
         "etat" : 4
       }, {
-        "nom" : "G9",
+        "nom" : "E10",
         "etat" : 4
 =======
         "nom" : "A6",
@@ -1135,15 +1070,28 @@
         "nom" : "G9",
         "etat" : 4
       }, {
-        "nom" : "G7",
+        "nom" : "E8",
         "etat" : 4
       }, {
-        "nom" : "F7",
+        "nom" : "E9",
+        "etat" : 4
+      }, {
+        "nom" : "D8",
+        "etat" : 4
+      }, {
+        "nom" : "G10",
+        "etat" : 4
+      }, {
+        "nom" : "G8",
+        "etat" : 4
+      }, {
+        "nom" : "H8",
         "etat" : 4
       }, {
         "nom" : "H9",
         "etat" : 4
       }, {
+<<<<<<< HEAD
         "nom" : "F9",
         "etat" : 4
       }, {
@@ -1151,25 +1099,23 @@
         "etat" : 4
       } ],
       "nbActionRestante" : 14,
+=======
+        "nom" : "G9",
+        "etat" : 4
+      } ],
+      "nbActionRestante" : 22,
+>>>>>>> 108e15f... fix[InoChaine] save and open game
       "actionParClient" : { }
     }, {
       "typeChaine" : "FUSION",
       "listeCase" : [ {
-        "nom" : "G5",
-        "etat" : 5
-      }, {
-        "nom" : "F4",
-        "etat" : 5
-      }, {
-        "nom" : "F5",
-        "etat" : 5
-      }, {
         "nom" : "H6",
         "etat" : 5
       }, {
-        "nom" : "H5",
+        "nom" : "G6",
         "etat" : 5
       } ],
+<<<<<<< HEAD
       "nbActionRestante" : 20,
       "actionParClient" : { }
     }, {
@@ -1196,10 +1142,19 @@
         "etat" : 4
       } ],
       "nbActionRestante" : 17,
+=======
+      "nbActionRestante" : 23,
+      "actionParClient" : { }
+    }, {
+      "typeChaine" : "AMERICA",
+      "listeCase" : [ ],
+      "nbActionRestante" : 23,
+>>>>>>> 108e15f... fix[InoChaine] save and open game
       "actionParClient" : { }
     }, {
       "typeChaine" : "FUSION",
       "listeCase" : [ {
+<<<<<<< HEAD
         "nom" : "G5",
         "etat" : 5
       }, {
@@ -1607,6 +1562,15 @@
         "etat" : 7
       } ],
       "nbActionRestante" : 12,
+=======
+        "nom" : "B12",
+        "etat" : 7
+      }, {
+        "nom" : "B11",
+        "etat" : 7
+      } ],
+      "nbActionRestante" : 22,
+>>>>>>> 108e15f... fix[InoChaine] save and open game
       "actionParClient" : { }
     }, {
       "typeChaine" : "QUANTUM",
@@ -1623,6 +1587,7 @@
     "chaineAbsorbante" : {
       "typeChaine" : "HYDRA",
       "listeCase" : [ {
+<<<<<<< HEAD
         "nom" : "G8",
         "etat" : 4
       }, {
@@ -1643,13 +1608,70 @@
       }, {
         "nom" : "F10",
         "etat" : 4
+=======
+        "nom" : "A10",
+        "etat" : 8
+      }, {
+        "nom" : "A9",
+        "etat" : 8
+>>>>>>> 108e15f... fix[InoChaine] save and open game
       } ],
-      "nbActionRestante" : 14,
+      "nbActionRestante" : 24,
       "actionParClient" : { }
+<<<<<<< HEAD
+=======
+    } ]
+  },
+  "playerTurn" : "ersagun",
+  "action" : {
+    "choix" : 2,
+    "listeChainesAbsorbees" : [ {
+      "typeChaine" : "AMERICA",
+      "listeCase" : [ ],
+      "nbActionRestante" : 23,
+      "actionParClient" : { }
+    } ],
+    "chaineAbsorbante" : {
+      "typeChaine" : "HYDRA",
+      "listeCase" : [ {
+        "nom" : "F10",
+        "etat" : 4
+      }, {
+        "nom" : "E10",
+        "etat" : 4
+      }, {
+        "nom" : "E8",
+        "etat" : 4
+      }, {
+        "nom" : "E9",
+        "etat" : 4
+      }, {
+        "nom" : "D8",
+        "etat" : 4
+      }, {
+        "nom" : "G10",
+        "etat" : 4
+      }, {
+        "nom" : "G8",
+        "etat" : 4
+      }, {
+        "nom" : "H8",
+        "etat" : 4
+      }, {
+        "nom" : "H9",
+        "etat" : 4
+      }, {
+        "nom" : "G9",
+        "etat" : 4
+      } ],
+      "nbActionRestante" : 22,
+      "actionParClient" : { }
+>>>>>>> 108e15f... fix[InoChaine] save and open game
     },
     "couleur" : 0,
     "listeDeChainePlateau" : null,
     "caseModifiee" : null,
+<<<<<<< HEAD
 <<<<<<< HEAD
     "listeDeCaseAModifier" : [ {
       "nom" : "C10",
@@ -1667,11 +1689,15 @@
 =======
     "listeDeCaseAModifier" : null,
 >>>>>>> b21332e52a68f009ba0d81fbb80d35f951bf5d53
+=======
+    "listeDeCaseAModifier" : null,
+>>>>>>> 108e15f... fix[InoChaine] save and open game
     "listeDeChaineAProposer" : null,
     "listeCaseAbsorbees" : null
   },
-  "ordre_joueur" : [ "ersagunn", "NEo", "BAT", "JACK" ],
+  "ordre_joueur" : [ "alii", "ersagun" ],
   "ordre_joueur_action" : [ ],
+<<<<<<< HEAD
 <<<<<<< HEAD
   "tchat" : [ "[Serveur]", "Serveur lancé.", "[Serveur]", "Le joueur NEo est entré dans la partie.", "[Serveur]", "Le joueur BAT est entré dans la partie.", "[Serveur]", "Le joueur JACK est entré dans la partie.", "[Serveur]", "Le joueur ersagunn est entré dans la partie.", "[Serveur]", "Le joueur NEo a démarré la partie.", "[Serveur]", "Le joueur JACK s'est déconnecté du serveur.", "[Serveur]", "Le joueur JACK est entré dans la partie.", "[Serveur]", "Le joueur BAT a acheté :\n -3 QUANTUM", "[Serveur]", "Le joueur JACK n'a rien acheté.", "[Serveur]", "Le joueur ersagunn a acheté :\n -3 QUANTUM", "[Serveur]", "Le joueur NEo a acheté :\n -1 QUANTUM", "[Serveur]", "Le joueur BAT n'a rien acheté.", "[Serveur]", "Le joueur JACK n'a rien acheté.", "[Serveur]", "Le joueur ersagunn n'a rien acheté.", "[Serveur]", "Le joueur NEo n'a rien acheté.", "[Serveur]", "Le joueur BAT n'a rien acheté.", "[Serveur]", "Le joueur JACK n'a rien acheté.", "[Serveur]", "Le joueur ersagunn n'a rien acheté.", "[Serveur]", "Le joueur NEo n'a rien acheté.", "[Serveur]", "Le joueur BAT n'a rien acheté.", "[Serveur]", "Le joueur JACK a acheté :\n -1 QUANTUM", "[Serveur]", "Le joueur ersagunn n'a rien acheté.", "[Serveur]", "Le joueur NEo n'a rien acheté.", "[Serveur]", "Le joueur BAT a acheté :\n -3 PHOENIX", "[Serveur]", "Le joueur JACK n'a rien acheté.", "[Serveur]", "Le joueur ersagunn a acheté :\n -2 HYDRA", "[Serveur]", "Le joueur NEo n'a rien acheté.", "[Serveur]", "Le joueur BAT a acheté :\n -2 HYDRA\n -1 FUSION", "[Serveur]", "Le joueur JACK n'a rien acheté.", "[Serveur]", "Le joueur ersagunn a acheté :\n -2 ZETA", "[Serveur]", "Le joueur NEo a acheté :\n -2 AMERICA\n -1 PHOENIX", "[Serveur]", "Le joueur BAT a acheté :\n -1 ZETA\n -1 AMERICA", "[Serveur]", "Le joueur JACK n'a rien acheté.", "[Serveur]", "Le joueur ersagunn a acheté :\n -3 ZETA", "[Serveur]", "Le joueur NEo a acheté :\n -2 ZETA\n -1 FUSION", "[Serveur]", "Le joueur BAT a acheté :\n -1 HYDRA", "[Serveur]", "Le joueur JACK n'a rien acheté.", "[Serveur]", "Le joueur ersagunn a acheté :\n -3 SACKSON", "[Serveur]", "Le joueur NEo a acheté :\n -2 HYDRA\n -1 QUANTUM", "[Serveur]", "Le joueur BAT a acheté :\n -1 SACKSON", "[Serveur]", "Le joueur JACK n'a rien acheté.", "[Serveur]", "Le joueur ersagunn a acheté :\n -1 SACKSON", "[Serveur]", "Le joueur NEo a acheté :\n -1 QUANTUM\n -1 AMERICA", "[Serveur]", "Le joueur BAT a acheté :\n -3 SACKSON", "[Serveur]", "Le joueur JACK n'a rien acheté." ],
   "chef" : "NEo",
@@ -1702,10 +1728,21 @@
     "listeCase" : [ ],
     "nbActionRestante" : 18,
 >>>>>>> b21332e52a68f009ba0d81fbb80d35f951bf5d53
+=======
+  "tchat" : [ "[Serveur]", "Serveur lancé.", "[Serveur]", "Le joueur ersagun est entré dans la partie.", "[Serveur]", "Le joueur alii est entré dans la partie.", "[Serveur]", "Le joueur ersagun a démarré la partie.", "[Serveur]", "Le joueur ersagun a acheté :\n -2 HYDRA", "[Serveur]", "Le joueur alii n'a rien acheté.", "[Serveur]", "Le joueur ersagun n'a rien acheté.", "[Serveur]", "Le joueur alii n'a rien acheté.", "[Serveur]", "Le joueur ersagun n'a rien acheté.", "[Serveur]", "Le joueur alii n'a rien acheté.", "[Serveur]", "La banque pioche la case:A4. Elle possède 4 action.", "[Serveur]", "Le joueur ersagun n'a rien acheté.", "[Serveur]", "Le joueur alii n'a rien acheté.", "[Serveur]", "Le joueur ersagun n'a rien acheté.", "[Serveur]", "Le joueur alii n'a rien acheté.", "[Serveur]", "Le joueur ersagun n'a rien acheté.", "[Serveur]", "Le joueur alii n'a rien acheté.", "[Serveur]", "Le joueur ersagun a acheté :\n -1 AMERICA", "[Serveur]", "Le joueur alii n'a rien acheté.", "[Serveur]", "Le joueur ersagun n'a rien acheté.", "[Serveur]", "Le joueur alii a acheté :\n -1 FUSION", "[Serveur]", "Le joueur ersagun a acheté :\n -1 PHOENIX", "[Serveur]", "Le joueur alii a acheté :\n -1 PHOENIX", "[Serveur]", "Le joueur ersagun n'a rien acheté.", "[Serveur]", "Le joueur alii n'a rien acheté.", "[Serveur]", "Le joueur ersagun n'a rien acheté.", "[Serveur]", "Le joueur alii n'a rien acheté.", "[Serveur]", "La banque pioche la case:H12. Elle possède 12 action.", "[Serveur]", "Primes pour la chaine AMERICA", "[Serveur]", "Le joueur ersagun reçoit 1100", "[Serveur]", "Le joueur alii reçoit 1100" ],
+  "chef" : "ersagun",
+  "partieDeuxJoueurs" : true,
+  "prime" : [ [ "AMERICA", "ersagun", "2600", "alii", "2600" ] ],
+  "listeChaine" : [ {
+    "typeChaine" : "SACKSON",
+    "listeCase" : [ ],
+    "nbActionRestante" : 25,
+>>>>>>> 108e15f... fix[InoChaine] save and open game
     "actionParClient" : { }
   }, {
     "typeChaine" : "ZETA",
     "listeCase" : [ {
+<<<<<<< HEAD
       "nom" : "B2",
 <<<<<<< HEAD
       "etat" : 3
@@ -1725,45 +1762,41 @@
       "nom" : "B4",
       "etat" : 3
     }, {
+=======
+>>>>>>> 108e15f... fix[InoChaine] save and open game
       "nom" : "G2",
-      "etat" : 3
-    }, {
-      "nom" : "F2",
       "etat" : 3
     }, {
       "nom" : "G3",
       "etat" : 3
-    }, {
-      "nom" : "E1",
-      "etat" : 3
-    }, {
-      "nom" : "E2",
-      "etat" : 3
-    }, {
-      "nom" : "D2",
-      "etat" : 3
-    }, {
-      "nom" : "C2",
-      "etat" : 3
-    }, {
-      "nom" : "A1",
-      "etat" : 3
     } ],
-    "nbActionRestante" : 15,
+    "nbActionRestante" : 24,
     "actionParClient" : { }
   }, {
     "typeChaine" : "HYDRA",
     "listeCase" : [ {
+      "nom" : "F10",
+      "etat" : 4
+    }, {
+      "nom" : "E10",
+      "etat" : 4
+    }, {
+      "nom" : "E8",
+      "etat" : 4
+    }, {
+      "nom" : "E9",
+      "etat" : 4
+    }, {
+      "nom" : "D8",
+      "etat" : 4
+    }, {
+      "nom" : "G10",
+      "etat" : 4
+    }, {
       "nom" : "G8",
       "etat" : 4
     }, {
-      "nom" : "G9",
-      "etat" : 4
-    }, {
-      "nom" : "G7",
-      "etat" : 4
-    }, {
-      "nom" : "F7",
+      "nom" : "H8",
       "etat" : 4
 =======
       "etat" : 3
@@ -1918,12 +1951,16 @@
     }, {
       "nom" : "H9",
       "etat" : 4
+    }, {
+      "nom" : "G9",
+      "etat" : 4
     } ],
-    "nbActionRestante" : 17,
+    "nbActionRestante" : 22,
     "actionParClient" : { }
   }, {
     "typeChaine" : "FUSION",
     "listeCase" : [ {
+<<<<<<< HEAD
       "nom" : "G5",
       "etat" : 5
     }, {
@@ -1934,16 +1971,19 @@
       "nom" : "F5",
       "etat" : 5
     }, {
+=======
+>>>>>>> 108e15f... fix[InoChaine] save and open game
       "nom" : "H6",
       "etat" : 5
     }, {
-      "nom" : "H5",
+      "nom" : "G6",
       "etat" : 5
     } ],
-    "nbActionRestante" : 22,
+    "nbActionRestante" : 23,
     "actionParClient" : { }
   }, {
     "typeChaine" : "AMERICA",
+<<<<<<< HEAD
     "listeCase" : [ {
       "nom" : "D6",
       "etat" : 6
@@ -1986,39 +2026,32 @@
       "etat" : 6
     } ],
     "nbActionRestante" : 20,
+=======
+    "listeCase" : [ ],
+    "nbActionRestante" : 23,
+>>>>>>> 108e15f... fix[InoChaine] save and open game
     "actionParClient" : { }
   }, {
     "typeChaine" : "PHOENIX",
     "listeCase" : [ {
-      "nom" : "D9",
+      "nom" : "B12",
       "etat" : 7
     }, {
-      "nom" : "C10",
-      "etat" : 7
-    }, {
-      "nom" : "D10",
-      "etat" : 7
-    }, {
-      "nom" : "D11",
+      "nom" : "B11",
       "etat" : 7
     } ],
-    "nbActionRestante" : 21,
+    "nbActionRestante" : 22,
     "actionParClient" : { }
   }, {
     "typeChaine" : "QUANTUM",
     "listeCase" : [ {
-      "nom" : "H11",
+      "nom" : "A10",
       "etat" : 8
     }, {
-      "nom" : "G11",
-      "etat" : 8
-    }, {
-      "nom" : "H12",
-      "etat" : 8
-    }, {
-      "nom" : "I11",
+      "nom" : "A9",
       "etat" : 8
     } ],
+<<<<<<< HEAD
     "nbActionRestante" : 14,
 =======
       "nom" : "C12",
@@ -2073,9 +2106,11 @@
     "listeCase" : [ ],
     "nbActionRestante" : 20,
 >>>>>>> b21332e52a68f009ba0d81fbb80d35f951bf5d53
+=======
+    "nbActionRestante" : 24,
+>>>>>>> 108e15f... fix[InoChaine] save and open game
     "actionParClient" : { }
   } ],
-  "prime" : [ ],
   "partiecommencee" : true,
   "partiechargee" : false
 }

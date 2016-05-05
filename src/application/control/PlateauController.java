@@ -743,7 +743,6 @@ public void saveTheGame(Game g) throws RemoteException {
 			e.printStackTrace();
 		}
 	} else {
-		System.out.println("la partie n'a pas commencé");
 	}
 
 }

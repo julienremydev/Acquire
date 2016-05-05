@@ -8,6 +8,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import application.globale.Globals;
 
@@ -396,6 +397,8 @@ public class TableauDeBord implements Serializable{
 			iterator2=0;
 		}
 	}
+	
+	@JsonIgnore
 	public ArrayList<ArrayList<String>> getPrime(Action action) {
 		ArrayList<ArrayList<String>> arrayPrime = new ArrayList<ArrayList<String>> ();
 		ArrayList<String> infoPrimeClient = new ArrayList<String> ();

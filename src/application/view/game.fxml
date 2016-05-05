@@ -16,7 +16,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.TextFlow?>
 
-<GridPane maxHeight="600.0" maxWidth="1000.0" minHeight="600.0" minWidth="1000.0" prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.control.PlateauController">
+<GridPane maxHeight="600.0" maxWidth="1000.0" minHeight="700.0" minWidth="1000.0" prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.control.PlateauController">
   <columnConstraints>
     <ColumnConstraints hgrow="SOMETIMES" maxWidth="850.0" minWidth="10.0" prefWidth="600.0" />
     <ColumnConstraints hgrow="SOMETIMES" maxWidth="400.0" minWidth="0.0" prefWidth="400.0" />
@@ -686,8 +686,8 @@
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
         </columnConstraints>
         <rowConstraints>
-          <RowConstraints maxHeight="92.0" minHeight="10.0" prefHeight="92.0" vgrow="SOMETIMES" />
-          <RowConstraints maxHeight="58.0" minHeight="10.0" prefHeight="35.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="138.0" minHeight="10.0" prefHeight="122.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="72.0" minHeight="10.0" prefHeight="72.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
             <TableView fx:id="tableauDeBord" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="81.0" prefWidth="600.0">
@@ -744,7 +744,7 @@
                   </TableColumn>
                </columns>
             </TableView>
-            <TableView fx:id="infosChaine" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1">
+            <TableView fx:id="infosChaine" prefHeight="31.0" prefWidth="600.0" GridPane.rowIndex="1">
               <columns>
                 <TableColumn prefWidth="75.0">
                 	<cellValueFactory>
@@ -756,12 +756,12 @@
                         <PropertyValueFactory property="infoSackson" />
                 	</cellValueFactory>
                 </TableColumn>
-                <TableColumn prefWidth="31.0" style="-fx-background-color: #FFCC33; -fx-alignment: center;" text="Z">
+                <TableColumn prefWidth="30.0" style="-fx-background-color: #FFCC33; -fx-alignment: center;" text="Z">
                    	<cellValueFactory>
                         <PropertyValueFactory property="infoZeta" />
                     </cellValueFactory>
                 </TableColumn>
-                <TableColumn prefWidth="31.0" style="-fx-background-color: #FF6600; -fx-alignment: center;" text="H">
+                <TableColumn prefWidth="30.0" style="-fx-background-color: #FF6600; -fx-alignment: center;" text="H">
                    	<cellValueFactory>
                         <PropertyValueFactory property="infoHydra" />
                     </cellValueFactory>
@@ -771,12 +771,12 @@
                         <PropertyValueFactory property="infoFusion" />
                     </cellValueFactory>
                 </TableColumn>
-                <TableColumn prefWidth="31.0" style="-fx-background-color: #333399; -fx-alignment: center;" text="A">
+                <TableColumn prefWidth="30.0" style="-fx-background-color: #333399; -fx-alignment: center;" text="A">
                   	<cellValueFactory>
                         <PropertyValueFactory property="infoAmerica" />
                     </cellValueFactory>
                 </TableColumn>
-                <TableColumn prefWidth="28.0" style="-fx-background-color: #996699; -fx-alignment: center;" text="P">
+                <TableColumn prefWidth="30.0" style="-fx-background-color: #996699; -fx-alignment: center;" text="P">
                    	<cellValueFactory>
                         <PropertyValueFactory property="infoPhoenix" />
                     </cellValueFactory>

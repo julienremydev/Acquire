@@ -49,6 +49,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
@@ -70,6 +71,8 @@ public class PlateauController implements Initializable {
 	private HashMap<String, Integer> actions_fusions = new HashMap<String, Integer>();
 
 	private boolean endGame;
+	
+	private boolean endGameOK;
 	/**
 	 * element plateau
 	 */
@@ -381,7 +384,7 @@ public class PlateauController implements Initializable {
 				client.buyAction(liste_actions);
 				liste_actions.clear();
 				gridPaneAction.getChildren().clear();
-				if (endGame) {
+				if (endGameOK) {
 					isOver();
 				}
 			} catch (Exception e) {
@@ -614,6 +617,7 @@ public class PlateauController implements Initializable {
 		scroll.setContent(tchat);
 		buttonEND.setDisable(true);
 		endGame=false;
+		endGameOK=false;
 		Platform.runLater(() -> gridPaneAction.getChildren().clear());
 		dataTableView = FXCollections.observableArrayList();
 		saveGame.setOnAction(new EventHandler<ActionEvent>() {
@@ -735,12 +739,12 @@ public class PlateauController implements Initializable {
 
 	}
 	public void setOver() {
-		endGame=true;
+		endGameOK=true;
 	}
 
 	public void isOver() { 
 		try {
-			client.isOver();
+			client.sendEndGame();
 		}
 		catch (Exception e) {
 			Logger.getLogger("Client").log(Level.SEVERE,"Probleme de fin de partie");
@@ -752,17 +756,31 @@ public class PlateauController implements Initializable {
 		Platform.runLater(new Runnable() {
 			@Override
 			public void run() {
-				Label lab = new Label("");
-				gridGame.getChildren().clear();
+				HBox hbox = new HBox();
+				hbox.setSpacing(50);
+				Image image = new Image(getClass().getResourceAsStream("/application/view/trophy.png"));
+				ImageView img = new ImageView(image);
+				img.setFitWidth(30);
+				img.setFitHeight(30);
+				Label label1 = new Label("TABLEAU DES SCORES\n");
+				 hbox.getChildren().add((label1));
+				 int max = 0;
 				for (int i =0; i<winner.size();i++){
 					if ( i%2 == 0){
-						lab.setText(lab.getText()+winner.get(i)+winner.get(i+1)+"\n" );
+						Label label2 = new Label("\n"+winner.get(i)+" : "+winner.get(i+1)+"\n");
+						if ( Integer.parseInt(winner.get(i+1)) >= max){
+							max = Integer.parseInt(winner.get(i+1));
+							label2.setGraphic(img);
+						}
+						
+					    hbox.getChildren().add((label2));
+						 
 					}
 					
 				}
-				lab.setId("enGame");
-				gridGame.add(lab,0,0,2,3);
-				//notificationTour.setText(winner.get(0) +" a gagné !");	
+
+				gridGame.getChildren().clear();
+			    gridGame.add(hbox,0,0,2,3);	
 			}
 		});
 

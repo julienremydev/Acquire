@@ -103,6 +103,7 @@ public class Serveur extends UnicastRemoteObject implements ServeurInterface {
 			getGame().setAction(game.getPlateau().updateCase(text, game.getListeChaine()));
 
 			piocheCaseFinTour(text,pseudo);
+			System.out.println(getGame().isPartieDeuxJoueurs());
 			if (getGame().getAction() == null) {
 				sendEndTurnAction();
 			}else{
@@ -373,7 +374,7 @@ public class Serveur extends UnicastRemoteObject implements ServeurInterface {
 		HashMap<String,String> listeCasesNoires = new HashMap<String,String>();
 		while (enumKeys.hasMoreElements()) {
 			String key = enumKeys.nextElement();
-			for(int i=0;i<30;i++)
+			for(int i=0;i<33;i++)
 			listeCasesNoires.put(key,game.getPlateau().initialiseMainCaseNoir());
 			game.getTableauDeBord().getInfoParClient().get(key).initialiseMain(game.getPlateau());
 

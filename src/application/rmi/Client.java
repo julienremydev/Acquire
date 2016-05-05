@@ -144,4 +144,9 @@ public class Client extends UnicastRemoteObject implements ClientInterface {
 	public void receiveClassement(ArrayList<String> winner) throws RemoteException{
 		plateauController.endingGame(winner);
 	}
+
+	public void sendEndGame() throws RemoteException{
+		serveur.isOver();
+		
+	}
 }

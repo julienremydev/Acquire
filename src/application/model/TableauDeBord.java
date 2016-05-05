@@ -419,10 +419,13 @@ public class TableauDeBord implements Serializable{
 					infoPrimeClient.add(String.valueOf(primeJoueur));
 					client.setCash(client.getCash() + primeJoueur);
 				}
-				arrayPrime.add(infoPrimeClient);
+				System.out.println("inf"+infoPrimeClient);
+				arrayPrime.add(new ArrayList<String> (infoPrimeClient));
+				
 				infoPrimeClient.clear();
 			}
 		}
+		System.out.println("arr"+arrayPrime);
 		return arrayPrime;
 	}
 }

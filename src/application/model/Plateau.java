@@ -303,7 +303,6 @@ public class Plateau implements Serializable {
 	 * @return
 	 */
 	public Set<Case> addRecurse (Set<Case> casesDone, Case c) {
-		System.out.println("beug");
 		Set<Case> listRecurse = new HashSet<Case>();
 		casesDone.add(c);
 		if (c.surroundedByHotels()) {
@@ -392,6 +391,7 @@ public class Plateau implements Serializable {
 				casesDisponible.remove(c);
 				isOkay=true;
 			}
+			etats.clear();
 		}
 		return c;
 	}

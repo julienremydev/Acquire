@@ -104,6 +104,7 @@ public class Serveur extends UnicastRemoteObject implements ServeurInterface {
 
 
 
+
 			piocheCaseFinTour(text,pseudo);
 			if (getGame().getAction() == null) {
 				sendEndTurnAction();

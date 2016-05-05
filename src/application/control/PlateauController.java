@@ -512,7 +512,7 @@ public class PlateauController implements Initializable {
 						}
 
 						// si le joueur possède la case dans sa main
-						if (c.getEtat()!=-2) {
+						if (c.getEtat()==-2) {
 							b.setStyle(Globals.colorCaseFullChaine);
 							b.setDisable(true);
 						}

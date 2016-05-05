@@ -366,34 +366,27 @@ public class Plateau implements Serializable {
 		return plateauMap.get(text);
 	}
 
-	public String initialiseMainCaseNoir(boolean is2Joueurs) {
-		boolean isOkay=false;
+	public String initialiseMainCaseNoir() {
 		Random randomGenerator = new Random();
 		int index;
 		String c = "";
-		if (!is2Joueurs) {
 			index = randomGenerator.nextInt(casesDisponible.size());
 			c = casesDisponible.get(index);
 			plateauMap.get(c).setEtat(1);
 			casesDisponible.remove(c);	
-		}
-		else {
-			c = caseBanqueIsNotFusion();
-		}
 		return c;
 	}
-
-	public String caseBanqueIsNotFusion() {
-		String c = null;
-		int index;
+	
+	public String poserJetonBanque(ArrayList<Chaine> listChaines) {
 		boolean isOkay=false;
-		Case cas=null;;
 		Random randomGenerator = new Random();
+		int index;
+		String c = "";
 		ArrayList<Integer> etats = new ArrayList<Integer>();
 		while (!isOkay) {
 			index = randomGenerator.nextInt(casesDisponible.size());
 			c = casesDisponible.get(index);
-			cas = plateauMap.get(c);
+			Case cas = plateauMap.get(c);
 			if (cas.surroundedByChains()) {
 				ArrayList<Case> list = cas.tabAdjascent();
 				for (Case cas2 : list) {
@@ -405,15 +398,13 @@ public class Plateau implements Serializable {
 				}
 			}
 			if (etats.size()<2) {
-				plateauMap.get(c).setEtat(1);
+				updateCase(c, listChaines);
 				casesDisponible.remove(c);
 				isOkay=true;
 			}
 		}
 		return c;
 	}
-
-
 
 	/**
 	 * Ajoute 1 cases cliquable pour le joueur
@@ -522,15 +513,12 @@ public class Plateau implements Serializable {
 	 * @param listChaines
 	 * @return 
 	 */
-	public HashMap<String, Case> CasesGrises(ArrayList<Chaine> listChaines) {
+	public ArrayList<String> CasesGrises(ArrayList<Chaine> listChaines, ArrayList<String> main) {
 		// TODO verification
 		ArrayList<String> casesToRemove = new ArrayList<String>();
 		ArrayList<Integer> etats = new ArrayList<Integer>();
-		ArrayList<String> casesToCheck = new ArrayList<String>();
-		for (Case c : plateauMap.values()) {
-			casesToCheck.add(c.getNom());
-		}
-		for (String c : casesToCheck) {
+
+		for (String c : main) {
 			Case cas = plateauMap.get(c);
 			int nbChaineSup11=0;
 			if (cas.surroundedByChains()) {
@@ -554,10 +542,7 @@ public class Plateau implements Serializable {
 			etats.clear();
 		}
 
-		for (String cas : casesToRemove) {
-			casesDisponible.remove(cas);
-		}
-		return plateauMap;
+		return casesToRemove;
 	}
 
 
@@ -586,11 +571,6 @@ public class Plateau implements Serializable {
 				}
 			}
 		}
-	}
-
-	public HashMap<String, Case> checkinCases(ArrayList<Chaine> listeChaine, HashMap<String, ClientInfo> infoParClient) {
-		this.fullChaine(listeChaine,infoParClient.values());
-		return this.plateauMap=this.CasesGrises(listeChaine);
 	}
 
 	public static String[] getLigne() {

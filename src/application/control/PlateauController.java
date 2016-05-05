@@ -10,6 +10,8 @@ import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
@@ -265,7 +267,7 @@ public class PlateauController implements Initializable {
 						getActions_fusions().clear();
 						gridPaneAction.getChildren().clear();
 					} catch (Exception e) {
-						e.printStackTrace();
+						Logger.getLogger("Client").log(Level.SEVERE,"Probleme de fusion");
 					}
 				});
 				gridPaneAction.add(buttonOK, 6, 1);
@@ -296,7 +298,7 @@ public class PlateauController implements Initializable {
 
 					gridPaneAction.getChildren().clear();
 				} catch (Exception e) {
-					e.printStackTrace();
+					Logger.getLogger("Client").log(Level.SEVERE,"Probleme de fusion");
 				}
 			});
 			Platform.runLater(() -> gridPaneAction.add(b, i, 0));
@@ -335,7 +337,7 @@ public class PlateauController implements Initializable {
 						}
 						setChoixAchatAction(game);
 					} catch (Exception exc) {
-						exc.printStackTrace();
+						Logger.getLogger("Client").log(Level.SEVERE,"Probleme liste choix action");
 					}
 				});
 				Platform.runLater(() -> gridPaneAction.add(buttonAction, indexLocal - 1, 1));
@@ -361,7 +363,7 @@ public class PlateauController implements Initializable {
 							setChoixAchatAction(game);
 						}
 					} catch (Exception e) {
-						e.printStackTrace();
+						Logger.getLogger("Client").log(Level.SEVERE,"Probleme liste action");
 					}
 				});
 				Platform.runLater(() -> gridPaneAction.add(b, i, 0));
@@ -377,8 +379,11 @@ public class PlateauController implements Initializable {
 				client.buyAction(liste_actions);
 				liste_actions.clear();
 				gridPaneAction.getChildren().clear();
+				if (endGame) {
+					isOver();
+				}
 			} catch (Exception e) {
-				e.printStackTrace();
+				Logger.getLogger("Client").log(Level.SEVERE,"Probleme achat actions");
 			}
 		});
 		Platform.runLater(() -> gridPaneAction.add(buttonOK, 6, 1));
@@ -417,13 +422,12 @@ public class PlateauController implements Initializable {
 			if (c.chaineDisponible()) {
 				int i = j;
 				Button b = setStyleButton(c.getTypeChaine(), c.getTypeChaine().toString().substring(0, 1));
-
 				b.setOnAction((event) -> {
 					try {
 						client.pickColor(g.getAction(), c.getTypeChaine());
 						gridPaneAction.getChildren().clear();
 					} catch (Exception e1) {
-						e1.printStackTrace();
+						Logger.getLogger("Client").log(Level.SEVERE,"Probleme choix creation chaine");
 					}
 				});
 				Platform.runLater(() -> gridPaneAction.add(b, i, 0));
@@ -604,8 +608,8 @@ public class PlateauController implements Initializable {
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+		Logger.getLogger("Client").log(Level.INFO, "Client lancé");
 		scroll.setContent(tchat);
-
 		buttonEND.setDisable(true);
 		endGame=false;
 		Platform.runLater(() -> gridPaneAction.getChildren().clear());
@@ -615,7 +619,7 @@ public class PlateauController implements Initializable {
 				try {
 					client.sauvegardePartie();
 				} catch (RemoteException e1) {
-					e1.printStackTrace();
+					Logger.getLogger("Client").log(Level.SEVERE,"Probleme de connexion");
 				}
 			}
 		});
@@ -711,12 +715,6 @@ public class PlateauController implements Initializable {
 		File nf = new File(adr);
 		mapper.enable(SerializationFeature.INDENT_OUTPUT);
 		mapper.writeValue(nf, g);
-
-		// Convert object to JSON string
-		String jsonInString = mapper.writeValueAsString(g);
-
-		// Convert object to JSON string and pretty print
-
 	}
 
 	/*
@@ -728,11 +726,14 @@ public class PlateauController implements Initializable {
 			try {
 				sauvgarderGame(g, "AcquireGame.json");
 			} catch (IOException e) {
-				e.printStackTrace();
+				Logger.getLogger("Client").log(Level.SEVERE,"Probleme de sauvegarde");
 			}
 		} else {
 		}
 
+	}
+	public void setOver() {
+		endGame=true;
 	}
 
 	public void isOver() { 
@@ -740,7 +741,7 @@ public class PlateauController implements Initializable {
 			client.isOver();
 		}
 		catch (Exception e) {
-			e.printStackTrace();
+			Logger.getLogger("Client").log(Level.SEVERE,"Probleme de fin de partie");
 		}
 	}
 

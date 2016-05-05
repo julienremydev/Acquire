@@ -102,9 +102,6 @@ public class Serveur extends UnicastRemoteObject implements ServeurInterface {
 			Logger.getLogger("Serveur").log(Level.INFO, text);
 			getGame().setAction(game.getPlateau().updateCase(text, game.getListeChaine()));
 
-
-
-
 			piocheCaseFinTour(text,pseudo);
 			if (getGame().getAction() == null) {
 				sendEndTurnAction();
@@ -141,8 +138,8 @@ public class Serveur extends UnicastRemoteObject implements ServeurInterface {
 			}
 		}
 	}
+	
 	private void setPiocheBanque() throws RemoteException {
-		//TODO case noir
 		String caseNoire = getGame().getPlateau().poserJetonBanque(game.getListeChaine());
 		int nb_actions_banque = Integer.parseInt(caseNoire.substring(1, caseNoire.length()));
 		ClientInfo ci = new ClientInfo("Serveur");
@@ -161,7 +158,7 @@ public class Serveur extends UnicastRemoteObject implements ServeurInterface {
 	@Override
 	public void creationChaineServeur(TypeChaine c) throws RemoteException {
 		getGame().creationChaine(getGame().getAction().getListeDeCaseAModifier(), c, getGame().getPlayerTurn());
-		sendEndTurnAction ();
+		sendEndTurnAction();
 
 		distribution();
 	}
@@ -256,13 +253,25 @@ public class Serveur extends UnicastRemoteObject implements ServeurInterface {
 	 */
 	public void piocheCaseFinTour(String text, String pseudo){
 		//Pioche d'une case a la fin du tour
+		int nbJoueursVide=0;
 		if (game.getTableauDeBord().getInfoParClient().get(pseudo).getMain().contains(text) && !game.getPlateau().getCasesDisponible().isEmpty()) {
 			int indice = game.getTableauDeBord().getInfoParClient().get(pseudo).getMain().indexOf(text);
 			game.getTableauDeBord().getInfoParClient().get(pseudo).getMain().remove(indice);
 			game.getTableauDeBord().getInfoParClient().get(pseudo).ajouteMain1fois(game.getPlateau());
 		}
 		else {
-			System.out.println("FIN DU JEU BATARD");
+			for (ClientInfo c : game.getTableauDeBord().getInfoParClient().values()) {
+				if (c.getMain().isEmpty()) {
+					nbJoueursVide++;
+				}
+			}
+			if (nbJoueursVide==game.getTableauDeBord().getInfoParClient().size()) {
+				try {
+					isOver();
+				} catch (RemoteException e) {
+					Logger.getLogger("Serveur").log(Level.SEVERE, "Probleme fin du jeu");
+				}
+			}
 		}
 	}
 	/*
@@ -501,9 +510,14 @@ public class Serveur extends UnicastRemoteObject implements ServeurInterface {
 			classement.put(client.getPseudo(),client.getNet());
 		}
 		ArrayList<String> winner = Globals.getClassement(classement);
+		ArrayList<String> winnerNet = new ArrayList<String>();
+		for (String pseudo : winner) {
+			winnerNet.add(pseudo);
+			winnerNet.add(game.getTableauDeBord().getInfoParClient().get(pseudo).getNet().toString());
+		}
 		Enumeration<ClientInterface> e = liste_clients.elements();
 		while (e.hasMoreElements())
-			e.nextElement().receiveClassement(winner);
+			e.nextElement().receiveClassement(winnerNet);
 	}
 
 	/**

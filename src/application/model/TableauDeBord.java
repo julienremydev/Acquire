@@ -403,7 +403,7 @@ public class TableauDeBord implements Serializable{
 			for (Chaine chaine : action.getListeChainesAbsorbees()) {
 				infoPrimeClient.add(chaine.getTypeChaine().toString());
 				for (ClientInfo client : infoParClient.values()) {
-					int primeJoueur = client.getPrime(chaine.getTypeChaine(),listeChaine.get(chaine.getTypeChaine().getNumero()-2).tailleChaine());
+					int primeJoueur = client.getPrime(chaine.getTypeChaine(),listeChaine.get(chaine.getTypeChaine().getNumero()-2).tailleChaine(),false);
 					infoPrimeClient.add(client.getPseudo());
 					infoPrimeClient.add(String.valueOf(primeJoueur));
 					client.setCash(client.getCash() + primeJoueur);

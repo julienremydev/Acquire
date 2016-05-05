@@ -48,6 +48,7 @@ Desktop.ini
 bin/**
 tmp/**
 tmp/**/*
+*.json
 *.tmp
 *.bak
 *.swp

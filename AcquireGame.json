@@ -11,11 +11,11 @@
       },
       "I3" : {
         "nom" : "I3",
-        "etat" : 0
+        "etat" : 3
       },
       "I4" : {
         "nom" : "I4",
-        "etat" : 0
+        "etat" : 3
       },
       "I5" : {
         "nom" : "I5",
@@ -31,11 +31,11 @@
       },
       "I8" : {
         "nom" : "I8",
-        "etat" : 0
+        "etat" : 1
       },
       "A1" : {
         "nom" : "A1",
-        "etat" : 0
+        "etat" : 3
       },
       "I9" : {
         "nom" : "I9",
@@ -43,95 +43,95 @@
       },
       "A2" : {
         "nom" : "A2",
-        "etat" : 1
+        "etat" : 3
       },
       "A3" : {
         "nom" : "A3",
-        "etat" : 1
+        "etat" : 3
       },
       "A4" : {
         "nom" : "A4",
-        "etat" : 0
+        "etat" : 3
       },
       "A5" : {
         "nom" : "A5",
-        "etat" : 1
+        "etat" : 3
       },
       "A6" : {
         "nom" : "A6",
-        "etat" : 1
+        "etat" : 3
       },
       "A7" : {
         "nom" : "A7",
-        "etat" : 0
+        "etat" : 3
       },
       "A8" : {
         "nom" : "A8",
-        "etat" : 0
+        "etat" : -1
       },
       "A9" : {
         "nom" : "A9",
-        "etat" : 1
+        "etat" : 7
       },
       "A10" : {
         "nom" : "A10",
-        "etat" : 0
+        "etat" : 7
       },
       "A11" : {
         "nom" : "A11",
-        "etat" : 0
+        "etat" : 7
       },
       "A12" : {
         "nom" : "A12",
-        "etat" : 1
+        "etat" : 7
       },
       "E11" : {
         "nom" : "E11",
-        "etat" : 3
+        "etat" : 7
       },
       "E10" : {
         "nom" : "E10",
-        "etat" : 3
+        "etat" : 0
       },
       "E12" : {
         "nom" : "E12",
-        "etat" : 3
+        "etat" : 7
       },
       "I11" : {
         "nom" : "I11",
-        "etat" : 1
+        "etat" : 7
       },
       "I10" : {
         "nom" : "I10",
-        "etat" : 1
+        "etat" : 7
       },
       "I12" : {
         "nom" : "I12",
-        "etat" : 1
+        "etat" : 0
       },
       "B1" : {
         "nom" : "B1",
-        "etat" : 0
+        "etat" : 3
       },
       "B2" : {
         "nom" : "B2",
-        "etat" : 0
+        "etat" : 3
       },
       "B3" : {
         "nom" : "B3",
-        "etat" : 0
+        "etat" : 3
       },
       "B4" : {
         "nom" : "B4",
-        "etat" : 0
+        "etat" : 3
       },
       "B5" : {
         "nom" : "B5",
-        "etat" : 0
+        "etat" : 3
       },
       "B6" : {
         "nom" : "B6",
-        "etat" : 1
+        "etat" : 3
       },
       "B7" : {
         "nom" : "B7",
@@ -139,31 +139,31 @@
       },
       "B8" : {
         "nom" : "B8",
-        "etat" : 1
+        "etat" : 0
       },
       "B9" : {
         "nom" : "B9",
-        "etat" : 1
+        "etat" : 0
       },
       "C1" : {
         "nom" : "C1",
-        "etat" : 0
+        "etat" : 3
       },
       "C2" : {
         "nom" : "C2",
-        "etat" : 1
+        "etat" : 3
       },
       "C3" : {
         "nom" : "C3",
-        "etat" : 1
+        "etat" : 0
       },
       "C4" : {
         "nom" : "C4",
-        "etat" : 0
+        "etat" : 3
       },
       "C5" : {
         "nom" : "C5",
-        "etat" : 6
+        "etat" : 0
       },
       "C6" : {
         "nom" : "C6",
@@ -175,7 +175,7 @@
       },
       "C8" : {
         "nom" : "C8",
-        "etat" : 0
+        "etat" : 6
       },
       "C9" : {
         "nom" : "C9",
@@ -183,15 +183,15 @@
       },
       "D10" : {
         "nom" : "D10",
-        "etat" : 0
+        "etat" : 7
       },
       "D12" : {
         "nom" : "D12",
-        "etat" : 0
+        "etat" : 7
       },
       "D11" : {
         "nom" : "D11",
-        "etat" : 0
+        "etat" : 7
       },
       "H10" : {
         "nom" : "H10",
@@ -199,23 +199,23 @@
       },
       "H12" : {
         "nom" : "H12",
-        "etat" : 0
+        "etat" : 7
       },
       "H11" : {
         "nom" : "H11",
-        "etat" : 0
+        "etat" : 7
       },
       "D1" : {
         "nom" : "D1",
-        "etat" : 1
+        "etat" : 3
       },
       "D2" : {
         "nom" : "D2",
-        "etat" : 0
+        "etat" : 3
       },
       "D3" : {
         "nom" : "D3",
-        "etat" : 0
+        "etat" : 3
       },
       "D4" : {
         "nom" : "D4",
@@ -227,7 +227,7 @@
       },
       "D6" : {
         "nom" : "D6",
-        "etat" : 0
+        "etat" : 6
       },
       "D7" : {
         "nom" : "D7",
@@ -239,27 +239,27 @@
       },
       "D9" : {
         "nom" : "D9",
-        "etat" : 0
+        "etat" : 7
       },
       "E1" : {
         "nom" : "E1",
-        "etat" : 0
+        "etat" : 3
       },
       "E2" : {
         "nom" : "E2",
-        "etat" : 0
+        "etat" : 3
       },
       "E3" : {
         "nom" : "E3",
-        "etat" : 6
+        "etat" : 3
       },
       "E4" : {
         "nom" : "E4",
-        "etat" : 6
+        "etat" : 0
       },
       "E5" : {
         "nom" : "E5",
-        "etat" : 6
+        "etat" : 0
       },
       "E6" : {
         "nom" : "E6",
@@ -267,11 +267,11 @@
       },
       "E7" : {
         "nom" : "E7",
-        "etat" : 6
+        "etat" : 0
       },
       "E8" : {
         "nom" : "E8",
-        "etat" : 0
+        "etat" : 1
       },
       "E9" : {
         "nom" : "E9",
@@ -279,19 +279,19 @@
       },
       "C11" : {
         "nom" : "C11",
-        "etat" : 0
+        "etat" : 7
       },
       "C10" : {
         "nom" : "C10",
-        "etat" : 0
+        "etat" : 7
       },
       "C12" : {
         "nom" : "C12",
-        "etat" : 1
+        "etat" : 7
       },
       "G11" : {
         "nom" : "G11",
-        "etat" : 3
+        "etat" : 7
       },
       "G10" : {
         "nom" : "G10",
@@ -299,55 +299,55 @@
       },
       "G12" : {
         "nom" : "G12",
-        "etat" : 3
+        "etat" : 7
       },
       "F1" : {
         "nom" : "F1",
-        "etat" : 1
+        "etat" : 0
       },
       "F2" : {
         "nom" : "F2",
-        "etat" : 0
+        "etat" : 3
       },
       "F3" : {
         "nom" : "F3",
-        "etat" : 6
+        "etat" : 0
       },
       "F4" : {
         "nom" : "F4",
-        "etat" : 0
+        "etat" : 5
       },
       "F5" : {
         "nom" : "F5",
-        "etat" : 0
+        "etat" : 5
       },
       "F6" : {
         "nom" : "F6",
-        "etat" : 6
+        "etat" : 0
       },
       "F7" : {
         "nom" : "F7",
-        "etat" : 0
+        "etat" : 4
       },
       "F8" : {
         "nom" : "F8",
-        "etat" : 1
+        "etat" : 0
       },
       "F9" : {
         "nom" : "F9",
-        "etat" : 0
+        "etat" : 4
       },
       "G1" : {
         "nom" : "G1",
-        "etat" : 0
+        "etat" : 3
       },
       "G2" : {
         "nom" : "G2",
-        "etat" : 6
+        "etat" : 3
       },
       "G3" : {
         "nom" : "G3",
-        "etat" : 6
+        "etat" : 3
       },
       "G4" : {
         "nom" : "G4",
@@ -355,23 +355,23 @@
       },
       "G5" : {
         "nom" : "G5",
-        "etat" : 6
+        "etat" : 5
       },
       "G6" : {
         "nom" : "G6",
-        "etat" : 6
+        "etat" : 0
       },
       "G7" : {
         "nom" : "G7",
-        "etat" : 0
+        "etat" : 4
       },
       "G8" : {
         "nom" : "G8",
-        "etat" : 0
+        "etat" : 4
       },
       "G9" : {
         "nom" : "G9",
-        "etat" : 0
+        "etat" : 4
       },
       "B10" : {
         "nom" : "B10",
@@ -379,7 +379,7 @@
       },
       "B11" : {
         "nom" : "B11",
-        "etat" : 0
+        "etat" : 7
       },
       "B12" : {
         "nom" : "B12",
@@ -387,11 +387,11 @@
       },
       "F10" : {
         "nom" : "F10",
-        "etat" : 0
+        "etat" : 4
       },
       "F12" : {
         "nom" : "F12",
-        "etat" : 3
+        "etat" : 7
       },
       "F11" : {
         "nom" : "F11",
@@ -403,11 +403,11 @@
       },
       "H2" : {
         "nom" : "H2",
-        "etat" : 0
+        "etat" : 3
       },
       "H3" : {
         "nom" : "H3",
-        "etat" : 6
+        "etat" : 3
       },
       "H4" : {
         "nom" : "H4",
@@ -415,11 +415,11 @@
       },
       "H5" : {
         "nom" : "H5",
-        "etat" : 0
+        "etat" : 5
       },
       "H6" : {
         "nom" : "H6",
-        "etat" : 0
+        "etat" : 5
       },
       "H7" : {
         "nom" : "H7",
@@ -431,73 +431,135 @@
       },
       "H9" : {
         "nom" : "H9",
-        "etat" : 1
+        "etat" : 4
       }
     },
-    "casesDisponible" : [ "A1", "A4", "A8", "A10", "B1", "B2", "B3", "B4", "B5", "B10", "B11", "C1", "C6", "C8", "C9", "C10", "C11", "D2", "D3", "D4", "D6", "D8", "D9", "D10", "D11", "E1", "E2", "E8", "E9", "F2", "F4", "F5", "F7", "F9", "F10", "F11", "G1", "G4", "G8", "G9", "G10", "H1", "H2", "H5", "H6", "H7", "H10", "H11", "H12", "I2", "I3", "I4", "I6", "I7" ],
+    "casesDisponible" : [ "B12", "C6", "D4", "E9", "F6", "F8", "I2", "I5", "I12" ],
     "plateauTab" : null
   },
   "tableauDeBord" : {
     "infoParClient" : {
-      "ersagun" : {
-        "pseudo" : "ersagun",
-        "main" : [ "I8", "C4", "A11", "H8", "H4", "I5" ],
-        "net" : 15600,
-        "cash" : 4200,
+      "BAT" : {
+        "pseudo" : "BAT",
+        "main" : [ "H4", "B7", "C9", "I9", "C5", "F3" ],
+        "net" : 44600,
+        "cash" : 13500,
         "actionParChaine" : {
-          "SACKSON" : 0,
+          "FUSION" : 1,
+          "HYDRA" : 3,
+          "ZETA" : 3,
+          "PHOENIX" : 4,
           "QUANTUM" : 0,
-          "HYDRA" : 0,
-          "PHOENIX" : 0,
-          "AMERICA" : 0,
-          "FUSION" : 0,
-          "ZETA" : 4
+          "AMERICA" : 1,
+          "SACKSON" : 0
         },
         "etatParChaine" : {
-          "SACKSON" : "0,0",
-          "QUANTUM" : "0,0",
-          "HYDRA" : "0,0",
-          "PHOENIX" : "0,0",
-          "AMERICA" : "0,0",
-          "FUSION" : "0,0",
-          "ZETA" : "M+,0"
+          "FUSION" : "S,2",
+          "HYDRA" : "S,1",
+          "ZETA" : "S,1",
+          "PHOENIX" : "S,1",
+          "QUANTUM" : "M,1",
+          "AMERICA" : "S,2",
+          "SACKSON" : "M,2"
         },
         "actionSackson" : 0,
-        "actionAmerica" : 0,
-        "actionFusion" : 0,
-        "actionPhoenix" : 0,
-        "actionHydra" : 0,
+        "actionAmerica" : 1,
+        "actionFusion" : 1,
+        "actionPhoenix" : 4,
+        "actionHydra" : 3,
         "actionQuantum" : 0,
-        "actionZeta" : 4
+        "actionZeta" : 3
       },
-      "rambo" : {
-        "pseudo" : "rambo",
-        "main" : [ "G7", "D12", "I9", "A7", "B12", "B7" ],
-        "net" : 18800,
-        "cash" : 3600,
+      "ersagunn" : {
+        "pseudo" : "ersagunn",
+        "main" : [ "G6", "I6", "H10", "E7", "D8", "H1" ],
+        "net" : 50100,
+        "cash" : 400,
         "actionParChaine" : {
-          "SACKSON" : 0,
-          "QUANTUM" : 0,
-          "HYDRA" : 0,
-          "PHOENIX" : 0,
-          "AMERICA" : 4,
           "FUSION" : 0,
-          "ZETA" : 0
+          "HYDRA" : 5,
+          "ZETA" : 12,
+          "PHOENIX" : 6,
+          "QUANTUM" : 1,
+          "AMERICA" : 0,
+          "SACKSON" : 1
         },
         "etatParChaine" : {
-          "SACKSON" : "0,0",
-          "QUANTUM" : "0,0",
-          "HYDRA" : "0,0",
-          "PHOENIX" : "0,0",
-          "AMERICA" : "M+,0",
           "FUSION" : "0,0",
-          "ZETA" : "0,0"
+          "HYDRA" : "M,1",
+          "ZETA" : "M,1",
+          "PHOENIX" : "M,1",
+          "QUANTUM" : "S,1",
+          "AMERICA" : "0,0",
+          "SACKSON" : "M+,0"
+        },
+        "actionSackson" : 1,
+        "actionAmerica" : 0,
+        "actionFusion" : 0,
+        "actionPhoenix" : 6,
+        "actionHydra" : 5,
+        "actionQuantum" : 1,
+        "actionZeta" : 12
+      },
+      "NEo" : {
+        "pseudo" : "NEo",
+        "main" : [ "E5", "G4", "F1", "F11", "C3", "E10" ],
+        "net" : 35600,
+        "cash" : 3300,
+        "actionParChaine" : {
+          "FUSION" : 3,
+          "HYDRA" : 2,
+          "ZETA" : 2,
+          "PHOENIX" : 2,
+          "QUANTUM" : 3,
+          "AMERICA" : 4,
+          "SACKSON" : 0
+        },
+        "etatParChaine" : {
+          "FUSION" : "M,1",
+          "HYDRA" : "A,0",
+          "ZETA" : "S,2",
+          "PHOENIX" : "S,2",
+          "QUANTUM" : "M,1",
+          "AMERICA" : "M,1",
+          "SACKSON" : "0,0"
         },
         "actionSackson" : 0,
         "actionAmerica" : 4,
-        "actionFusion" : 0,
+        "actionFusion" : 3,
+        "actionPhoenix" : 2,
+        "actionHydra" : 2,
+        "actionQuantum" : 3,
+        "actionZeta" : 2
+      },
+      "JACK" : {
+        "pseudo" : "JACK",
+        "main" : [ "H8", "G10", "I7", "H7", "B10", "E4" ],
+        "net" : 12300,
+        "cash" : 4600,
+        "actionParChaine" : {
+          "FUSION" : 1,
+          "HYDRA" : 1,
+          "ZETA" : 0,
+          "PHOENIX" : 0,
+          "QUANTUM" : 0,
+          "AMERICA" : 2,
+          "SACKSON" : 0
+        },
+        "etatParChaine" : {
+          "FUSION" : "S,2",
+          "HYDRA" : "A,0",
+          "ZETA" : "0,0",
+          "PHOENIX" : "0,0",
+          "QUANTUM" : "A,0",
+          "AMERICA" : "S,1",
+          "SACKSON" : "A,0"
+        },
+        "actionSackson" : 0,
+        "actionAmerica" : 2,
+        "actionFusion" : 1,
         "actionPhoenix" : 0,
-        "actionHydra" : 0,
+        "actionHydra" : 1,
         "actionQuantum" : 0,
         "actionZeta" : 0
       }
@@ -505,343 +567,812 @@
     "listeChaine" : [ {
       "typeChaine" : "SACKSON",
       "listeCase" : [ ],
-      "nbActionRestante" : 25,
+      "nbActionRestante" : 18,
       "actionParClient" : { }
     }, {
       "typeChaine" : "ZETA",
       "listeCase" : [ {
-        "nom" : "G11",
+        "nom" : "B2",
         "etat" : 3
       }, {
-        "nom" : "E11",
+        "nom" : "A3",
         "etat" : 3
       }, {
-        "nom" : "E12",
+        "nom" : "B3",
         "etat" : 3
       }, {
-        "nom" : "E10",
+        "nom" : "B1",
         "etat" : 3
       }, {
-        "nom" : "F12",
+        "nom" : "A2",
         "etat" : 3
       }, {
-        "nom" : "G12",
+        "nom" : "B4",
+        "etat" : 3
+      }, {
+        "nom" : "G2",
+        "etat" : 3
+      }, {
+        "nom" : "F2",
+        "etat" : 3
+      }, {
+        "nom" : "G3",
+        "etat" : 3
+      }, {
+        "nom" : "E1",
+        "etat" : 3
+      }, {
+        "nom" : "E2",
+        "etat" : 3
+      }, {
+        "nom" : "D2",
+        "etat" : 3
+      }, {
+        "nom" : "C2",
+        "etat" : 3
+      }, {
+        "nom" : "A1",
+        "etat" : 3
+      }, {
+        "nom" : "B6",
+        "etat" : 3
+      }, {
+        "nom" : "A5",
+        "etat" : 3
+      }, {
+        "nom" : "A7",
+        "etat" : 3
+      }, {
+        "nom" : "A6",
+        "etat" : 3
+      }, {
+        "nom" : "A4",
+        "etat" : 3
+      }, {
+        "nom" : "H2",
+        "etat" : 3
+      }, {
+        "nom" : "C4",
+        "etat" : 3
+      }, {
+        "nom" : "B5",
+        "etat" : 3
+      }, {
+        "nom" : "C1",
+        "etat" : 3
+      }, {
+        "nom" : "H3",
+        "etat" : 3
+      }, {
+        "nom" : "E3",
+        "etat" : 3
+      }, {
+        "nom" : "G1",
+        "etat" : 3
+      }, {
+        "nom" : "D3",
+        "etat" : 3
+      }, {
+        "nom" : "D1",
+        "etat" : 3
+      }, {
+        "nom" : "I3",
+        "etat" : 3
+      }, {
+        "nom" : "I4",
         "etat" : 3
       } ],
-      "nbActionRestante" : 22,
+      "nbActionRestante" : 8,
       "actionParClient" : { }
     }, {
       "typeChaine" : "HYDRA",
-      "listeCase" : [ ],
-      "nbActionRestante" : 25,
+      "listeCase" : [ {
+        "nom" : "G8",
+        "etat" : 4
+      }, {
+        "nom" : "G9",
+        "etat" : 4
+      }, {
+        "nom" : "G7",
+        "etat" : 4
+      }, {
+        "nom" : "F7",
+        "etat" : 4
+      }, {
+        "nom" : "H9",
+        "etat" : 4
+      }, {
+        "nom" : "F9",
+        "etat" : 4
+      }, {
+        "nom" : "F10",
+        "etat" : 4
+      } ],
+      "nbActionRestante" : 14,
       "actionParClient" : { }
     }, {
       "typeChaine" : "FUSION",
-      "listeCase" : [ ],
-      "nbActionRestante" : 25,
+      "listeCase" : [ {
+        "nom" : "G5",
+        "etat" : 5
+      }, {
+        "nom" : "F4",
+        "etat" : 5
+      }, {
+        "nom" : "F5",
+        "etat" : 5
+      }, {
+        "nom" : "H6",
+        "etat" : 5
+      }, {
+        "nom" : "H5",
+        "etat" : 5
+      } ],
+      "nbActionRestante" : 20,
       "actionParClient" : { }
     }, {
       "typeChaine" : "AMERICA",
       "listeCase" : [ {
-        "nom" : "E5",
-        "etat" : 6
-      }, {
-        "nom" : "E6",
-        "etat" : 6
-      }, {
-        "nom" : "C5",
-        "etat" : 6
-      }, {
-        "nom" : "F6",
-        "etat" : 6
-      }, {
-        "nom" : "D5",
-        "etat" : 6
-      }, {
-        "nom" : "E7",
-        "etat" : 6
-      }, {
-        "nom" : "E3",
-        "etat" : 6
-      }, {
-        "nom" : "G2",
-        "etat" : 6
-      }, {
-        "nom" : "G6",
-        "etat" : 6
-      }, {
-        "nom" : "F3",
-        "etat" : 6
-      }, {
-        "nom" : "G5",
+        "nom" : "D6",
         "etat" : 6
       }, {
         "nom" : "D7",
         "etat" : 6
       }, {
+        "nom" : "E6",
+        "etat" : 6
+      }, {
+        "nom" : "D5",
+        "etat" : 6
+      }, {
         "nom" : "C7",
         "etat" : 6
       }, {
-        "nom" : "H3",
-        "etat" : 6
-      }, {
-        "nom" : "E4",
-        "etat" : 6
-      }, {
-        "nom" : "G3",
+        "nom" : "C8",
         "etat" : 6
       } ],
-      "nbActionRestante" : 22,
+      "nbActionRestante" : 18,
       "actionParClient" : { }
     }, {
       "typeChaine" : "PHOENIX",
-      "listeCase" : [ ],
-      "nbActionRestante" : 25,
+      "listeCase" : [ {
+        "nom" : "D9",
+        "etat" : 7
+      }, {
+        "nom" : "C10",
+        "etat" : 7
+      }, {
+        "nom" : "D10",
+        "etat" : 7
+      }, {
+        "nom" : "D11",
+        "etat" : 7
+      }, {
+        "nom" : "F12",
+        "etat" : 7
+      }, {
+        "nom" : "E12",
+        "etat" : 7
+      }, {
+        "nom" : "C12",
+        "etat" : 7
+      }, {
+        "nom" : "D12",
+        "etat" : 7
+      }, {
+        "nom" : "E11",
+        "etat" : 7
+      }, {
+        "nom" : "A10",
+        "etat" : 7
+      }, {
+        "nom" : "A11",
+        "etat" : 7
+      }, {
+        "nom" : "B11",
+        "etat" : 7
+      }, {
+        "nom" : "A9",
+        "etat" : 7
+      }, {
+        "nom" : "C11",
+        "etat" : 7
+      }, {
+        "nom" : "H11",
+        "etat" : 7
+      }, {
+        "nom" : "G11",
+        "etat" : 7
+      }, {
+        "nom" : "H12",
+        "etat" : 7
+      }, {
+        "nom" : "I11",
+        "etat" : 7
+      }, {
+        "nom" : "I10",
+        "etat" : 7
+      }, {
+        "nom" : "G12",
+        "etat" : 7
+      }, {
+        "nom" : "A12",
+        "etat" : 7
+      } ],
+      "nbActionRestante" : 12,
       "actionParClient" : { }
     }, {
       "typeChaine" : "QUANTUM",
       "listeCase" : [ ],
-      "nbActionRestante" : 25,
+      "nbActionRestante" : 20,
       "actionParClient" : { }
+    } ],
+    "infosChaine" : [ {
+      "nom" : "Taille",
+      "infos" : {
+        "FUSION" : 0,
+        "HYDRA" : 0,
+        "ZETA" : 0,
+        "PHOENIX" : 0,
+        "QUANTUM" : 0,
+        "AMERICA" : 0,
+        "SACKSON" : 0
+      },
+      "infoSackson" : 0,
+      "infoFusion" : 0,
+      "infoHydra" : 0,
+      "infoQuantum" : 0,
+      "infoPhoenix" : 0,
+      "infoAmerica" : 0,
+      "infoZeta" : 0
+    }, {
+      "nom" : "Actions",
+      "infos" : {
+        "FUSION" : 20,
+        "HYDRA" : 14,
+        "ZETA" : 8,
+        "PHOENIX" : 12,
+        "QUANTUM" : 20,
+        "AMERICA" : 18,
+        "SACKSON" : 18
+      },
+      "infoSackson" : 18,
+      "infoFusion" : 20,
+      "infoHydra" : 14,
+      "infoQuantum" : 20,
+      "infoPhoenix" : 12,
+      "infoAmerica" : 18,
+      "infoZeta" : 8
     } ],
     "listeTypeChaine" : [ {
       "typeChaine" : "SACKSON",
       "listeCase" : [ ],
-      "nbActionRestante" : 25,
+      "nbActionRestante" : 18,
       "actionParClient" : { }
     }, {
       "typeChaine" : "ZETA",
       "listeCase" : [ {
-        "nom" : "G11",
+        "nom" : "B2",
         "etat" : 3
       }, {
-        "nom" : "E11",
+        "nom" : "A3",
         "etat" : 3
       }, {
-        "nom" : "E12",
+        "nom" : "B3",
         "etat" : 3
       }, {
-        "nom" : "E10",
+        "nom" : "B1",
         "etat" : 3
       }, {
-        "nom" : "F12",
+        "nom" : "A2",
         "etat" : 3
       }, {
-        "nom" : "G12",
+        "nom" : "B4",
+        "etat" : 3
+      }, {
+        "nom" : "G2",
+        "etat" : 3
+      }, {
+        "nom" : "F2",
+        "etat" : 3
+      }, {
+        "nom" : "G3",
+        "etat" : 3
+      }, {
+        "nom" : "E1",
+        "etat" : 3
+      }, {
+        "nom" : "E2",
+        "etat" : 3
+      }, {
+        "nom" : "D2",
+        "etat" : 3
+      }, {
+        "nom" : "C2",
+        "etat" : 3
+      }, {
+        "nom" : "A1",
+        "etat" : 3
+      }, {
+        "nom" : "B6",
+        "etat" : 3
+      }, {
+        "nom" : "A5",
+        "etat" : 3
+      }, {
+        "nom" : "A7",
+        "etat" : 3
+      }, {
+        "nom" : "A6",
+        "etat" : 3
+      }, {
+        "nom" : "A4",
+        "etat" : 3
+      }, {
+        "nom" : "H2",
+        "etat" : 3
+      }, {
+        "nom" : "C4",
+        "etat" : 3
+      }, {
+        "nom" : "B5",
+        "etat" : 3
+      }, {
+        "nom" : "C1",
+        "etat" : 3
+      }, {
+        "nom" : "H3",
+        "etat" : 3
+      }, {
+        "nom" : "E3",
+        "etat" : 3
+      }, {
+        "nom" : "G1",
+        "etat" : 3
+      }, {
+        "nom" : "D3",
+        "etat" : 3
+      }, {
+        "nom" : "D1",
+        "etat" : 3
+      }, {
+        "nom" : "I3",
+        "etat" : 3
+      }, {
+        "nom" : "I4",
         "etat" : 3
       } ],
-      "nbActionRestante" : 22,
+      "nbActionRestante" : 8,
       "actionParClient" : { }
     }, {
       "typeChaine" : "HYDRA",
-      "listeCase" : [ ],
-      "nbActionRestante" : 25,
+      "listeCase" : [ {
+        "nom" : "G8",
+        "etat" : 4
+      }, {
+        "nom" : "G9",
+        "etat" : 4
+      }, {
+        "nom" : "G7",
+        "etat" : 4
+      }, {
+        "nom" : "F7",
+        "etat" : 4
+      }, {
+        "nom" : "H9",
+        "etat" : 4
+      }, {
+        "nom" : "F9",
+        "etat" : 4
+      }, {
+        "nom" : "F10",
+        "etat" : 4
+      } ],
+      "nbActionRestante" : 14,
       "actionParClient" : { }
     }, {
       "typeChaine" : "FUSION",
-      "listeCase" : [ ],
-      "nbActionRestante" : 25,
+      "listeCase" : [ {
+        "nom" : "G5",
+        "etat" : 5
+      }, {
+        "nom" : "F4",
+        "etat" : 5
+      }, {
+        "nom" : "F5",
+        "etat" : 5
+      }, {
+        "nom" : "H6",
+        "etat" : 5
+      }, {
+        "nom" : "H5",
+        "etat" : 5
+      } ],
+      "nbActionRestante" : 20,
       "actionParClient" : { }
     }, {
       "typeChaine" : "AMERICA",
       "listeCase" : [ {
-        "nom" : "E5",
-        "etat" : 6
-      }, {
-        "nom" : "E6",
-        "etat" : 6
-      }, {
-        "nom" : "C5",
-        "etat" : 6
-      }, {
-        "nom" : "F6",
-        "etat" : 6
-      }, {
-        "nom" : "D5",
-        "etat" : 6
-      }, {
-        "nom" : "E7",
-        "etat" : 6
-      }, {
-        "nom" : "E3",
-        "etat" : 6
-      }, {
-        "nom" : "G2",
-        "etat" : 6
-      }, {
-        "nom" : "G6",
-        "etat" : 6
-      }, {
-        "nom" : "F3",
-        "etat" : 6
-      }, {
-        "nom" : "G5",
+        "nom" : "D6",
         "etat" : 6
       }, {
         "nom" : "D7",
         "etat" : 6
       }, {
+        "nom" : "E6",
+        "etat" : 6
+      }, {
+        "nom" : "D5",
+        "etat" : 6
+      }, {
         "nom" : "C7",
         "etat" : 6
       }, {
-        "nom" : "H3",
-        "etat" : 6
-      }, {
-        "nom" : "E4",
-        "etat" : 6
-      }, {
-        "nom" : "G3",
+        "nom" : "C8",
         "etat" : 6
       } ],
-      "nbActionRestante" : 22,
+      "nbActionRestante" : 18,
       "actionParClient" : { }
     }, {
       "typeChaine" : "PHOENIX",
-      "listeCase" : [ ],
-      "nbActionRestante" : 25,
+      "listeCase" : [ {
+        "nom" : "D9",
+        "etat" : 7
+      }, {
+        "nom" : "C10",
+        "etat" : 7
+      }, {
+        "nom" : "D10",
+        "etat" : 7
+      }, {
+        "nom" : "D11",
+        "etat" : 7
+      }, {
+        "nom" : "F12",
+        "etat" : 7
+      }, {
+        "nom" : "E12",
+        "etat" : 7
+      }, {
+        "nom" : "C12",
+        "etat" : 7
+      }, {
+        "nom" : "D12",
+        "etat" : 7
+      }, {
+        "nom" : "E11",
+        "etat" : 7
+      }, {
+        "nom" : "A10",
+        "etat" : 7
+      }, {
+        "nom" : "A11",
+        "etat" : 7
+      }, {
+        "nom" : "B11",
+        "etat" : 7
+      }, {
+        "nom" : "A9",
+        "etat" : 7
+      }, {
+        "nom" : "C11",
+        "etat" : 7
+      }, {
+        "nom" : "H11",
+        "etat" : 7
+      }, {
+        "nom" : "G11",
+        "etat" : 7
+      }, {
+        "nom" : "H12",
+        "etat" : 7
+      }, {
+        "nom" : "I11",
+        "etat" : 7
+      }, {
+        "nom" : "I10",
+        "etat" : 7
+      }, {
+        "nom" : "G12",
+        "etat" : 7
+      }, {
+        "nom" : "A12",
+        "etat" : 7
+      } ],
+      "nbActionRestante" : 12,
       "actionParClient" : { }
     }, {
       "typeChaine" : "QUANTUM",
       "listeCase" : [ ],
-      "nbActionRestante" : 25,
+      "nbActionRestante" : 20,
       "actionParClient" : { }
     } ]
   },
-  "playerTurn" : "rambo",
+  "playerTurn" : "BAT",
   "action" : {
-    "choix" : 0,
-    "listeChainesAbsorbees" : null,
-    "chaineAbsorbante" : null,
+    "choix" : 2,
+    "listeChainesAbsorbees" : [ ],
+    "chaineAbsorbante" : {
+      "typeChaine" : "HYDRA",
+      "listeCase" : [ {
+        "nom" : "G8",
+        "etat" : 4
+      }, {
+        "nom" : "G9",
+        "etat" : 4
+      }, {
+        "nom" : "G7",
+        "etat" : 4
+      }, {
+        "nom" : "F7",
+        "etat" : 4
+      }, {
+        "nom" : "H9",
+        "etat" : 4
+      }, {
+        "nom" : "F9",
+        "etat" : 4
+      }, {
+        "nom" : "F10",
+        "etat" : 4
+      } ],
+      "nbActionRestante" : 14,
+      "actionParClient" : { }
+    },
     "couleur" : 0,
     "listeDeChainePlateau" : null,
     "caseModifiee" : null,
-    "listeDeCaseAModifier" : [ {
-      "nom" : "G11",
-      "etat" : 3
-    }, {
-      "nom" : "E12",
-      "etat" : 3
-    }, {
-      "nom" : "G12",
-      "etat" : 3
-    }, {
-      "nom" : "F12",
-      "etat" : 3
-    }, {
-      "nom" : "E11",
-      "etat" : 3
-    }, {
-      "nom" : "E10",
-      "etat" : 3
-    } ],
+    "listeDeCaseAModifier" : null,
     "listeDeChaineAProposer" : null,
     "listeCaseAbsorbees" : null
   },
-  "ordre_joueur" : [ "rambo", "ersagun" ],
+  "ordre_joueur" : [ "ersagunn", "NEo", "BAT", "JACK" ],
   "ordre_joueur_action" : [ ],
-  "tchat" : [ "[Serveur]", "Serveur lancé.", "[Serveur]", "Le joueur ersagun est entré dans la partie.", "[Serveur]", "Le joueur rambo est entré dans la partie.", "[Serveur]", "Le joueur ersagun a démarré la partie.", "[Serveur]", "Le joueur rambo a acheté :\n -3 AMERICA", "[Serveur]", "Le joueur ersagun a acheté :\n -3 ZETA" ],
-  "chef" : "ersagun",
-  "partieDeuxJoueurs" : true,
+  "tchat" : [ "[Serveur]", "Serveur lancé.", "[Serveur]", "Le joueur NEo est entré dans la partie.", "[Serveur]", "Le joueur BAT est entré dans la partie.", "[Serveur]", "Le joueur JACK est entré dans la partie.", "[Serveur]", "Le joueur ersagunn est entré dans la partie.", "[Serveur]", "Le joueur NEo a démarré la partie.", "[Serveur]", "Le joueur JACK s'est déconnecté du serveur.", "[Serveur]", "Le joueur JACK est entré dans la partie.", "[Serveur]", "Le joueur BAT a acheté :\n -3 QUANTUM", "[Serveur]", "Le joueur JACK n'a rien acheté.", "[Serveur]", "Le joueur ersagunn a acheté :\n -3 QUANTUM", "[Serveur]", "Le joueur NEo a acheté :\n -1 QUANTUM", "[Serveur]", "Le joueur BAT n'a rien acheté.", "[Serveur]", "Le joueur JACK n'a rien acheté.", "[Serveur]", "Le joueur ersagunn n'a rien acheté.", "[Serveur]", "Le joueur NEo n'a rien acheté.", "[Serveur]", "Le joueur BAT n'a rien acheté.", "[Serveur]", "Le joueur JACK n'a rien acheté.", "[Serveur]", "Le joueur ersagunn n'a rien acheté.", "[Serveur]", "Le joueur NEo n'a rien acheté.", "[Serveur]", "Le joueur BAT n'a rien acheté.", "[Serveur]", "Le joueur JACK a acheté :\n -1 QUANTUM", "[Serveur]", "Le joueur ersagunn n'a rien acheté.", "[Serveur]", "Le joueur NEo n'a rien acheté.", "[Serveur]", "Le joueur BAT a acheté :\n -3 PHOENIX", "[Serveur]", "Le joueur JACK n'a rien acheté.", "[Serveur]", "Le joueur ersagunn a acheté :\n -2 HYDRA", "[Serveur]", "Le joueur NEo n'a rien acheté.", "[Serveur]", "Le joueur BAT a acheté :\n -2 HYDRA\n -1 FUSION", "[Serveur]", "Le joueur JACK n'a rien acheté.", "[Serveur]", "Le joueur ersagunn a acheté :\n -2 ZETA", "[Serveur]", "Le joueur NEo a acheté :\n -2 AMERICA\n -1 PHOENIX", "[Serveur]", "Le joueur BAT a acheté :\n -1 ZETA\n -1 AMERICA", "[Serveur]", "Le joueur JACK n'a rien acheté.", "[Serveur]", "Le joueur ersagunn a acheté :\n -3 ZETA", "[Serveur]", "Le joueur NEo a acheté :\n -2 ZETA\n -1 FUSION", "[Serveur]", "Le joueur BAT a acheté :\n -1 HYDRA", "[Serveur]", "Le joueur JACK n'a rien acheté.", "[Serveur]", "Le joueur ersagunn a acheté :\n -3 SACKSON", "[Serveur]", "Le joueur NEo a acheté :\n -2 HYDRA\n -1 QUANTUM", "[Serveur]", "Le joueur BAT a acheté :\n -1 SACKSON", "[Serveur]", "Le joueur JACK n'a rien acheté.", "[Serveur]", "Le joueur ersagunn a acheté :\n -1 SACKSON", "[Serveur]", "Le joueur NEo a acheté :\n -1 QUANTUM\n -1 AMERICA", "[Serveur]", "Le joueur BAT a acheté :\n -3 SACKSON", "[Serveur]", "Le joueur JACK n'a rien acheté.", "[Serveur]", "Le joueur NEo n'a rien acheté.", "[Serveur]", "Le joueur BAT a acheté :\n -1 PHOENIX", "[Serveur]", "Le joueur JACK n'a rien acheté.", "[Serveur]", "Le joueur ersagunn a acheté :\n -3 ZETA", "[Serveur]", "Le joueur NEo n'a rien acheté.", "[Serveur]", "Le joueur BAT a acheté :\n -1 ZETA\n -1 SACKSON", "[Serveur]", "Le joueur JACK a acheté :\n -1 HYDRA\n -1 AMERICA\n -1 FUSION", "[Serveur]", "Le joueur ersagunn a acheté :\n -3 SACKSON", "[Serveur]", "Le joueur NEo n'a rien acheté.", "[Serveur]", "Le joueur BAT n'a rien acheté.", "[Serveur]", "Le joueur JACK n'a rien acheté.", "[Serveur]", "Le joueur ersagunn a acheté :\n -3 ZETA", "[Serveur]", "Le joueur BAT s'est déconnecté du serveur.", "[Serveur]", "Le joueur NEo n'a rien acheté.", "[Serveur]", "Le joueur BAT est entré dans la partie.", "[Serveur]", "Le joueur BAT n'a rien acheté.", "[Serveur]", "Le joueur JACK n'a rien acheté.", "[Serveur]", "Le joueur NEo n'a rien acheté.", "[Serveur]", "Le joueur BAT n'a rien acheté.", "[Serveur]", "Le joueur JACK n'a rien acheté.", "[Serveur]", "Le joueur NEo a acheté :\n -1 AMERICA\n -1 FUSION\n -1 PHOENIX", "[Serveur]", "Le joueur BAT n'a rien acheté.", "[Serveur]", "Le joueur JACK n'a rien acheté.", "[Serveur]", "Le joueur ersagunn a acheté :\n -2 HYDRA", "[Serveur]", "Le joueur NEo n'a rien acheté.", "[Serveur]", "Le joueur BAT n'a rien acheté.", "[Serveur]", "Le joueur JACK n'a rien acheté.", "[Serveur]", "Le joueur NEo n'a rien acheté." ],
+  "chef" : "NEo",
+  "partieDeuxJoueurs" : false,
+  "prime" : [ ],
   "listeChaine" : [ {
     "typeChaine" : "SACKSON",
     "listeCase" : [ ],
-    "nbActionRestante" : 25,
+    "nbActionRestante" : 18,
     "actionParClient" : { }
   }, {
     "typeChaine" : "ZETA",
     "listeCase" : [ {
-      "nom" : "G11",
+      "nom" : "B2",
       "etat" : 3
     }, {
-      "nom" : "E11",
+      "nom" : "A3",
       "etat" : 3
     }, {
-      "nom" : "E12",
+      "nom" : "B3",
       "etat" : 3
     }, {
-      "nom" : "E10",
+      "nom" : "B1",
       "etat" : 3
     }, {
-      "nom" : "F12",
+      "nom" : "A2",
       "etat" : 3
     }, {
-      "nom" : "G12",
+      "nom" : "B4",
+      "etat" : 3
+    }, {
+      "nom" : "G2",
+      "etat" : 3
+    }, {
+      "nom" : "F2",
+      "etat" : 3
+    }, {
+      "nom" : "G3",
+      "etat" : 3
+    }, {
+      "nom" : "E1",
+      "etat" : 3
+    }, {
+      "nom" : "E2",
+      "etat" : 3
+    }, {
+      "nom" : "D2",
+      "etat" : 3
+    }, {
+      "nom" : "C2",
+      "etat" : 3
+    }, {
+      "nom" : "A1",
+      "etat" : 3
+    }, {
+      "nom" : "B6",
+      "etat" : 3
+    }, {
+      "nom" : "A5",
+      "etat" : 3
+    }, {
+      "nom" : "A7",
+      "etat" : 3
+    }, {
+      "nom" : "A6",
+      "etat" : 3
+    }, {
+      "nom" : "A4",
+      "etat" : 3
+    }, {
+      "nom" : "H2",
+      "etat" : 3
+    }, {
+      "nom" : "C4",
+      "etat" : 3
+    }, {
+      "nom" : "B5",
+      "etat" : 3
+    }, {
+      "nom" : "C1",
+      "etat" : 3
+    }, {
+      "nom" : "H3",
+      "etat" : 3
+    }, {
+      "nom" : "E3",
+      "etat" : 3
+    }, {
+      "nom" : "G1",
+      "etat" : 3
+    }, {
+      "nom" : "D3",
+      "etat" : 3
+    }, {
+      "nom" : "D1",
+      "etat" : 3
+    }, {
+      "nom" : "I3",
+      "etat" : 3
+    }, {
+      "nom" : "I4",
       "etat" : 3
     } ],
-    "nbActionRestante" : 22,
+    "nbActionRestante" : 8,
     "actionParClient" : { }
   }, {
     "typeChaine" : "HYDRA",
-    "listeCase" : [ ],
-    "nbActionRestante" : 25,
+    "listeCase" : [ {
+      "nom" : "G8",
+      "etat" : 4
+    }, {
+      "nom" : "G9",
+      "etat" : 4
+    }, {
+      "nom" : "G7",
+      "etat" : 4
+    }, {
+      "nom" : "F7",
+      "etat" : 4
+    }, {
+      "nom" : "H9",
+      "etat" : 4
+    }, {
+      "nom" : "F9",
+      "etat" : 4
+    }, {
+      "nom" : "F10",
+      "etat" : 4
+    } ],
+    "nbActionRestante" : 14,
     "actionParClient" : { }
   }, {
     "typeChaine" : "FUSION",
-    "listeCase" : [ ],
-    "nbActionRestante" : 25,
+    "listeCase" : [ {
+      "nom" : "G5",
+      "etat" : 5
+    }, {
+      "nom" : "F4",
+      "etat" : 5
+    }, {
+      "nom" : "F5",
+      "etat" : 5
+    }, {
+      "nom" : "H6",
+      "etat" : 5
+    }, {
+      "nom" : "H5",
+      "etat" : 5
+    } ],
+    "nbActionRestante" : 20,
     "actionParClient" : { }
   }, {
     "typeChaine" : "AMERICA",
     "listeCase" : [ {
-      "nom" : "E5",
-      "etat" : 6
-    }, {
-      "nom" : "E6",
-      "etat" : 6
-    }, {
-      "nom" : "C5",
-      "etat" : 6
-    }, {
-      "nom" : "F6",
-      "etat" : 6
-    }, {
-      "nom" : "D5",
-      "etat" : 6
-    }, {
-      "nom" : "E7",
-      "etat" : 6
-    }, {
-      "nom" : "E3",
-      "etat" : 6
-    }, {
-      "nom" : "G2",
-      "etat" : 6
-    }, {
-      "nom" : "G6",
-      "etat" : 6
-    }, {
-      "nom" : "F3",
-      "etat" : 6
-    }, {
-      "nom" : "G5",
+      "nom" : "D6",
       "etat" : 6
     }, {
       "nom" : "D7",
       "etat" : 6
     }, {
+      "nom" : "E6",
+      "etat" : 6
+    }, {
+      "nom" : "D5",
+      "etat" : 6
+    }, {
       "nom" : "C7",
       "etat" : 6
     }, {
-      "nom" : "H3",
-      "etat" : 6
-    }, {
-      "nom" : "E4",
-      "etat" : 6
-    }, {
-      "nom" : "G3",
+      "nom" : "C8",
       "etat" : 6
     } ],
-    "nbActionRestante" : 22,
+    "nbActionRestante" : 18,
     "actionParClient" : { }
   }, {
     "typeChaine" : "PHOENIX",
-    "listeCase" : [ ],
-    "nbActionRestante" : 25,
+    "listeCase" : [ {
+      "nom" : "D9",
+      "etat" : 7
+    }, {
+      "nom" : "C10",
+      "etat" : 7
+    }, {
+      "nom" : "D10",
+      "etat" : 7
+    }, {
+      "nom" : "D11",
+      "etat" : 7
+    }, {
+      "nom" : "F12",
+      "etat" : 7
+    }, {
+      "nom" : "E12",
+      "etat" : 7
+    }, {
+      "nom" : "C12",
+      "etat" : 7
+    }, {
+      "nom" : "D12",
+      "etat" : 7
+    }, {
+      "nom" : "E11",
+      "etat" : 7
+    }, {
+      "nom" : "A10",
+      "etat" : 7
+    }, {
+      "nom" : "A11",
+      "etat" : 7
+    }, {
+      "nom" : "B11",
+      "etat" : 7
+    }, {
+      "nom" : "A9",
+      "etat" : 7
+    }, {
+      "nom" : "C11",
+      "etat" : 7
+    }, {
+      "nom" : "H11",
+      "etat" : 7
+    }, {
+      "nom" : "G11",
+      "etat" : 7
+    }, {
+      "nom" : "H12",
+      "etat" : 7
+    }, {
+      "nom" : "I11",
+      "etat" : 7
+    }, {
+      "nom" : "I10",
+      "etat" : 7
+    }, {
+      "nom" : "G12",
+      "etat" : 7
+    }, {
+      "nom" : "A12",
+      "etat" : 7
+    } ],
+    "nbActionRestante" : 12,
     "actionParClient" : { }
   }, {
     "typeChaine" : "QUANTUM",
     "listeCase" : [ ],
-    "nbActionRestante" : 25,
+    "nbActionRestante" : 20,
     "actionParClient" : { }
   } ],
   "partiecommencee" : true,

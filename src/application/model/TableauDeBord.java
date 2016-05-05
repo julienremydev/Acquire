@@ -299,7 +299,7 @@ public class TableauDeBord implements Serializable{
 		// ajout des infos dans InfoChaine
 		infosChaine.get(1).getInfos().put(listeChaine.get(indexChaineAchatAction).getTypeChaine(), listeChaine.get(indexChaineAchatAction).getNbActionRestante());
 		infosChaine.get(1).getInfos().put(listeChaine.get(indexChaineVendAction).getTypeChaine(), listeChaine.get(indexChaineVendAction).getNbActionRestante());
-		
+
 		this.updateActionnaire();
 		return res;
 	}
@@ -336,6 +336,7 @@ public class TableauDeBord implements Serializable{
 		int nbActionMax2=0;
 		Set<ClientInfo>liste_clients_major=new HashSet<ClientInfo>();
 		Set<ClientInfo>liste_clients_second=new HashSet<ClientInfo>();
+		Set<ClientInfo>liste_clients_actionnaire=new HashSet<ClientInfo>();
 		HashMap<ClientInfo, Integer>  liste_sort = new HashMap<ClientInfo, Integer>();
 		for (TypeChaine tc : chaineList) {
 			for (ClientInfo c : infoParClient.values()) {
@@ -366,9 +367,9 @@ public class TableauDeBord implements Serializable{
 						nbActionMax2=liste_sort.get(clients.get(iterator));
 						liste_clients_second.add(clients.get(iterator));
 					}
-				}
-				else {
-					liste_clients_second.add(clients.get(iterator));
+					else {
+						liste_clients_actionnaire.add(clients.get(iterator));
+					}
 				}
 				iterator++;
 			}
@@ -387,7 +388,9 @@ public class TableauDeBord implements Serializable{
 				else {
 					c.setEtat(tc.getNumero(), "S,"+liste_clients_second.size());	
 				}
-
+			}
+			for (ClientInfo c : liste_clients_actionnaire) {
+				c.setEtat(tc.getNumero(), "A,0");
 			}
 			for (ClientInfo c : infoParClient.values()) {
 				c.updateNet(listeChaine);
@@ -402,7 +405,7 @@ public class TableauDeBord implements Serializable{
 			iterator2=0;
 		}
 	}
-	
+
 	@JsonIgnore
 	public ArrayList<ArrayList<String>> getPrime(Action action) {
 		ArrayList<ArrayList<String>> arrayPrime = new ArrayList<ArrayList<String>> ();

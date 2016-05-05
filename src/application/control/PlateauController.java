@@ -265,7 +265,6 @@ public class PlateauController implements Initializable {
 						getActions_fusions().clear();
 						gridPaneAction.getChildren().clear();
 					} catch (Exception e) {
-						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
 				});
@@ -297,7 +296,6 @@ public class PlateauController implements Initializable {
 
 					gridPaneAction.getChildren().clear();
 				} catch (Exception e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			});
@@ -337,7 +335,6 @@ public class PlateauController implements Initializable {
 						}
 						setChoixAchatAction(game);
 					} catch (Exception exc) {
-						// TODO Auto-generated catch block
 						exc.printStackTrace();
 					}
 				});
@@ -364,7 +361,6 @@ public class PlateauController implements Initializable {
 							setChoixAchatAction(game);
 						}
 					} catch (Exception e) {
-						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
 				});
@@ -382,7 +378,6 @@ public class PlateauController implements Initializable {
 				liste_actions.clear();
 				gridPaneAction.getChildren().clear();
 			} catch (Exception e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		});
@@ -428,7 +423,6 @@ public class PlateauController implements Initializable {
 						client.pickColor(g.getAction(), c.getTypeChaine());
 						gridPaneAction.getChildren().clear();
 					} catch (Exception e1) {
-						// TODO Auto-generated catch block
 						e1.printStackTrace();
 					}
 				});
@@ -457,13 +451,6 @@ public class PlateauController implements Initializable {
 		if (this.endGame) {
 			buttonEND.setDisable(false);
 		}
-		/*
-		 * 
-		 */
-		// TODO verifier que c'est bien la fin du tour (creation chaine etc)
-		/*
-		 * 
-		 */
 	}
 
 	/**
@@ -517,10 +504,12 @@ public class PlateauController implements Initializable {
 							notificationTour.setTextFill(Color.DARKGREY);
 						}
 
-						// si le joueur possède la case dans sa main
+						//case grisé full hotel dans la main du joueur
 						if (c.getEtat()==-2 && g.getTableauDeBord().getInfoParClient().get(client.getPseudo()).getMain().contains(b.getText())) {
-							
+							b.setStyle(Globals.colorCaseFullChaine);
+							b.setDisable(true);
 						}
+						//case dans la main du joueur
 						else if (c.getEtat()!= -1 && g.getTableauDeBord().getInfoParClient().get(client.getPseudo()).getMain().contains(b.getText())) {
 							b.setStyle(Globals.colorCasePlayer);
 							b.setId("caseDisponible");
@@ -531,8 +520,6 @@ public class PlateauController implements Initializable {
 							switch(c.getEtat()) {
 							// verification de l'etat de la case et maj
 							case (-2) :
-								b.setStyle(Globals.colorCaseFullChaine);
-							b.setDisable(true);
 								break;
 							case (-1) :
 								// case grisée
@@ -543,236 +530,235 @@ public class PlateauController implements Initializable {
 								b.setStyle(Globals.colorCaseEmpty);
 							break;
 							case (1) :
-								// case vide
+								// case hotel
 								b.setStyle(Globals.colorCaseHotel);
 							b.setTextFill(Color.WHITE);
-							
+
 							break;
 							default :
+								//case chaine
 								b.setStyle(g.getListeChaine().get(c.getEtat() - 2).getTypeChaine().getCouleurChaine());
 								break;
+							}
 						}
+
 					}
+				});
 
-				}
-			});
-
-		}
-	}
-
-	for(int i=0;i<g.getTableauDeBord().getListeChaine().size(); i++){
-		g.getTableauDeBord().getInfosChaine().get(0).getInfos().put(g.getTableauDeBord().getListeChaine().get(i).getTypeChaine(), g.getTableauDeBord().getListeChaine().get(i).tailleChaine());
-	}
-}
-
-public void envoyerTchat() throws RemoteException {
-	if (input.getText().trim().length() > 0){
-		client.getServeur().distributionTchat(client.getPseudo(), input.getText().trim());
-		Platform.runLater(() -> input.clear());
-	}
-}
-
-private void customiseChat(ArrayList<String> talk){
-	int i = 0;
-	while (i < talk.size()){
-		if (talk.get(i).length()> 8 && talk.get(i).substring(0,9).equals("[Serveur]")){
-
-			Text tbold = new Text ();
-			tbold.setFill(Color.RED);
-			tbold.setFont(Font.font(java.awt.Font.SERIF, FontWeight.BOLD, 15));
-			tbold.setText(talk.get(i));
-			Text t = new Text ();
-			t.setFont(Font.font(java.awt.Font.SERIF, 13));
-			t.setText(talk.get(i+1)+"\n");
-
-
-			tchat.getChildren().addAll(tbold,t);
-			i+=2;
-
-		}else{
-			Text tbold = new Text ();
-			tbold.setFill(Color.LIGHTSEAGREEN);
-			tbold.setFont(Font.font(java.awt.Font.SERIF, FontWeight.BOLD, 13));
-			tbold.setText(talk.get(i));
-			Text t = new Text ();
-			t.setFont(Font.font(java.awt.Font.SERIF, 13));
-			t.setText(talk.get(i+1)+"\n");
-
-
-			tchat.getChildren().addAll(tbold,t);
-			i+=2;
-		}
-	}
-}
-public void setChat(ArrayList<String> s) {
-	Platform.runLater(new Runnable() {
-		public void run() {
-			tchat.getChildren().clear();
-			customiseChat(s);
-			scroll.setVvalue(1);
-		}
-	});
-}
-
-@Override
-public void initialize(URL location, ResourceBundle resources) {
-	scroll.setContent(tchat);
-
-	buttonEND.setDisable(true);
-	endGame=false;
-	Platform.runLater(() -> gridPaneAction.getChildren().clear());
-	dataTableView = FXCollections.observableArrayList();
-	saveGame.setOnAction(new EventHandler<ActionEvent>() {
-		public void handle(ActionEvent e) {
-			try {
-				client.sauvegardePartie();
-			} catch (RemoteException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
 			}
 		}
-	});
 
-	Platform.runLater(new Runnable() {
-		@Override
-		public void run() {
-			Pane header = (Pane) infosChaine.lookup("TableHeaderRow");
-			header.setMaxHeight(0);
-			header.setPrefHeight(0);
-			header.setVisible(false);
-			infosChaine.setLayoutY(-header.getHeight());
-			infosChaine.autosize();
+		for(int i=0;i<g.getTableauDeBord().getListeChaine().size(); i++){
+			g.getTableauDeBord().getInfosChaine().get(0).getInfos().put(g.getTableauDeBord().getListeChaine().get(i).getTypeChaine(), g.getTableauDeBord().getListeChaine().get(i).tailleChaine());
 		}
-	});
-	dataInfoChaine = FXCollections.observableArrayList();
-}
+	}
 
-public void setBEnable(boolean b) {
-	if (b)
-		Platform.runLater(() -> gridPaneAction.add(letsplay, 2, 1, 3, 1));
-	else
+	public void envoyerTchat() throws RemoteException {
+		if (input.getText().trim().length() > 0){
+			client.getServeur().distributionTchat(client.getPseudo(), input.getText().trim());
+			Platform.runLater(() -> input.clear());
+		}
+	}
+
+	private void customiseChat(ArrayList<String> talk){
+		int i = 0;
+		while (i < talk.size()){
+			if (talk.get(i).length()> 8 && talk.get(i).substring(0,9).equals("[Serveur]")){
+
+				Text tbold = new Text ();
+				tbold.setFill(Color.RED);
+				tbold.setFont(Font.font(java.awt.Font.SERIF, FontWeight.BOLD, 15));
+				tbold.setText(talk.get(i));
+				Text t = new Text ();
+				t.setFont(Font.font(java.awt.Font.SERIF, 13));
+				t.setText(talk.get(i+1)+"\n");
+
+
+				tchat.getChildren().addAll(tbold,t);
+				i+=2;
+
+			}else{
+				Text tbold = new Text ();
+				tbold.setFill(Color.LIGHTSEAGREEN);
+				tbold.setFont(Font.font(java.awt.Font.SERIF, FontWeight.BOLD, 13));
+				tbold.setText(talk.get(i));
+				Text t = new Text ();
+				t.setFont(Font.font(java.awt.Font.SERIF, 13));
+				t.setText(talk.get(i+1)+"\n");
+
+
+				tchat.getChildren().addAll(tbold,t);
+				i+=2;
+			}
+		}
+	}
+	public void setChat(ArrayList<String> s) {
+		Platform.runLater(new Runnable() {
+			public void run() {
+				tchat.getChildren().clear();
+				customiseChat(s);
+				scroll.setVvalue(1);
+			}
+		});
+	}
+
+	@Override
+	public void initialize(URL location, ResourceBundle resources) {
+		scroll.setContent(tchat);
+
+		buttonEND.setDisable(true);
+		endGame=false;
 		Platform.runLater(() -> gridPaneAction.getChildren().clear());
-
-	letsplay.setDisable(!b);
-}
-
-/*
- * Mise a jour du tableau
- */
-private void setDataTableView(Game g) {
-	dataTableView.clear();
-	HashMap<String, ClientInfo> infoClient = g.getTableauDeBord().getInfoParClient();
-	Collection<ClientInfo> values = infoClient.values();
-	Platform.runLater(new Runnable() {
-		@Override
-		public void run() {
-			for (ClientInfo ci : values) {
-				dataTableView.add(ci);
+		dataTableView = FXCollections.observableArrayList();
+		saveGame.setOnAction(new EventHandler<ActionEvent>() {
+			public void handle(ActionEvent e) {
+				try {
+					client.sauvegardePartie();
+				} catch (RemoteException e1) {
+					e1.printStackTrace();
+				}
 			}
-		}
-	});
-	tableauDeBord.setItems(dataTableView);
+		});
 
-
-	dataInfoChaine.clear();
-	ArrayList<InfoChaine> infoChaine = g.getTableauDeBord().getInfosChaine();
-	Platform.runLater(new Runnable() {
-		@Override
-		public void run() {
-			for (int i=0; i<infoChaine.size(); i++) {
-				dataInfoChaine.add(infoChaine.get(i));
+		Platform.runLater(new Runnable() {
+			@Override
+			public void run() {
+				Pane header = (Pane) infosChaine.lookup("TableHeaderRow");
+				header.setMaxHeight(0);
+				header.setPrefHeight(0);
+				header.setVisible(false);
+				infosChaine.setLayoutY(-header.getHeight());
+				infosChaine.autosize();
 			}
+		});
+		dataInfoChaine = FXCollections.observableArrayList();
+	}
+
+	public void setBEnable(boolean b) {
+		if (b)
+			Platform.runLater(() -> gridPaneAction.add(letsplay, 2, 1, 3, 1));
+		else
+			Platform.runLater(() -> gridPaneAction.getChildren().clear());
+
+		letsplay.setDisable(!b);
+	}
+
+	/*
+	 * Mise a jour du tableau
+	 */
+	private void setDataTableView(Game g) {
+		dataTableView.clear();
+		HashMap<String, ClientInfo> infoClient = g.getTableauDeBord().getInfoParClient();
+		Collection<ClientInfo> values = infoClient.values();
+		Platform.runLater(new Runnable() {
+			@Override
+			public void run() {
+				for (ClientInfo ci : values) {
+					dataTableView.add(ci);
+				}
+			}
+		});
+		tableauDeBord.setItems(dataTableView);
+
+
+		dataInfoChaine.clear();
+		ArrayList<InfoChaine> infoChaine = g.getTableauDeBord().getInfosChaine();
+		Platform.runLater(new Runnable() {
+			@Override
+			public void run() {
+				for (int i=0; i<infoChaine.size(); i++) {
+					dataInfoChaine.add(infoChaine.get(i));
+				}
+			}
+		});
+		infosChaine.setItems(dataInfoChaine);
+	}
+
+	public void lancement() throws RemoteException {
+		client.getServeur().setLancement();
+		gridPaneAction.getChildren().clear();
+	}
+
+	/**
+	 * Methode permettant de bloquer les actions du joueur sur le plateau (fin
+	 * de tour)
+	 */
+	public void setOff() {
+		grid.setMouseTransparent(true);
+	}
+
+	/**
+	 * Methode permettant d'activer les actions du joueur sur le plateau (début
+	 * de tour)
+	 */
+	public void setOn() {
+		grid.setMouseTransparent(false);
+	}
+
+
+	/**
+	 * methode permets de sauvgarder l'objet Game courant sous formatJSON via Jackson
+	 * @param g
+	 * @param adr
+	 * @throws JsonGenerationException
+	 * @throws JsonMappingException
+	 * @throws IOException
+	 */
+	public static void sauvgarderGame(Game g, String adr)
+			throws JsonGenerationException, JsonMappingException, IOException {
+
+		ObjectMapper mapper = new ObjectMapper();
+		File nf = new File(adr);
+		mapper.enable(SerializationFeature.INDENT_OUTPUT);
+		mapper.writeValue(nf, g);
+
+		// Convert object to JSON string
+		String jsonInString = mapper.writeValueAsString(g);
+
+		// Convert object to JSON string and pretty print
+
+	}
+
+	/*
+	 * 
+	 * Enregistrement du GAME au format JSON sur la machine du client
+	 */
+	public void saveTheGame(Game g) throws RemoteException {
+		if (g != null) {
+			try {
+				sauvgarderGame(g, "AcquireGame.json");
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		} else {
 		}
-	});
-	infosChaine.setItems(dataInfoChaine);
-}
 
-public void lancement() throws RemoteException {
-	client.getServeur().setLancement();
-	gridPaneAction.getChildren().clear();
-}
+	}
 
-/**
- * Methode permettant de bloquer les actions du joueur sur le plateau (fin
- * de tour)
- */
-public void setOff() {
-	grid.setMouseTransparent(true);
-}
-
-/**
- * Methode permettant d'activer les actions du joueur sur le plateau (début
- * de tour)
- */
-public void setOn() {
-	grid.setMouseTransparent(false);
-}
-
-
-/**
- * methode permets de sauvgarder l'objet Game courant sous formatJSON via Jackson
- * @param g
- * @param adr
- * @throws JsonGenerationException
- * @throws JsonMappingException
- * @throws IOException
- */
-public static void sauvgarderGame(Game g, String adr)
-		throws JsonGenerationException, JsonMappingException, IOException {
-
-	ObjectMapper mapper = new ObjectMapper();
-	File nf = new File(adr);
-	mapper.enable(SerializationFeature.INDENT_OUTPUT);
-	mapper.writeValue(nf, g);
-
-	// Convert object to JSON string
-	String jsonInString = mapper.writeValueAsString(g);
-
-	// Convert object to JSON string and pretty print
-
-}
-
-/*
- * 
- * Enregistrement du GAME au format JSON sur la machine du client
- */
-public void saveTheGame(Game g) throws RemoteException {
-	if (g != null) {
+	public void isOver() { 
 		try {
-			sauvgarderGame(g, "AcquireGame.json");
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
+			client.isOver();
+		}
+		catch (Exception e) {
 			e.printStackTrace();
 		}
-	} else {
 	}
 
-}
+	public void endingGame(ArrayList<String> winner) {
+		Platform.runLater(new Runnable() {
+			@Override
+			public void run() {
+				notificationTour.setText(winner.get(0) +" a gagné !");	
+			}
+		});
 
-public void isOver() { 
-	try {
-		client.isOver();
 	}
-	catch (Exception e) {
-		e.printStackTrace();
+
+	public HashMap<String, Integer> getActions_fusions() {
+		return actions_fusions;
 	}
-}
 
-public void endingGame(ArrayList<String> winner) {
-	Platform.runLater(new Runnable() {
-		@Override
-		public void run() {
-			notificationTour.setText(winner.get(0) +" a gagné !");	
-		}
-	});
-
-}
-
-public HashMap<String, Integer> getActions_fusions() {
-	return actions_fusions;
-}
-
-public void setActions_fusions(HashMap<String, Integer> actions_fusions) {
-	this.actions_fusions = actions_fusions;
-}
+	public void setActions_fusions(HashMap<String, Integer> actions_fusions) {
+		this.actions_fusions = actions_fusions;
+	}
 }

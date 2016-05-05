@@ -25,7 +25,7 @@ public class ClientView extends Application{
 		BorderPane root = new BorderPane();
 		//configurer add position
 		root.getChildren().add(JfxUtils.loadFxmlConnexion("connexion.fxml"));
-		Scene scene = new Scene(root,1000,600);
+		Scene scene = new Scene(root,1000,700);
 		
 		//Mise en place de la Scene et Lancement
 		primaryStage.setScene(scene);

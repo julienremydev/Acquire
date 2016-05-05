@@ -109,7 +109,8 @@ public class Serveur extends UnicastRemoteObject implements ServeurInterface {
 			}else{
 				if ( getGame().getAction().getChoix() == Globals.choixActionFusionEchangeAchatVente && getGame().isPartieDeuxJoueurs() ){
 					setPiocheBanque();
-					getGame().getPrime();
+					ArrayList<ArrayList<String>> arrayPrime = getGame().getPrime();
+					sendPrimeTchat(arrayPrime);
 					nextTurnAction();
 					getGame().getTableauDeBord().getInfoParClient().remove("Serveur");
 					
@@ -122,8 +123,21 @@ public class Serveur extends UnicastRemoteObject implements ServeurInterface {
 		}
 	}
 
+	private void sendPrimeTchat (ArrayList<ArrayList<String>> arrayPrime) throws RemoteException{
+		for (int i = 0;i<arrayPrime.size();i++){
+			for (int j=0;j<arrayPrime.get(i).size();j++){
+				if ( j == 0){
+					distributionTchat("Serveur", "Primes pour la chaine "+arrayPrime.get(i).get(j)+"\n");
+				}
+				else if (j%2 == 1 && arrayPrime.get(i).size() <= j+1){
+					distributionTchat("Serveur", "Le joueur "+arrayPrime.get(i).get(j)+" reçoit "+arrayPrime.get(i).get(j+1)+".\n");
+					
+				}
+			}
+		}
+	}
 	private void setPiocheBanque() throws RemoteException {
-		String caseNoire = getGame().getPlateau().initialiseMainCaseNoir();
+		String caseNoire = getGame().getPlateau().initialiseMainCaseNoir(game.isPartieDeuxJoueurs());
 		int nb_actions_banque = Integer.parseInt(caseNoire.substring(1, caseNoire.length()));
 		ClientInfo ci = new ClientInfo("Serveur");
 		for (Chaine c : getGame().getAction().getListeChainesAbsorbees()) {
@@ -181,9 +195,17 @@ public class Serveur extends UnicastRemoteObject implements ServeurInterface {
 		this.getGame().setListeChaine(getGame().getPlateau().fusionChaines(game.getListeChaine(), listeChaineAModif, c, listeCaseAbsorbee));
 		Action action = new Action(Globals.choixActionFusionEchangeAchatVente,listeChaineDifferenteAvantModif,chaineAbsorbanteAvantFusion);
 		getGame().setAction(action);
-		getGame().getPrime();
-
-		nextTurnAction();
+		if ( getGame().isPartieDeuxJoueurs() ){
+			setPiocheBanque();
+			ArrayList<ArrayList<String>> arrayPrime = getGame().getPrime();
+			sendPrimeTchat(arrayPrime);
+			nextTurnAction();
+			getGame().getTableauDeBord().getInfoParClient().remove("Serveur");
+			
+		}else{
+			getGame().getPrime();
+			nextTurnAction();
+		}
 
 		distribution();
 	}
@@ -330,7 +352,7 @@ public class Serveur extends UnicastRemoteObject implements ServeurInterface {
 		while (enumKeys.hasMoreElements()) {
 			String key = enumKeys.nextElement();
 			for (int i = 0;i<20 ; i++)
-			listeCasesNoires.put(key,game.getPlateau().initialiseMainCaseNoir());
+			listeCasesNoires.put(key,game.getPlateau().initialiseMainCaseNoir(false));
 			game.getTableauDeBord().getInfoParClient().get(key).initialiseMain(game.getPlateau());
 
 		}

@@ -21,6 +21,7 @@ import application.model.Action;
 import application.model.Case;
 import application.model.Chaine;
 import application.model.ClientInfo;
+import application.model.InfoChaine;
 import application.model.TypeChaine;
 import application.rmi.Client;
 import application.rmi.ClientInterface;
@@ -42,6 +43,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
@@ -113,11 +115,14 @@ public class PlateauController implements Initializable {
 	private ScrollPane scroll;
 	@FXML
 	private TableView<ClientInfo> tableauDeBord;
+	@FXML
+	private TableView<InfoChaine> infosChaine;
 
 	/**
 	 * Liste d'objet du tableau de bard
 	 */
 	ObservableList<ClientInfo> dataTableView;
+	ObservableList<InfoChaine> dataInfoChaine;
 
 	/*
 	 * Méthode qui calcul le nombre d'actions que le joueur a choisi
@@ -282,7 +287,7 @@ public class PlateauController implements Initializable {
 					//					ArrayList<Chaine> nouvelleListeAModifier = g.getAction().getListeDeChaineAProposer();
 					//					g.getAction().setListeChainesAbsorbees(nouvelleListeAModifier);
 					client.sendChoixCouleurFusionSameChaine(g.getListeChaine(),
-							g.getAction().getListeDeChaineAProposer(), c, g.getAction().getListeCaseAbsorbees());
+							g.getAction().getListeChainesAbsorbees(), c, g.getAction().getListeCaseAbsorbees());
 
 					gridPaneAction.getChildren().clear();
 				} catch (Exception e) {
@@ -540,6 +545,10 @@ public class PlateauController implements Initializable {
 
 			}
 		}
+		
+		for(int i=0;i<g.getTableauDeBord().getListeChaine().size(); i++){
+			g.getTableauDeBord().getInfosChaine().get(0).getInfos().put(g.getTableauDeBord().getListeChaine().get(i).getTypeChaine(), g.getTableauDeBord().getListeChaine().get(i).tailleChaine());
+		}
 	}
 
 	public void envoyerTchat() throws RemoteException {
@@ -607,6 +616,19 @@ public class PlateauController implements Initializable {
 				}
 			}
 		});
+		
+		Platform.runLater(new Runnable() {
+			@Override
+			public void run() {
+				Pane header = (Pane) infosChaine.lookup("TableHeaderRow");
+				header.setMaxHeight(0);
+				header.setPrefHeight(0);
+				header.setVisible(false);
+				infosChaine.setLayoutY(-header.getHeight());
+				infosChaine.autosize();
+			}
+		});
+		dataInfoChaine = FXCollections.observableArrayList();
 	}
 
 	public void setBEnable(boolean b) {
@@ -634,11 +656,24 @@ public class PlateauController implements Initializable {
 			}
 		});
 		tableauDeBord.setItems(dataTableView);
+		
+		
+		dataInfoChaine.clear();
+		ArrayList<InfoChaine> infoChaine = g.getTableauDeBord().getInfosChaine();
+		Platform.runLater(new Runnable() {
+			@Override
+			public void run() {
+				for (int i=0; i<infoChaine.size(); i++) {
+					dataInfoChaine.add(infoChaine.get(i));
+				}
+			}
+		});
+		infosChaine.setItems(dataInfoChaine);
 	}
 
 	public void lancement() throws RemoteException {
 		client.getServeur().setLancement();
-		Platform.runLater(() -> gridPaneAction.getChildren().clear());
+		gridPaneAction.getChildren().clear();
 	}
 
 	/**

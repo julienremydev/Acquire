@@ -228,7 +228,7 @@ public class TestTableauDeBord {
 		
 		HashMap<String, Integer> hmTest = new HashMap<>();
 		hmTest.put("SELL", 2);
-		hmTest.put("TRADE", 4);
+		hmTest.put("TRADE", 2);
 		
 		tableauTest.traiteAction(hmTest, ch1, ch2, "Yodaii");
 		

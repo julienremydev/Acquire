@@ -542,6 +542,10 @@ public class PlateauController implements Initializable {
 
 			}
 		}
+		
+		for(int i=0;i<g.getTableauDeBord().getListeChaine().size(); i++){
+			g.getTableauDeBord().getInfosChaine().get(0).getInfos().put(g.getTableauDeBord().getListeChaine().get(i).getTypeChaine(), g.getTableauDeBord().getListeChaine().get(i).tailleChaine());
+		}
 	}
 
 	public void envoyerTchat() throws RemoteException {

@@ -89,11 +89,12 @@ public class Action implements Serializable{
 	 * @param caseModif
 	 */
 	//@JsonCreator
-	public Action (int choix, ArrayList<Chaine> listeDeChainePlateau,ArrayList<Chaine> listeDeChaineAProposer, ArrayList<Case> listeCaseHotelAbsorbe)
+	public Action (int choix, ArrayList<Chaine> listeDeChainePlateau,ArrayList<Chaine> listeDeChaineAProposer,ArrayList<Chaine> chaineAbsorbee, ArrayList<Case> listeCaseHotelAbsorbe)
 	{
 		this.setChoix(choix);
 		this.setListeDeChainePlateau(listeDeChainePlateau);
 		this.setListeDeChaineAProposer(listeDeChaineAProposer);
+		this.setListeChainesAbsorbees(chaineAbsorbee);
 		this.setListeCaseAbsorbees(listeCaseHotelAbsorbe);
 				
 	}

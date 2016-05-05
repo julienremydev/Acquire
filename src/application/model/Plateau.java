@@ -224,7 +224,7 @@ public class Plateau implements Serializable {
 		// Si les chaines ont toutes la même taille, listeGrandeChaine est a null
 		if(listeGrandesChaines == null){
 
-			return new Action(Globals.choixActionFusionSameSizeChaine,listeChaine, chaineDifferente,tabCasesAModifier);
+			return new Action(Globals.choixActionFusionSameSizeChaine,listeChaine,listeGrandesChaines, chaineDifferente,tabCasesAModifier);
 		}
 		// Nous avons au moins une chaine plus grande qu'une autre
 		else{
@@ -243,7 +243,7 @@ public class Plateau implements Serializable {
 			// Sinon 2 chaines de même taille sont plus grande qu'une autre, on return donc l'Action pour le choix de la chaine Absorbante
 			else
 			{
-				return new Action(Globals.choixActionFusionSameSizeChaine,listeChaine, chaineDifferente,tabCasesAModifier);
+				return new Action(Globals.choixActionFusionSameSizeChaine,listeChaine,listeGrandesChaines, chaineDifferente,tabCasesAModifier);
 			}		
 		}
 	}
@@ -280,7 +280,7 @@ public class Plateau implements Serializable {
 
 				// Toutes les chaines de la même taille
 				if(listeGrandeChaine == null){
-					return new Action(Globals.choixActionFusionSameSizeChaine,listeChaine, chaineDifferente,tabCasesAModifier);
+					return new Action(Globals.choixActionFusionSameSizeChaine,listeChaine,listeGrandeChaine, chaineDifferente,tabCasesAModifier);
 				}
 				else{
 					if(listeChaine.size()==1)
@@ -295,7 +295,7 @@ public class Plateau implements Serializable {
 					}
 					else
 					{
-						return new Action(Globals.choixActionFusionSameSizeChaine,listeChaine, chaineDifferente,tabCasesAModifier);
+						return new Action(Globals.choixActionFusionSameSizeChaine,listeChaine,listeGrandeChaine, chaineDifferente,tabCasesAModifier);
 					}
 
 				}

@@ -224,7 +224,7 @@ public class Plateau implements Serializable {
 		// Si les chaines ont toutes la même taille, listeGrandeChaine est a null
 		if(listeGrandesChaines == null){
 
-			return new Action(Globals.choixActionFusionSameSizeChaine,listeChaine,listeGrandesChaines, chaineDifferente,tabCasesAModifier);
+			return new Action(Globals.choixActionFusionSameSizeChaine,listeChaine,chaineDifferente, chaineDifferente,tabCasesAModifier);
 		}
 		// Nous avons au moins une chaine plus grande qu'une autre
 		else{
@@ -280,7 +280,7 @@ public class Plateau implements Serializable {
 
 				// Toutes les chaines de la même taille
 				if(listeGrandeChaine == null){
-					return new Action(Globals.choixActionFusionSameSizeChaine,listeChaine,listeGrandeChaine, chaineDifferente,tabCasesAModifier);
+					return new Action(Globals.choixActionFusionSameSizeChaine,listeChaine,chaineDifferente, chaineDifferente,tabCasesAModifier);
 				}
 				else{
 					if(listeGrandeChaine.size()==1)

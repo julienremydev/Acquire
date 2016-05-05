@@ -241,13 +241,13 @@ public class TestCase {
 		testCaseParticulier.add(south);
 		// cas 1 seul avec un etat entre 2 et 8 --> False
 		north.setEtat(5);
-		assertFalse(caseTestBotLeft.sameColorsArround(testCaseParticulier, testCaseParticulier.size()));
+		assertFalse(caseTestBotLeft.sameColorsArround(testCaseParticulier));
 		// cas avec 2 etats différents --> False
 		south.setEtat(4);
-		assertFalse(caseTestBotLeft.sameColorsArround(testCaseParticulier, testCaseParticulier.size()));
+		assertFalse(caseTestBotLeft.sameColorsArround(testCaseParticulier));
 		// case les 2 etats dans l'interval 2 8 --> True
 		south.setEtat(5);
-		assertTrue(caseTestBotLeft.sameColorsArround(testCaseParticulier, testCaseParticulier.size()));
+		assertTrue(caseTestBotLeft.sameColorsArround(testCaseParticulier));
 		
 		//Test Case Normale
 		ArrayList<Case> test = new ArrayList<Case>();
@@ -262,11 +262,11 @@ public class TestCase {
 		
 		// cas 1 seul avec un etat entre 2 et 8 --> False
 		north.setEtat(5);
-		assertFalse(caseTest.sameColorsArround(test, test.size()));
+		assertFalse(caseTest.sameColorsArround(test));
 
 		// cas les 2 etats dans l interval 2 8 --> True
 		west.setEtat(5);
-		assertTrue(caseTest.sameColorsArround(test, test.size()));
+		assertTrue(caseTest.sameColorsArround(test));
 
 		/*
 		 *  TAILLE LIST = 3
@@ -279,15 +279,15 @@ public class TestCase {
 
 		// cas 1 seul avec un etat entre 2 et 8 --> False
 		north.setEtat(5);
-		assertFalse(caseTest.sameColorsArround(test, test.size()));
+		assertFalse(caseTest.sameColorsArround(test));
 
 		// cas 2 etats dans l interval 2 8 --> False
 		west.setEtat(5);
-		assertFalse(caseTest.sameColorsArround(test, test.size()));
+		assertFalse(caseTest.sameColorsArround(test));
 
 		// cas les 3 etats dans l interval 2 8 --> True
 		south.setEtat(5);
-		assertTrue(caseTest.sameColorsArround(test, test.size()));
+		assertTrue(caseTest.sameColorsArround(test));
 
 		/*
 		 *  TAILLE LIST = 4
@@ -301,19 +301,19 @@ public class TestCase {
 
 		// cas 1 seul avec un etat entre 2 et 8 --> False
 		north.setEtat(5);
-		assertFalse(caseTest.sameColorsArround(test, test.size()));
+		assertFalse(caseTest.sameColorsArround(test));
 
 		// cas 2 etats dans l interval 2 8 --> False
 		west.setEtat(5);
-		assertFalse(caseTest.sameColorsArround(test, test.size()));
+		assertFalse(caseTest.sameColorsArround(test));
 
 		// cas les 3 etats dans l interval 2 8 --> False
 		south.setEtat(5);
-		assertFalse(caseTest.sameColorsArround(test, test.size()));
+		assertFalse(caseTest.sameColorsArround(test));
 
 		// cas les 3 etats dans l interval 2 8 --> True
 		east.setEtat(5);
-		assertTrue(caseTest.sameColorsArround(test, test.size()));
+		assertTrue(caseTest.sameColorsArround(test));
 	}
 
 	@Test

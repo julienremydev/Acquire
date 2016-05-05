@@ -160,6 +160,8 @@ public class Case implements Serializable {
 	 */
 	public boolean sameColorsArround(ArrayList<Case> tab) {
 		switch (tab.size()) {
+		case 1: 
+			return true;
 		case 2:
 			if (tab.get(0).getEtat() == tab.get(1).getEtat())
 				return true;

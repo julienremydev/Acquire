@@ -207,6 +207,11 @@ public class Plateau implements Serializable {
 	}
 	private Action gestionChainHotel(ArrayList<Chaine> listeChaine, Case caseModifiee) {
 		ArrayList<Case> tab = caseModifiee.tabAdjascent();
+		boolean sameColor = caseModifiee.sameColorsArround(tab);				
+		// de la même couleur donc on ajoute simplement la case à la chaine
+		if (sameColor)
+			listeChaine.get(tab.get(0).getEtat()-2).addCase(caseModifiee);
+		
 		ArrayList<Chaine> chaineDifferente = listeChaineDifferentes(tab, listeChaine);
 		ArrayList<Chaine> listeGrandesChaines = new ArrayList<>();
 		//Creation de la liste de Case hotels éventuelles à intégrer dans la fusion
@@ -298,6 +303,7 @@ public class Plateau implements Serializable {
 	 * @return
 	 */
 	public Set<Case> addRecurse (Set<Case> casesDone, Case c) {
+		System.out.println("beug");
 		Set<Case> listRecurse = new HashSet<Case>();
 		casesDone.add(c);
 		if (c.surroundedByHotels()) {

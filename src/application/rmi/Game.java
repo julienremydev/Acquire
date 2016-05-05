@@ -252,6 +252,7 @@ public class Game implements Serializable{
 		return false;
 	}
 
+	@JsonIgnore
 	public ArrayList<ArrayList<String>> getPrime() {
 		return tableauDeBord.getPrime(action);
 		

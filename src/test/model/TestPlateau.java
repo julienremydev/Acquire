@@ -189,9 +189,9 @@ public class TestPlateau {
 		int j = 0;
 		int nbJoueur = 3;
 		int casesDispDebut = plateauTest.getCasesDisponible().size();
-		plateauTest.initialiseMainCaseNoir();
-		plateauTest.initialiseMainCaseNoir();
-		plateauTest.initialiseMainCaseNoir();
+		plateauTest.initialiseMainCaseNoir(false);
+		plateauTest.initialiseMainCaseNoir(false);
+		plateauTest.initialiseMainCaseNoir(false);
 		int casesDispApres = plateauTest.getCasesDisponible().size();
 		assertTrue(casesDispApres == casesDispDebut - nbJoueur);
 

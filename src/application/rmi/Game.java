@@ -98,6 +98,14 @@ public class Game implements Serializable{
 		else
 			return getOrdre_joueur().get(currentIndice+1);
 	}
+	
+	String whoseBeforeTurn (String pseudo) throws RemoteException {
+		int currentIndice = getOrdre_joueur().indexOf(pseudo);
+		if (0==currentIndice) {
+			return getOrdre_joueur().get(getOrdre_joueur().size()-1);
+		}
+			return getOrdre_joueur().get(currentIndice-1);
+	}
 
 
 	/**

@@ -42,6 +42,8 @@ import javafx.scene.control.ScrollPane.ScrollBarPolicy;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
@@ -512,7 +514,7 @@ public class PlateauController implements Initializable {
 						}
 
 						// si le joueur possède la case dans sa main
-						if (c.getEtat()!=-2) {
+						if (c.getEtat()==-2) {
 							b.setStyle(Globals.colorCaseFullChaine);
 							b.setDisable(true);
 						}
@@ -562,6 +564,7 @@ public class PlateauController implements Initializable {
 		int i = 0;
 		while (i < talk.size()){
 			if (talk.get(i).length()> 8 && talk.get(i).substring(0,9).equals("[Serveur]")){
+				
 				Text tbold = new Text ();
 				tbold.setFill(Color.RED);
 				tbold.setFont(Font.font(java.awt.Font.SERIF, FontWeight.BOLD, 15));
@@ -573,6 +576,7 @@ public class PlateauController implements Initializable {
 				
 				tchat.getChildren().addAll(tbold,t);
 				i+=2;
+				
 			}else{
 				Text tbold = new Text ();
 				tbold.setFill(Color.LIGHTSEAGREEN);

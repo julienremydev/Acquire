@@ -116,9 +116,11 @@ public class Serveur extends UnicastRemoteObject implements ServeurInterface {
 					nextTurnAction();
 					getGame().getTableauDeBord().getInfoParClient().remove("Serveur");
 					
-				}else{
+				}else if (getGame().getAction().getChoix() == Globals.choixActionFusionEchangeAchatVente ){
 					ArrayList<ArrayList<String>> arrayPrime = getGame().getPrime();
 					sendPrimeTchat(arrayPrime);
+					nextTurnAction();
+				}else{
 					nextTurnAction();
 				}
 			}

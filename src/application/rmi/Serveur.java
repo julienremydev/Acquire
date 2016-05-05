@@ -123,7 +123,7 @@ public class Serveur extends UnicastRemoteObject implements ServeurInterface {
 	}
 
 	private void setPiocheBanque() throws RemoteException {
-		String caseNoire = getGame().getPlateau().initialiseMainCaseNoir();
+		String caseNoire = getGame().getPlateau().initialiseMainCaseNoir(game.isPartieDeuxJoueurs());
 		int nb_actions_banque = Integer.parseInt(caseNoire.substring(1, caseNoire.length()));
 		ClientInfo ci = new ClientInfo("Serveur");
 		for (Chaine c : getGame().getAction().getListeChainesAbsorbees()) {
@@ -330,7 +330,7 @@ public class Serveur extends UnicastRemoteObject implements ServeurInterface {
 		while (enumKeys.hasMoreElements()) {
 			String key = enumKeys.nextElement();
 			for (int i = 0;i<20 ; i++)
-			listeCasesNoires.put(key,game.getPlateau().initialiseMainCaseNoir());
+			listeCasesNoires.put(key,game.getPlateau().initialiseMainCaseNoir(false));
 			game.getTableauDeBord().getInfoParClient().get(key).initialiseMain(game.getPlateau());
 
 		}

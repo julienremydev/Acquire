@@ -10,8 +10,6 @@ import java.util.HashSet;
 import java.util.Random;
 import java.util.Set;
 
-import javax.swing.text.StyledEditorKit.ForegroundAction;
-
 import com.fasterxml.jackson.annotation.JsonCreator;
 
 import application.globale.Globals;
@@ -274,7 +272,7 @@ public class Plateau implements Serializable {
 				ArrayList<Chaine> chaineDifferente = listeChaineDifferentes(tab, listeChaine);
 				ArrayList<Chaine> listeGrandeChaine = new ArrayList<>();
 				listeGrandeChaine = sameSizeChaine(chaineDifferente);
-				
+
 				Set<Case> setCasesAModifier = new HashSet<Case>();
 				ArrayList<Case> tabCasesAModifier = new ArrayList<Case> ();
 				setCasesAModifier.addAll(addRecurse(setCasesAModifier,caseModifiee));
@@ -299,7 +297,7 @@ public class Plateau implements Serializable {
 					{
 						return new Action(Globals.choixActionFusionSameSizeChaine,listeChaine, chaineDifferente,tabCasesAModifier);
 					}
-					
+
 				}
 
 
@@ -366,15 +364,54 @@ public class Plateau implements Serializable {
 		return plateauMap.get(text);
 	}
 
-	public String initialiseMainCaseNoir() {
+	public String initialiseMainCaseNoir(boolean is2Joueurs) {
+		boolean isOkay=false;
 		Random randomGenerator = new Random();
 		int index;
-		index = randomGenerator.nextInt(casesDisponible.size());
-		String c = casesDisponible.get(index);
-		plateauMap.get(c).setEtat(1);
-		casesDisponible.remove(c);
+		String c = "";
+		if (!is2Joueurs) {
+			index = randomGenerator.nextInt(casesDisponible.size());
+			c = casesDisponible.get(index);
+			plateauMap.get(c).setEtat(1);
+			casesDisponible.remove(c);	
+		}
+		else {
+			c = caseBanqueIsNotFusion();
+		}
 		return c;
 	}
+
+	public String caseBanqueIsNotFusion() {
+		String c = null;
+		int index;
+		boolean isOkay=false;
+		Case cas=null;;
+		Random randomGenerator = new Random();
+		ArrayList<Integer> etats = new ArrayList<Integer>();
+		while (!isOkay) {
+			index = randomGenerator.nextInt(casesDisponible.size());
+			c = casesDisponible.get(index);
+			cas = plateauMap.get(c);
+			if (cas.surroundedByChains()) {
+				ArrayList<Case> list = cas.tabAdjascent();
+				for (Case cas2 : list) {
+					if (cas2.getEtat()>1) {
+						if (!etats.contains(cas2.getEtat())) {
+							etats.add(cas2.getEtat());
+						}
+					}
+				}
+			}
+			if (etats.size()<2) {
+				plateauMap.get(c).setEtat(1);
+				casesDisponible.remove(c);
+				isOkay=true;
+			}
+		}
+		return c;
+	}
+
+
 
 	/**
 	 * Ajoute 1 cases cliquable pour le joueur

@@ -130,7 +130,8 @@ public class Game implements Serializable{
 		}
 		getTableauDeBord().getClientInfo(pseudo).getActionParChaine().put(nomChaine, 1+ getTableauDeBord().getClientInfo(pseudo).getActionParChaine().get(nomChaine));
 		getTableauDeBord().getInfosChaine().get(1).getInfos().put(nomChaine, 24);
-		getTableauDeBord().getListeChaine().get(nomChaine.getNumero()-2).setNbActionRestante(getTableauDeBord().getListeChaine().get(nomChaine.getNumero()-2).getNbActionRestante());
+		getTableauDeBord().getListeChaine().get(nomChaine.getNumero()-2).setNbActionRestante(getTableauDeBord().getListeChaine().get(nomChaine.getNumero()-2).getNbActionRestante()-1);
+
 	}
 	public Plateau getPlateau() {
 		return this.plateau;

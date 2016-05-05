@@ -127,10 +127,9 @@ public class Serveur extends UnicastRemoteObject implements ServeurInterface {
 		for (int i = 0;i<arrayPrime.size();i++){
 			for (int j=0;j<arrayPrime.get(i).size();j++){
 				if ( j == 0){
-					distributionTchat("Serveur", "Primes pour la chaine "+arrayPrime.get(i).get(j)+"\n");
-				}
-				else if (j%2 == 1 && arrayPrime.get(i).size() <= j+1){
-					distributionTchat("Serveur", "Le joueur "+arrayPrime.get(i).get(j)+" reçoit "+arrayPrime.get(i).get(j+1)+".\n");
+					distributionTchat("Serveur", "Primes pour la chaine "+arrayPrime.get(i).get(j));
+				}else if (j%2 == 1 && !arrayPrime.get(i).get(j).equals("Serveur") && Integer.parseInt(arrayPrime.get(i).get(j+1)) != 0){
+					distributionTchat("Serveur", "Le joueur "+arrayPrime.get(i).get(j)+" reçoit "+arrayPrime.get(i).get(j+1));
 					
 				}
 			}
@@ -147,7 +146,11 @@ public class Serveur extends UnicastRemoteObject implements ServeurInterface {
 		hm.put(ci.getPseudo(), ci);
 		getGame().getTableauDeBord().setInfoParClient(hm);
 		getGame().getTableauDeBord().updateActionnaire();
-		distributionTchat("Serveur", "La banque pioche la case:" + caseNoire + ". Elle possède "+nb_actions_banque+ " actions.");
+		if ( nb_actions_banque > 1 ){
+			distributionTchat("Serveur", "La banque pioche la case:" + caseNoire + ". Elle possède "+nb_actions_banque+ " action.");
+		}else{
+			distributionTchat("Serveur", "La banque pioche la case:" + caseNoire + ". Elle possède "+nb_actions_banque+ " actions.");
+		}
 	}
 
 	@Override

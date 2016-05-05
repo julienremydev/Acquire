@@ -131,8 +131,8 @@ public class Client extends UnicastRemoteObject implements ClientInterface {
 		this.plateauController.saveTheGame ( game );
 	}
 
-	public void choiceFusionAction(HashMap<String, Integer> actions_fusions, Chaine chaineAbsorbee, Chaine chaineAbsorbante) throws RemoteException{
-		serveur.choiceFusionAction(actions_fusions, chaineAbsorbee, chaineAbsorbante, pseudo);
+	public void choiceFusionAction(HashMap<String, Integer> actions_fusions, Chaine chaineAbsorbee, Chaine chaineAbsorbante, int prix_action_absorbante, int prix_action_absorbee) throws RemoteException{
+		serveur.choiceFusionAction(actions_fusions, chaineAbsorbee, chaineAbsorbante, pseudo, prix_action_absorbante, prix_action_absorbee);
 	}
 
 	public void isOver() throws RemoteException{

@@ -162,22 +162,24 @@ public class TableauDeBord implements Serializable{
 	 * @param nb : nombre d action voulant etre vendue par le joueur
 	 * @param nomJoueur : nom du joueur qui vend
 	 * @param tc : type de la chaine
+	 * @param prix_action_absorbee 
+	 * @param prix_action_absorbante 
 	 * @return nombre effectivement vendue
 	 */
-	public int vendActionJoueur(int nb, String nomJoueur, TypeChaine tc){
+	public int vendActionJoueur(int nb, String nomJoueur, TypeChaine tc, int prix_action_absorbante, int prix_action_absorbee){
 		int indexChaine = getIndexChaine(tc);
 		ClientInfo joueur = getClientInfo(nomJoueur); 
-		int res = getNbActionAVendre(nb, indexChaine, tc, joueur);
+		//int res = getNbActionAVendre(nb, indexChaine, tc, joueur);
 
-		joueur.getActionParChaine().put(tc, (int)joueur.getActionParChaine().get(tc) - res);
-		this.listeChaine.get(indexChaine).setNbActionRestante(this.listeChaine.get(indexChaine).getNbActionRestante() + res);
-		joueur.updateCash(res * TypeChaine.prixAction(tc, listeChaine.get(indexChaine).tailleChaine()));
+		joueur.getActionParChaine().put(tc, (int)joueur.getActionParChaine().get(tc) - nb);
+		this.listeChaine.get(indexChaine).setNbActionRestante(this.listeChaine.get(indexChaine).getNbActionRestante() + nb);
+		joueur.updateCash(nb * prix_action_absorbee);
 
 		// ajout des infos dans InfoChaine
 		infosChaine.get(1).getInfos().put(listeChaine.get(indexChaine).getTypeChaine(), listeChaine.get(indexChaine).getNbActionRestante());
 
 		this.updateActionnaire();
-		return res;
+		return nb;
 	}
 
 	/**
@@ -292,12 +294,13 @@ public class TableauDeBord implements Serializable{
 		}
 
 		joueur.getActionParChaine().put(chaineAchatAction, res + joueur.getActionParChaine().get(chaineAchatAction));
-		joueur.updateCash(-res * TypeChaine.prixAction(chaineAchatAction, listeChaine.get(indexChaineAchatAction).tailleChaine()));
+		//joueur.updateCash(-res * TypeChaine.prixAction(chaineAchatAction, listeChaine.get(indexChaineAchatAction).tailleChaine()));
 
 		// ajout des infos dans InfoChaine
 		infosChaine.get(1).getInfos().put(listeChaine.get(indexChaineAchatAction).getTypeChaine(), listeChaine.get(indexChaineAchatAction).getNbActionRestante());
 		infosChaine.get(1).getInfos().put(listeChaine.get(indexChaineVendAction).getTypeChaine(), listeChaine.get(indexChaineVendAction).getNbActionRestante());
 		
+		this.updateActionnaire();
 		return res;
 	}
 
@@ -307,12 +310,14 @@ public class TableauDeBord implements Serializable{
 	 * @param chaineVendAction
 	 * @param chaineAchatAction
 	 * @param nomJoueur
+	 * @param prix_action_absorbee 
+	 * @param prix_action_absorbante 
 	 */
-	public void traiteAction(HashMap<String, Integer> hm, Chaine chaineVendAction, Chaine chaineAchatAction, String nomJoueur){
+	public void traiteAction(HashMap<String, Integer> hm, Chaine chaineVendAction, Chaine chaineAchatAction, String nomJoueur, int prix_action_absorbante, int prix_action_absorbee){
 		Collection<String> keys = hm.keySet();
 		for (String key : keys) {
 			if(key.equals(Globals.hashMapSELL)){
-				vendActionJoueur(hm.get(key), nomJoueur, chaineVendAction.getTypeChaine());
+				vendActionJoueur(hm.get(key), nomJoueur, chaineVendAction.getTypeChaine(),prix_action_absorbante,prix_action_absorbee);
 			}else if(key.equals(Globals.hashMapTRADE)){
 				echangeAction(hm.get(key)*2, chaineVendAction.getTypeChaine(), chaineAchatAction.getTypeChaine(), nomJoueur);
 			}

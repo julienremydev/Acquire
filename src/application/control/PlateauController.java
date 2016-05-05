@@ -259,7 +259,9 @@ public class PlateauController implements Initializable {
 				buttonOK.setOpacity(1);
 				buttonOK.setOnAction((event) -> {
 					try {
-						client.choiceFusionAction(getActions_fusions(), g.getAction().getListeChainesAbsorbees().get(0), g.getAction().getChaineAbsorbante());
+						int prix_action_absorbante=TypeChaine.prixAction(g.getAction().getChaineAbsorbante().getTypeChaine(), g.getAction().getChaineAbsorbante().tailleChaine());
+						int prix_action_absorbee=TypeChaine.prixAction(g.getAction().getListeChainesAbsorbees().get(0).getTypeChaine(), g.getAction().getListeChainesAbsorbees().get(0).tailleChaine());
+						client.choiceFusionAction(getActions_fusions(), g.getAction().getListeChainesAbsorbees().get(0), g.getAction().getChaineAbsorbante(),prix_action_absorbante,prix_action_absorbee);
 						getActions_fusions().clear();
 						gridPaneAction.getChildren().clear();
 					} catch (Exception e) {

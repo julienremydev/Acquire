@@ -116,7 +116,8 @@ public class Serveur extends UnicastRemoteObject implements ServeurInterface {
 					getGame().getTableauDeBord().getInfoParClient().remove("Serveur");
 					
 				}else{
-					getGame().getPrime();
+					ArrayList<ArrayList<String>> arrayPrime = getGame().getPrime();
+					sendPrimeTchat(arrayPrime);
 					nextTurnAction();
 				}
 			}
@@ -182,8 +183,8 @@ public class Serveur extends UnicastRemoteObject implements ServeurInterface {
 		distribution();
 	}
 
-	public void choiceFusionAction(HashMap<String, Integer> actions_fusions, Chaine chaineAbsorbee, Chaine chaineAbsorbante, String pseudo) throws RemoteException{
-		getGame().getTableauDeBord().traiteAction(actions_fusions, chaineAbsorbee, chaineAbsorbante, pseudo);
+	public void choiceFusionAction(HashMap<String, Integer> actions_fusions, Chaine chaineAbsorbee, Chaine chaineAbsorbante, String pseudo,int prix_action_absorbante, int prix_action_absorbee) throws RemoteException{
+		getGame().getTableauDeBord().traiteAction(actions_fusions, chaineAbsorbee, chaineAbsorbante, pseudo,prix_action_absorbante, prix_action_absorbee);
 		if ( getGame().getOrdre_joueur_action().size()==0)
 			getGame().getAction().getListeChainesAbsorbees().remove(0);
 
@@ -206,7 +207,8 @@ public class Serveur extends UnicastRemoteObject implements ServeurInterface {
 			getGame().getTableauDeBord().getInfoParClient().remove("Serveur");
 			
 		}else{
-			getGame().getPrime();
+			ArrayList<ArrayList<String>> arrayPrime = getGame().getPrime();
+			sendPrimeTchat(arrayPrime);
 			nextTurnAction();
 		}
 

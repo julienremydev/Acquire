@@ -36,7 +36,7 @@ public interface ServeurInterface extends Remote{
 
 	void clientSaveGame(String pseudo) throws RemoteException;
 
-	void choiceFusionAction(HashMap<String, Integer> actions_fusions, Chaine chaineAbsorbee, Chaine chaineAbsorbante, String pseudo) throws RemoteException;
+	void choiceFusionAction(HashMap<String, Integer> actions_fusions, Chaine chaineAbsorbee, Chaine chaineAbsorbante, String pseudo,int prix_action_absorbante, int prix_action_absorbee) throws RemoteException;
 
 	void isOver() throws RemoteException;
 }

@@ -121,7 +121,7 @@ public class TestTableauDeBord {
 		
 		// cas actionnaire innexistant
 		int nbActionVendue = 2;
-		int actionVendue = tableauTest.vendActionJoueur(nbActionVendue, "Yodaii", ch1.getTypeChaine());
+		int actionVendue = tableauTest.vendActionJoueur(nbActionVendue, "Yodaii", ch1.getTypeChaine(),200, 200);
 		assertEquals(0, actionVendue);
 		assertEquals(25, tableauTest.getListeChaine().get(0).getNbActionRestante());
 		
@@ -131,7 +131,7 @@ public class TestTableauDeBord {
 		// action vendue = 0, action restante = 20
 		// Yodaii actionnaire, 5 action detenue
 		nbActionVendue = -10;
-		actionVendue = tableauTest.vendActionJoueur(nbActionVendue, "Yodaii", ch1.getTypeChaine());
+		actionVendue = tableauTest.vendActionJoueur(nbActionVendue, "Yodaii", ch1.getTypeChaine(),200,200);
 		assertEquals(0, actionVendue);
 		assertEquals(20, tableauTest.getListeChaine().get(0).getNbActionRestante());
 		assertTrue(c1.getActionParChaine().containsKey(ch1.getTypeChaine()));
@@ -141,7 +141,7 @@ public class TestTableauDeBord {
 		// action vendue = 2, action restante = 20
 		// Yodaii actionnaire, 3 action detenue
 		nbActionVendue = 2;
-		actionVendue = tableauTest.vendActionJoueur(nbActionVendue, "Neo", ch1.getTypeChaine());
+		actionVendue = tableauTest.vendActionJoueur(nbActionVendue, "Neo", ch1.getTypeChaine(),200,200);
 		assertEquals(0, actionVendue);
 		assertEquals(20, tableauTest.getListeChaine().get(0).getNbActionRestante());
 
@@ -150,7 +150,7 @@ public class TestTableauDeBord {
 		// Yodaii actionnaire, 3 action detenue
 		nbActionVendue = 2;
 		int cashAAvoir = c1.getCash()+nbActionVendue*TypeChaine.prixAction(ch1.getTypeChaine(), ch1.getListeCase().size());
-		actionVendue = tableauTest.vendActionJoueur(nbActionVendue, "Yodaii", ch1.getTypeChaine());
+		actionVendue = tableauTest.vendActionJoueur(nbActionVendue, "Yodaii", ch1.getTypeChaine(),200,200);
 		assertEquals(2, actionVendue);
 		assertEquals(22, tableauTest.getListeChaine().get(0).getNbActionRestante());
 		assertTrue(c1.getActionParChaine().containsKey(ch1.getTypeChaine()));
@@ -163,7 +163,7 @@ public class TestTableauDeBord {
 		// plus d actionnaire, 0 action detenue
 		nbActionVendue = 4;
 		cashAAvoir = c1.getCash()+3*TypeChaine.prixAction(ch1.getTypeChaine(), ch1.getListeCase().size());
-		actionVendue = tableauTest.vendActionJoueur(nbActionVendue, "Yodaii", ch1.getTypeChaine());
+		actionVendue = tableauTest.vendActionJoueur(nbActionVendue, "Yodaii", ch1.getTypeChaine(),200,200);
 		assertEquals(3, actionVendue);
 		assertEquals(25, tableauTest.getListeChaine().get(0).getNbActionRestante());
 		assertEquals(new Integer(cashAAvoir), c1.getCash());
@@ -230,7 +230,7 @@ public class TestTableauDeBord {
 		hmTest.put("SELL", 2);
 		hmTest.put("TRADE", 2);
 		
-		tableauTest.traiteAction(hmTest, ch1, ch2, "Yodaii");
+		tableauTest.traiteAction(hmTest, ch1, ch2, "Yodaii",200, 200);
 		
 		assertEquals(4, (int)c1.getActionParChaine().get(ch1.getTypeChaine()));
 		assertEquals(12, (int)c1.getActionParChaine().get(ch2.getTypeChaine()));
@@ -297,7 +297,7 @@ public class TestTableauDeBord {
 		assertFalse(tableauTest.actionAvailableForPlayer("Yodaii"));
 		
 		// cas cash pas disponible
-		tableauTest.vendActionJoueur(25, "Yodaii", ch1.getTypeChaine());
+		tableauTest.vendActionJoueur(25, "Yodaii", ch1.getTypeChaine(),200, 200);
 		c1.setCash(0);
 		assertFalse(tableauTest.actionAvailableForPlayer("Yodaii"));
 	}
@@ -319,7 +319,7 @@ public class TestTableauDeBord {
 		assertFalse(tableauTest.actionAvailableForPlayer("Yodaii", 6, 2000));
 				
 		// cas cash pas disponible
-		tableauTest.vendActionJoueur(25, "Yodaii", ch1.getTypeChaine());
+		tableauTest.vendActionJoueur(25, "Yodaii", ch1.getTypeChaine(),200, 200);
 		c1.setCash(0);
 		assertFalse(tableauTest.actionAvailableForPlayer("Yodaii", 6, 2000));
 	}

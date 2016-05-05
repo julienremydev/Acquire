@@ -74,6 +74,8 @@ public class PlateauController implements Initializable {
 	 * element plateau
 	 */
 	@FXML
+	private GridPane gridGame;
+	@FXML
 	private Button buttonEND;
 	@FXML
 	private Button saveGame;
@@ -746,10 +748,21 @@ public class PlateauController implements Initializable {
 	}
 
 	public void endingGame(ArrayList<String> winner) {
+		System.out.println(winner);
 		Platform.runLater(new Runnable() {
 			@Override
 			public void run() {
-				notificationTour.setText(winner.get(0) +" a gagné !");	
+				Label lab = new Label("");
+				gridGame.getChildren().clear();
+				for (int i =0; i<winner.size();i++){
+					if ( i%2 == 0){
+						lab.setText(lab.getText()+winner.get(i)+winner.get(i+1)+"\n" );
+					}
+					
+				}
+				lab.setId("enGame");
+				gridGame.add(lab,0,0,2,3);
+				//notificationTour.setText(winner.get(0) +" a gagné !");	
 			}
 		});
 

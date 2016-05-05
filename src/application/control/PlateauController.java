@@ -524,6 +524,7 @@ public class PlateauController implements Initializable {
 
 						else if (c.getEtat()!= -1 && g.getTableauDeBord().getInfoParClient().get(client.getPseudo()).getMain().contains(b.getText())) {
 							b.setStyle(Globals.colorCasePlayer);
+							b.setId("caseDisponible");
 							b.setTextFill(Color.RED);
 							b.setDisable(false);
 						} 

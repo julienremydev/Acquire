@@ -3,6 +3,9 @@ package application.model;
 import java.io.Serializable;
 import java.util.HashMap;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class InfoChaine implements Serializable{
 	private static final long serialVersionUID = 3390087210124156739L;
 	
@@ -17,7 +20,13 @@ public class InfoChaine implements Serializable{
 	private Integer infoAmerica;
 	private Integer infoZeta;
 	
-	public InfoChaine(String n){
+	@JsonCreator
+	public InfoChaine(){
+		super();
+	}
+	
+	@JsonCreator
+	public InfoChaine(@JsonProperty("n")String n){
 		this.nom = n;
 		infos = new HashMap<>();
 		this.infos.put(TypeChaine.SACKSON, 0);
@@ -27,6 +36,38 @@ public class InfoChaine implements Serializable{
 		this.infos.put(TypeChaine.HYDRA, 0);
 		this.infos.put(TypeChaine.QUANTUM, 0);
 		this.infos.put(TypeChaine.ZETA, 0);
+	}
+
+	public void setInfos(HashMap<TypeChaine, Integer> infos) {
+		this.infos = infos;
+	}
+
+	public void setInfoSackson(Integer infoSackson) {
+		this.infoSackson = infoSackson;
+	}
+
+	public void setInfoFusion(Integer infoFusion) {
+		this.infoFusion = infoFusion;
+	}
+
+	public void setInfoHydra(Integer infoHydra) {
+		this.infoHydra = infoHydra;
+	}
+
+	public void setInfoQuantum(Integer infoQuantum) {
+		this.infoQuantum = infoQuantum;
+	}
+
+	public void setInfoPhoenix(Integer infoPhoenix) {
+		this.infoPhoenix = infoPhoenix;
+	}
+
+	public void setInfoAmerica(Integer infoAmerica) {
+		this.infoAmerica = infoAmerica;
+	}
+
+	public void setInfoZeta(Integer infoZeta) {
+		this.infoZeta = infoZeta;
 	}
 
 	public String getNom() {

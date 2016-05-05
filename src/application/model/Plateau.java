@@ -159,7 +159,6 @@ public class Plateau implements Serializable {
 			}
 			val += "\n";
 		}
-		System.out.println(val);
 	}
 
 	/**
@@ -286,7 +285,6 @@ public class Plateau implements Serializable {
 				else{
 					if(listeGrandeChaine.size()==1)
 					{
-						System.out.println("grandeChaine");
 						ArrayList<Chaine> listeChaineDifferenteAvantModif = chaineDifferente;
 						Chaine chaineAbsorbanteAvantFusion = listeGrandeChaine.get(0);
 						Chaine grandeChaineAction = listeGrandeChaine.get(0);
@@ -297,7 +295,6 @@ public class Plateau implements Serializable {
 					}
 					else
 					{
-						System.out.println("plusieures grandesChaines");
 						return new Action(Globals.choixActionFusionSameSizeChaine,listeChaine,listeGrandeChaine, chaineDifferente,tabCasesAModifier);
 					}
 
@@ -603,7 +600,6 @@ public class Plateau implements Serializable {
 		Plateau np=new Plateau();
 		for (int x = 0; x <= ligne.length - 1; x++) {
 			for (int i = 0; i <= colonne.length - 1; i++) {
-				System.out.println(ligne[x]+colonne[i]);
 				np.getCase(ligne[x]+colonne[i]).setEtat(p.getCase(ligne[x]+colonne[i]).getEtat());
 			}
 		}

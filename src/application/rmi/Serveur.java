@@ -318,7 +318,6 @@ public class Serveur extends UnicastRemoteObject implements ServeurInterface {
 
 		Logger.getLogger("Client").log(Level.INFO, "Nouveau client enregistré dans le serveur.");
 		if ( getGame().isPartiechargee() || getGame().isPartiecommencee()){
-System.out.println("dist");
 			distribution();
 		}
 		if (liste_clients.size() == Globals.nombre_joueurs_min && !getGame().isPartiechargee() && !getGame().isPartiecommencee())

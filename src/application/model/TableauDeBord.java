@@ -420,6 +420,7 @@ public class TableauDeBord implements Serializable{
 					client.setCash(client.getCash() + primeJoueur);
 				}
 				arrayPrime.add(infoPrimeClient);
+				infoPrimeClient.clear();
 			}
 		}
 		return arrayPrime;

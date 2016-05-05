@@ -129,6 +129,7 @@ public class Serveur extends UnicastRemoteObject implements ServeurInterface {
 	}
 
 	private void sendPrimeTchat (ArrayList<ArrayList<String>> arrayPrime) throws RemoteException{
+		System.out.println(arrayPrime);
 		for (int i = 0;i<arrayPrime.size();i++){
 			for (int j=0;j<arrayPrime.get(i).size();j++){
 				if ( j == 0){

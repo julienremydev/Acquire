@@ -130,7 +130,7 @@ public class Serveur extends UnicastRemoteObject implements ServeurInterface {
 			for (int j=0;j<arrayPrime.get(i).size();j++){
 				if ( j == 0){
 					distributionTchat("Serveur", "Primes pour la chaine "+arrayPrime.get(i).get(j));
-				}else if (j%2 == 1 && !arrayPrime.get(i).get(j).equals("Serveur") && Integer.parseInt(arrayPrime.get(i).get(j+1)) != 0){
+				}else if (j%2 == 1 && Integer.parseInt(arrayPrime.get(i).get(j+1)) != 0){
 					distributionTchat("Serveur", "Le joueur "+arrayPrime.get(i).get(j)+" reçoit "+arrayPrime.get(i).get(j+1));
 					
 				}
@@ -148,9 +148,9 @@ public class Serveur extends UnicastRemoteObject implements ServeurInterface {
 		getGame().getTableauDeBord().getInfoParClient().put(ci.getPseudo(), ci);
 		getGame().getTableauDeBord().updateActionnaire();
 		if ( nb_actions_banque > 1 ){
-			distributionTchat("Serveur", "La banque pioche la case:" + caseNoire + ". Elle possède "+nb_actions_banque+ " action.");
-		}else{
 			distributionTchat("Serveur", "La banque pioche la case:" + caseNoire + ". Elle possède "+nb_actions_banque+ " actions.");
+		}else{
+			distributionTchat("Serveur", "La banque pioche la case:" + caseNoire + ". Elle possède "+nb_actions_banque+ " action.");
 		}
 	}
 

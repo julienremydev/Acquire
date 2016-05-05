@@ -244,8 +244,8 @@ public class Game implements Serializable{
 		return false;
 	}
 
-	public void getPrime() {
-		this.tableauDeBord.getPrime(action);
+	public ArrayList<ArrayList<String>> getPrime() {
+		return tableauDeBord.getPrime(action);
 		
 	}
 

@@ -396,13 +396,21 @@ public class TableauDeBord implements Serializable{
 			iterator2=0;
 		}
 	}
-	public void getPrime(Action action) {
+	public ArrayList<ArrayList<String>> getPrime(Action action) {
+		ArrayList<ArrayList<String>> arrayPrime = new ArrayList<ArrayList<String>> ();
+		ArrayList<String> infoPrimeClient = new ArrayList<String> ();
 		if (action.getChoix()==2) {
 			for (Chaine chaine : action.getListeChainesAbsorbees()) {
+				infoPrimeClient.add(chaine.getTypeChaine().toString());
 				for (ClientInfo client : infoParClient.values()) {
-					client.setCash(client.getCash()+client.getPrime(chaine.getTypeChaine(),listeChaine.get(chaine.getTypeChaine().getNumero()-2).tailleChaine()));
+					int primeJoueur = client.getPrime(chaine.getTypeChaine(),listeChaine.get(chaine.getTypeChaine().getNumero()-2).tailleChaine());
+					infoPrimeClient.add(client.getPseudo());
+					infoPrimeClient.add(String.valueOf(primeJoueur));
+					client.setCash(client.getCash() + primeJoueur);
 				}
+				arrayPrime.add(infoPrimeClient);
 			}
 		}
+		return arrayPrime;
 	}
 }

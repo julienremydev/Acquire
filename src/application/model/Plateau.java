@@ -192,16 +192,8 @@ public class Plateau implements Serializable {
 			tabCasesAModifier.add(caseModifiee);
 			actionReturn =  new Action(setCasesAModifier, Globals.choixActionCreationChaine);
 		}
-		/**
-		 * Présence d'une ou plusieures chaînes autour de la case Pas d'hôtels
-		 * dans ce cas
-		 */
-		if (askChain && !askColor){ 
-			actionReturn = gestionOnlyChain(listeChaine,caseModifiee);
-		}
-		if (askChain && askColor) {
+		else
 			actionReturn = gestionChainHotel(listeChaine,caseModifiee);
-		}
 		return actionReturn;
 
 	}
@@ -252,51 +244,6 @@ public class Plateau implements Serializable {
 			}		
 		}
 	}
-
-	private Action gestionOnlyChain(ArrayList<Chaine> listeChaine, Case caseModifiee) {
-		ArrayList<Case> tab = caseModifiee.tabAdjascent();
-
-		ArrayList<Chaine> chaineDifferente = listeChaineDifferentes(tab, listeChaine);
-		ArrayList<Chaine> listeGrandesChaines = new ArrayList<>();
-		//Creation de la liste de Case hotels éventuelles à intégrer dans la fusion
-		Set<Case> setCasesAModifier = new HashSet<Case>();
-		setCasesAModifier.addAll(addRecurse(setCasesAModifier,caseModifiee));
-		ArrayList<Case> tabCasesAModifier = new ArrayList<Case> (setCasesAModifier);
-
-		if(chaineDifferente.size()==1)
-			//Le nombre de chaine différente est de 1, donc la case est entourée par la même chaine, donc la grande chaine est la seule chaine
-			listeGrandesChaines=chaineDifferente;
-		else
-			//Nous avons plusieurs chaines différentes, on regarde si elles sont toutes la même taille
-			listeGrandesChaines = sameSizeChaine(chaineDifferente);
-
-		// Si les chaines ont toutes la même taille, listeGrandeChaine est a null
-		if(listeGrandesChaines == null){
-
-			return new Action(Globals.choixActionFusionSameSizeChaine,listeChaine,chaineDifferente, chaineDifferente,tabCasesAModifier);
-		}
-		// Nous avons au moins une chaine plus grande qu'une autre
-		else{
-			// Si la taille est de 1, nous n'avons qu'une grande chaine, donc on fais la modification puis return l'Action pour les échanges d'action
-			if(listeGrandesChaines.size()==1)
-			{
-				// Sauvegarde de l'état des chaines avant fusion pour l'échange d'actions
-				ArrayList<Chaine> listeChaineDifferenteAvantModif = chaineDifferente;
-				Chaine chaineAbsorbanteAvantFusion = listeGrandesChaines.get(0);
-				Chaine chaineAbsorbantePourFusion = listeGrandesChaines.get(0);
-				// Fusion des Chaines
-				fusionChaines(listeChaine,chaineDifferente,chaineAbsorbantePourFusion,tabCasesAModifier);
-				// Puis création de l'action avec les chaines précédant leur modification			
-				return new Action(Globals.choixActionFusionEchangeAchatVente,listeChaineDifferenteAvantModif,chaineAbsorbanteAvantFusion);
-			}
-			// Sinon 2 chaines de même taille sont plus grande qu'une autre, on return donc l'Action pour le choix de la chaine Absorbante
-			else
-			{
-				return new Action(Globals.choixActionFusionSameSizeChaine,listeChaine,listeGrandesChaines, chaineDifferente,tabCasesAModifier);
-			}		
-		}
-	}
-
 	/**
 	 * Methode récursive qui ajout les cases hotels adjascentes au hotels dans la liste
 	 * La liste de retour contiendra donc toutes les cases hotels adjascentes uniques

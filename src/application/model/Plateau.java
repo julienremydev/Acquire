@@ -290,7 +290,6 @@ public class Plateau implements Serializable {
 				return new Action(Globals.choixActionFusionSameSizeChaine,listeChaine,listeGrandesChaines, chaineDifferente,tabCasesAModifier);
 			}		
 		}
-		return null;
 	}
 
 	/**

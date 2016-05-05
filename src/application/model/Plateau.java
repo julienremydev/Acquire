@@ -160,12 +160,13 @@ public class Plateau implements Serializable {
 			val += "\n";
 		}
 	}
-
 	/**
-	 * Met à jour la case du plateau passé en paramètre
-	 * 
+	 * Regarde le cas de modification lors du click
+	 * Lors d'un cas simple, modification de la case 
+	 * Lors d'un cas de fusion, return d'une action
 	 * @param text
-	 * @param listeChaine 
+	 * @param listeChaine
+	 * @return
 	 */
 	public Action updateCase(String text, ArrayList<Chaine> listeChaine) {
 		Case caseModifiee = plateauMap.get(text);
@@ -183,7 +184,7 @@ public class Plateau implements Serializable {
 			return null;
 		}
 		/*
-		 * Présence d'un ou plusieurs hotêls autour de la case Pas de chaînes
+		 * Cas de création de chaine
 		 */
 		if (askColor && !askChain){
 			Set<Case> setCasesAModifier = new HashSet<Case>();
@@ -192,17 +193,29 @@ public class Plateau implements Serializable {
 			tabCasesAModifier.add(caseModifiee);
 			actionReturn =  new Action(setCasesAModifier, Globals.choixActionCreationChaine);
 		}
+		/*
+		 * Cas de fusion de chaines
+		 */
 		else
 			actionReturn = gestionChainHotel(listeChaine,caseModifiee);
 		return actionReturn;
 
 	}
+	/**
+	 * Retourne une Action spécifique en fonction du cas de fusion
+	 * @param listeChaine
+	 * @param caseModifiee
+	 * @return
+	 */
 	private Action gestionChainHotel(ArrayList<Chaine> listeChaine, Case caseModifiee) {
 		ArrayList<Case> tab = caseModifiee.tabAdjascent();
 		boolean sameColor = caseModifiee.sameColorsArround(tab);				
 		// de la même couleur donc on ajoute simplement la case à la chaine
 		if (sameColor)
+		{
 			listeChaine.get(tab.get(0).getEtat()-2).addCase(caseModifiee);
+			return null;
+		}
 		
 		ArrayList<Chaine> chaineDifferente = listeChaineDifferentes(tab, listeChaine);
 		ArrayList<Chaine> listeGrandesChaines = new ArrayList<>();
@@ -275,23 +288,6 @@ public class Plateau implements Serializable {
 		return casesDone;
 
 	}
-
-	public HashMap<String, Case> getPlateauMap() {
-		return plateauMap;
-	}
-
-	public void setPlateauMap(HashMap<String, Case> plateauMap) {
-		this.plateauMap = plateauMap;
-	}
-
-	public ArrayList<String> getCasesDisponible() {
-		return casesDisponible;
-	}
-
-	public void setCasesDisponible(ArrayList<String> casesDisponible) {
-		this.casesDisponible = casesDisponible;
-	}
-
 	/**
 	 * Retourne la case du plateau en fonction de son nom passé en paramètre
 	 * 
@@ -446,43 +442,50 @@ public class Plateau implements Serializable {
 	}
 
 	/**
-	 * Mise a jour des cases grises (case entouré par deux chaines sup à 11
+	 * Mise a jour des cases grises (case entouré par deux chaines sup à 11)
 	 * @param listChaines
 	 * @return 
 	 */
 	public ArrayList<String> CasesGrises(ArrayList<Chaine> listChaines, ArrayList<String> main) {
-		// TODO verification
 		ArrayList<String> casesToRemove = new ArrayList<String>();
 		ArrayList<Integer> etats = new ArrayList<Integer>();
-
 		for (String c : main) {
 			Case cas = plateauMap.get(c);
-			int nbChaineSup11=0;
-			if (cas.surroundedByChains()) {
-				ArrayList<Case> listCases = cas.tabAdjascent();
-				for (Case cas2 : listCases) {
-					if (cas2.getEtat()>1) {
-						if (listChaines.get(cas2.getEtat()-2).tailleChaine()>=11) {
-							if (!etats.contains(cas2.getEtat()-2)) {
-								nbChaineSup11++;
-								etats.add(cas2.getEtat()-2);
-							}
-						}
-					}
-				}
-				if (nbChaineSup11>=2) {
-					plateauMap.get(c).setEtat(-1);
-					casesToRemove.add(c);
-				}
+			ArrayList<Case> tab = cas.tabAdjascent();
+			ArrayList<Chaine> chaineDifferente = listeChaineDifferentes(tab, listChaines);
+			boolean setGrise = setGrise(chaineDifferente);
+			if(setGrise)
+			{
+				plateauMap.get(c).setEtat(-1);
+				casesToRemove.add(c);
 			}
-			nbChaineSup11=0;
-			etats.clear();
 		}
-
 		return casesToRemove;
 	}
-
-
+	/**
+	 * Retourne true si deux chaines parmis la liste ont une taille supérieur à 11
+	 * @param chain
+	 * @return
+	 */
+	public boolean setGrise(ArrayList<Chaine> chain)
+	{
+		// Recuperation des chaines avec taille supérieure a 11
+		ArrayList<Chaine> listeChaineSupp = new ArrayList<>();
+		for(Chaine ch : chain)
+		{
+			if(ch.tailleChaine()>=11)
+				listeChaineSupp.add(ch);
+		}
+		if (listeChaineSupp.size()>=2)
+			return true;
+		else
+			return false;
+	}
+	/**
+	 * Met les cases de la main du joueur injouable si à coté d'un hotel => création chaine impossible
+	 * @param listChaines
+	 * @param listeClient
+	 */
 	public void fullChaine(ArrayList<Chaine> listChaines, Collection<ClientInfo> listeClient) {
 		boolean isOkay=false;
 		for (Chaine c : listChaines) {
@@ -509,7 +512,21 @@ public class Plateau implements Serializable {
 			}
 		}
 	}
+	/**
+	 * Utilisee lors du chargement de la partie via la sauvegarde JSON
+	 * @param p
+	 * @return
+	 */
+	public static Plateau plateauRegeneration(Plateau p){
+		Plateau np=new Plateau();
+		for (int x = 0; x <= ligne.length - 1; x++) {
+			for (int i = 0; i <= colonne.length - 1; i++) {
+				np.getCase(ligne[x]+colonne[i]).setEtat(p.getCase(ligne[x]+colonne[i]).getEtat());
+			}
+		}
+		return np;
 
+	}
 	public static String[] getLigne() {
 		return ligne;
 	}
@@ -533,17 +550,21 @@ public class Plateau implements Serializable {
 	public void setPlateauTab(Case[][] plateauTab) {
 		this.plateauTab = plateauTab;
 	}
-	
-	
-	public static Plateau plateauRegeneration(Plateau p){
-		Plateau np=new Plateau();
-		for (int x = 0; x <= ligne.length - 1; x++) {
-			for (int i = 0; i <= colonne.length - 1; i++) {
-				np.getCase(ligne[x]+colonne[i]).setEtat(p.getCase(ligne[x]+colonne[i]).getEtat());
-			}
-		}
-		return np;
-
+	public HashMap<String, Case> getPlateauMap() {
+		return plateauMap;
 	}
+
+	public void setPlateauMap(HashMap<String, Case> plateauMap) {
+		this.plateauMap = plateauMap;
+	}
+
+	public ArrayList<String> getCasesDisponible() {
+		return casesDisponible;
+	}
+
+	public void setCasesDisponible(ArrayList<String> casesDisponible) {
+		this.casesDisponible = casesDisponible;
+	}
+	
 	
 }

@@ -517,11 +517,8 @@ public class PlateauController implements Initializable {
 
 						// si le joueur possède la case dans sa main
 						if (c.getEtat()==-2 && g.getTableauDeBord().getInfoParClient().get(client.getPseudo()).getMain().contains(b.getText())) {
-							b.setStyle(Globals.colorCaseFullChaine);
-							b.setDisable(true);
+							
 						}
-
-
 						else if (c.getEtat()!= -1 && g.getTableauDeBord().getInfoParClient().get(client.getPseudo()).getMain().contains(b.getText())) {
 							b.setStyle(Globals.colorCasePlayer);
 							b.setId("caseDisponible");
@@ -531,6 +528,10 @@ public class PlateauController implements Initializable {
 						else {
 							switch(c.getEtat()) {
 							// verification de l'etat de la case et maj
+							case (-2) :
+								b.setStyle(Globals.colorCaseFullChaine);
+							b.setDisable(true);
+								break;
 							case (-1) :
 								// case grisée
 								b.setStyle(Globals.colorCaseGrey);
@@ -543,6 +544,7 @@ public class PlateauController implements Initializable {
 								// case vide
 								b.setStyle(Globals.colorCaseHotel);
 							b.setTextFill(Color.WHITE);
+							
 							break;
 							default :
 								b.setStyle(g.getListeChaine().get(c.getEtat() - 2).getTypeChaine().getCouleurChaine());

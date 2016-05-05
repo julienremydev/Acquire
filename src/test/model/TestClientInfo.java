@@ -65,19 +65,19 @@ public class TestClientInfo {
 		clientTest.setEtat(TypeChaine.AMERICA.getNumero(), "M+,0");
 		clientTest.getActionParChaine().put(TypeChaine.AMERICA, 2);
 		clientTest.getActionParChaine().put(TypeChaine.QUANTUM, 2);
-		int prixAction = clientTest.getPrime(TypeChaine.AMERICA, 2);
+		int prixAction = clientTest.getPrime(TypeChaine.AMERICA, 2, true);
 		assertEquals(5100, prixAction);
 		clientTest.setEtat(TypeChaine.AMERICA.getNumero(), "S,2");
-		prixAction = clientTest.getPrime(TypeChaine.AMERICA, 2);
+		prixAction = clientTest.getPrime(TypeChaine.AMERICA, 2, true);
 		assertEquals(1400,prixAction);
 		clientTest.setEtat(TypeChaine.AMERICA.getNumero(), "M,4");
-		prixAction = clientTest.getPrime(TypeChaine.AMERICA, 2);
+		prixAction = clientTest.getPrime(TypeChaine.AMERICA, 2, true);
 		assertEquals(1700,prixAction);
 		clientTest.setEtat(TypeChaine.AMERICA.getNumero(), "M+,0");
-		prixAction = clientTest.getPrime(TypeChaine.AMERICA, 45);
+		prixAction = clientTest.getPrime(TypeChaine.AMERICA, 45, true);
 		assertEquals(18700,prixAction);
 		clientTest.setEtat(TypeChaine.QUANTUM.getNumero(), "M+,0");
-		prixAction = clientTest.getPrime(TypeChaine.QUANTUM, 3);
+		prixAction = clientTest.getPrime(TypeChaine.QUANTUM, 3, true);
 		assertEquals(8500,prixAction);
 	}
 }

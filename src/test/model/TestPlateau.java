@@ -189,9 +189,9 @@ public class TestPlateau {
 		int j = 0;
 		int nbJoueur = 3;
 		int casesDispDebut = plateauTest.getCasesDisponible().size();
-		plateauTest.initialiseMainCaseNoir(false);
-		plateauTest.initialiseMainCaseNoir(false);
-		plateauTest.initialiseMainCaseNoir(false);
+		plateauTest.initialiseMainCaseNoir();
+		plateauTest.initialiseMainCaseNoir();
+		plateauTest.initialiseMainCaseNoir();
 		int casesDispApres = plateauTest.getCasesDisponible().size();
 		assertTrue(casesDispApres == casesDispDebut - nbJoueur);
 
@@ -376,7 +376,8 @@ public class TestPlateau {
 		listeChaine.get(1).addCase(new Case());
 		listeChaine.get(1).addCase(new Case());
 		listeChaine.get(1).addCase(new Case());
-		plateauTest.CasesGrises(listeChaine);
+		//TODO
+		//plateauTest.CasesGrises(listeChaine);
 		assertEquals(1,-plateauTest.getCase("C2").getEtat());
 		assertFalse(plateauTest.getCasesDisponible().contains("C2"));
 	}

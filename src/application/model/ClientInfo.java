@@ -43,7 +43,7 @@ public class ClientInfo implements Serializable{
 	private Integer actionQuantum;
 	private Integer actionZeta;
 	//
-	
+
 	@JsonCreator
 	public ClientInfo(){
 		super();
@@ -53,7 +53,7 @@ public class ClientInfo implements Serializable{
 	 * Constructeur de la classe client info qui initialise les donnees d un client
 	 * @param n : nom du pseudo du client
 	 */
-	
+
 	@JsonCreator
 	public ClientInfo(@JsonProperty("pseudo")String pseudo){
 		this.pseudo = pseudo;
@@ -105,183 +105,186 @@ public class ClientInfo implements Serializable{
 	public void updateNet(ArrayList<Chaine> listeChaine){
 		this.net=this.cash;
 		for (TypeChaine c : this.actionParChaine.keySet()) {
-			this.net+=this.getPrime(c,listeChaine.get(c.getNumero()-2).tailleChaine());
+			this.net+=this.getPrime(c,listeChaine.get(c.getNumero()-2).tailleChaine(),true);
 		}
 	}
 	/*
 	 * Permet de récupérer les primes par rapport aux actions (majoritaire / secondaire)
 	 */
-	public int getPrime(TypeChaine c, int nombreHotel) {
-		int action = TypeChaine.prixAction(c, nombreHotel);
-		action*=actionParChaine.get(c);
-		String etat = etatParChaine.get(c);
-		String[] tabEtat = etat.split(",");
-		int nbJoueursAction = Integer.parseInt(tabEtat[1]);
-		switch (tabEtat[0]) {
-		case "0" :
-			return 0;
-		case "A" :
-			return action;
-		case "S" :
-			return action+(Globals.getResultat(TypeChaine.primeActionnaireSecondaire(c, nombreHotel)/nbJoueursAction));
-		case "M" :
-			if (nbJoueursAction>1) {
-				return action+((Globals.getResultat((TypeChaine.primeActionnairePrincipal(c, nombreHotel)
-						+TypeChaine.primeActionnaireSecondaire(c, nombreHotel))/nbJoueursAction)));
-			}
-			return action+(Globals.getResultat(TypeChaine.primeActionnairePrincipal(c, nombreHotel)/nbJoueursAction));
-		case "M+" :
-			return action+(Globals.getResultat(TypeChaine.primeActionnairePrincipal(c, nombreHotel)+TypeChaine.primeActionnaireSecondaire(c, nombreHotel)));
-		default :
-			return -1;
-		} 
+	public int getPrime(TypeChaine c, int nombreHotel, boolean calculNet) {
+		int action = 0;
+	if (calculNet) {
+		action = TypeChaine.prixAction(c, nombreHotel);
 	}
-
-	/**
-	 * Ajoute 6 cases cliquable pour le joueur
-	 * @param plateau
-	 * @return
-	 */
-	public ArrayList<String> initialiseMain(Plateau plateau) {
-		int max=Globals.nombre_joueurs_max;
-		Random randomGenerator = new Random();
-		int index;
-		for(int i=0;i<max;i++){
-			index = randomGenerator.nextInt(plateau.getCasesDisponible().size());
-			String c=plateau.getCasesDisponible().get(index);
-			main.add(c);
-			plateau.getCasesDisponible().remove(c);
+	action*=actionParChaine.get(c);
+	String etat = etatParChaine.get(c);
+	String[] tabEtat = etat.split(",");
+	int nbJoueursAction = Integer.parseInt(tabEtat[1]);
+	switch (tabEtat[0]) {
+	case "0" :
+		return 0;
+	case "A" :
+		return action;
+	case "S" :
+		return action+(Globals.getResultat(TypeChaine.primeActionnaireSecondaire(c, nombreHotel)/nbJoueursAction));
+	case "M" :
+		if (nbJoueursAction>1) {
+			return action+((Globals.getResultat((TypeChaine.primeActionnairePrincipal(c, nombreHotel)
+					+TypeChaine.primeActionnaireSecondaire(c, nombreHotel))/nbJoueursAction)));
 		}
-		return main;
-	}
+		return action+(Globals.getResultat(TypeChaine.primeActionnairePrincipal(c, nombreHotel)/nbJoueursAction));
+	case "M+" :
+		return action+(Globals.getResultat(TypeChaine.primeActionnairePrincipal(c, nombreHotel)+TypeChaine.primeActionnaireSecondaire(c, nombreHotel)));
+	default :
+		return -1;
+	} 
+}
 
-	/**
-	 * Ajoute 1 cases cliquable pour le joueur
-	 * @param plateau
-	 */
-	public void ajouteMain1fois(Plateau plateau) {
-		String c=plateau.getCasesDisponible().get(0 + (int)(Math.random() * plateau.getCasesDisponible().size()-1));
-		main.add(c);	
+/**
+ * Ajoute 6 cases cliquable pour le joueur
+ * @param plateau
+ * @return
+ */
+public ArrayList<String> initialiseMain(Plateau plateau) {
+	int max=Globals.nombre_joueurs_max;
+	Random randomGenerator = new Random();
+	int index;
+	for(int i=0;i<max;i++){
+		index = randomGenerator.nextInt(plateau.getCasesDisponible().size());
+		String c=plateau.getCasesDisponible().get(index);
+		main.add(c);
 		plateau.getCasesDisponible().remove(c);
 	}
+	return main;
+}
 
-	/*
-	 * Getter & Setter
-	 */
-	public String getPseudo() {
-		return pseudo;
-	}
+/**
+ * Ajoute 1 cases cliquable pour le joueur
+ * @param plateau
+ */
+public void ajouteMain1fois(Plateau plateau) {
+	String c=plateau.getCasesDisponible().get(0 + (int)(Math.random() * plateau.getCasesDisponible().size()-1));
+	main.add(c);	
+	plateau.getCasesDisponible().remove(c);
+}
 
-	public void setPseudo(String pseudo) {
-		this.pseudo = pseudo;
-	}
+/*
+ * Getter & Setter
+ */
+public String getPseudo() {
+	return pseudo;
+}
 
-	public HashMap<TypeChaine, String> getEtatParChaine() {
-		return etatParChaine;
-	}
+public void setPseudo(String pseudo) {
+	this.pseudo = pseudo;
+}
 
-	public void setMain(ArrayList<String> main) {
-		this.main = main;
-	}
+public HashMap<TypeChaine, String> getEtatParChaine() {
+	return etatParChaine;
+}
 
-	public void setNet(Integer net) {
-		this.net = net;
-	}
+public void setMain(ArrayList<String> main) {
+	this.main = main;
+}
 
-	public void setCash(Integer cash) {
-		this.cash = cash;
-	}
+public void setNet(Integer net) {
+	this.net = net;
+}
 
-	public void setEtatParChaine(HashMap<TypeChaine, String> etatParChaine) {
-		this.etatParChaine = etatParChaine;
-	}
+public void setCash(Integer cash) {
+	this.cash = cash;
+}
 
-
-	public Integer getNet() {
-		return net;
-	}
-
-
-
-	public Integer getCash() {
-		return cash;
-	}
-
-	public HashMap<TypeChaine, Integer> getActionParChaine() {
-		return actionParChaine;
-	}
-
-	public void setActionParChaine(HashMap<TypeChaine, Integer> actionParChaine) {
-		this.actionParChaine = actionParChaine;
-	}
+public void setEtatParChaine(HashMap<TypeChaine, String> etatParChaine) {
+	this.etatParChaine = etatParChaine;
+}
 
 
-	public Integer getActionSackson() {
-		return actionParChaine.get(TypeChaine.SACKSON);
-	}
+public Integer getNet() {
+	return net;
+}
 
-	public void setActionSackson(Integer actionSackson) {
-		this.actionSackson = actionSackson;
-	}
 
-	public Integer getActionAmerica() {
-		return actionParChaine.get(TypeChaine.AMERICA);
-	}
 
-	public void setActionAmerica(Integer actionAmerica) {
-		this.actionAmerica = actionAmerica;
-	}
+public Integer getCash() {
+	return cash;
+}
 
-	public Integer getActionFusion() {
-		return actionParChaine.get(TypeChaine.FUSION);
-	}
+public HashMap<TypeChaine, Integer> getActionParChaine() {
+	return actionParChaine;
+}
 
-	public void setActionFusion(Integer actionFusion) {
-		this.actionFusion = actionFusion;
-	}
+public void setActionParChaine(HashMap<TypeChaine, Integer> actionParChaine) {
+	this.actionParChaine = actionParChaine;
+}
 
-	public Integer getActionPhoenix() {
-		return actionParChaine.get(TypeChaine.PHOENIX);
-	}
 
-	public void setActionPhoenix(Integer actionPhoenix) {
-		this.actionPhoenix = actionPhoenix;
-	}
+public Integer getActionSackson() {
+	return actionParChaine.get(TypeChaine.SACKSON);
+}
 
-	public Integer getActionHydra() {
-		return actionParChaine.get(TypeChaine.HYDRA);
-	}
+public void setActionSackson(Integer actionSackson) {
+	this.actionSackson = actionSackson;
+}
 
-	public void setActionHydra(Integer actionHydra) {
-		this.actionHydra = actionHydra;
-	}
+public Integer getActionAmerica() {
+	return actionParChaine.get(TypeChaine.AMERICA);
+}
 
-	public Integer getActionQuantum() {
-		return actionParChaine.get(TypeChaine.QUANTUM);
-	}
+public void setActionAmerica(Integer actionAmerica) {
+	this.actionAmerica = actionAmerica;
+}
 
-	public void setActionQuantum(Integer actionQuantum) {
-		this.actionQuantum = actionQuantum;
-	}
+public Integer getActionFusion() {
+	return actionParChaine.get(TypeChaine.FUSION);
+}
 
-	public Integer getActionZeta() {
-		return actionParChaine.get(TypeChaine.ZETA);
-	}
+public void setActionFusion(Integer actionFusion) {
+	this.actionFusion = actionFusion;
+}
 
-	public void setActionZeta(Integer actionZeta) {
-		this.actionZeta = actionZeta;
-	}
+public Integer getActionPhoenix() {
+	return actionParChaine.get(TypeChaine.PHOENIX);
+}
 
-	public ArrayList<String> getMain(){
-		return this.main;
-	}
+public void setActionPhoenix(Integer actionPhoenix) {
+	this.actionPhoenix = actionPhoenix;
+}
 
-	public void setEtat(int nb, String etat) {
-		this.etatParChaine.replace(TypeChaine.getTypeChaine(nb), etat);
-	}
+public Integer getActionHydra() {
+	return actionParChaine.get(TypeChaine.HYDRA);
+}
 
-	public String toString() {
-		return this.pseudo;
-	}
+public void setActionHydra(Integer actionHydra) {
+	this.actionHydra = actionHydra;
+}
+
+public Integer getActionQuantum() {
+	return actionParChaine.get(TypeChaine.QUANTUM);
+}
+
+public void setActionQuantum(Integer actionQuantum) {
+	this.actionQuantum = actionQuantum;
+}
+
+public Integer getActionZeta() {
+	return actionParChaine.get(TypeChaine.ZETA);
+}
+
+public void setActionZeta(Integer actionZeta) {
+	this.actionZeta = actionZeta;
+}
+
+public ArrayList<String> getMain(){
+	return this.main;
+}
+
+public void setEtat(int nb, String etat) {
+	this.etatParChaine.replace(TypeChaine.getTypeChaine(nb), etat);
+}
+
+public String toString() {
+	return this.pseudo;
+}
 
 }

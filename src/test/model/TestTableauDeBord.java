@@ -267,6 +267,7 @@ public class TestTableauDeBord {
 		etat2 = c2.getEtatParChaine().get(TypeChaine.AMERICA);
 		etat3 = c3.getEtatParChaine().get(TypeChaine.AMERICA);
 		assertEquals("S,2", etat);
+		
 		assertEquals("S,2", etat2);
 		assertEquals("M,1", etat3);
 		c2.getActionParChaine().put(TypeChaine.AMERICA, 4);

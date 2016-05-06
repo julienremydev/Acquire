@@ -250,7 +250,7 @@ public class Serveur extends UnicastRemoteObject implements ServeurInterface {
 	 * @param text
 	 * @param pseudo
 	 */
-	public void piocheCaseFinTour(String text, String pseudo){
+	public void piocheCaseFinTour(String text, String pseudo) throws RemoteException{
 		//Pioche d'une case a la fin du tour
 		int nbJoueursVide=0;
 		if (game.getTableauDeBord().getInfoParClient().get(pseudo).getMain().contains(text) && !game.getPlateau().getCasesDisponible().isEmpty()) {
@@ -264,6 +264,7 @@ public class Serveur extends UnicastRemoteObject implements ServeurInterface {
 			for (ClientInfo c : game.getTableauDeBord().getInfoParClient().values()) {
 				if (c.getMain().isEmpty()) {
 					nbJoueursVide++;
+					nextTurnAction();
 				}
 			}
 			if (nbJoueursVide==game.getTableauDeBord().getInfoParClient().size()) {
@@ -490,7 +491,10 @@ public class Serveur extends UnicastRemoteObject implements ServeurInterface {
 			game.getTableauDeBord().getClientInfo(pseudo).ajouteMain1fois(game.getPlateau());
 		}
 		game.setPlayerTurn(getGame().whoseTurn(pseudo));
-		game.getPlateau().CasesGrises(game.getListeChaine(), game.getTableauDeBord().getClientInfo(game.getPlayerTurn()).getMain());
+		for (ClientInfo c : game.getTableauDeBord().getInfoParClient().values()) {
+			game.getPlateau().CasesGrises(game.getListeChaine(), c.getMain());
+		}
+		
 		if ( liste_clients.containsKey(game.getPlayerTurn())){
 			game.getPlateau().CasesGrises(game.getTableauDeBord().getListeChaine(), game.getTableauDeBord().getInfoParClient().get(pseudo).getMain());
 			liste_clients.get(game.getPlayerTurn()).turn();

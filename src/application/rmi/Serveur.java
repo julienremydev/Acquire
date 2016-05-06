@@ -120,7 +120,6 @@ public class Serveur extends UnicastRemoteObject implements ServeurInterface {
 			}
 			if (getGame().getAction() == null) {
 				sendEndTurnAction();
-				distribution();
 			}else{
 				if ( getGame().getAction().getChoix() == Globals.choixActionFusionEchangeAchatVente && getGame().isPartieDeuxJoueurs() ){
 					setPiocheBanque();

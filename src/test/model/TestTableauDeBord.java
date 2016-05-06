@@ -267,17 +267,18 @@ public class TestTableauDeBord {
 		etat2 = c2.getEtatParChaine().get(TypeChaine.AMERICA);
 		etat3 = c3.getEtatParChaine().get(TypeChaine.AMERICA);
 		assertEquals("S,2", etat);
-		
 		assertEquals("S,2", etat2);
 		assertEquals("M,1", etat3);
+		c1.getActionParChaine().put(TypeChaine.AMERICA, 2);
 		c2.getActionParChaine().put(TypeChaine.AMERICA, 4);
+		c3.getActionParChaine().put(TypeChaine.AMERICA, 4);
 		tableauTest.updateActionnaire();
 		etat = c1.getEtatParChaine().get(TypeChaine.AMERICA);
 		etat2 = c2.getEtatParChaine().get(TypeChaine.AMERICA);
 		etat3 = c3.getEtatParChaine().get(TypeChaine.AMERICA);
-		assertEquals("A,0", etat);
 		assertEquals("M,2", etat2);
 		assertEquals("M,2", etat3);
+		assertEquals("A,0", etat);
 	}
 	
 	@Test

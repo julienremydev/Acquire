@@ -346,19 +346,20 @@ public class TableauDeBord implements Serializable{
 			int iterator=0;
 			int iterator2=0;
 			int nbMajor=0;
+			//boucle clients
 			while (iterator<=clients.size()-1) {
+				//premier passage
 				if (iterator==0) {
+					//set actionmax
 					nbActionMax = liste_sort.get(clients.get(iterator));
 				}
+				//max = deuxieme
 				if (nbActionMax == liste_sort.get(clients.get(iterator))&&liste_sort.get(clients.get(iterator))!=0) {
 					nbActionMax = liste_sort.get(clients.get(iterator));
 					liste_clients_major.add(clients.get(iterator));
 					nbMajor++;
 				}
 				else if (nbMajor==1) {
-					if (iterator==0) {
-						nbActionMax = liste_sort.get(clients.get(iterator));
-					}
 					if (iterator2==0) {
 						nbActionMax2=liste_sort.get(clients.get(iterator));
 						iterator2++;
@@ -370,6 +371,9 @@ public class TableauDeBord implements Serializable{
 					else {
 						liste_clients_actionnaire.add(clients.get(iterator));
 					}
+				}
+				else {
+					liste_clients_actionnaire.add(clients.get(iterator));
 				}
 				iterator++;
 			}
@@ -419,13 +423,10 @@ public class TableauDeBord implements Serializable{
 					infoPrimeClient.add(String.valueOf(primeJoueur));
 					client.setCash(client.getCash() + primeJoueur);
 				}
-				System.out.println("inf"+infoPrimeClient);
-				arrayPrime.add(new ArrayList<String> (infoPrimeClient));
-				
+				arrayPrime.add(infoPrimeClient);
 				infoPrimeClient.clear();
 			}
 		}
-		System.out.println("arr"+arrayPrime);
 		return arrayPrime;
 	}
 }

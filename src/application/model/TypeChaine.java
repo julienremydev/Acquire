@@ -41,7 +41,7 @@ public enum TypeChaine {
 	/**
 	 * Calcul du prix de l action en fonction du type de la chaine et du nombre d hotel
 	 * @param tc
-	 * @param nbhotel
+	 * @param nb
 	 * @return
 	 */
 	public static int prixAction(TypeChaine tc, int nb){

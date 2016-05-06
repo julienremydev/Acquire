@@ -374,7 +374,7 @@ public class Serveur extends UnicastRemoteObject implements ServeurInterface {
 		return null;
 	}
 	/**
-	 * appelée quand un joueur lance la partie -> initialisation des mains
+	 * appelée quand un joueur lance la partie initialisation des mains
 	 */
 	@Override
 	public void setLancement() throws RemoteException {

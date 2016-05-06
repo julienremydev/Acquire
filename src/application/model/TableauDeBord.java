@@ -157,15 +157,14 @@ public class TableauDeBord implements Serializable{
 		return res;
 	}
 
-	/**
-	 * fonction permettant au joueur de vendre des actions et met a jour le nombre d action restante
-	 * @param nb : nombre d action voulant etre vendue par le joueur
-	 * @param nomJoueur : nom du joueur qui vend
-	 * @param tc : type de la chaine
-	 * @param prix_action_absorbee 
-	 * @param prix_action_absorbante 
-	 * @return nombre effectivement vendue
-	 */
+
+/**
+ * fonction permettant au joueur de vendre des actions et met a jour le nombre d action restante
+ * @param nb
+ * @param nomJoueur
+ * @param tc
+ * @param prix_action_absorbee
+ */
 	public void vendActionJoueur(int nb, String nomJoueur, TypeChaine tc, int prix_action_absorbee){
 		if ( nb > 0){
 			int indexChaine = getIndexChaine(tc);

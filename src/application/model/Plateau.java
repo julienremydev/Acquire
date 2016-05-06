@@ -31,8 +31,7 @@ public class Plateau implements Serializable {
 
 	private Case[][] plateauTab;
 
-
-	//@JsonCreator
+	// @JsonCreator
 	public Plateau() {
 		plateauMap = new HashMap<String, Case>();
 		initCasesPlateau();
@@ -40,15 +39,13 @@ public class Plateau implements Serializable {
 		casesDisponible = new ArrayList<String>();
 		for (int x = 0; x <= ligne.length - 1; x++) {
 			for (int i = 0; i <= colonne.length - 1; i++) {
-				casesDisponible.add(ligne[x]+colonne[i]);
+				casesDisponible.add(ligne[x] + colonne[i]);
 			}
 		}
 	}
 
-
-
 	@JsonCreator
-	public Plateau(@JsonProperty("casesDisponible")ArrayList<String> casesDisponible) {
+	public Plateau(@JsonProperty("casesDisponible") ArrayList<String> casesDisponible) {
 		plateauMap = new HashMap<String, Case>();
 		initCasesPlateau();
 		initCasesAdjascentes();
@@ -155,9 +152,9 @@ public class Plateau implements Serializable {
 	}
 
 	/**
-	 * Regarde le cas de modification lors du click
-	 * Lors d'un cas simple, modification de la case 
-	 * Lors d'un cas de fusion, return d'une action
+	 * Regarde le cas de modification lors du click Lors d'un cas simple,
+	 * modification de la case Lors d'un cas de fusion, return d'une action
+	 * 
 	 * @param text
 	 * @param listeChaine
 	 * @return
@@ -165,7 +162,7 @@ public class Plateau implements Serializable {
 	public Action updateCase(String text, ArrayList<Chaine> listeChaine) {
 		Case caseModifiee = plateauMap.get(text);
 		Action actionReturn = null;
-		//Création des boolean pour la détection des 3 cas différents
+		// Création des boolean pour la détection des 3 cas différents
 		boolean simpleCase = caseModifiee.surroundedByNothing();
 		boolean askColor = caseModifiee.surroundedByHotels();
 		boolean askChain = caseModifiee.surroundedByChains();
@@ -180,87 +177,100 @@ public class Plateau implements Serializable {
 		/*
 		 * Cas de création de chaine
 		 */
-		if (askColor && !askChain){
+		if (askColor && !askChain) {
 			Set<Case> setCasesAModifier = new HashSet<Case>();
-			ArrayList<Case> tabCasesAModifier = new ArrayList<Case> ();
-			setCasesAModifier.addAll(addRecurse(setCasesAModifier,caseModifiee));
+			ArrayList<Case> tabCasesAModifier = new ArrayList<Case>();
+			setCasesAModifier.addAll(addRecurse(setCasesAModifier, caseModifiee));
 			tabCasesAModifier.add(caseModifiee);
-			actionReturn =  new Action(setCasesAModifier, Globals.choixActionCreationChaine);
+			actionReturn = new Action(setCasesAModifier, Globals.choixActionCreationChaine);
 		}
 		/*
 		 * Cas de fusion de chaines
 		 */
 		else
-			actionReturn = gestionChainHotel(listeChaine,caseModifiee);
+			actionReturn = gestionChainHotel(listeChaine, caseModifiee);
 		return actionReturn;
 
 	}
+
 	/**
 	 * Retourne une Action spécifique en fonction du cas de fusion
+	 * 
 	 * @param listeChaine
 	 * @param caseModifiee
 	 * @return
 	 */
 	private Action gestionChainHotel(ArrayList<Chaine> listeChaine, Case caseModifiee) {
 		ArrayList<Case> tab = caseModifiee.tabAdjascent();
-		boolean sameColor = caseModifiee.sameColorsArround(tab);				
+		boolean sameColor = caseModifiee.sameColorsArround(tab);
 		// de la même couleur donc on ajoute simplement la case à la chaine
-		if (sameColor)
-		{
-			listeChaine.get(tab.get(0).getEtat()-2).addCase(caseModifiee);
+		if (sameColor) {
+			listeChaine.get(tab.get(0).getEtat() - 2).addCase(caseModifiee);
 			return null;
 		}
 
 		ArrayList<Chaine> chaineDifferente = listeChaineDifferentes(tab, listeChaine);
 		ArrayList<Chaine> listeGrandesChaines = new ArrayList<>();
-		//Creation de la liste de Case hotels éventuelles à intégrer dans la fusion
+		// Creation de la liste de Case hotels éventuelles à intégrer dans la
+		// fusion
 		Set<Case> setCasesAModifier = new HashSet<Case>();
-		setCasesAModifier.addAll(addRecurse(setCasesAModifier,caseModifiee));
-		ArrayList<Case> tabCasesAModifier = new ArrayList<Case> (setCasesAModifier);
-		
-		if(chaineDifferente.size()==1)
-		{
-			//Le nombre de chaine différente est de 1, donc la case est entourée par la même chaine, donc la grande chaine est la seule chaine
-			listeGrandesChaines=chaineDifferente;
-			fusionChaines(listeChaine,chaineDifferente,listeGrandesChaines.get(0),tabCasesAModifier);
+		setCasesAModifier.addAll(addRecurse(setCasesAModifier, caseModifiee));
+		ArrayList<Case> tabCasesAModifier = new ArrayList<Case>(setCasesAModifier);
+
+		if (chaineDifferente.size() == 1) {
+			// Le nombre de chaine différente est de 1, donc la case est
+			// entourée par la même chaine, donc la grande chaine est la seule
+			// chaine
+			listeGrandesChaines = chaineDifferente;
+			fusionChaines(listeChaine, chaineDifferente, listeGrandesChaines.get(0), tabCasesAModifier);
 			return null;
-		}
-		else
-			//Nous avons plusieurs chaines différentes, on regarde si elles sont toutes la même taille
+		} else
+			// Nous avons plusieurs chaines différentes, on regarde si elles
+			// sont toutes la même taille
 			listeGrandesChaines = sameSizeChaine(chaineDifferente);
 
-		// Si les chaines ont toutes la même taille, listeGrandeChaine est a null
-		if(listeGrandesChaines == null){
+		// Si les chaines ont toutes la même taille, listeGrandeChaine est a
+		// null
+		if (listeGrandesChaines == null) {
 
-			return new Action(Globals.choixActionFusionSameSizeChaine,listeChaine,chaineDifferente, chaineDifferente,tabCasesAModifier);
+			return new Action(Globals.choixActionFusionSameSizeChaine, listeChaine, chaineDifferente, chaineDifferente,
+					tabCasesAModifier);
 		}
 		// Nous avons au moins une chaine plus grande qu'une autre
-		else{
-			// Si la taille est de 1, nous n'avons qu'une grande chaine, donc on fais la modification puis return l'Action pour les échanges d'action
-			if(listeGrandesChaines.size()==1)
-			{
-				// Sauvegarde de l'état des chaines avant fusion pour l'échange d'actions
+		else {
+			// Si la taille est de 1, nous n'avons qu'une grande chaine, donc on
+			// fais la modification puis return l'Action pour les échanges
+			// d'action
+			if (listeGrandesChaines.size() == 1) {
+				// Sauvegarde de l'état des chaines avant fusion pour l'échange
+				// d'actions
 				ArrayList<Chaine> listeChaineDifferenteAvantModif = chaineDifferente;
 				Chaine chaineAbsorbanteAvantFusion = listeGrandesChaines.get(0);
 				Chaine chaineAbsorbantePourFusion = listeGrandesChaines.get(0);
 				// Fusion des Chaines
-				fusionChaines(listeChaine,chaineDifferente,chaineAbsorbantePourFusion,tabCasesAModifier);
-				// Puis création de l'action avec les chaines précédant leur modification			
-				return new Action(Globals.choixActionFusionEchangeAchatVente,listeChaineDifferenteAvantModif,chaineAbsorbanteAvantFusion);
+				fusionChaines(listeChaine, chaineDifferente, chaineAbsorbantePourFusion, tabCasesAModifier);
+				// Puis création de l'action avec les chaines précédant leur
+				// modification
+				return new Action(Globals.choixActionFusionEchangeAchatVente, listeChaineDifferenteAvantModif,
+						chaineAbsorbanteAvantFusion);
 			}
-			// Sinon 2 chaines de même taille sont plus grande qu'une autre, on return donc l'Action pour le choix de la chaine Absorbante
-			else
-			{
-				return new Action(Globals.choixActionFusionSameSizeChaine,listeChaine,listeGrandesChaines, chaineDifferente,tabCasesAModifier);
-			}		
+			// Sinon 2 chaines de même taille sont plus grande qu'une autre, on
+			// return donc l'Action pour le choix de la chaine Absorbante
+			else {
+				return new Action(Globals.choixActionFusionSameSizeChaine, listeChaine, listeGrandesChaines,
+						chaineDifferente, tabCasesAModifier);
+			}
 		}
 	}
+
 	/**
-	 * Methode récursive qui ajout les cases hotels adjascentes au hotels dans la liste
-	 * La liste de retour contiendra donc toutes les cases hotels adjascentes uniques
+	 * Methode récursive qui ajout les cases hotels adjascentes au hotels dans
+	 * la liste La liste de retour contiendra donc toutes les cases hotels
+	 * adjascentes uniques
+	 * 
 	 * @return
 	 */
-	public Set<Case> addRecurse (Set<Case> casesDone, Case c) {
+	public Set<Case> addRecurse(Set<Case> casesDone, Case c) {
 		Set<Case> listRecurse = new HashSet<Case>();
 		casesDone.add(c);
 		if (c.surroundedByHotels()) {
@@ -272,11 +282,10 @@ public class Plateau implements Serializable {
 			}
 			if (listRecurse.isEmpty()) {
 				return null;
-			}
-			else {
+			} else {
 				for (Case caseToDo : listRecurse) {
 					Set<Case> returnedList = addRecurse(casesDone, caseToDo);
-					if (returnedList!=null) {
+					if (returnedList != null) {
 						casesDone.addAll(returnedList);
 					}
 				}
@@ -286,6 +295,7 @@ public class Plateau implements Serializable {
 		return casesDone;
 
 	}
+
 	/**
 	 * Retourne la case du plateau en fonction de son nom passé en paramètre
 	 * 
@@ -303,16 +313,18 @@ public class Plateau implements Serializable {
 		index = randomGenerator.nextInt(casesDisponible.size());
 		c = casesDisponible.get(index);
 		plateauMap.get(c).setEtat(1);
-		casesDisponible.remove(c);	
+		casesDisponible.remove(c);
 		return c;
 	}
+
 	/**
-	 * Pose un hotel pour la banque sur le plateau, lors d'une fusion avec 2 joueurs
+	 *  Pose un hotel pour la banque sur le plateau, lors d'une fusion avec 2
+	 * joueurs
 	 * @param listChaines
 	 * @return
 	 */
 	public String poserJetonBanque(ArrayList<Chaine> listChaines) {
-		boolean isOkay=false;
+		boolean isOkay = false;
 		Random randomGenerator = new Random();
 		int index;
 		String c = "";
@@ -324,112 +336,118 @@ public class Plateau implements Serializable {
 			if (cas.surroundedByChains()) {
 				ArrayList<Case> list = cas.tabAdjascent();
 				for (Case cas2 : list) {
-					if (cas2.getEtat()>1) {
+					if (cas2.getEtat() > 1) {
 						if (!etats.contains(cas2.getEtat())) {
 							etats.add(cas2.getEtat());
 						}
 					}
 				}
 			}
-			if (etats.size()<2) {
+			if (etats.size() < 2) {
 				updateCase(c, listChaines);
 				casesDisponible.remove(c);
-				isOkay=true;
+				isOkay = true;
 			}
 			etats.clear();
 		}
 		return c;
 	}
+
 	/**
-	 * Retourn l'arrayList de case avec des etat différents, donc des chaines différentes
+	 * Retourn l'arrayList de case avec des etat différents, donc des chaines
+	 * différentes
+	 * 
 	 * @param tab
+	 * @param listeChaine
 	 * @return
 	 */
-	public  ArrayList<Chaine> listeChaineDifferentes(ArrayList<Case> tab,  ArrayList<Chaine> listeChaine)
-	{
+	public ArrayList<Chaine> listeChaineDifferentes(ArrayList<Case> tab, ArrayList<Chaine> listeChaine) {
 		ArrayList<Chaine> tabReturn = new ArrayList<>();
 		ArrayList<Integer> tabTest = new ArrayList<>();
 		ArrayList<Case> casesChaineIterate = new ArrayList<>();
-		// Boucle qui ne prend que les cases du tab adjascent ou on a des chaines
-		for(Case caseChaine : tab)
-		{
-			if(caseChaine.getEtat()>=2)
+		// Boucle qui ne prend que les cases du tab adjascent ou on a des
+		// chaines
+		for (Case caseChaine : tab) {
+			if (caseChaine.getEtat() >= 2)
 				casesChaineIterate.add(caseChaine);
 
 		}
-		// ensuite on regarde dans cette liste de cases appartenant à des chaines, celles qui ont des chaines différentes
-		for(Case caseTest : casesChaineIterate)
-		{
-			if(! tabTest.contains(caseTest.getEtat()))
-			{
-				tabReturn.add(listeChaine.get(caseTest.getEtat()-2));
+		// ensuite on regarde dans cette liste de cases appartenant à des
+		// chaines, celles qui ont des chaines différentes
+		for (Case caseTest : casesChaineIterate) {
+			if (!tabTest.contains(caseTest.getEtat())) {
+				tabReturn.add(listeChaine.get(caseTest.getEtat() - 2));
 				tabTest.add(caseTest.getEtat());
 			}
 
 		}
 		return tabReturn;
 	}
+
 	/**
-	 * Fonction qui regarde si les chaines sont de même taille. Si c'est le cas retourne null. Sinon retourne la liste des chaines les plus grande(=)
+	 * Fonction qui regarde si les chaines sont de même taille. Si c'est le cas
+	 * retourne null. Sinon retourne la liste des chaines les plus grande(=)
+	 * 
 	 * @return
 	 */
-	public ArrayList<Chaine> sameSizeChaine(ArrayList<Chaine> chaineDifferentes){
+	public ArrayList<Chaine> sameSizeChaine(ArrayList<Chaine> chaineDifferentes) {
 
 		ArrayList<Chaine> returnGrandesChaines = new ArrayList<>();
 		ArrayList<Chaine> triCroissantTaille = chaineDifferentes;
 
-		Collections.sort(triCroissantTaille,new Comparator<Chaine>(){
+		Collections.sort(triCroissantTaille, new Comparator<Chaine>() {
 			@Override
-			public int compare(Chaine c1, Chaine c2){
+			public int compare(Chaine c1, Chaine c2) {
 				return c2.tailleChaine().compareTo(c1.tailleChaine());
 			}
 		});
 		// On prend la taille de la premiere chaine donc de la plus grande
 		int taillePremiereChaine = triCroissantTaille.get(0).tailleChaine();
-		// On itère sur les autres chaines, on compare leurs taille et on n'ajoute que celle qui ont la même taille
-		for(Chaine ch : triCroissantTaille)
-		{
-			if(ch.tailleChaine()==taillePremiereChaine)
+		// On itère sur les autres chaines, on compare leurs taille et on
+		// n'ajoute que celle qui ont la même taille
+		for (Chaine ch : triCroissantTaille) {
+			if (ch.tailleChaine() == taillePremiereChaine)
 				returnGrandesChaines.add(ch);
 
 		}
-		// Si cette liste avec la grande taille à la même taille que la liste de chaine en entrée, toutes les chaines ont la même taille donc return null
-		if(chaineDifferentes.size() == returnGrandesChaines.size())
-		{
+		// Si cette liste avec la grande taille à la même taille que la liste de
+		// chaine en entrée, toutes les chaines ont la même taille donc return
+		// null
+		if (chaineDifferentes.size() == returnGrandesChaines.size()) {
 			return null;
-		}
-		else
+		} else
 			return returnGrandesChaines;
 
 	}
+
 	/**
-	 * Prend en parametre la liste de chaine du plateau, afin d'ajouter la liste de chaine Absorbée à la chaine absorbante, avec la case cliquée
+	 * Prend en parametre la liste de chaine du plateau, afin d'ajouter la liste
+	 * de chaine Absorbée à la chaine absorbante, avec la case cliquée
+	 * 
 	 * @param listeChaineTotale
 	 * @param listeChaineAbsorbee
 	 * @param chaineAbsorbante
 	 * @param listeCaseAbsorbee
 	 * @return
 	 */
-	public ArrayList<Chaine> fusionChaines(ArrayList<Chaine> listeChaineTotale,ArrayList<Chaine> listeChaineAbsorbee, Chaine chaineAbsorbante, ArrayList<Case> listeCaseAbsorbee)
-	{
+	public ArrayList<Chaine> fusionChaines(ArrayList<Chaine> listeChaineTotale, ArrayList<Chaine> listeChaineAbsorbee,
+			Chaine chaineAbsorbante, ArrayList<Case> listeCaseAbsorbee) {
 		listeChaineAbsorbee.remove(chaineAbsorbante);
 
-		for(Chaine c : listeChaineAbsorbee)
-		{
-			listeChaineTotale.get(chaineAbsorbante.getTypeChaine().getNumero()-2).setListeCase(
-					listeChaineTotale.get(chaineAbsorbante.getTypeChaine().getNumero()-2).modifChain(c));
-			listeChaineTotale.get(c.getTypeChaine().getNumero()-2).getListeCase().clear();
-
+		for (Chaine c : listeChaineAbsorbee) {
+			listeChaineTotale.get(chaineAbsorbante.getTypeChaine().getNumero() - 2).setListeCase(
+					listeChaineTotale.get(chaineAbsorbante.getTypeChaine().getNumero() - 2).modifChain(c));
+			listeChaineTotale.get(c.getTypeChaine().getNumero() - 2).getListeCase().clear();
 
 		}
-		// Au lieu d'ajouter une case, faire une boucle d'ajout de la liste de case Hotels
-		for(Case c : listeCaseAbsorbee)
-		{
-			listeChaineTotale.get(chaineAbsorbante.getTypeChaine().getNumero()-2).addCase(c);
+		// Au lieu d'ajouter une case, faire une boucle d'ajout de la liste de
+		// case Hotels
+		for (Case c : listeCaseAbsorbee) {
+			listeChaineTotale.get(chaineAbsorbante.getTypeChaine().getNumero() - 2).addCase(c);
 		}
 
 		// On refais une boucle de changement d'état des cases
-		for (Case cas : listeChaineTotale.get(chaineAbsorbante.getTypeChaine().getNumero()-2).getListeCase()) {
+		for (Case cas : listeChaineTotale.get(chaineAbsorbante.getTypeChaine().getNumero() - 2).getListeCase()) {
 			this.getCase(cas.getNom()).setEtat(cas.getEtat());
 		}
 		return listeChaineTotale;
@@ -437,8 +455,9 @@ public class Plateau implements Serializable {
 
 	/**
 	 * Mise a jour des cases grises (case entouré par deux chaines sup à 11)
+	 * 
 	 * @param listChaines
-	 * @return 
+	 * @return
 	 */
 	public ArrayList<String> CasesGrises(ArrayList<Chaine> listChaines, ArrayList<String> main) {
 		ArrayList<String> casesToRemove = new ArrayList<String>();
@@ -447,59 +466,60 @@ public class Plateau implements Serializable {
 			ArrayList<Case> tab = cas.tabAdjascent();
 			ArrayList<Chaine> chaineDifferente = listeChaineDifferentes(tab, listChaines);
 			boolean setGrise = setGrise(chaineDifferente);
-			if(setGrise)
-			{
+			if (setGrise) {
 				plateauMap.get(c).setEtat(-1);
 				casesToRemove.add(c);
 			}
 		}
 		return casesToRemove;
 	}
+
 	/**
-	 * Retourne true si deux chaines parmis la liste ont une taille supérieur à 11
+	 * Retourne true si deux chaines parmis la liste ont une taille supérieur à
+	 * 11
+	 * 
 	 * @param chain
-	 * @return
+	 * @return 
 	 */
-	public boolean setGrise(ArrayList<Chaine> chain)
-	{
+	public boolean setGrise(ArrayList<Chaine> chain) {
 		// Recuperation des chaines avec taille supérieure a 11
 		ArrayList<Chaine> listeChaineSupp = new ArrayList<>();
-		for(Chaine ch : chain)
-		{
-			if(ch.tailleChaine()>=11)
+		for (Chaine ch : chain) {
+			if (ch.tailleChaine() >= 11)
 				listeChaineSupp.add(ch);
 		}
-		if (listeChaineSupp.size()>=2)
+		if (listeChaineSupp.size() >= 2)
 			return true;
 		else
 			return false;
 	}
+
 	/**
-	 * Met les cases de la main du joueur injouable si à coté d'un hotel => création chaine impossible
+	 * Met les cases de la main du joueur injouable si à coté d'un hotel
+	 * création chaine impossible
+	 * 
 	 * @param listChaines
 	 * @param listeClient
 	 */
 	public void fullChaine(ArrayList<Chaine> listChaines, Collection<ClientInfo> listeClient) {
-		boolean isOkay=false;
+		boolean isOkay = false;
 		for (Chaine c : listChaines) {
-			if (c.tailleChaine()==0) {
-				isOkay=true;
+			if (c.tailleChaine() == 0) {
+				isOkay = true;
 			}
 		}
 		if (!isOkay) {
 			for (ClientInfo c : listeClient) {
 				for (String cas : c.getMain()) {
 					Case cas2 = this.getCase(cas);
-					if (cas2.surroundedByHotels()&&!cas2.surroundedByChains()) {
+					if (cas2.surroundedByHotels() && !cas2.surroundedByChains()) {
 						cas2.setEtat(-2);
-					}
-					else {
+					} else {
 						cas2.setEtat(0);
 					}
 				}
 			}
-		}
-		else {
+		} else {
 			for (ClientInfo c : listeClient) {
 				for (String cas : c.getMain()) {
 					Case cas2 = this.getCase(cas);
@@ -508,22 +528,25 @@ public class Plateau implements Serializable {
 			}
 		}
 	}
+
 	/**
 	 * Utilisee lors du chargement de la partie via la sauvegarde JSON
+	 * 
 	 * @param p
-	 * @return
+	 * @return np
 	 */
-	public static Plateau plateauRegeneration(Plateau p){
-		Plateau np=new Plateau();
+	public static Plateau plateauRegeneration(Plateau p) {
+		Plateau np = new Plateau();
 		for (int x = 0; x <= ligne.length - 1; x++) {
 			for (int i = 0; i <= colonne.length - 1; i++) {
-				np.getCase(ligne[x]+colonne[i]).setEtat(p.getCase(ligne[x]+colonne[i]).getEtat());
+				np.getCase(ligne[x] + colonne[i]).setEtat(p.getCase(ligne[x] + colonne[i]).getEtat());
 			}
 		}
 		np.setCasesDisponible(p.casesDisponible);
 		return np;
 
 	}
+
 	public static String[] getLigne() {
 		return ligne;
 	}
@@ -547,6 +570,7 @@ public class Plateau implements Serializable {
 	public void setPlateauTab(Case[][] plateauTab) {
 		this.plateauTab = plateauTab;
 	}
+
 	public HashMap<String, Case> getPlateauMap() {
 		return plateauMap;
 	}
@@ -562,6 +586,5 @@ public class Plateau implements Serializable {
 	public void setCasesDisponible(ArrayList<String> casesDisponible) {
 		this.casesDisponible = casesDisponible;
 	}
-
 
 }

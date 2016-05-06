@@ -228,7 +228,7 @@ public class PlateauController implements Initializable {
 		});
 	}
 	/**
-	 * Fusion de chaîne -> le joueur doit choisir les actions qu'il souhaite
+	 * Fusion de chaîne  le joueur doit choisir les actions qu'il souhaite
 	 * acheter/vendre/échanger
 	 */
 	public void setChoixFusionEchangeAchatVente(Game g) {
@@ -279,7 +279,7 @@ public class PlateauController implements Initializable {
 
 	/**
 	 * Méthode appelée par le Serveur quand le joueur a cliqué sur une Case
-	 * adjacente à plusieurs chaînes de mêmes tailles -> Le joueur doit choisir
+	 * adjacente à plusieurs chaînes de mêmes tailles  Le joueur doit choisir
 	 * la chaîne absorbante.
 	 */
 	public void setChoixFusionSameSizeChaine(Game g) {

@@ -225,8 +225,12 @@ public class Plateau implements Serializable {
 		ArrayList<Case> tabCasesAModifier = new ArrayList<Case> (setCasesAModifier);
 
 		if(chaineDifferente.size()==1)
+		{
 			//Le nombre de chaine différente est de 1, donc la case est entourée par la même chaine, donc la grande chaine est la seule chaine
 			listeGrandesChaines=chaineDifferente;
+			fusionChaines(listeChaine,chaineDifferente,listeGrandesChaines.get(0),tabCasesAModifier);
+			return null;
+		}
 		else
 			//Nous avons plusieurs chaines différentes, on regarde si elles sont toutes la même taille
 			listeGrandesChaines = sameSizeChaine(chaineDifferente);
@@ -308,7 +312,11 @@ public class Plateau implements Serializable {
 			casesDisponible.remove(c);	
 		return c;
 	}
-	
+	/**
+	 * Pose un hotel pour la banque sur le plateau, lors d'une fusion avec 2 joueurs
+	 * @param listChaines
+	 * @return
+	 */
 	public String poserJetonBanque(ArrayList<Chaine> listChaines) {
 		boolean isOkay=false;
 		Random randomGenerator = new Random();
@@ -382,8 +390,10 @@ public class Plateau implements Serializable {
 	 * @return
 	 */
 	public ArrayList<Chaine> sameSizeChaine(ArrayList<Chaine> chaineDifferentes){
+		
 		ArrayList<Chaine> returnGrandesChaines = new ArrayList<>();
 		ArrayList<Chaine> triCroissantTaille = chaineDifferentes;
+		
 		Collections.sort(triCroissantTaille,new Comparator<Chaine>(){
 			@Override
 			public int compare(Chaine c1, Chaine c2){

@@ -290,14 +290,10 @@ public class TestPlateau {
 		listeChaine.get(2).addCase(plateauTest.getPlateauMap().get("F6"));
 		listeChaine.get(2).addCase(plateauTest.getPlateauMap().get("F7"));
 		// La derniere chaine est plus grande que les autres, doit donc retourner cette chaine
-		assertEquals(listeChaine.get(2),plateauTest.sameSizeChaine(listeChaine));
+		Chaine chTest = plateauTest.sameSizeChaine(listeChaine).get(0);
+		assertEquals(listeChaine.get(0),chTest);
 
 	}
-	// test updateCase pour changement de couleur de chaines
-
-
-
-
 	@Test
 	public void testupdateCase(){
 		// création de 3 Chaines avec des taille différentes
@@ -349,37 +345,79 @@ public class TestPlateau {
 
 	@Test
 	public void CasesGrises() {
-
+		ArrayList<String> main = new ArrayList<>();
 		Case c1 = plateauTest.getCase("C1");
 		Case c3 = plateauTest.getCase("C3");
 		listeChaine.get(0).addCase(c1);
-		listeChaine.get(0).addCase(new Case());
-		listeChaine.get(0).addCase(new Case());
-		listeChaine.get(0).addCase(new Case());
-		listeChaine.get(0).addCase(new Case());
-		listeChaine.get(0).addCase(new Case());
-		listeChaine.get(0).addCase(new Case());
-		listeChaine.get(0).addCase(new Case());
-		listeChaine.get(0).addCase(new Case());
-		listeChaine.get(0).addCase(new Case());
-		listeChaine.get(0).addCase(new Case());
-		listeChaine.get(0).addCase(new Case());
+		listeChaine.get(0).addCase(new Case("north"));
+		listeChaine.get(0).addCase(new Case("north"));
+		listeChaine.get(0).addCase(new Case("north"));
+		listeChaine.get(0).addCase(new Case("north"));
+		listeChaine.get(0).addCase(new Case("north"));
+		listeChaine.get(0).addCase(new Case("north"));
+		listeChaine.get(0).addCase(new Case("north"));
+		listeChaine.get(0).addCase(new Case("north"));
+		listeChaine.get(0).addCase(new Case("north"));
+		listeChaine.get(0).addCase(new Case("north"));
+		listeChaine.get(0).addCase(new Case("north"));
+		listeChaine.get(0).addCase(new Case("north"));
 		//liste2
 		listeChaine.get(1).addCase(c3);
-		listeChaine.get(1).addCase(new Case());
-		listeChaine.get(1).addCase(new Case());
-		listeChaine.get(1).addCase(new Case());
-		listeChaine.get(1).addCase(new Case());
-		listeChaine.get(1).addCase(new Case());
-		listeChaine.get(1).addCase(new Case());
-		listeChaine.get(1).addCase(new Case());
-		listeChaine.get(1).addCase(new Case());
-		listeChaine.get(1).addCase(new Case());
-		listeChaine.get(1).addCase(new Case());
-		//TODO
-		//plateauTest.CasesGrises(listeChaine);
-		assertEquals(1,-plateauTest.getCase("C2").getEtat());
-		assertFalse(plateauTest.getCasesDisponible().contains("C2"));
+		listeChaine.get(1).addCase(new Case("south"));
+		listeChaine.get(1).addCase(new Case("south"));
+		listeChaine.get(1).addCase(new Case("south"));
+		listeChaine.get(1).addCase(new Case("south"));
+		listeChaine.get(1).addCase(new Case("south"));
+		listeChaine.get(1).addCase(new Case("south"));
+		listeChaine.get(1).addCase(new Case("south"));
+		listeChaine.get(1).addCase(new Case("south"));
+		listeChaine.get(1).addCase(new Case("south"));
+		listeChaine.get(1).addCase(new Case("south"));
+		listeChaine.get(1).addCase(new Case("south"));
+		listeChaine.get(1).addCase(new Case("south"));
+		
+		main.add("C2");
+		
+		ArrayList<String> returnCasesGrises = plateauTest.CasesGrises(listeChaine,main);
+		int varTest = plateauTest.getCase("C2").getEtat();
+		assertEquals(-1,varTest);
+		assertEquals(returnCasesGrises.get(0),plateauTest.getCase("C2").getNom());
+	}
+	// full chiane /  fusion chaine
+	@Test
+	public void testSetGrise(){
+		for(int i = 0 ; i< 9 ; i++)
+			listeChaine.get(0).addCase(new Case("north"));
+		
+		for(int i = 0 ; i< 13 ; i++)
+			listeChaine.get(1).addCase(new Case("south"));
+		
+		for(int i = 0 ; i< 9 ; i++)
+			listeChaine.get(2).addCase(new Case("south"));
+		
+		// une seule chaine est supérieure
+		assertFalse(plateauTest.setGrise(listeChaine));
+		
+		listeChaine.get(2).addCase(new Case("south"));
+		listeChaine.get(2).addCase(new Case("south"));
+		listeChaine.get(2).addCase(new Case("south"));
+		listeChaine.get(2).addCase(new Case("south"));
+		listeChaine.get(2).addCase(new Case("south"));
+		
+		// deux chiane supérieures a 11 
+		
+		assertTrue(plateauTest.setGrise(listeChaine));
+		
+		listeChaine.get(0).addCase(new Case("north"));
+		listeChaine.get(0).addCase(new Case("north"));
+		listeChaine.get(0).addCase(new Case("north"));
+		listeChaine.get(0).addCase(new Case("north"));
+		listeChaine.get(0).addCase(new Case("north"));
+		
+		// les trois chaines sont supérieures  à 11
+		assertTrue(plateauTest.setGrise(listeChaine));
+		
+		
 	}
 
 

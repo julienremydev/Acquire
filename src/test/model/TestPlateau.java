@@ -409,10 +409,6 @@ public class TestPlateau {
 		assertTrue(plateauTest.getCase("A1").getNorth()==null);
 	}
 	
-	
-	/**
-	 * TODO : a revoir
-	 */
 	@Test
 	public void testFullChaine(){
 				

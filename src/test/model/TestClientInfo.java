@@ -50,13 +50,7 @@ public class TestClientInfo {
 		assertEquals(1, clientTest.getMain().size());
 		String cas = clientTest.getMain().get(0);
 		assertFalse(plateau.getCasesDisponible().contains(cas));
-	}
-	
-	@Test 
-	public void testUpdateNet() {
-		//TODO ajouter actions
-	}
-	
+	}	
 	@Test
 	public void testGetPrime() {
 		clientTest.setEtat(TypeChaine.AMERICA.getNumero(), "M+,0");

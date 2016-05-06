@@ -203,25 +203,6 @@ public class TestPlateau {
 		assertTrue(j == nbJoueur);
 
 	}
-
-	//La methode test si 1 cases est generer correctement
-	@Test
-	public void TestAjouteMain1foisCaseNoir() {
-		int j = 0;
-		int casesDispDebut = plateauTest.getCasesDisponible().size();
-		plateauTest.ajouteMain1foisCaseNoir();
-		int casesDispApres = plateauTest.getCasesDisponible().size();
-		assertTrue(casesDispApres == casesDispDebut - 1);
-
-
-		for ( String e : plateauTest.getPlateauMap().keySet()) {
-			if(plateauTest.getPlateauMap().get(e).getEtat()==1){
-				j++;
-			}
-		}
-		assertTrue(j == 1);
-
-	}
 	// Test dans le cas ou les chaines n'ont pas de taille différentes
 	@Test
 	public void testlisteChaineDifferentesEgales(){
@@ -416,10 +397,11 @@ public class TestPlateau {
 		
 		// les trois chaines sont supérieures  à 11
 		assertTrue(plateauTest.setGrise(listeChaine));
-		
+	}
+	@Test
+	public void testFullChaine(){
 		
 	}
-
 
 
 

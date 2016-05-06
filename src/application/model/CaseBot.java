@@ -17,7 +17,7 @@ public class CaseBot extends Case {
 	 */
 	@Override
 	public boolean surroundedByNothing() {
-		if ((this.getNorth().getEtat() == 0)  && (this.getEast().getEtat() == 0) && (this.getWest().getEtat() == 0))
+		if ((this.getNorth().getEtat() <= 0)  && (this.getEast().getEtat() <= 0) && (this.getWest().getEtat() <= 0))
 			return true;
 		else
 			return false;

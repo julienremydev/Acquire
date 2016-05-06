@@ -17,7 +17,7 @@ public class CaseRight extends  Case {
 	 * @return
 	 */
 	public boolean surroundedByNothing() {
-		if ((this.getNorth().getEtat() == 0)  && (this.getSouth().getEtat() == 0) && (this.getWest().getEtat() == 0))
+		if ((this.getNorth().getEtat() <= 0)  && (this.getSouth().getEtat() <= 0) && (this.getWest().getEtat() <= 0))
 			return true;
 		else
 			return false;

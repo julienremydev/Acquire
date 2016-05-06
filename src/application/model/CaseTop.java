@@ -17,7 +17,7 @@ public class CaseTop extends Case{
 	 * @return
 	 */
 	public boolean surroundedByNothing() {
-		if ((this.getSouth().getEtat() == 0)  && (this.getEast().getEtat() == 0) && (this.getWest().getEtat() == 0))
+		if ((this.getSouth().getEtat() <= 0)  && (this.getEast().getEtat() <= 0) && (this.getWest().getEtat() <= 0))
 			return true;
 		else
 			return false;

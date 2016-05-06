@@ -232,7 +232,7 @@ public class Plateau implements Serializable {
 		Set<Case> setCasesAModifier = new HashSet<Case>();
 		setCasesAModifier.addAll(addRecurse(setCasesAModifier,caseModifiee));
 		ArrayList<Case> tabCasesAModifier = new ArrayList<Case> (setCasesAModifier);
-
+		
 		if(chaineDifferente.size()==1)
 		{
 			//Le nombre de chaine différente est de 1, donc la case est entourée par la même chaine, donc la grande chaine est la seule chaine

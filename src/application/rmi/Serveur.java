@@ -98,13 +98,19 @@ public class Serveur extends UnicastRemoteObject implements ServeurInterface {
 	 * Traitement du modele
 	 */
 	public void getCasePlayed(String text, String pseudo) throws RemoteException {
+
 		if (getGame().isPartiecommencee()) {
 			Logger.getLogger("Serveur").log(Level.INFO, text);
 			getGame().setAction(game.getPlateau().updateCase(text, game.getListeChaine()));
-
 			piocheCaseFinTour(text,pseudo);
+			ArrayList<String> main = game.getPlateau().CasesGrises(game.getListeChaine(), game.getTableauDeBord().getClientInfo(pseudo).getMain());
+			for (String cas : main) {
+				game.getTableauDeBord().getClientInfo(pseudo).getMain().remove(cas);
+				game.getTableauDeBord().getClientInfo(pseudo).ajouteMain1fois(game.getPlateau());
+			}
 			if (getGame().getAction() == null) {
 				sendEndTurnAction();
+				distribution();
 			}else{
 				if ( getGame().getAction().getChoix() == Globals.choixActionFusionEchangeAchatVente && getGame().isPartieDeuxJoueurs() ){
 					setPiocheBanque();
@@ -112,7 +118,7 @@ public class Serveur extends UnicastRemoteObject implements ServeurInterface {
 					sendPrimeTchat(arrayPrime);
 					nextTurnAction();
 					getGame().getTableauDeBord().getInfoParClient().remove("Serveur");
-					
+
 				}else if (getGame().getAction().getChoix() == Globals.choixActionFusionEchangeAchatVente ){
 					ArrayList<ArrayList<String>> arrayPrime = getGame().getPrime();
 					sendPrimeTchat(arrayPrime);
@@ -132,12 +138,12 @@ public class Serveur extends UnicastRemoteObject implements ServeurInterface {
 					distributionTchat("Serveur", "Primes pour la chaine "+arrayPrime.get(i).get(j));
 				}else if (j%2 == 1 && Integer.parseInt(arrayPrime.get(i).get(j+1)) != 0){
 					distributionTchat("Serveur", "Le joueur "+arrayPrime.get(i).get(j)+" reçoit "+arrayPrime.get(i).get(j+1));
-					
+
 				}
 			}
 		}
 	}
-	
+
 	private void setPiocheBanque() throws RemoteException {
 		String caseNoire = getGame().getPlateau().poserJetonBanque(game.getListeChaine());
 		int nb_actions_banque = Integer.parseInt(caseNoire.substring(1, caseNoire.length()));
@@ -205,7 +211,7 @@ public class Serveur extends UnicastRemoteObject implements ServeurInterface {
 			sendPrimeTchat(arrayPrime);
 			nextTurnAction();
 			getGame().getTableauDeBord().getInfoParClient().remove("Serveur");
-			
+
 		}else{
 			ArrayList<ArrayList<String>> arrayPrime = getGame().getPrime();
 			sendPrimeTchat(arrayPrime);
@@ -343,7 +349,7 @@ public class Serveur extends UnicastRemoteObject implements ServeurInterface {
 		getGame().setPartiecommencee(true);
 		if ( liste_clients.size() == 2 )
 			getGame().setPartieDeuxJoueurs(true);
-		
+
 		distributionTchat("Serveur", "Le joueur " + getGame().getChef() + " a démarré la partie.");
 
 		// initialisation des cases noirs pour chaque joueur
@@ -485,20 +491,25 @@ public class Serveur extends UnicastRemoteObject implements ServeurInterface {
 	 * Methode de calcul du prochain tour et notification du client
 	 */
 	public void nextTurn(String pseudo)  throws RemoteException {
-		ArrayList<String> main = game.getPlateau().CasesGrises(game.getListeChaine(), game.getTableauDeBord().getClientInfo(pseudo).getMain());
-		for (String cas : main) {
-			game.getTableauDeBord().getClientInfo(pseudo).getMain().remove(cas);
-			game.getTableauDeBord().getClientInfo(pseudo).ajouteMain1fois(game.getPlateau());
-		}
+		//TODO
 		game.setPlayerTurn(getGame().whoseTurn(pseudo));
-		for (ClientInfo c : game.getTableauDeBord().getInfoParClient().values()) {
-			game.getPlateau().CasesGrises(game.getListeChaine(), c.getMain());
-		}
-		
+
+
 		if ( liste_clients.containsKey(game.getPlayerTurn())){
-			game.getPlateau().CasesGrises(game.getTableauDeBord().getListeChaine(), game.getTableauDeBord().getInfoParClient().get(pseudo).getMain());
+
 			liste_clients.get(game.getPlayerTurn()).turn();
+
+			for (ClientInfo c : game.getTableauDeBord().getInfoParClient().values()) {
+				game.getPlateau().CasesGrises(game.getListeChaine(), c.getMain());
+				for(String s : game.getPlateau().CasesGrises(game.getListeChaine(), c.getMain())) {
+					game.getPlateau().getCase(s).setEtat(-1);
+				}
+
+			//	System.out.println(game.getPlateau().getCase(s).getEtat());
+
+			}
 		}
+
 	}
 
 	public void isOver() throws RemoteException{
@@ -516,7 +527,7 @@ public class Serveur extends UnicastRemoteObject implements ServeurInterface {
 		Enumeration<ClientInterface> e = liste_clients.elements();
 		while (e.hasMoreElements())
 			e.nextElement().receiveClassement(winnerNet);
-		
+
 		setListe_clients(new Hashtable<String, ClientInterface>());
 		game = new Game();
 	}

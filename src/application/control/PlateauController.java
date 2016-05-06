@@ -608,6 +608,8 @@ public class PlateauController implements Initializable {
 					client.sauvegardePartie();
 				} catch (RemoteException e1) {
 					Logger.getLogger("Client").log(Level.SEVERE,"Probleme de connexion");
+				} catch (IOException e1) {
+					Logger.getLogger("Client").log(Level.SEVERE,"Probleme de connexion");
 				}
 			}
 		});
@@ -699,6 +701,7 @@ public class PlateauController implements Initializable {
 	public static void sauvgarderGame(Game g, String adr)
 			throws JsonGenerationException, JsonMappingException, IOException {
 
+		
 		ObjectMapper mapper = new ObjectMapper();
 		File nf = new File(adr);
 		mapper.enable(SerializationFeature.INDENT_OUTPUT);
@@ -709,14 +712,46 @@ public class PlateauController implements Initializable {
 	 * 
 	 * Enregistrement du GAME au format JSON sur la machine du client
 	 */
-	public void saveTheGame(Game g) throws RemoteException {
+	public void saveTheGame(Game g) throws RemoteException, IOException {
 		if (g != null) {
-			try {
-				sauvgarderGame(g, "AcquireGame.json");
-			} catch (IOException e) {
-				Logger.getLogger("Client").log(Level.SEVERE,"Probleme de sauvegarde");
-			}
+			Platform.runLater(new Runnable() {
+				@Override
+				public void run() {
+					Stage stage = (Stage) saveGame.getScene().getWindow();
+					//sauvgarderGame(g, "AcquireGame.json");
+					
+					 FileChooser fileChooser = new FileChooser();
+					    fileChooser.setTitle("Save JSON");
+					 // On définit le filtre des extensions :JSON
+						FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("JSON files (*.json)",
+								"*.json");
+						fileChooser.getExtensionFilters().add(extFilter);
+
+					    File file = fileChooser.showSaveDialog(stage);
+					    if (file != null) {
+					        try {
+					        	ObjectMapper mapper = new ObjectMapper();
+					        	
+								mapper.enable(SerializationFeature.INDENT_OUTPUT);
+								mapper.writeValue(file, g);
+					        } catch (IOException ex) {
+					            System.out.println(ex.getMessage());
+					        }
+					    }
+				}
+			});
+			
 		} else {
+			Platform.runLater(new Runnable() {
+				@Override
+				public void run() {
+					Text tbold = new Text ();
+					tbold.setFill(Color.RED);
+					tbold.setFont(Font.font(java.awt.Font.SERIF, FontWeight.BOLD, 13));
+					tbold.setText("La partie doit être commencée avant de la sauvegarder.\n");
+					tchat.getChildren().add(tbold);
+				}
+			});
 		}
 
 	}
@@ -734,7 +769,6 @@ public class PlateauController implements Initializable {
 	}
 
 	public void endingGame(ArrayList<String> winner) {
-		System.out.println(winner);
 		Platform.runLater(new Runnable() {
 			@Override
 			public void run() {

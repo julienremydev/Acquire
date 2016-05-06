@@ -1,5 +1,7 @@
 package application.rmi;
 
+import java.io.File;
+import java.io.IOException;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
@@ -11,7 +13,7 @@ import application.model.TypeChaine;
 
 public interface ServeurInterface extends Remote{
 
-	String register(ClientInterface client, String p, boolean loadJSON) throws Exception;
+	String register(ClientInterface client, String p, boolean loadJSON, File file) throws Exception;
 
 	void distribution() throws RemoteException;
 	
@@ -33,7 +35,7 @@ public interface ServeurInterface extends Remote{
 
 	void choixCouleurFusion(ArrayList<Chaine> arrayList, ArrayList<Chaine> listeChaineAModif, Chaine c, ArrayList<Case> arrayList2) throws RemoteException;
 
-	void clientSaveGame(String pseudo) throws RemoteException;
+	void clientSaveGame(String pseudo) throws RemoteException, IOException;
 
 	void choiceFusionAction(HashMap<String, Integer> actions_fusions, Chaine chaineAbsorbee, Chaine chaineAbsorbante, String pseudo,int prix_action_absorbante, int prix_action_absorbee) throws RemoteException;
 

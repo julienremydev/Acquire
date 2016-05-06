@@ -47,8 +47,9 @@ public class Serveur extends UnicastRemoteObject implements ServeurInterface {
 	/**
 	 * Le client veut sauvegarder la partie
 	 * On lui envoie le Game
+	 * @throws IOException 
 	 */
-	public void clientSaveGame(String pseudo) throws RemoteException{
+	public void clientSaveGame(String pseudo) throws IOException{
 		if ( getGame().isPartiecommencee() || getGame().isPartiechargee())
 			liste_clients.get(pseudo).receiveGameForSave(getGame());
 		else
@@ -289,7 +290,7 @@ public class Serveur extends UnicastRemoteObject implements ServeurInterface {
 	 * il a le même pseudo qu'un autre joueur.
 	 */
 	@Override
-	public synchronized String register(ClientInterface client, String p, boolean loadJSON) throws Exception {
+	public synchronized String register(ClientInterface client, String p, boolean loadJSON, File file) throws Exception {
 
 		String erreur = erreurRegister(p, loadJSON);
 
@@ -306,8 +307,8 @@ public class Serveur extends UnicastRemoteObject implements ServeurInterface {
 		//Chargement du fichier JSON : MAJ du GAME+ClientInfo
 		if ( loadJSON ){
 
-			this.game= chargerGame("AcquireGame.json");
-			this.game.setPlateau(Plateau.plateauRegeneration(chargerGame("AcquireGame.json").getPlateau()));
+			this.game= chargerGame(file);
+			this.game.setPlateau(Plateau.plateauRegeneration(chargerGame(file).getPlateau()));
 			this.game.getPlateau().affichePlateau();
 
 			getGame().setPartiechargee(true);
@@ -318,7 +319,6 @@ public class Serveur extends UnicastRemoteObject implements ServeurInterface {
 			//ajout du joueur dans le tableau de bord si il se connecte pour la première fois
 			if ( !game.getTableauDeBord().getInfoParClient().containsKey(p) ){
 				game.getTableauDeBord().ajouterClient(new ClientInfo(p));
-				//if (getGame().getPlayerTurn()!=null) {
 			}
 			if (getGame().isPartiecommencee()) {
 				if (getGame().getPlayerTurn().equals(p)) {
@@ -493,9 +493,6 @@ public class Serveur extends UnicastRemoteObject implements ServeurInterface {
 				for(String s : game.getPlateau().CasesGrises(game.getListeChaine(), c.getMain())) {
 					game.getPlateau().getCase(s).setEtat(-1);
 				}
-
-			//	System.out.println(game.getPlateau().getCase(s).getEtat());
-
 			}
 		}
 
@@ -523,17 +520,17 @@ public class Serveur extends UnicastRemoteObject implements ServeurInterface {
 
 	/**
 	 * methode permets de charger l'objet game recuperé en JSON 
-	 * @param adr
+	 * @param file
 	 * @return
 	 * @throws JsonParseException
 	 * @throws JsonMappingException
 	 * @throws IOException
 	 */
-	public static Game chargerGame(String adr) throws JsonParseException, JsonMappingException, IOException {
+	public static Game chargerGame(File file) throws JsonParseException, JsonMappingException, IOException {
 
 		ObjectMapper mapper = new ObjectMapper();
 		// JSON from file to Object
-		Game g = mapper.readValue(new File(adr), Game.class);
+		Game g = mapper.readValue(file, Game.class);
 		// JSON from String to Object
 		return g;
 	}

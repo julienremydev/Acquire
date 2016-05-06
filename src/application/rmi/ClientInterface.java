@@ -1,5 +1,6 @@
 package application.rmi;
 
+import java.io.IOException;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
@@ -20,7 +21,7 @@ public interface ClientInterface extends Remote{
 
 	void receiveBuyAction(Game game) throws RemoteException;
 
-	void receiveGameForSave(Game game) throws RemoteException;
+	void receiveGameForSave(Game game) throws RemoteException, IOException;
 	
 	void receiveClassement (ArrayList<String> winner) throws RemoteException;
 	

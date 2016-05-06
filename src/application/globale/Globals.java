@@ -27,6 +27,7 @@ public class Globals {
 	public final static String erreurFileNotFoundJSON = "Le chemin du fichier n'est pas correct.";
 	public final static String erreurChargementJSONimpossible = "Chargement JSON impossible. Une partie est en cours.";
 	public final static String erreurForbiddenPlayer = "Vous n'êtes pas autorisé à rejoindre cette partie. \n Attendez la fin de la partie en cours ou vérifiez la syntaxe de votre pseudo si vous en faites partie.";
+	public final static String erreurPlayerNotFoundJSON = "Votre pseudo ne correpond pas aux joueurs de la partie enregistrée.";
 
 	/*
 	 * Constantes -> Couleurs des boutons du plateau

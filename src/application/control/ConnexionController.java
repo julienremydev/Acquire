@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.IOException;
 import java.net.InetAddress;
 import java.net.URL;
 import java.net.UnknownHostException;
@@ -15,8 +16,13 @@ import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import application.globale.Globals;
 import application.rmi.Client;
+import application.rmi.Game;
 import application.rmi.ServeurInterface;
 import application.view.JfxUtils;
 import javafx.application.Platform;
@@ -156,12 +162,9 @@ public class ConnexionController implements Initializable {
 		String verifErreurJSON = verification_JSON(checkBoxJSON.isSelected(), fileJSON);
 		if (verifErreur != null) {
 			erreur.setText(verifErreur);
-			/**
-			 * TODO : Verification JSON a faire
-			 */
-		} /** else if (verifErreurJSON != null) {
+		}  else if (verifErreurJSON != null) {
 			erreur.setText(verifErreurJSON);
-		} **/else { 
+		} else { 
 			try {
 
 				ServeurInterface serveur = connexion(ip1.getText().trim(), ip2.getText().trim(), ip3.getText().trim(),
@@ -176,7 +179,7 @@ public class ConnexionController implements Initializable {
 				 * La méthode register retourne un String avec l'erreur si la
 				 * connexion n'est pas possible
 				 */
-				String register = serveur.register(client, pseudo.getText(), checkBoxJSON.isSelected());
+				String register = serveur.register(client, pseudo.getText().trim(), checkBoxJSON.isSelected(),fileJSON);
 
 				if (register != null) {
 					erreur.setText(register);
@@ -200,12 +203,24 @@ public class ConnexionController implements Initializable {
 	 * 
 	 */
 	public String checkFile(File file) {
-		try {
-			BufferedReader br = new BufferedReader(new FileReader(file.toString()));
-			return Globals.erreurFileJSON;
-		} catch (FileNotFoundException e) {
-			return Globals.erreurFileNotFoundJSON;
-		}
+
+			ObjectMapper mapper = new ObjectMapper();
+			// JSON from file to Object
+			try {
+				Game g = mapper.readValue(file, Game.class);
+				if (!g.getTableauDeBord().getInfoParClient().containsKey(pseudo.getText().trim())){
+					return Globals.erreurPlayerNotFoundJSON;
+				}
+				
+			} catch (JsonParseException e) {
+				return Globals.erreurFileJSON;
+			} catch (JsonMappingException e) {
+				return Globals.erreurFileJSON;
+			} catch (IOException e) {
+				return Globals.erreurFileNotFoundJSON;
+			}
+			return null;	
+		 
 	}
 
 	/*

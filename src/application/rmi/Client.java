@@ -1,5 +1,6 @@
 package application.rmi;
 
+import java.io.IOException;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
@@ -124,10 +125,10 @@ public class Client extends UnicastRemoteObject implements ClientInterface {
 		serveur.nextTurn(pseudo);
 	}
 
-	public void sauvegardePartie() throws RemoteException{
+	public void sauvegardePartie() throws IOException{
 		serveur.clientSaveGame(getPseudo());
 	}
-	public void receiveGameForSave(Game game) throws RemoteException{
+	public void receiveGameForSave(Game game) throws IOException{
 		this.plateauController.saveTheGame ( game );
 	}
 

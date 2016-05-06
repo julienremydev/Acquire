@@ -46,14 +46,14 @@ public class Plateau implements Serializable {
 		}
 	}
 
-		
 
-		@JsonCreator
-		public Plateau(@JsonProperty("casesDisponible")ArrayList<String> casesDisponible) {
-			plateauMap = new HashMap<String, Case>();
-			initCasesPlateau();
-			initCasesAdjascentes();
-			this.casesDisponible = casesDisponible;
+
+	@JsonCreator
+	public Plateau(@JsonProperty("casesDisponible")ArrayList<String> casesDisponible) {
+		plateauMap = new HashMap<String, Case>();
+		initCasesPlateau();
+		initCasesAdjascentes();
+		this.casesDisponible = casesDisponible;
 		/**
 		 * for (Entry<String, Case> entry : plateauMap.entrySet()) {
 		 * casesDisponible.add((String) entry.getKey()); }
@@ -225,7 +225,7 @@ public class Plateau implements Serializable {
 			listeChaine.get(tab.get(0).getEtat()-2).addCase(caseModifiee);
 			return null;
 		}
-		
+
 		ArrayList<Chaine> chaineDifferente = listeChaineDifferentes(tab, listeChaine);
 		ArrayList<Chaine> listeGrandesChaines = new ArrayList<>();
 		//Creation de la liste de Case hotels éventuelles à intégrer dans la fusion
@@ -315,10 +315,10 @@ public class Plateau implements Serializable {
 		Random randomGenerator = new Random();
 		int index;
 		String c = "";
-			index = randomGenerator.nextInt(casesDisponible.size());
-			c = casesDisponible.get(index);
-			plateauMap.get(c).setEtat(1);
-			casesDisponible.remove(c);	
+		index = randomGenerator.nextInt(casesDisponible.size());
+		c = casesDisponible.get(index);
+		plateauMap.get(c).setEtat(1);
+		casesDisponible.remove(c);	
 		return c;
 	}
 	/**
@@ -399,10 +399,10 @@ public class Plateau implements Serializable {
 	 * @return
 	 */
 	public ArrayList<Chaine> sameSizeChaine(ArrayList<Chaine> chaineDifferentes){
-		
+
 		ArrayList<Chaine> returnGrandesChaines = new ArrayList<>();
 		ArrayList<Chaine> triCroissantTaille = chaineDifferentes;
-		
+
 		Collections.sort(triCroissantTaille,new Comparator<Chaine>(){
 			@Override
 			public int compare(Chaine c1, Chaine c2){
@@ -519,6 +519,9 @@ public class Plateau implements Serializable {
 					if (cas2.surroundedByHotels()&&!cas2.surroundedByChains()) {
 						cas2.setEtat(-2);
 					}
+					else {
+						cas2.setEtat(0);
+					}
 				}
 			}
 		}
@@ -586,6 +589,6 @@ public class Plateau implements Serializable {
 	public void setCasesDisponible(ArrayList<String> casesDisponible) {
 		this.casesDisponible = casesDisponible;
 	}
-	
-	
+
+
 }

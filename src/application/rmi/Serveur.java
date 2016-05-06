@@ -259,6 +259,8 @@ public class Serveur extends UnicastRemoteObject implements ServeurInterface {
 			game.getTableauDeBord().getInfoParClient().get(pseudo).ajouteMain1fois(game.getPlateau());
 		}
 		else {
+			int indice = game.getTableauDeBord().getInfoParClient().get(pseudo).getMain().indexOf(text);
+			game.getTableauDeBord().getInfoParClient().get(pseudo).getMain().remove(indice);
 			for (ClientInfo c : game.getTableauDeBord().getInfoParClient().values()) {
 				if (c.getMain().isEmpty()) {
 					nbJoueursVide++;
@@ -431,9 +433,7 @@ public class Serveur extends UnicastRemoteObject implements ServeurInterface {
 				c.getMain().remove(s);
 				c.ajouteMain1fois(this.game.getPlateau());
 			}
-		}
-
-		
+		}		
 		this.game.getTableauDeBord().updateActionnaire();
 
 		// MODIFICATION DU GAME ICI

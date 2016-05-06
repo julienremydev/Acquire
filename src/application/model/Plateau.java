@@ -355,16 +355,6 @@ public class Plateau implements Serializable {
 		}
 		return c;
 	}
-
-	/**
-	 * Ajoute 1 cases cliquable pour le joueur
-	 */
-
-	public void ajouteMain1foisCaseNoir() {
-		String c = casesDisponible.get(0 + (int) (Math.random() * casesDisponible.size() - 1));
-		plateauMap.get(c).setEtat(1);
-		casesDisponible.remove(c);
-	}
 	/**
 	 * Retourn l'arrayList de case avec des etat différents, donc des chaines différentes
 	 * @param tab

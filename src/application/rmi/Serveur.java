@@ -65,7 +65,13 @@ public class Serveur extends UnicastRemoteObject implements ServeurInterface {
 		if (liste_clients.containsKey(getGame().getChef()))
 			liste_clients.get(getGame().getChef()).setBEnable(b);
 	}
-
+	/**
+	 * Veirification d'erreurs de registre dans le JSON
+	 * @param p
+	 * @param loadJSON
+	 * @return
+	 * @throws RemoteException
+	 */
 	public String erreurRegister(String p, boolean loadJSON) throws RemoteException {
 		//Chargement d'une partie et il y a déjà des joueurs sur le serveur
 		if (loadJSON && liste_clients.size() != 0 )
@@ -141,7 +147,11 @@ public class Serveur extends UnicastRemoteObject implements ServeurInterface {
 			distribution();
 		}
 	}
-
+	/**
+	 * Envoi des primes des joueurs lors d'une fusion dans le Chat
+	 * @param arrayPrime
+	 * @throws RemoteException
+	 */
 	private void sendPrimeTchat (ArrayList<ArrayList<String>> arrayPrime) throws RemoteException{
 		for (int i = 0;i<arrayPrime.size();i++){
 			for (int j=0;j<arrayPrime.get(i).size();j++){
@@ -154,7 +164,10 @@ public class Serveur extends UnicastRemoteObject implements ServeurInterface {
 			}
 		}
 	}
-
+	/**
+	 * Lorsqu'il n'y a que deux joueur, permet a la banque de piocher une case
+	 * @throws RemoteException
+	 */
 	private void setPiocheBanque() throws RemoteException {
 		String caseNoire = getGame().getPlateau().poserJetonBanque(game.getListeChaine());
 		int nb_actions_banque = Integer.parseInt(caseNoire.substring(1, caseNoire.length()));
@@ -170,7 +183,9 @@ public class Serveur extends UnicastRemoteObject implements ServeurInterface {
 			distributionTchat("Serveur", "La banque pioche la case:" + caseNoire + ". Elle possède "+nb_actions_banque+ " action.");
 		}
 	}
-
+	/**
+	 * Création des chaines sur le serveur lors d'une creation
+	 */
 	@Override
 	public void creationChaineServeur(TypeChaine c) throws RemoteException {
 		getGame().creationChaine(getGame().getAction().getListeDeCaseAModifier(), c, getGame().getPlayerTurn());
@@ -178,7 +193,9 @@ public class Serveur extends UnicastRemoteObject implements ServeurInterface {
 
 		distribution();
 	}
-
+	/**
+	 * Le joueur achete des action lors d'une fusion
+	 */
 	@Override
 	public void achatAction(String nomJoueur, HashMap<TypeChaine, Integer> actionAAcheter) throws RemoteException{
 		getGame().getTableauDeBord().achatActions(nomJoueur, actionAAcheter);
@@ -199,7 +216,9 @@ public class Serveur extends UnicastRemoteObject implements ServeurInterface {
 		distributionTchat("Serveur", actionJoueurNotif);
 		distribution();
 	}
-
+	/**
+	 * Mettre a jour infos du client après vente et échange des actions
+	 */
 	public void choiceFusionAction(HashMap<String, Integer> actions_fusions, Chaine chaineAbsorbee, Chaine chaineAbsorbante, String pseudo,int prix_action_absorbante, int prix_action_absorbee) throws RemoteException{
 		getGame().getTableauDeBord().traiteAction(actions_fusions, chaineAbsorbee, chaineAbsorbante, pseudo,prix_action_absorbante, prix_action_absorbee);
 		if ( getGame().getOrdre_joueur_action().size()==0)
@@ -209,7 +228,11 @@ public class Serveur extends UnicastRemoteObject implements ServeurInterface {
 
 		distribution();
 	}
-
+	/**
+	 * Permet de choisir la couleur de fusion lorsque 2 chaines ont la même taille
+	 * Effectue la fusion et redéfini une action pour la vente et l'échange d'actions
+	 * Vérification si la game se passe a 2 joueurs
+	 */
 	public void choixCouleurFusion(ArrayList<Chaine> listeChainePlateau, ArrayList<Chaine> listeChaineAModif, Chaine c, ArrayList<Case> listeCaseAbsorbee) throws RemoteException {
 		ArrayList<Chaine> listeChaineDifferenteAvantModif = listeChaineAModif;
 		Chaine chaineAbsorbanteAvantFusion = c;
@@ -231,6 +254,10 @@ public class Serveur extends UnicastRemoteObject implements ServeurInterface {
 
 		distribution();
 	}
+	/**
+	 * appelée après que le client a joué -> On lui envoir l'achat d'action si  c possible sinon on change de tour
+	 * @throws RemoteException
+	 */
 	private void sendEndTurnAction() throws RemoteException{
 		if (!getGame().getTableauDeBord().actionAvailableForPlayer(getGame().getPlayerTurn())){
 			nextTurn(getGame().getPlayerTurn());
@@ -238,6 +265,10 @@ public class Serveur extends UnicastRemoteObject implements ServeurInterface {
 			liste_clients.get(getGame().getPlayerTurn()).receiveBuyAction(getGame());
 		}
 	}
+	/**
+	 * Définis l'ordre des tours celon le type d'Action
+	 * @throws RemoteException
+	 */
 	private void nextTurnAction() throws RemoteException{
 		//Premier appel-> On définit l'ordre des tours selon le type d'action
 		if ( getGame().getOrdre_joueur_action().size() == 0){
@@ -284,7 +315,7 @@ public class Serveur extends UnicastRemoteObject implements ServeurInterface {
 			}
 		}
 	}
-	/*
+	/**
 	 * Cette méthode est appelée lors de la connexion d'un client. Le client est
 	 * ajouté à la liste des clients du serveur. Le client n'est pas ajouté si
 	 * il a le même pseudo qu'un autre joueur.
@@ -342,7 +373,9 @@ public class Serveur extends UnicastRemoteObject implements ServeurInterface {
 
 		return null;
 	}
-
+	/**
+	 * appelée quand un joueur lance la partie -> initialisation des mains
+	 */
 	@Override
 	public void setLancement() throws RemoteException {
 		getGame().setPartiecommencee(true);
@@ -397,7 +430,7 @@ public class Serveur extends UnicastRemoteObject implements ServeurInterface {
 		}
 	}
 
-	/*
+	/**
 	 * Suppression du client de la HashTable quand un client ferme son
 	 * application.
 	 */
@@ -421,7 +454,7 @@ public class Serveur extends UnicastRemoteObject implements ServeurInterface {
 		}
 	}
 
-	/*
+	/**
 	 * Distribution à chaque client du game , à chaque modification du plateau
 	 * et des variables du jeu.
 	 */
@@ -443,7 +476,9 @@ public class Serveur extends UnicastRemoteObject implements ServeurInterface {
 
 	}
 
-
+	/**
+	 * Envoi du chat actualisé à chaques clients
+	 */
 	@Override
 	public void distributionTchat(String pseudo, String s) throws RemoteException {
 		getGame().getTchat().add("[" + pseudo + "]");
@@ -494,7 +529,9 @@ public class Serveur extends UnicastRemoteObject implements ServeurInterface {
 		}
 
 	}
-
+	/**
+	 * Termine la partie et envoie le classement
+	 */
 	public void isOver() throws RemoteException{
 		Collection <ClientInfo> clients = this.getGame().getTableauDeBord().getInfoParClient().values();
 		HashMap<String,Integer> classement = new HashMap<String,Integer>();

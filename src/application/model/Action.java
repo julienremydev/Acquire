@@ -9,9 +9,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class Action implements Serializable{
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1987155349689841351L;
 
 	private int choix; // les choix sont dans la classe Globals

@@ -97,7 +97,12 @@ public class Game implements Serializable{
 		else
 			return getOrdre_joueur().get(currentIndice+1);
 	}
-	
+	/**
+	 * Retourne le nom du joeuru qui a joué précédemment
+	 * @param pseudo
+	 * @return
+	 * @throws RemoteException
+	 */
 	public String whoseBeforeTurn (String pseudo) throws RemoteException {
 		int currentIndice = getOrdre_joueur().indexOf(pseudo);
 		if (0==currentIndice) {
@@ -228,7 +233,10 @@ public class Game implements Serializable{
 	public void setChef(String chef) {
 		this.chef = chef;
 	}
-
+	/**
+	 * Permet de savoir si la game se finit
+	 * @return
+	 */
 	@JsonIgnore
 	public boolean isOver() {
 		int iterator = 0;
@@ -263,7 +271,7 @@ public class Game implements Serializable{
 		this.partieDeuxJoueurs = partieDeuxJoueurs;
 	}
 	
-	/*
+	/**
 	 * Méthode qui calcul le prix total des actions que le joueur a choisi
 	 */
 	public int calculArgentImmobiliseAction(HashMap<TypeChaine, Integer> liste_actions){
@@ -276,7 +284,7 @@ public class Game implements Serializable{
 		return tot;
 	}
 	
-	/*
+	/**
 	 * Méthode qui calcul le nombre d'actions que le joueur a choisi
 	 */
 	public int totalesActionsJoueurs(HashMap<TypeChaine, Integer> liste_actions) {

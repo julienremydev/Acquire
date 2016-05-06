@@ -12,9 +12,7 @@ import application.globale.Globals;
 
 public class Chaine implements Serializable{
 	
-	/**
-	 * 
-	 */
+	
 	private static final long serialVersionUID = 6824670178136694341L;
 	private TypeChaine typeChaine;
 	private ArrayList<Case> listeCase;
@@ -57,7 +55,24 @@ public class Chaine implements Serializable{
 		c.setEtat(this.typeChaine.getNumero());
 		this.getListeCase().add(c);
 	}
-	
+	/**
+	 * Ajout les cases de la chaine passée en parametre à la chaine actuelle, puis supprime de la chaine en parametre
+	 */
+	public ArrayList<Case> modifChain(Chaine c) {
+		ArrayList<Case> listeChangement = c.getListeCase();
+		for (Case caseChaine : listeChangement)
+		{
+			this.addCase(caseChaine);
+		}
+		c.removeAll();
+		return this.getListeCase();
+	}
+	/**
+	 * Enleve les cases de la chaine
+	 */
+	private void removeAll() {
+		this.listeCase.removeAll(listeCase);		
+	}
 	
 	/*
 	 * Liste des Getters et Setters des tous les attributs
@@ -98,22 +113,9 @@ public class Chaine implements Serializable{
 		this.actionParClient = actionParClient;
 	}
 
-	/*
-	 * Ajout les cases de la chaine passée en parametre à la chaine actuelle, puis supprime de la chaine en parametre
-	 */
-	public ArrayList<Case> modifChain(Chaine c) {
-		ArrayList<Case> listeChangement = c.getListeCase();
-		for (Case caseChaine : listeChangement)
-		{
-			this.addCase(caseChaine);
-		}
-		c.removeAll();
-		return this.getListeCase();
-	}
+	
 
-	private void removeAll() {
-		this.listeCase.removeAll(listeCase);		
-	}
+	
 
 	
 	@JsonIgnore

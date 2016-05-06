@@ -65,7 +65,7 @@ public class ConnexionController implements Initializable {
 	@FXML
 	private CheckBox checkBoxJSON;
 
-	/*
+	/**
 	 * Vérification syntaxique de l'adresse IP. Return true si la syntaxe est
 	 * correcte, false sinon.
 	 */
@@ -77,7 +77,7 @@ public class ConnexionController implements Initializable {
 			return false;
 	}
 
-	/*
+	/**
 	 * Méthode appelée quand le client se connecte avec succès. On met à jour la
 	 * scène de l'IG.
 	 * 
@@ -110,13 +110,29 @@ public class ConnexionController implements Initializable {
 		});
 
 	}
-
+	/**
+	 * Connexion
+	 * @param ip1
+	 * @param ip2
+	 * @param ip3
+	 * @param ip4
+	 * @return
+	 * @throws Exception
+	 */
 	public ServeurInterface connexion(String ip1, String ip2, String ip3, String ip4) throws Exception {
 		ServeurInterface serveur = (ServeurInterface) Naming
 				.lookup("rmi://" + ip1 + "." + ip2 + "." + ip3 + "." + ip4 + ":42000/ACQUIRE");
 		return serveur;
 	}
-
+	/**
+	 * Vérification du pseudo / taille entre 3 et 12 / pseudo reservé / adresse ip problem
+	 * @param pseudo
+	 * @param ip1
+	 * @param ip2
+	 * @param ip3
+	 * @param ip4
+	 * @return
+	 */
 	public String verification_Pseudo_IP(String pseudo, String ip1, String ip2, String ip3, String ip4) {
 		if (pseudo.length() < 3 || pseudo.length() > 12) {
 			return (Globals.erreurTaillePseudo);
@@ -129,7 +145,7 @@ public class ConnexionController implements Initializable {
 		}
 	}
 
-	/*
+	/**
 	 * En paramètre : le booléen pour savoir si la case est cochée et le fichier
 	 * de l'utilisateur Retourne un String contenant l'erreur, un null si aucune
 	 * erreur
@@ -148,7 +164,7 @@ public class ConnexionController implements Initializable {
 		return null;
 	}
 
-	/*
+	/**
 	 * On vérifie que toutes les données du formulaire de connexion sont
 	 * valables d'un point de vue syntaxique. Le pseudo doit contenir au moins 3
 	 * caractères. L'adresse IP doit comporter 4 nombres entre 0 et 255.
@@ -195,7 +211,7 @@ public class ConnexionController implements Initializable {
 
 	}
 
-	/*
+	/**
 	 * Méthode qui vérifie la syntaxe et le format du fichier JSON
 	 * 
 	 */
@@ -220,7 +236,7 @@ public class ConnexionController implements Initializable {
 		 
 	}
 
-	/*
+	/**
 	 * Méthode appelée lors de l'initialisation du contrôleur. On affiche l'IP
 	 * du client.
 	 */

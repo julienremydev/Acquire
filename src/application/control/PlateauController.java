@@ -129,12 +129,23 @@ public class PlateauController implements Initializable {
 
 
 
-
+	/**
+	 * Set hash map Action
+	 * @param keep
+	 * @param trade
+	 * @param sell
+	 */
 	private void setHMAction ( int keep, int trade, int sell){
 		actions_fusions.put(Globals.hashMapKEEP, keep);
 		actions_fusions.put(Globals.hashMapTRADE, trade);
 		actions_fusions.put(Globals.hashMapSELL, sell);
 	}
+	/**
+	 * Event Action Fusion
+	 * @param choix
+	 * @param g
+	 * @param pseudo
+	 */
 	public void onEventActionFusion(String choix, Game g, String pseudo) {
 		int actionCAbsorbee = g.getTableauDeBord().getClientInfo(pseudo).getActionParChaine()
 				.get(g.getAction().getListeChainesAbsorbees().get(0).getTypeChaine());
@@ -191,7 +202,11 @@ public class PlateauController implements Initializable {
 			}
 		}
 	}
-
+	/**
+	 * Initialisation de Map Action
+	 * @param g
+	 * @param pseudo
+	 */
 	public void initializeMapAction(Game g, String pseudo) {
 		getActions_fusions().put(Globals.hashMapKEEP, g.getTableauDeBord().getClientInfo(pseudo).getActionParChaine()
 				.get(g.getAction().getListeChainesAbsorbees().get(0).getTypeChaine()));
@@ -199,7 +214,6 @@ public class PlateauController implements Initializable {
 		getActions_fusions().put(Globals.hashMapSELL, 0);
 
 	}
-
 	private void setLabelsActions (){
 		labelKEEP.setText(getActions_fusions().get(Globals.hashMapKEEP).toString());
 		labelTRADE.setText(getActions_fusions().get(Globals.hashMapTRADE).toString());
@@ -213,7 +227,7 @@ public class PlateauController implements Initializable {
 			}
 		});
 	}
-	/*
+	/**
 	 * Fusion de chaîne -> le joueur doit choisir les actions qu'il souhaite
 	 * acheter/vendre/échanger
 	 */
@@ -263,7 +277,7 @@ public class PlateauController implements Initializable {
 
 	}
 
-	/*
+	/**
 	 * Méthode appelée par le Serveur quand le joueur a cliqué sur une Case
 	 * adjacente à plusieurs chaînes de mêmes tailles -> Le joueur doit choisir
 	 * la chaîne absorbante.
@@ -294,7 +308,7 @@ public class PlateauController implements Initializable {
 
 	}
 
-	/*
+	/**
 	 * Méthode appelée par le Serveur à la fin du tour d'un joueur Permet au
 	 * client d'acheter des actions
 	 */
@@ -376,7 +390,12 @@ public class PlateauController implements Initializable {
 		Platform.runLater(() -> gridPaneAction.add(buttonOK, 6, 1));
 	}
 
-
+	/**
+	 * Changement du style des boutons
+	 * @param tc
+	 * @param text
+	 * @return
+	 */
 	private Button setStyleButton(TypeChaine tc, String text) {
 		Button b = new Button();
 
@@ -536,14 +555,20 @@ public class PlateauController implements Initializable {
 			g.getTableauDeBord().getInfosChaine().get(0).getInfos().put(g.getTableauDeBord().getListeChaine().get(i).getTypeChaine(), g.getTableauDeBord().getListeChaine().get(i).tailleChaine());
 		}
 	}
-
+	/**
+	 * Envoi du chat
+	 * @throws RemoteException
+	 */
 	public void envoyerTchat() throws RemoteException {
 		if (input.getText().trim().length() > 0){
 			client.getServeur().distributionTchat(client.getPseudo(), input.getText().trim());
 			Platform.runLater(() -> input.clear());
 		}
 	}
-
+	/**
+	 * modification du chat
+	 * @param talk
+	 */
 	private void customiseChat(ArrayList<String> talk){
 		int i = 0;
 		while (i < talk.size()){
@@ -584,7 +609,7 @@ public class PlateauController implements Initializable {
 			}
 		});
 	}
-
+	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		Logger.getLogger("Client").log(Level.INFO, "Client lancé");
@@ -629,7 +654,7 @@ public class PlateauController implements Initializable {
 		letsplay.setDisable(!b);
 	}
 
-	/*
+	/**
 	 * Mise a jour du tableau
 	 */
 	private void setDataTableView(Game g) {
@@ -659,7 +684,10 @@ public class PlateauController implements Initializable {
 		});
 		infosChaine.setItems(dataInfoChaine);
 	}
-
+	/**
+	 * Méthode de lancement
+	 * @throws RemoteException
+	 */
 	public void lancement() throws RemoteException {
 		client.getServeur().setLancement();
 		gridPaneAction.getChildren().clear();
@@ -700,7 +728,7 @@ public class PlateauController implements Initializable {
 		mapper.writeValue(nf, g);
 	}
 
-	/*
+	/**
 	 * 
 	 * Enregistrement du GAME au format JSON sur la machine du client
 	 */
@@ -759,7 +787,10 @@ public class PlateauController implements Initializable {
 			Logger.getLogger("Client").log(Level.SEVERE,"Probleme de fin de partie");
 		}
 	}
-
+	/**
+	 * Fin du game
+	 * @param winner
+	 */
 	public void endingGame(ArrayList<String> winner) {
 		Platform.runLater(new Runnable() {
 			@Override

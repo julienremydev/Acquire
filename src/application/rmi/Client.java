@@ -76,8 +76,6 @@ public class Client extends UnicastRemoteObject implements ClientInterface {
 		this.serveur.getCasePlayed(text, pseudo);
 		
 	}
-	
-	
 	/**
 	 * Methode permettant l ajout d une chaine au plateau (choix de la couleur)
 	 * @param a
@@ -87,11 +85,22 @@ public class Client extends UnicastRemoteObject implements ClientInterface {
 	public void pickColor(Action a, TypeChaine nomChaine) throws RemoteException {
 		this.serveur.creationChaineServeur(nomChaine);
 	}
-	
+	/**
+	 * Achat d'actions
+	 * @param actionAAcheter
+	 * @throws RemoteException
+	 */
 	public void buyAction(HashMap<TypeChaine, Integer> actionAAcheter) throws RemoteException {
 		this.serveur.achatAction(getPseudo(), actionAAcheter);
 	}
-	
+	/**
+	 * Permet de choisir la couleur de la chaine voulue pour la fusion de même taille
+	 * @param listeChainePlateau
+	 * @param listeChaineAModif
+	 * @param ChaineAbs
+	 * @param arrayList
+	 * @throws RemoteException
+	 */
 	public void sendChoixCouleurFusionSameChaine (ArrayList<Chaine> listeChainePlateau, ArrayList<Chaine> listeChaineAModif, Chaine ChaineAbs, ArrayList<Case> arrayList) throws RemoteException{
 		this.serveur.choixCouleurFusion (listeChainePlateau,listeChaineAModif,ChaineAbs,arrayList);
 	}
@@ -124,14 +133,28 @@ public class Client extends UnicastRemoteObject implements ClientInterface {
 	public void nextTurn() throws RemoteException {
 		serveur.nextTurn(pseudo);
 	}
-
+	/**
+	 * Sauvegarde la partie du client
+	 * @throws IOException
+	 */
 	public void sauvegardePartie() throws IOException{
 		serveur.clientSaveGame(getPseudo());
 	}
+	/**
+	 * Permet de sauvegarder le game
+	 */
 	public void receiveGameForSave(Game game) throws IOException{
 		this.plateauController.saveTheGame ( game );
 	}
-
+	/**
+	 * Choix des Actions de fusions
+	 * @param actions_fusions
+	 * @param chaineAbsorbee
+	 * @param chaineAbsorbante
+	 * @param prix_action_absorbante
+	 * @param prix_action_absorbee
+	 * @throws RemoteException
+	 */
 	public void choiceFusionAction(HashMap<String, Integer> actions_fusions, Chaine chaineAbsorbee, Chaine chaineAbsorbante, int prix_action_absorbante, int prix_action_absorbee) throws RemoteException{
 		serveur.choiceFusionAction(actions_fusions, chaineAbsorbee, chaineAbsorbante, pseudo, prix_action_absorbante, prix_action_absorbee);
 	}
@@ -139,7 +162,9 @@ public class Client extends UnicastRemoteObject implements ClientInterface {
 	public void isOver() throws RemoteException{
 		serveur.isOver();
 	}
-	
+	/**
+	 * Classement des joueurs avec le gagnant
+	 */
 	public void receiveClassement(ArrayList<String> winner) throws RemoteException{
 		plateauController.endingGame(winner);
 	}

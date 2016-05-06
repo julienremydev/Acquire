@@ -410,7 +410,11 @@ public class TableauDeBord implements Serializable{
 			iterator2=0;
 		}
 	}
-
+	/**
+	 * Retourne les prime des joueurs lors d'une fusion
+	 * @param action
+	 * @return
+	 */
 	@JsonIgnore
 	public ArrayList<ArrayList<String>> getPrime(Action action) {
 		ArrayList<ArrayList<String>> arrayPrime = new ArrayList<ArrayList<String>> ();

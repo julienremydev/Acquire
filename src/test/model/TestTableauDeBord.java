@@ -162,9 +162,7 @@ public class TestTableauDeBord {
 		// action vendue = 2, action restante = 22
 		// Yodaii actionnaire, 3 action detenue
 		nbActionVendue = 2;
-		int cashAAvoir = c1.getCash()+nbActionVendue*TypeChaine.prixAction(ch1.getTypeChaine(), ch1.getListeCase().size());
 		tableauTest.vendActionJoueur(nbActionVendue, "Yodaii", ch1.getTypeChaine(),200);
-		//assertEquals(2, actionVendue);
 		assertEquals(24, tableauTest.getListeChaine().get(0).getNbActionRestante());
 		assertTrue(c1.getActionParChaine().containsKey(ch1.getTypeChaine()));
 		assertEquals(1, (int)c1.getActionParChaine().get(ch1.getTypeChaine()));

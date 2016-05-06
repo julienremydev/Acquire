@@ -1,9 +1,7 @@
 package application.control;
 
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
+
 import java.io.IOException;
 import java.net.InetAddress;
 import java.net.URL;
@@ -103,8 +101,7 @@ public class ConnexionController implements Initializable {
 				try {
 					serveur.logout(client.getPseudo());
 				} catch (RemoteException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+					Logger.getLogger("Client").log(Level.SEVERE,"Erreur logout client");
 				}
 
 				Platform.exit();
@@ -267,8 +264,7 @@ public class ConnexionController implements Initializable {
 		try {
 			client = new Client();
 		} catch (Exception e1) {
-			// TODO Auto-generated catch block
-			System.err.println("L'utilisateur ne peux pas se connecter");
+			Logger.getLogger("Client").log(Level.SEVERE,"L'utilisateur ne peux pas se connecter");
 		}
 		String ipc;
 		try {

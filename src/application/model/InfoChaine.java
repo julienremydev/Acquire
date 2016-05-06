@@ -12,12 +12,19 @@ public class InfoChaine implements Serializable{
 	private String nom;
 	private HashMap<TypeChaine, Integer> infos;
 	
+	@SuppressWarnings("unused")
 	private Integer infoSackson;
+	@SuppressWarnings("unused")
 	private Integer infoFusion;
+	@SuppressWarnings("unused")
 	private Integer infoHydra;
+	@SuppressWarnings("unused")
 	private Integer infoQuantum;
+	@SuppressWarnings("unused")
 	private Integer infoPhoenix;
+	@SuppressWarnings("unused")
 	private Integer infoAmerica;
+	@SuppressWarnings("unused")
 	private Integer infoZeta;
 	
 	@JsonCreator

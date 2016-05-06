@@ -10,7 +10,7 @@ import java.util.stream.Stream;
 
 import application.model.ClientInfo;
 
-public class Globals {
+public abstract class Globals {
 	/*
 	 * Constantes -> Erreurs 
 	 */
@@ -68,6 +68,7 @@ public class Globals {
 	 * @param map
 	 * @return
 	 */
+	@SuppressWarnings("hiding")
 	public static <String extends Comparable<? super String>> HashMap<String, String> 
 	sortByValue( HashMap<String, String> map ) {
 		HashMap<String, String> result = new LinkedHashMap<>();

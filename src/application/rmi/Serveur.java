@@ -100,6 +100,7 @@ public class Serveur extends UnicastRemoteObject implements ServeurInterface {
 	 */
 	public void getCasePlayed(String text, String pseudo) throws RemoteException {
 		if (getGame().isPartiecommencee()){
+			distributionTchat("Serveur", "Le joueur "+pseudo+" a joué la case "+text+".");
 			ArrayList<String> CasesToRemove = new ArrayList<String>();
 			//game.getPlateau().CasesGrises(game.getListeChaine(), game.getTableauDeBord().getClientInfo(pseudo).getMain());
 			for (String s : game.getTableauDeBord().getClientInfo(pseudo).getMain()) {
@@ -268,7 +269,6 @@ public class Serveur extends UnicastRemoteObject implements ServeurInterface {
 	 */
 	public void piocheCaseFinTour(String text, String pseudo) throws RemoteException{
 		//Pioche d'une case a la fin du tour
-		int nbJoueursVide=0;
 		if (game.getTableauDeBord().getInfoParClient().get(pseudo).getMain().contains(text) && !game.getPlateau().getCasesDisponible().isEmpty()) {
 			int indice = game.getTableauDeBord().getInfoParClient().get(pseudo).getMain().indexOf(text);
 			game.getTableauDeBord().getInfoParClient().get(pseudo).getMain().remove(indice);
@@ -309,7 +309,6 @@ public class Serveur extends UnicastRemoteObject implements ServeurInterface {
 
 			this.game= chargerGame(file);
 			this.game.setPlateau(Plateau.plateauRegeneration(chargerGame(file).getPlateau()));
-			this.game.getPlateau().affichePlateau();
 
 			getGame().setPartiechargee(true);
 			getGame().setPartiecommencee(true);
@@ -376,9 +375,7 @@ public class Serveur extends UnicastRemoteObject implements ServeurInterface {
 		HashMap<String,String> listeCasesNoires = new HashMap<String,String>();
 		while (enumKeys.hasMoreElements()) {
 			String key = enumKeys.nextElement();
-			for (int i =0;i<24;i++) {
 				listeCasesNoires.put(key,game.getPlateau().initialiseMainCaseNoir());
-			}
 			game.getTableauDeBord().getInfoParClient().get(key).initialiseMain(game.getPlateau());
 
 		}

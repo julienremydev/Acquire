@@ -1,39 +1,25 @@
 #grid .button:disabled {
--fx-opacity: 1;
+-fx-opacity: 1.0;
 }
 .style_commun {
-    -fx-background-insets: 0,1,2,3;
-    -fx-background-radius: 3,2,2,2;
-    -fx-padding: 6 6 6 6;
+    -fx-background-insets: 0.0,1.0,2.0,3.0;
+    -fx-background-radius: 3.0,2.0,2.0,2.0;
+    -fx-padding: 6.0 6.0 6.0 6.0;
     -fx-font-size: 0.9em;
 
 	 -fx-text-alignment: center;
 	 -fx-alignment: center;
-	 -fx-pref-width: 50px;
-     -fx-pref-height: 50px;
+	 -fx-pref-width: 50.0px;
+     -fx-pref-height: 50.0px;
 
 }
 
-.ZETA {
-	
-}
+
 .PHOENIX {
-	-fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.4) , 5, 0.0 , 0 , 1 );
+	-fx-effect: dropshadow( three-pass-box , rgba(0.0,0.0,0.0,0.4) , 5.0, 0.0 , 0.0 , 1.0 );
 }
 .QUANTUM {
-	-fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.4) , 5, 0.0 , 0 , 1 );
-}
-#infoChaine.columnheader{
-	
-}
-#gridTRADE {
-
-}
-#gridSELL {
-
-}
-#gridKEEP {
-
+	-fx-effect: dropshadow( three-pass-box , rgba(0.0,0.0,0.0,0.4) , 5.0, 0.0 , 0.0 , 1.0 );
 }
 
 #caseDisponible:hover{ 

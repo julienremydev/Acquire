@@ -14,7 +14,6 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import application.globale.Globals;
-import application.rmi.Game;
 
 public class Plateau implements Serializable {
 
@@ -155,20 +154,6 @@ public class Plateau implements Serializable {
 		}
 	}
 
-	/**
-	 * Fonction de test d'affichage du plateau
-	 */
-	public void affichePlateau() {
-		String val = "";
-		for (int i = 0; i <= Plateau.ligne.length - 1; i++) {
-			for (int j = 0; j <= Plateau.colonne.length - 1; j++) {
-				if (plateauMap.get(ligne[i] + colonne[j]) != null) {
-					val += plateauMap.get(ligne[i] + colonne[j]).toString() + "			";
-				}
-			}
-			val += "\n";
-		}
-	}
 	/**
 	 * Regarde le cas de modification lors du click
 	 * Lors d'un cas simple, modification de la case 
@@ -457,7 +442,6 @@ public class Plateau implements Serializable {
 	 */
 	public ArrayList<String> CasesGrises(ArrayList<Chaine> listChaines, ArrayList<String> main) {
 		ArrayList<String> casesToRemove = new ArrayList<String>();
-		ArrayList<Integer> etats = new ArrayList<Integer>();
 		for (String c : main) {
 			Case cas = plateauMap.get(c);
 			ArrayList<Case> tab = cas.tabAdjascent();
@@ -465,7 +449,6 @@ public class Plateau implements Serializable {
 			boolean setGrise = setGrise(chaineDifferente);
 			if(setGrise)
 			{
-				System.out.println(c);
 				plateauMap.get(c).setEtat(-1);
 				casesToRemove.add(c);
 			}
@@ -537,7 +520,6 @@ public class Plateau implements Serializable {
 				np.getCase(ligne[x]+colonne[i]).setEtat(p.getCase(ligne[x]+colonne[i]).getEtat());
 			}
 		}
-		System.out.println(p.casesDisponible);
 		np.setCasesDisponible(p.casesDisponible);
 		return np;
 

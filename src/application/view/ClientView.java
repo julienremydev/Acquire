@@ -1,6 +1,5 @@
 package application.view;
 
-import java.awt.Dimension;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
@@ -15,10 +14,6 @@ public class ClientView extends Application{
 				
 		primaryStage.setTitle("Connexion au serveur");
 		
-		//Recupere les dimensions de l'écran
-		Dimension dimension = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
-		int height = (int)dimension.getHeight();
-		int width  = (int)dimension.getWidth();
 		
 		
 		//Récupération de l'ig

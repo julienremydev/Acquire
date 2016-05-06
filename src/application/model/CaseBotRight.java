@@ -5,6 +5,11 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class CaseBotRight extends Case {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 7315942328443015612L;
+
 	@JsonCreator
 	public CaseBotRight(@JsonProperty("nom")String nom) {
 		super(nom);

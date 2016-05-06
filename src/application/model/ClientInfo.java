@@ -35,12 +35,19 @@ public class ClientInfo implements Serializable{
 
 
 	// NE PAS TOUCHER A CES ATTRIBUTS (NECESSAIRE POUR LA VUE MEME SI NON UTILISE)
+	@SuppressWarnings("unused")
 	private Integer actionSackson;
+	@SuppressWarnings("unused")
 	private Integer actionAmerica;
+	@SuppressWarnings("unused")
 	private Integer actionFusion;
+	@SuppressWarnings("unused")
 	private Integer actionPhoenix;
+	@SuppressWarnings("unused")
 	private Integer actionHydra;
+	@SuppressWarnings("unused")
 	private Integer actionQuantum;
+	@SuppressWarnings("unused")
 	private Integer actionZeta;
 	//
 

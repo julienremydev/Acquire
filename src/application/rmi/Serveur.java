@@ -303,10 +303,6 @@ public class Serveur extends UnicastRemoteObject implements ServeurInterface {
 			this.game.setPlateau(Plateau.plateauRegeneration(chargerGame("AcquireGame.json").getPlateau()));
 			this.game.getPlateau().affichePlateau();
 
-			/*
-			 * TODO :Chargement du fichier JSON : MAJ du GAME+ClientInfo
-			 * 
-			 */
 			getGame().setPartiechargee(true);
 			getGame().setPartiecommencee(true);
 			liste_clients.get(p).turn();
@@ -327,7 +323,6 @@ public class Serveur extends UnicastRemoteObject implements ServeurInterface {
 			distributionTchat("Serveur", "Le joueur " + p + " est entré dans la partie.");
 			if ( (game.isPartiechargee() || game.isPartiechargee()) && game.getPlayerTurn().equals(p)){
 				liste_clients.get(p).turn();
-				//TODO le client ne peut pas jouer lors de sa reconnexion
 			}
 
 		}
@@ -520,6 +515,9 @@ public class Serveur extends UnicastRemoteObject implements ServeurInterface {
 		Enumeration<ClientInterface> e = liste_clients.elements();
 		while (e.hasMoreElements())
 			e.nextElement().receiveClassement(winnerNet);
+		
+		setListe_clients(new Hashtable<String, ClientInterface>());
+		game = new Game();
 	}
 
 	/**

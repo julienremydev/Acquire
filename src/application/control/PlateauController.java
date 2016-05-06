@@ -135,17 +135,7 @@ public class PlateauController implements Initializable {
 	ObservableList<ClientInfo> dataTableView;
 	ObservableList<InfoChaine> dataInfoChaine;
 
-	/*
-	 * Méthode qui calcul le nombre d'actions que le joueur a choisi
-	 */
-	private int totalesActionsJoueurs() {
-		int tot = 0;
-		Collection<TypeChaine> keys = liste_actions.keySet();
-		for (TypeChaine key : keys) {
-			tot += liste_actions.get(key);
-		}
-		return tot;
-	}
+
 
 
 	private void setHMAction ( int keep, int trade, int sell){
@@ -317,7 +307,7 @@ public class PlateauController implements Initializable {
 	 * client d'acheter des actions
 	 */
 	public void setChoixAchatAction(Game game) {
-		int depense = calculArgentImmobiliseAction(game);
+		int depense = game.calculArgentImmobiliseAction(liste_actions);
 
 		// MAJ BOUTONS ACTIONS CHOISIES
 		Platform.runLater(() -> gridPaneAction.getChildren().clear());
@@ -359,7 +349,7 @@ public class PlateauController implements Initializable {
 
 				b.setOnAction((event) -> {
 					try {
-						if (totalesActionsJoueurs() < 3) {
+						if (game.totalesActionsJoueurs(liste_actions) < 3) {
 							if (liste_actions.containsKey(c.getTypeChaine()))
 								liste_actions.put(c.getTypeChaine(), 1 + liste_actions.get(c.getTypeChaine()));
 							else
@@ -394,15 +384,7 @@ public class PlateauController implements Initializable {
 		Platform.runLater(() -> gridPaneAction.add(buttonOK, 6, 1));
 	}
 
-	private int calculArgentImmobiliseAction(Game g){
-		int tot = 0;
 
-		Collection<TypeChaine> keys = liste_actions.keySet();
-		for (TypeChaine key : keys) {
-			tot += TypeChaine.prixAction(key,g.getListeChaine().get(key.getNumero()-2).tailleChaine()) * liste_actions.get(key);
-		}
-		return tot;
-	}
 	private Button setStyleButton(TypeChaine tc, String text) {
 		Button b = new Button();
 

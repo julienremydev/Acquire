@@ -9,7 +9,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import application.globale.Globals;
-import javafx.scene.paint.Color;
 
 public class Chaine implements Serializable{
 	

@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import application.model.Case;
@@ -270,22 +269,7 @@ public class TestTableauDeBord {
 		assertEquals("S,2", etat);
 		assertEquals("S,2", etat2);
 		assertEquals("M,1", etat3);
-		c1.getActionParChaine().put(TypeChaine.AMERICA, 1);
-		c2.getActionParChaine().put(TypeChaine.AMERICA, 2);
-		c3.getActionParChaine().put(TypeChaine.AMERICA, 3);
-		System.out.println("----debut----");
-		tableauTest.updateActionnaire();
-		System.out.println("----fin----");
-		etat = c1.getEtatParChaine().get(TypeChaine.AMERICA);
-		etat2 = c2.getEtatParChaine().get(TypeChaine.AMERICA);
-		etat3 = c3.getEtatParChaine().get(TypeChaine.AMERICA);
-		assertEquals("S,1", etat2);
-		assertEquals("M,1", etat3);
-		assertEquals("A,0", etat);
-		System.out.println("----fin----");
-		c1.getActionParChaine().put(TypeChaine.AMERICA, 1);
-		c2.getActionParChaine().put(TypeChaine.AMERICA, 3);
-		c3.getActionParChaine().put(TypeChaine.AMERICA, 3);
+		c2.getActionParChaine().put(TypeChaine.AMERICA, 4);
 		tableauTest.updateActionnaire();
 		etat = c1.getEtatParChaine().get(TypeChaine.AMERICA);
 		etat2 = c2.getEtatParChaine().get(TypeChaine.AMERICA);

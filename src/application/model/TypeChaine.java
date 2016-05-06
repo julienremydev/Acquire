@@ -1,11 +1,9 @@
 package application.model;
 
-import java.util.HashMap;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import javafx.scene.paint.Color;
 
 public enum TypeChaine {
 	SACKSON(1, "-fx-background-color: #CC3333;", 2),

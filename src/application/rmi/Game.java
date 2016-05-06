@@ -3,6 +3,7 @@ package application.rmi;
 import java.io.Serializable;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Set;
 
@@ -10,7 +11,6 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import application.globale.Globals;
 import application.model.Action;
 import application.model.Case;
 import application.model.Chaine;
@@ -90,8 +90,7 @@ public class Game implements Serializable{
 	 * Methode de calcul du prochain tour
 	 * @throws RemoteException 
 	 */
-	//TODO TESTS
-	String whoseTurn (String pseudo) throws RemoteException {
+	public String whoseTurn (String pseudo) throws RemoteException {
 		int currentIndice = getOrdre_joueur().indexOf(pseudo);
 		if (getOrdre_joueur().size()==currentIndice+1) 
 			return getOrdre_joueur().get(0);
@@ -99,7 +98,7 @@ public class Game implements Serializable{
 			return getOrdre_joueur().get(currentIndice+1);
 	}
 	
-	String whoseBeforeTurn (String pseudo) throws RemoteException {
+	public String whoseBeforeTurn (String pseudo) throws RemoteException {
 		int currentIndice = getOrdre_joueur().indexOf(pseudo);
 		if (0==currentIndice) {
 			return getOrdre_joueur().get(getOrdre_joueur().size()-1);
@@ -113,8 +112,7 @@ public class Game implements Serializable{
 	 * sur les actions qu'il détiennent d'une chaîne absorbée
 	 * @throws RemoteException 
 	 */
-	//TODO TESTS
-	void setOrdreFusion() throws RemoteException{
+	public void setOrdreFusion() throws RemoteException {
 		String player = getPlayerTurn();
 		HashMap<TypeChaine,Integer> liste_actions_player = new HashMap<TypeChaine,Integer> ();
 		for ( int i = 0 ; i < getOrdre_joueur().size() ; i++){
@@ -264,6 +262,31 @@ public class Game implements Serializable{
 
 	public void setPartieDeuxJoueurs(boolean partieDeuxJoueurs) {
 		this.partieDeuxJoueurs = partieDeuxJoueurs;
+	}
+	
+	/*
+	 * Méthode qui calcul le prix total des actions que le joueur a choisi
+	 */
+	public int calculArgentImmobiliseAction(HashMap<TypeChaine, Integer> liste_actions){
+		int tot = 0;
+
+		Collection<TypeChaine> keys = liste_actions.keySet();
+		for (TypeChaine key : keys) {
+			tot += TypeChaine.prixAction(key,this.getListeChaine().get(key.getNumero()-2).tailleChaine()) * liste_actions.get(key);
+		}
+		return tot;
+	}
+	
+	/*
+	 * Méthode qui calcul le nombre d'actions que le joueur a choisi
+	 */
+	public int totalesActionsJoueurs(HashMap<TypeChaine, Integer> liste_actions) {
+		int tot = 0;
+		Collection<TypeChaine> keys = liste_actions.keySet();
+		for (TypeChaine key : keys) {
+			tot += liste_actions.get(key);
+		}
+		return tot;
 	}
 
 }

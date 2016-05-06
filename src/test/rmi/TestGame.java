@@ -3,7 +3,9 @@ package test.rmi;
 
 import static org.junit.Assert.*;
 
+import java.rmi.RemoteException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -11,7 +13,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import application.model.Case;
-import application.model.Chaine;
 import application.model.ClientInfo;
 import application.model.TypeChaine;
 import application.rmi.Game;
@@ -20,16 +21,9 @@ public class TestGame {
 	
 	Game game;
 	
-	ArrayList<Chaine> listeChaine = new ArrayList<Chaine>();
-	Chaine sackson = new Chaine (TypeChaine.SACKSON);
-	Chaine zeta = new Chaine (TypeChaine.ZETA);
-	Chaine hydra = new Chaine (TypeChaine.HYDRA);
 	@Before
 	public void initPlateau() {
 		game = new Game();	
-		listeChaine.add(sackson);
-		listeChaine.add(zeta);
-		listeChaine.add(hydra);
 	}
 	/**
 	 * la methode verifie si une chaine est crée correctement ou pas 
@@ -73,4 +67,53 @@ public class TestGame {
 		}
 		assertTrue(game.isOver());
 	}
+	
+	
+	
+	/*
+	 * Tests sur  les méthodes whoseTurn et whoseBeForeTurn
+	 */
+	@Test
+	public void whoseTurn() throws RemoteException {
+		ArrayList<String> arr = new ArrayList<String> ();
+		arr.add("toto");
+		arr.add("tata");
+		arr.add("titi");
+		game.setOrdre_joueur(arr);
+		assertEquals(game.whoseTurn("toto"), "tata");
+		assertEquals(game.whoseTurn("tata"), "titi");
+		assertEquals(game.whoseTurn("titi"), "toto");
+		
+		assertEquals(game.whoseBeforeTurn("toto"), "titi");
+		assertEquals(game.whoseBeforeTurn("tata"), "toto");
+		assertEquals(game.whoseBeforeTurn("titi"), "tata");
+	}
+	/*
+	 * Tests sur  la méthode calculArgentImmobiliseAction
+	 * Retourne le total du prix des actions choisies par le joueur
+	 */
+	@Test
+	public void calculArgentImmobiliseAction() throws RemoteException {
+		HashMap<TypeChaine, Integer> liste_actions = new HashMap<TypeChaine, Integer> ();
+		liste_actions.put(TypeChaine.SACKSON, 3);
+		assertEquals(600, game.calculArgentImmobiliseAction(liste_actions));
+		game.getListeChaine().get(0).addCase(new Case("A1"));
+		game.getListeChaine().get(0).addCase(new Case("A2"));
+		game.getListeChaine().get(0).addCase(new Case("A3"));
+		assertEquals(900, game.calculArgentImmobiliseAction(liste_actions));
+	}
+	
+	/*
+	 * Tests sur  la méthode totalesActionsJoueurs
+	 */
+	@Test
+	public void totalesActionsJoueurs() throws RemoteException {
+		HashMap<TypeChaine, Integer> liste_actions = new HashMap<TypeChaine, Integer> ();
+		liste_actions.put(TypeChaine.SACKSON, 3);
+		assertEquals(3, game.totalesActionsJoueurs(liste_actions));
+		liste_actions = new HashMap<TypeChaine, Integer> ();
+		liste_actions.put(TypeChaine.SACKSON, 0);
+		assertEquals(0, game.totalesActionsJoueurs(liste_actions));
+	}
+	
 }

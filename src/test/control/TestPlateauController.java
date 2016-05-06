@@ -2,18 +2,12 @@ package test.control;
 
 import static org.junit.Assert.*;
 
-import java.net.MalformedURLException;
-import java.net.UnknownHostException;
-import java.rmi.RemoteException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 
-import application.control.ConnexionController;
 import application.control.PlateauController;
 import application.globale.Globals;
 import application.model.Action;
@@ -21,8 +15,6 @@ import application.model.Chaine;
 import application.model.ClientInfo;
 import application.model.TypeChaine;
 import application.rmi.Game;
-import application.rmi.Serveur;
-import application.rmi.ServeurInterface;
 
 public class TestPlateauController {
 

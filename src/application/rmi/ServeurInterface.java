@@ -5,7 +5,6 @@ import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import application.model.Action;
 import application.model.Case;
 import application.model.Chaine;
 import application.model.TypeChaine;

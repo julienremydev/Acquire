@@ -3,10 +3,6 @@ package application.rmi;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
-import java.util.HashMap;
-
-import application.model.Action;
-import application.model.Case;
 
 public interface ClientInterface extends Remote{
 

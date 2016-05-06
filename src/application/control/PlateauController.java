@@ -71,7 +71,7 @@ public class PlateauController implements Initializable {
 	private HashMap<String, Integer> actions_fusions = new HashMap<String, Integer>();
 
 	private boolean endGame;
-	
+
 	private boolean endGameOK;
 	/**
 	 * element plateau
@@ -482,7 +482,7 @@ public class PlateauController implements Initializable {
 
 				// recuperation de la case correspondant au bouton
 				Case c = g.getPlateau().getCase(b.getText());
-
+				
 				// methode pour rafraichir l'interface
 				Platform.runLater(new Runnable() {
 					public void run() {
@@ -564,7 +564,6 @@ public class PlateauController implements Initializable {
 				Text t = new Text ();
 				t.setFont(Font.font(java.awt.Font.SERIF, 13));
 				t.setText(talk.get(i+1)+"\n");
-
 
 				tchat.getChildren().addAll(tbold,t);
 				i+=2;
@@ -746,8 +745,8 @@ public class PlateauController implements Initializable {
 				img.setFitWidth(30);
 				img.setFitHeight(30);
 				Label label1 = new Label("TABLEAU DES SCORES\n");
-				 hbox.getChildren().add((label1));
-				 int max = 0;
+				hbox.getChildren().add((label1));
+				int max = 0;
 				for (int i =0; i<winner.size();i++){
 					if ( i%2 == 0){
 						Label label2 = new Label("\n"+winner.get(i)+" : "+winner.get(i+1)+"\n");
@@ -755,15 +754,15 @@ public class PlateauController implements Initializable {
 							max = Integer.parseInt(winner.get(i+1));
 							label2.setGraphic(img);
 						}
-						
-					    hbox.getChildren().add((label2));
-						 
+
+						hbox.getChildren().add((label2));
+
 					}
-					
+
 				}
 
 				gridGame.getChildren().clear();
-			    gridGame.add(hbox,0,0,2,3);	
+				gridGame.add(hbox,0,0,2,3);	
 			}
 		});
 

@@ -243,7 +243,6 @@ public class Game implements Serializable{
 			}
 			iterator++;
 		}
-		
 		if(nbChaineSup10>=7){
 			return true;
 		}

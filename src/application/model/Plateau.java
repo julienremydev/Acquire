@@ -465,6 +465,7 @@ public class Plateau implements Serializable {
 			boolean setGrise = setGrise(chaineDifferente);
 			if(setGrise)
 			{
+				System.out.println(c);
 				plateauMap.get(c).setEtat(-1);
 				casesToRemove.add(c);
 			}

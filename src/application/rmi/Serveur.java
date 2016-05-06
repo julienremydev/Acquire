@@ -98,8 +98,18 @@ public class Serveur extends UnicastRemoteObject implements ServeurInterface {
 	 * Traitement du modele
 	 */
 	public void getCasePlayed(String text, String pseudo) throws RemoteException {
-
-		if (getGame().isPartiecommencee()) {
+		if (getGame().isPartiecommencee()){
+			ArrayList<String> CasesToRemove = new ArrayList<String>();
+			//game.getPlateau().CasesGrises(game.getListeChaine(), game.getTableauDeBord().getClientInfo(pseudo).getMain());
+			for (String s : game.getTableauDeBord().getClientInfo(pseudo).getMain()) {
+				if (this.game.getPlateau().getCase(s).getEtat()==-1) {
+					CasesToRemove.add(s);
+				}
+			}
+			for (String s : CasesToRemove) {
+				game.getTableauDeBord().getClientInfo(pseudo).getMain().remove(s);
+				game.getTableauDeBord().getClientInfo(pseudo).ajouteMain1fois(this.game.getPlateau());
+			}
 			Logger.getLogger("Serveur").log(Level.INFO, text);
 			getGame().setAction(game.getPlateau().updateCase(text, game.getListeChaine()));
 			piocheCaseFinTour(text,pseudo);
@@ -269,15 +279,7 @@ public class Serveur extends UnicastRemoteObject implements ServeurInterface {
 			game.getTableauDeBord().getInfoParClient().get(pseudo).getMain().remove(indice);
 			for (ClientInfo c : game.getTableauDeBord().getInfoParClient().values()) {
 				if (c.getMain().isEmpty()) {
-					nbJoueursVide++;
-					nextTurnAction();
-				}
-			}
-			if (nbJoueursVide==game.getTableauDeBord().getInfoParClient().size()) {
-				try {
 					isOver();
-				} catch (RemoteException e) {
-					Logger.getLogger("Serveur").log(Level.SEVERE, "Probleme fin du jeu");
 				}
 			}
 		}
@@ -306,7 +308,6 @@ public class Serveur extends UnicastRemoteObject implements ServeurInterface {
 		if ( loadJSON ){
 
 			this.game= chargerGame("AcquireGame.json");
-			System.out.println(this.game.toString());
 			this.game.setPlateau(Plateau.plateauRegeneration(chargerGame("AcquireGame.json").getPlateau()));
 			this.game.getPlateau().affichePlateau();
 
@@ -376,7 +377,9 @@ public class Serveur extends UnicastRemoteObject implements ServeurInterface {
 		HashMap<String,String> listeCasesNoires = new HashMap<String,String>();
 		while (enumKeys.hasMoreElements()) {
 			String key = enumKeys.nextElement();
-			listeCasesNoires.put(key,game.getPlateau().initialiseMainCaseNoir());
+			for (int i =0;i<24;i++) {
+				listeCasesNoires.put(key,game.getPlateau().initialiseMainCaseNoir());
+			}
 			game.getTableauDeBord().getInfoParClient().get(key).initialiseMain(game.getPlateau());
 
 		}
@@ -430,16 +433,7 @@ public class Serveur extends UnicastRemoteObject implements ServeurInterface {
 	public void distribution() throws RemoteException {
 		game.getPlateau().fullChaine(game.getListeChaine(),game.getTableauDeBord().getInfoParClient().values());
 		for (ClientInfo c : this.game.getTableauDeBord().getInfoParClient().values()) {
-			ArrayList<String> CasesToRemove = new ArrayList<String>();
-			for (String s : c.getMain()) {
-				if (this.game.getPlateau().getCase(s).getEtat()==-1) {
-					CasesToRemove.add(s);
-				}
-			}
-			for (String s : CasesToRemove) {
-				c.getMain().remove(s);
-				c.ajouteMain1fois(this.game.getPlateau());
-			}
+			game.getPlateau().CasesGrises(game.getListeChaine(), c.getMain());
 		}		
 		this.game.getTableauDeBord().updateActionnaire();
 
@@ -491,12 +485,8 @@ public class Serveur extends UnicastRemoteObject implements ServeurInterface {
 	 * Methode de calcul du prochain tour et notification du client
 	 */
 	public void nextTurn(String pseudo)  throws RemoteException {
-		//TODO
 		game.setPlayerTurn(getGame().whoseTurn(pseudo));
-
-
 		if ( liste_clients.containsKey(game.getPlayerTurn())){
-
 			liste_clients.get(game.getPlayerTurn()).turn();
 
 			for (ClientInfo c : game.getTableauDeBord().getInfoParClient().values()) {

@@ -166,20 +166,21 @@ public class TableauDeBord implements Serializable{
 	 * @param prix_action_absorbante 
 	 * @return nombre effectivement vendue
 	 */
-	public int vendActionJoueur(int nb, String nomJoueur, TypeChaine tc, int prix_action_absorbante, int prix_action_absorbee){
-		int indexChaine = getIndexChaine(tc);
-		ClientInfo joueur = getClientInfo(nomJoueur); 
-		//int res = getNbActionAVendre(nb, indexChaine, tc, joueur);
+	public void vendActionJoueur(int nb, String nomJoueur, TypeChaine tc, int prix_action_absorbee){
+		if ( nb > 0){
+			int indexChaine = getIndexChaine(tc);
+			ClientInfo joueur = getClientInfo(nomJoueur); 
+			//int res = getNbActionAVendre(nb, indexChaine, tc, joueur);
 
-		joueur.getActionParChaine().put(tc, (int)joueur.getActionParChaine().get(tc) - nb);
-		this.listeChaine.get(indexChaine).setNbActionRestante(this.listeChaine.get(indexChaine).getNbActionRestante() + nb);
-		joueur.updateCash(nb * prix_action_absorbee);
+			joueur.getActionParChaine().put(tc, (int)joueur.getActionParChaine().get(tc) - nb);
+			this.listeChaine.get(indexChaine).setNbActionRestante(this.listeChaine.get(indexChaine).getNbActionRestante() + nb);
+			joueur.updateCash(nb * prix_action_absorbee);
 
-		// ajout des infos dans InfoChaine
-		infosChaine.get(1).getInfos().put(listeChaine.get(indexChaine).getTypeChaine(), listeChaine.get(indexChaine).getNbActionRestante());
+			// ajout des infos dans InfoChaine
+			infosChaine.get(1).getInfos().put(listeChaine.get(indexChaine).getTypeChaine(), listeChaine.get(indexChaine).getNbActionRestante());
 
-		this.updateActionnaire();
-		return nb;
+			this.updateActionnaire();
+		}
 	}
 
 	/**
@@ -317,7 +318,7 @@ public class TableauDeBord implements Serializable{
 		Collection<String> keys = hm.keySet();
 		for (String key : keys) {
 			if(key.equals(Globals.hashMapSELL)){
-				vendActionJoueur(hm.get(key), nomJoueur, chaineVendAction.getTypeChaine(),prix_action_absorbante,prix_action_absorbee);
+				vendActionJoueur(hm.get(key), nomJoueur, chaineVendAction.getTypeChaine(),prix_action_absorbee);
 			}else if(key.equals(Globals.hashMapTRADE)){
 				echangeAction(hm.get(key)*2, chaineVendAction.getTypeChaine(), chaineAchatAction.getTypeChaine(), nomJoueur);
 			}

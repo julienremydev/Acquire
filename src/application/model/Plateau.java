@@ -11,6 +11,7 @@ import java.util.Random;
 import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import application.globale.Globals;
 import application.rmi.Game;
@@ -32,7 +33,7 @@ public class Plateau implements Serializable {
 	private Case[][] plateauTab;
 
 
-	@JsonCreator
+	//@JsonCreator
 	public Plateau() {
 		plateauMap = new HashMap<String, Case>();
 		initCasesPlateau();
@@ -43,12 +44,20 @@ public class Plateau implements Serializable {
 				casesDisponible.add(ligne[x]+colonne[i]);
 			}
 		}
+	}
 
+		
+
+		@JsonCreator
+		public Plateau(@JsonProperty("casesDisponible")ArrayList<String> casesDisponible) {
+			plateauMap = new HashMap<String, Case>();
+			initCasesPlateau();
+			initCasesAdjascentes();
+			this.casesDisponible = casesDisponible;
 		/**
 		 * for (Entry<String, Case> entry : plateauMap.entrySet()) {
 		 * casesDisponible.add((String) entry.getKey()); }
 		 **/
-
 	}
 
 	/**

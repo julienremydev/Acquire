@@ -12,6 +12,8 @@ import java.rmi.ConnectIOException;
 import java.rmi.Naming;
 import java.rmi.RemoteException;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import application.globale.Globals;
 import application.rmi.Client;
@@ -251,7 +253,7 @@ public class ConnexionController implements Initializable {
 			client = new Client();
 		} catch (Exception e1) {
 			// TODO Auto-generated catch block
-			e1.printStackTrace();
+			System.err.println("L'utilisateur ne peux pas se connecter");
 		}
 		String ipc;
 		try {

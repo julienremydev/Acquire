@@ -10,6 +10,9 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import application.model.Case;
 import application.model.CaseBot;
 import application.model.CaseBotLeft;
@@ -20,7 +23,7 @@ import application.model.CaseTop;
 import application.model.CaseTopLeft;
 import application.model.CaseTopRight;
 
-public class TestCase {
+public class TestCase{
 	Case caseTest;
 	Case north;
 	Case south;
@@ -195,7 +198,7 @@ public class TestCase {
 	}
 	
 	@Test
-	public void hotelAdjascent(){
+	public void testHotelAdjascent(){
 		ArrayList<Case> test = new ArrayList<Case>();
 		
 		
@@ -213,7 +216,7 @@ public class TestCase {
 	}
 	
 	@Test
-	public void setNeighbours(){
+	public void testSetNeighbours(){
 		// cas simple
 		caseTest.setNeighbours(north, south, east, west);
 		assertEquals(north,caseTest.getNorth());

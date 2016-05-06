@@ -543,6 +543,8 @@ public class Plateau implements Serializable {
 				np.getCase(ligne[x]+colonne[i]).setEtat(p.getCase(ligne[x]+colonne[i]).getEtat());
 			}
 		}
+		System.out.println(p.casesDisponible);
+		np.setCasesDisponible(p.casesDisponible);
 		return np;
 
 	}

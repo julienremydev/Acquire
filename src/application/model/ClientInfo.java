@@ -105,7 +105,9 @@ public class ClientInfo implements Serializable{
 	public void updateNet(ArrayList<Chaine> listeChaine){
 		this.net=this.cash;
 		for (TypeChaine c : this.actionParChaine.keySet()) {
-			this.net+=this.getPrime(c,listeChaine.get(c.getNumero()-2).tailleChaine(),true);
+			if (listeChaine.get(c.getNumero()-2).tailleChaine()>0) {
+				this.net+=this.getPrime(c,listeChaine.get(c.getNumero()-2).tailleChaine(),true);
+			}
 		}
 	}
 	/*

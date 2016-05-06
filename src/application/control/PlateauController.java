@@ -515,6 +515,7 @@ public class PlateauController implements Initializable {
 							case (-1) :
 								// case grisée
 								b.setStyle(Globals.colorCaseGrey);
+							b.setDisable(true);
 							break;
 							case (0) :
 								// case vide

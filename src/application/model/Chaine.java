@@ -125,4 +125,8 @@ public class Chaine implements Serializable{
 	public boolean isSup41() {
 		return (this.tailleChaine()>=41);
 	}
+	
+	public String toString() {
+		return this.listeCase.toString();
+	}
 }

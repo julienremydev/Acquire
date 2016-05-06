@@ -7,6 +7,7 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -15,6 +16,7 @@ import org.junit.Test;
 
 import application.model.Case;
 import application.model.Chaine;
+import application.model.ClientInfo;
 import application.model.Plateau;
 import application.model.TypeChaine;
 
@@ -325,7 +327,7 @@ public class TestPlateau {
 	}
 
 	@Test
-	public void CasesGrises() {
+	public void testCasesGrises() {
 		ArrayList<String> main = new ArrayList<>();
 		Case c1 = plateauTest.getCase("C1");
 		Case c3 = plateauTest.getCase("C3");
@@ -398,9 +400,98 @@ public class TestPlateau {
 		// les trois chaines sont supérieures  à 11
 		assertTrue(plateauTest.setGrise(listeChaine));
 	}
+	
+	@Test
+	public void testPlateauRegeneration(){
+		Plateau p=new Plateau();
+		plateauTest=Plateau.plateauRegeneration(p);
+		assertTrue(plateauTest.getCase("A1").getEast().getNom().equals("A2"));
+		assertTrue(plateauTest.getCase("A1").getNorth()==null);
+	}
+	
+	
+	/**
+	 * TODO : a revoir
+	 */
 	@Test
 	public void testFullChaine(){
-		
+				
+	ArrayList<Chaine>  listChaines=new ArrayList<Chaine>();
+	Collection<ClientInfo> listeClient=new ArrayList<ClientInfo>();
+			
+	ArrayList<Case> listCase=new ArrayList<Case>();
+	
+	plateauTest.getCase("E5").setEtat(1);
+	
+	listCase.add(plateauTest.getCase("A1"));
+	listCase.add(plateauTest.getCase("B1"));
+	listCase.add(plateauTest.getCase("C1"));
+	listCase.add(plateauTest.getCase("D1"));
+	
+	
+	ArrayList<Case> listCase2=new ArrayList<Case>();
+
+	listCase2.add(plateauTest.getCase("A3"));
+	listCase2.add(plateauTest.getCase("B3"));
+	listCase2.add(plateauTest.getCase("C3"));
+	listCase2.add(plateauTest.getCase("D3"));
+	
+	ArrayList<Case> listCase3=new ArrayList<Case>();
+	listCase3.add(plateauTest.getCase("A5"));
+	listCase3.add(plateauTest.getCase("B5"));
+	listCase3.add(plateauTest.getCase("C5"));
+	listCase3.add(plateauTest.getCase("D5"));
+
+	ArrayList<Case> listCase4=new ArrayList<Case>();
+	listCase4.add(plateauTest.getCase("A7"));
+	listCase4.add(plateauTest.getCase("B7"));
+	listCase4.add(plateauTest.getCase("C7"));
+	listCase4.add(plateauTest.getCase("D7"));
+
+	ArrayList<Case> listCase5=new ArrayList<Case>();
+	listCase5.add(plateauTest.getCase("A9"));
+	listCase5.add(plateauTest.getCase("B9"));
+	listCase5.add(plateauTest.getCase("C9"));
+	listCase5.add(plateauTest.getCase("D9"));
+
+	ArrayList<Case> listCase6=new ArrayList<Case>();
+	listCase6.add(plateauTest.getCase("A11"));
+	listCase6.add(plateauTest.getCase("B11"));
+	listCase6.add(plateauTest.getCase("C11"));
+	listCase6.add(plateauTest.getCase("D11"));
+
+
+	ArrayList<Case> listCase7=new ArrayList<Case>();
+	listCase7.add(plateauTest.getCase("A11"));
+	listCase7.add(plateauTest.getCase("B11"));
+	listCase7.add(plateauTest.getCase("C11"));
+	listCase7.add(plateauTest.getCase("D11"));
+	
+	
+	
+listChaines.add(new Chaine(TypeChaine.AMERICA));
+	listChaines.get(0).setListeCase(listCase);
+listChaines.add(new Chaine(TypeChaine.FUSION));
+	listChaines.get(1).setListeCase(listCase2);
+	listChaines.add(new Chaine(TypeChaine.HYDRA));
+	listChaines.get(2).setListeCase(listCase3);
+listChaines.add(new Chaine(TypeChaine.PHOENIX));
+	listChaines.get(3).setListeCase(listCase4);
+listChaines.add(new Chaine(TypeChaine.QUANTUM));
+	listChaines.get(4).setListeCase(listCase5);
+listChaines.add(new Chaine(TypeChaine.SACKSON));
+	listChaines.get(5).setListeCase(listCase6);
+listChaines.add(new Chaine(TypeChaine.ZETA));
+	listChaines.get(6).setListeCase(listCase7);
+
+	ClientInfo ci=new ClientInfo();
+	ArrayList<String> main=new ArrayList<String>();
+	main.add("E4");
+	ci.setMain(main);
+	listeClient.add(ci);
+	plateauTest.fullChaine(listChaines, listeClient);
+	assertTrue(plateauTest.getCase("E4").getEtat()==-2);
+	
 	}
 
 
